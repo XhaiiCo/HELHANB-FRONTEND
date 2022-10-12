@@ -1,1 +1,9 @@
-<p>card works!</p>
+<div class="wrapper">
+  <div class="carousel" *ngFor="let i of nbAds">
+    <carousel [interval]="0">
+      <slide *ngFor="let image of images">
+        <img [src]="image">
+      </slide>
+    </carousel>
+  </div>
+</div>
