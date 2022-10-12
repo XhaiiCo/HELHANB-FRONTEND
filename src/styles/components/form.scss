@@ -1,0 +1,30 @@
+@import "../helpers/reset";
+@import "../helpers/variable";
+
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+  gap: 5px ;
+
+  .label{
+    font-family: $main-bold-font;
+    font-size: 13px;
+  }
+
+    .input-text{
+      border-radius: $radius;
+      padding: 12px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-family: $main-font;
+      font-size: 14px;
+
+      &:focus{
+        outline: none ;
+        border: 1px solid $light-blue ;
+      }
+    }
+
+}
+
