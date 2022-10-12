@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 import {AssetsComponent} from "./dev/assets/assets.component";
 import {RouterModule, Routes} from "@angular/router";
 import {IndexComponent} from "./component/index/index.component";
+import {CardComponent} from "./component/card/card.component";
+import {CropperComponent} from "./component/cropper/cropper.component";
 
 const routes: Routes = [
   {path: 'assets', component: AssetsComponent  },
+  {path: 'card', component: CardComponent},
+  {path: 'cropper', component: CropperComponent},
   {path: '**', component: IndexComponent}
 ]
 

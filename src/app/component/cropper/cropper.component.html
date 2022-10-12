@@ -1,0 +1,20 @@
+<input type="file" (change)="fileChangeEvent($event)" />
+<h1>{{status}}</h1>
+<div class="inline">
+  <image-cropper
+    [maintainAspectRatio]="true"
+    [imageChangedEvent]="imageChangedEvent"
+    [aspectRatio]="16 / 9"
+    format="png"
+    (imageCropped)="imageCropped($event)"
+    (imageLoaded)="imageLoaded()"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+  ></image-cropper>
+
+  <div>
+    <img [src]="croppedImage" />
+  </div>
+
+
+</div>
