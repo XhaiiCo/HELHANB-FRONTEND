@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CardComponent } from './component/card/card.component';
 import { AssetsComponent } from './dev/assets/assets.component';
+import {RoutingModule} from "./routing.module";
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { AssetsComponent } from './dev/assets/assets.component';
     AssetsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
