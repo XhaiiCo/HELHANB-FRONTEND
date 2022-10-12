@@ -1,0 +1,13 @@
+@import "../../../styles/components/button";
+
+h1{
+  font-family: $main-bold-font;
+}
+.btn{
+  width: 150px ;
+}
+.section{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
