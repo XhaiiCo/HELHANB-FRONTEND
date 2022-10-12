@@ -1,0 +1,75 @@
+@import "../helpers/variable";
+
+/*
+  <div class="dropdown" [class.active]="dropDownOpen" (click)="dropDownOpen = !dropDownOpen">
+    <img src="../../../assets/img/user_pic-50x50.png" alt="profil pic">
+    <div class="options">
+      <div [routerLink]="[option.path]" *ngFor="let option of dropDownOption">{{option.name}}</div>
+    </div>
+  </div>
+ */
+
+
+.dropdown {
+  position: relative;
+  border: 1px solid silver ;
+  border-radius: 15px;
+  width: 100px;
+  height: 50px;
+  margin-left: 100px ;
+
+  img{
+    border-radius: 50%;
+    height: 40px;
+    margin-top: 5px ;
+    margin-left: 5px ;
+  }
+}
+
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 1000;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #333;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  transform: rotate(-45deg);
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.dropdown.active::before {
+  top: 22px;
+  transform: rotate(-225deg);
+}
+
+.dropdown .options {
+  position: absolute;
+  top: 60px;
+  right: 0px ;
+  width: 150px ;
+  background: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  display: none;
+}
+
+.dropdown.active .options {
+  font-family: $main-font;
+  display: block;
+}
+
+.dropdown .options div {
+  padding: 12px 10px;
+  cursor: pointer;
+}
+
+.dropdown .options div:hover {
+  background: $main-color;
+  color: #fff;
+}
