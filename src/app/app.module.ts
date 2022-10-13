@@ -6,9 +6,9 @@ import { CardComponent } from './component/card/card.component';
 import { AssetsComponent } from './dev/assets/assets.component';
 import {RoutingModule} from "./routing.module";
 import {IndexComponent} from "./component/index/index.component";
-import {CarouselModule} from "ngx-bootstrap/carousel";
 import {CropperComponent} from "./component/cropper/cropper.component";
 import {ImageCropperModule} from "ngx-image-cropper";
+import {CarouselComponent} from "./component/carousel/carousel.component";
 
 @NgModule({
   declarations: [
@@ -16,12 +16,12 @@ import {ImageCropperModule} from "ngx-image-cropper";
     CardComponent,
     AssetsComponent,
     IndexComponent,
-    CropperComponent
+    CropperComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
     RoutingModule,
-    CarouselModule,
     ImageCropperModule
   ],
   providers: [],
