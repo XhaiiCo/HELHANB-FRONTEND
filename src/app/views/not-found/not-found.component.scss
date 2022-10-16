@@ -1,0 +1,18 @@
+@import "../../../styles/components/button" ;
+@import "../../../styles/helpers/variable" ;
+
+main{
+  width: 100vw;
+  height: calc(100vh - $header-height);
+  display: flex;
+  gap: 10px ;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-family: $main-font;
+  h1{
+    font-family: $main-bold-font;
+    font-size: 4rem;
+  }
+}
