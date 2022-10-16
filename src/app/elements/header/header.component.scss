@@ -1,8 +1,5 @@
-@import "../../../styles/helpers/variable.scss" ;
-@import "../../../styles/components/dropdown-profil.scss" ;
-
-//Variables
-$search-box-radius: 20px ;
+@import "../../../styles/helpers/variable" ;
+@import "../../../styles/components/dropdown-profil" ;
 
 .header-container{
   position: fixed;
