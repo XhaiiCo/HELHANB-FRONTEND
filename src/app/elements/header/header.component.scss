@@ -1,0 +1,59 @@
+@import "../../../styles/helpers/variable.scss" ;
+@import "../../../styles/components/dropdown-profil.scss" ;
+
+$search-box-radius: 20px ;
+header{
+  border-bottom: 2px solid $very-light-grey ;
+  padding: 15px 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title{
+  cursor: pointer;
+}
+.search-box{
+  border: 2px solid $very-light-grey;
+  border-radius: $search-box-radius;
+  height: 50px ;
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  input{
+    height: 100%;
+    font-family: $main-font;
+    flex:2 ;
+    padding: 0 10px;
+    border-radius: $search-box-radius;
+    &:focus{
+      outline: none ;
+
+    }
+  }
+  button{
+    background: none ;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 7px;
+    text-align: center;
+    background: $main-color ;
+    border-radius: $search-box-radius;
+    cursor: pointer;
+    svg{
+      transition: all 200ms;
+
+    }
+
+    &:hover svg{
+      height: 23px;
+      width: 23px;
+    }
+  }
+}
