@@ -13,7 +13,6 @@ $search-box-radius: 20px ;
   z-index: 1000;
 }
 header{
-
   border-bottom: 2px solid $very-light-grey ;
   padding: 15px 50px;
 
@@ -25,12 +24,15 @@ header{
 .title{
   cursor: pointer;
   margin-right: 100px;
+  font-family: $main-bold-font;
 }
+
 .search-box{
   border: 2px solid $very-light-grey;
   border-radius: $search-box-radius;
   width: 500px;
   min-width: 275px;
+  height: 45px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,7 +41,7 @@ header{
     height: 100%;
     font-family: $main-font;
     flex:2 ;
-    padding: 0 10px;
+    padding: 0 15px;
     border-radius: $search-box-radius;
     font-size: 16px ;
     &:focus{
@@ -71,26 +73,22 @@ header{
   }
 }
 
+.dropdown-container{
+  margin-left: 100px;
+}
 
 @media only screen and (max-width: 800px){
+
   header{
-    flex-direction: column;
-    position: relative
+    padding: 15px 10px;
   }
-
   .title{
-    position: absolute;
-    top: 10px ;
-    left: 5px ;
-  }
-
-  .search-box{
-    width: 100% ;
-    margin-top: 50px ;
+    display: none;
   }
   .dropdown-container{
-    position: absolute;
-    top: 10px;
-    right: 5px;
+    margin-left: 10px ;
+  }
+  .search-box{
+    width: 100% ;
   }
 }

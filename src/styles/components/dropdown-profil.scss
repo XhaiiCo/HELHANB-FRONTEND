@@ -16,7 +16,6 @@
   border-radius: 15px;
   width: 70px;
   height: 40px;
-  margin-left: 100px ;
   cursor: pointer ;
 
   &:hover{
@@ -53,7 +52,7 @@
 
   .options {
     position: absolute;
-    top: 60px;
+    top: 45px;
     right: 0px ;
     width: 150px ;
     background: #fff;
@@ -76,7 +75,6 @@
       background: $main-color;
       color: #fff;
     }
-
   }
 
 }
