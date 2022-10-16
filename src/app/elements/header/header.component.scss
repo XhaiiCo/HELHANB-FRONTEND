@@ -1,7 +1,9 @@
 @import "../../../styles/helpers/variable.scss" ;
 @import "../../../styles/components/dropdown-profil.scss" ;
 
+//Variables
 $search-box-radius: 20px ;
+
 header{
   border-bottom: 2px solid $very-light-grey ;
   padding: 15px 50px;
@@ -13,12 +15,14 @@ header{
 
 .title{
   cursor: pointer;
+  margin-right: 100px;
 }
 .search-box{
   border: 2px solid $very-light-grey;
   border-radius: $search-box-radius;
   height: 50px ;
-  width: 400px;
+  width: 500px;
+  min-width: 275px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,6 +33,7 @@ header{
     flex:2 ;
     padding: 0 10px;
     border-radius: $search-box-radius;
+    font-size: 16px ;
     &:focus{
       outline: none ;
 
@@ -55,5 +60,29 @@ header{
       height: 23px;
       width: 23px;
     }
+  }
+}
+
+
+@media only screen and (max-width: 800px){
+  header{
+    flex-direction: column;
+    position: relative;
+  }
+
+  .title{
+    position: absolute;
+    top: 10px ;
+    left: 5px ;
+  }
+
+  .search-box{
+    width: 100% ;
+    margin-top: 50px ;
+  }
+  .dropdown-container{
+    position: absolute;
+    top: 10px;
+    right: 5px;
   }
 }
