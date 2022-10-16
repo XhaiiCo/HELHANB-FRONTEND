@@ -4,7 +4,15 @@
 //Variables
 $search-box-radius: 20px ;
 
+.header-container{
+  position: fixed;
+  top:0 ;
+  right: 0;
+  left: 0;
+  background: white;
+}
 header{
+
   border-bottom: 2px solid $very-light-grey ;
   padding: 15px 50px;
 
@@ -20,7 +28,6 @@ header{
 .search-box{
   border: 2px solid $very-light-grey;
   border-radius: $search-box-radius;
-  height: 50px ;
   width: 500px;
   min-width: 275px;
   display: flex;
@@ -67,7 +74,7 @@ header{
 @media only screen and (max-width: 800px){
   header{
     flex-direction: column;
-    position: relative;
+    position: relative
   }
 
   .title{

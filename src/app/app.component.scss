@@ -1,0 +1,12 @@
+@import "../styles/helpers/variable.scss" ;
+main {
+  margin-top: $header-height;
+
+  @media only screen and (max-width: $header-breakpoint) {
+    margin-top: $header-height-mobile;
+  }
+}
+
+.tmp-height{
+  height: 2000px;
+}
