@@ -5,10 +5,11 @@ import { AppComponent } from './app.component';
 import { CardComponent } from './component/card/card.component';
 import { AssetsComponent } from './dev/assets/assets.component';
 import {RoutingModule} from "./routing.module";
-import {IndexComponent} from "./component/index/index.component";
+import {IndexComponent} from "./views/index/index.component";
 import {CropperComponent} from "./component/cropper/cropper.component";
 import {ImageCropperModule} from "ngx-image-cropper";
 import {CarouselComponent} from "./component/carousel/carousel.component";
+import {HeaderComponent} from "./elements/header/header.component";
 
 @NgModule({
   declarations: [
@@ -17,12 +18,13 @@ import {CarouselComponent} from "./component/carousel/carousel.component";
     AssetsComponent,
     IndexComponent,
     CropperComponent,
-    CarouselComponent
+    CarouselComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     RoutingModule,
-    ImageCropperModule
+    ImageCropperModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
