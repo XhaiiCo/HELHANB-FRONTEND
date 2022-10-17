@@ -11,6 +11,7 @@ import {ImageCropperModule} from "ngx-image-cropper";
 import {CarouselComponent} from "./component/carousel/carousel.component";
 import {HeaderComponent} from "./elements/header/header.component";
 import {NotFoundComponent} from "./views/not-found/not-found.component";
+import {HomepageComponent} from "./views/homepage/homepage.component";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {NotFoundComponent} from "./views/not-found/not-found.component";
     CropperComponent,
     CarouselComponent,
     HeaderComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,29 @@
+.container {
+  padding: 16px;
+}
+
+.wrapper {
+  display: grid;
+  grid-gap: 20px;
+  padding-bottom: 20px;
+}
+
+@media (min-width: 992px)
+{
+  .column
+  {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px)
+{
+  .column
+  {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+img {
+  max-width: 100%;
+}
