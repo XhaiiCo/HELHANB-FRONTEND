@@ -1,5 +1,6 @@
 .container {
-  padding: 16px;
+  padding: 30px 4% 0px 4%;
+
 }
 
 .wrapper {
@@ -8,7 +9,7 @@
   padding-bottom: 20px;
 }
 
-@media (min-width: 992px)
+@media (min-width: 550px)
 {
   .column
   {
@@ -16,7 +17,23 @@
   }
 }
 
-@media (min-width: 1200px)
+@media (min-width: 950px)
+{
+  .column
+  {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1130px)
+{
+  .column
+  {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1640px)
 {
   .column
   {
@@ -24,6 +41,10 @@
   }
 }
 
-img {
-  max-width: 100%;
+@media (min-width: 1880px)
+{
+  .column
+  {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
