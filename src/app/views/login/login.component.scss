@@ -1,0 +1,40 @@
+@import '../../../styles/components/form' ;
+@import '../../../styles/helpers/variable' ;
+
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.form-group{
+  width: 500px;
+}
+
+.password-input{
+  display: flex;
+
+  border-radius: $radius;
+  height: 50px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-family: $main-font;
+  font-size: 14px;
+
+  &:focus{
+    outline: none ;
+    border: 1px solid $light-blue ;
+    border-radius: $radius;
+  }
+
+  input{
+    margin: 3px ;
+    flex: 3 ;
+    outline: none ;
+  }
+
+  button{
+    flex: 1 ;
+  }
+}

@@ -12,6 +12,7 @@ import {CarouselComponent} from "./component/carousel/carousel.component";
 import {HeaderComponent} from "./elements/header/header.component";
 import {NotFoundComponent} from "./views/not-found/not-found.component";
 import {HomepageComponent} from "./views/homepage/homepage.component";
+import {LoginComponent} from "./views/login/login.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {HomepageComponent} from "./views/homepage/homepage.component";
     CarouselComponent,
     HeaderComponent,
     NotFoundComponent,
-    HomepageComponent
+    HomepageComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
