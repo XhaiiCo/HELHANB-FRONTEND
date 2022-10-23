@@ -14,6 +14,7 @@
 
 .password-input{
   display: flex;
+  position: relative;
 
   border-radius: $radius;
   height: 50px;
@@ -22,19 +23,27 @@
   font-family: $main-font;
   font-size: 14px;
 
-  &:focus{
-    outline: none ;
-    border: 1px solid $light-blue ;
-    border-radius: $radius;
-  }
-
   input{
     margin: 3px ;
-    flex: 3 ;
+    flex: 5 ;
     outline: none ;
+
   }
 
   button{
     flex: 1 ;
+    border-radius: 0 $radius $radius 0;
+    background: none;
+    cursor: pointer;
+    svg{
+      width: 30px;
+    }
   }
+
 }
+
+.focused{
+  border: 1px solid $light-blue;
+}
+
+

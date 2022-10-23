@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   passwordInputType: string = "password";
+  passwordInputFocused: boolean = false;
 
   constructor() { }
 
@@ -15,5 +16,9 @@ export class LoginComponent implements OnInit {
 
   togglePasswordInputType() {
     this.passwordInputType = this.passwordInputType === 'password' ? 'text': 'password' ;
+  }
+
+  togglePasswordInputFocused(){
+    this.passwordInputFocused = !this.passwordInputFocused ;
   }
 }
