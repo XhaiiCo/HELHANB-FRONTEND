@@ -31,4 +31,8 @@ export class LoginComponent implements OnInit {
   isInvalid(fieldName: string) {
     return this.form.get(fieldName)?.touched && this.form.get(fieldName)?.dirty && this.form.get(fieldName)?.invalid ;
   }
+
+  emitLoginForm() {
+    console.log(this.form.value) ;
+  }
 }
