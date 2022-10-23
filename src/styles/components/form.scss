@@ -15,9 +15,8 @@
       border-radius: $radius;
       padding: 12px;
       border: 1px solid #ccc;
-      margin-bottom: 10px;
       font-family: $main-font;
-      font-size: 14px;
+      font-size: $input-font-size;
 
       &:focus{
         outline: none ;

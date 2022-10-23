@@ -1,4 +1,5 @@
 @import '../../../styles/components/form' ;
+@import '../../../styles/components/button' ;
 @import '../../../styles/helpers/variable' ;
 
 
@@ -6,6 +7,7 @@
   display: flex;
   justify-content: center;
   align-content: center;
+  padding: 40px ;
 }
 
 .form-group{
@@ -24,10 +26,12 @@
   font-size: 14px;
 
   input{
-    margin: 3px ;
+    padding: 12px;
+    border-radius: $radius;
     flex: 5 ;
     outline: none ;
-
+    font-size: $input-font-size ;
+    font-family: $main-font;
   }
 
   button{

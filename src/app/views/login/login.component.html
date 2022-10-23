@@ -1,5 +1,13 @@
 <div class="container">
-  <div class="form-group">
+  <form class="form-group">
+
+    <!-- LOGIN -->
+    <div class="form-group">
+      <label for="email" class="label">E-mail</label>
+      <input type="email" id="email" class="input-text">
+    </div>
+
+    <!-- PASSWORD -->
     <label for="password" class="label">Mot de passe</label>
     <div class="password-input" [class.focused]="passwordInputFocused">
       <input id="password" [type]="passwordInputType" placeholder="mot de passe" (focus)="togglePasswordInputFocused()" (focusout)="togglePasswordInputFocused()">
@@ -12,5 +20,7 @@
         </span>
       </button>
     </div>
-  </div>
+
+    <input type="submit" value="Se connecter" class="btn-primary">
+  </form>
 </div>
