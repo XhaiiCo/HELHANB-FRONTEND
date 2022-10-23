@@ -28,7 +28,6 @@ header{
   border: 2px solid $very-light-grey;
   border-radius: $search-box-radius;
   width: 500px;
-  min-width: 275px;
   height: 45px;
   display: flex;
   justify-content: space-between;
@@ -37,7 +36,6 @@ header{
   input{
     height: 100%;
     font-family: $main-font;
-    flex:2 ;
     padding: 0 15px;
     border-radius: $search-box-radius;
     font-size: 16px ;
@@ -58,9 +56,9 @@ header{
     background: $main-color ;
     border-radius: $search-box-radius;
     cursor: pointer;
+
     svg{
       transition: all 200ms;
-
     }
 
     &:hover svg{
@@ -77,13 +75,13 @@ header{
 @media only screen and (max-width: 800px){
 
   header{
-    padding: 15px 10px;
+    padding: 15px 5px;
   }
   .title{
     display: none;
   }
   .dropdown-container{
-    margin-left: 10px ;
+    margin-left: 5px ;
   }
   .search-box{
     width: 100% ;
