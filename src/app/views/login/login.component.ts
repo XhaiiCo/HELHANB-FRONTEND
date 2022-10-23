@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,12 @@ export class LoginComponent implements OnInit {
   passwordInputType: string = "password";
   passwordInputFocused: boolean = false;
 
-  constructor() { }
+  form: FormGroup = this._fb.group({
+    email: this._fb.control("", [Validators.required, Validators.email]),
+    password: this._fb.control("", [Validators.required, Validators.minLength(6)]),
+  }) ;
+
+  constructor(private _fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
@@ -20,5 +26,9 @@ export class LoginComponent implements OnInit {
 
   togglePasswordInputFocused(){
     this.passwordInputFocused = !this.passwordInputFocused ;
+  }
+
+  isInvalid(fieldName: string) {
+    return this.form.get(fieldName)?.touched && this.form.get(fieldName)?.dirty && this.form.get(fieldName)?.invalid ;
   }
 }

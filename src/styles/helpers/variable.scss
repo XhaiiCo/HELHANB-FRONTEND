@@ -8,6 +8,7 @@ $orange: #e1a237 ;
 $light-blue: #7676ff;
 $black:  #1d1d31 ;
 $very-light-grey: #ebebeb ;
+$invalid: #ff0000;
 
 /* FONT */
 $main-font: Poppins-regular,  sans-serif;
@@ -20,3 +21,4 @@ $input-font-size: 14px ;
 $radius: 5px ;
 $search-box-radius: 20px ;
 $header-height: 82px ;
+$full-height: calc(100vh - $header-height) ;

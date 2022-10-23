@@ -13,6 +13,7 @@ import {HeaderComponent} from "./elements/header/header.component";
 import {NotFoundComponent} from "./views/not-found/not-found.component";
 import {HomepageComponent} from "./views/homepage/homepage.component";
 import {LoginComponent} from "./views/login/login.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {LoginComponent} from "./views/login/login.component";
     BrowserModule,
     RoutingModule,
     ImageCropperModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

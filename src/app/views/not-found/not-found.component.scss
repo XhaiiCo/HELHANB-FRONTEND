@@ -3,7 +3,7 @@
 
 main{
   width: 100vw;
-  height: calc(100vh - $header-height);
+  height: $full-height;
   display: flex;
   gap: 10px ;
   flex-direction: column;

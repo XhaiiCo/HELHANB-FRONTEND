@@ -4,24 +4,23 @@
 
 
 .container{
+  width: 100vw;
+  padding: 40px ;
   display: flex;
   justify-content: center;
-  align-content: center;
-  padding: 40px ;
+  align-items: center;
 }
 
 .form-group{
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
 }
 
 .password-input{
   display: flex;
   position: relative;
-
   border-radius: $radius;
-  height: 50px;
   border: 1px solid #ccc;
-  margin-bottom: 10px;
   font-family: $main-font;
   font-size: 14px;
 
@@ -49,5 +48,3 @@
 .focused{
   border: 1px solid $light-blue;
 }
-
-

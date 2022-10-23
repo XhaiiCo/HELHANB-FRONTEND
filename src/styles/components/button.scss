@@ -18,6 +18,14 @@
 .btn-primary {
   @extend %btn ;
   background: $main-color;
+
+  &.disabled{
+    background-color: $secondary-color;
+    cursor: auto ;
+    &:hover{
+      opacity: 1;
+    }
+  }
 }
 
 .btn-secondary{

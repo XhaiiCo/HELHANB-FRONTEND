@@ -24,5 +24,16 @@
       }
     }
 
+  .invalid{
+    border: 1px solid $invalid !important;
+  }
+
+  .feedback{
+    font-family: $main-font;
+    font-size: 13px;
+  }
 }
+
+
+
 
