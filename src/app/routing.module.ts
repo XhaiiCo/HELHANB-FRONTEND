@@ -18,9 +18,9 @@ const routes: Routes = [
   {path: 'assets', component: AssetsComponent  },//Remove
   {path: 'card', component: CardComponent},//Remove
   {path: 'cropper', component: CropperComponent},//Remove
-  {path: 'rent/:id', component: RentingComponent },
-  {path: '**', component: NotFoundComponent},
-] ;
+  {path: 'location/:id', component: RentingComponent },
+  {path: '**', component: NotFoundComponent}
+]
 
 @NgModule({
   declarations: [],
