@@ -20,16 +20,29 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Toggle the password input type with text or password for to make it visible or not
+   */
   togglePasswordInputType() {
     this.passwordInputType = this.passwordInputType === 'password' ? 'text': 'password' ;
   }
 
+  /**
+   * Toggle the boolean variable that says whether the password field is focus or not
+   */
   togglePasswordInputFocused(){
     this.passwordInputFocused = !this.passwordInputFocused ;
   }
 
-  isInvalid(fieldName: string) {
-    return this.form.get(fieldName)?.touched && this.form.get(fieldName)?.dirty && this.form.get(fieldName)?.invalid ;
+
+  /**
+   * Return is a field of the form is valid according to the validators options
+   * @param fieldName the field name
+   * @return true if the field name is valid, false otherwise
+   */
+  isInvalid(fieldName: string): boolean
+  {
+    return this.form.get(fieldName)?.touched && this.form.get(fieldName)?.dirty && this.form.get(fieldName)?.invalid || false;
   }
 
   emitLoginForm() {
