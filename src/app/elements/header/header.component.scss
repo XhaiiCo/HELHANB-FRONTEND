@@ -1,6 +1,8 @@
 @import "../../../styles/helpers/variable" ;
 @import "../../../styles/components/dropdown-profil" ;
 
+$search-box-button-size: 35px ;
+
 .header-container{
   position: fixed;
   top:0 ;
@@ -35,6 +37,7 @@ header{
 
   input{
     height: 100%;
+    width: calc(100% - $search-box-button-size) ;
     font-family: $main-font;
     padding: 0 15px;
     border-radius: $search-box-radius;
@@ -46,8 +49,8 @@ header{
   }
   button{
     background: none ;
-    width: 35px;
-    height: 35px;
+    width: $search-box-button-size;
+    height: $search-box-button-size;
     display: flex;
     justify-content: center;
     align-items: center;
