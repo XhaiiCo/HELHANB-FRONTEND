@@ -15,6 +15,7 @@ import {HomepageComponent} from "./views/homepage/homepage.component";
 import {LoginComponent} from "./views/login/login.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import { RentingComponent } from './views/renting/renting.component';
+import {RegistrationComponent} from "./views/registration/registration.component";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { RentingComponent } from './views/renting/renting.component';
     HomepageComponent,
     LoginComponent,
     RentingComponent,
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,

@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Toggle the password input type with text or password for to make it visible or not
+   * Toggle the password input type with text or password for make it visible or not
    */
   togglePasswordInputType() {
     this.passwordInputType = this.passwordInputType === 'password' ? 'text': 'password' ;
