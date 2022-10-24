@@ -1,1 +1,16 @@
-<p>registration works!</p>
+<div class="container">
+  <form class="form-group" [formGroup]="form" (ngSubmit)="emitRegistrationForm()">
+
+    <!-- LOGIN -->
+    <div class="form-group">
+      <label for="email" class="label">E-mail</label>
+      <input type="email" id="email" class="input-text" placeholder="exemple@nom.com" formControlName="email"  [class.invalid]="isInvalid('email')">
+      <span *ngIf="isInvalid('email'); else blank" class="feedback">Entrez une adresse valide. Exemple contact@nom.com</span>
+      <ng-template #blank>
+        <span class="feedback"></span>
+      </ng-template>
+    </div>
+
+    <input type="submit" value="Se connecter" class="btn-primary" [disabled]="form.invalid" [class.disabled]="form.invalid">
+  </form>
+</div>
