@@ -1,5 +1,5 @@
 <div class="container wrapper column">
   <div *ngFor="let num of [1,2,3,4,5,6,7]">
-    <app-card [images]="images"></app-card>
+    <app-card  [routerLink]="['/location/', 1]" [images]="images"></app-card>
   </div>
 </div>
