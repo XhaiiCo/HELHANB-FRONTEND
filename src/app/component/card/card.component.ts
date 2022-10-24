@@ -7,6 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CardComponent implements OnInit {
   @Input() images: string[]  = []
+  @Input() link: string | undefined;
 
   constructor() { }
 
