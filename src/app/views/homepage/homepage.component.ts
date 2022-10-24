@@ -15,6 +15,7 @@ export class HomepageComponent implements OnInit {
     "../assets/img/maison1.3.webp",
     "https://www.zooplus.be/magazine/wp-content/uploads/2019/06/comprendre-le-langage-des-chats.jpg"
   ]
+
   ngOnInit(): void {
   }
 
