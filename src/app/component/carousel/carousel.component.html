@@ -2,6 +2,7 @@
   <img *ngFor="let image of images; let i=index"
        [src]="image"
        [ngClass]="{'image-active':selectedIndex===i}"
+       [routerLink]="['/rent/', 1]"
        class="fade"
   >
 

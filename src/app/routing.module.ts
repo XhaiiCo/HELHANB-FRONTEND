@@ -8,6 +8,7 @@ import {CropperComponent} from "./component/cropper/cropper.component";
 import {NotFoundComponent} from "./views/not-found/not-found.component";
 import {HomepageComponent} from "./views/homepage/homepage.component";
 import {LoginComponent} from "./views/login/login.component";
+import {RentingComponent} from "./views/renting/renting.component";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent   },
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'assets', component: AssetsComponent  },//Remove
   {path: 'card', component: CardComponent},//Remove
   {path: 'cropper', component: CropperComponent},//Remove
+  {path: 'rent/:id', component: RentingComponent },
   {path: '**', component: NotFoundComponent}
 ]
 
