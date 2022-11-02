@@ -9,6 +9,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 10px ;
 }
 
 .form-group{
@@ -51,4 +53,17 @@
 
 .btn-primary{
   margin-top: 10px;
+}
+
+.redirection{
+  font-family: $main-font;
+  font-size: 15px;
+  a{
+    color: $main-color ;
+
+    &:hover{
+      cursor: pointer ;
+      text-decoration: underline ;
+    }
+  }
 }

@@ -8,6 +8,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 10px ;
 }
 
 .form-group{
@@ -22,5 +24,17 @@
   @media (min-width: 600px) {
     display: flex;
     gap: 20px ;
+  }
+}
+.redirection{
+  font-family: $main-font;
+  font-size: 15px;
+  a{
+    color: $main-color ;
+
+    &:hover{
+      cursor: pointer ;
+      text-decoration: underline ;
+    }
   }
 }
