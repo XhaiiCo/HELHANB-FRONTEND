@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-registration',
@@ -15,6 +15,8 @@ export class RegistrationComponent implements OnInit {
     email: this._fb.control("", [Validators.required, Validators.email]),
     password: this._fb.control("", [Validators.required, Validators.minLength(6)]),
     confirmPassword: this._fb.control("", [Validators.required, Validators.minLength(6)]),
+  }, {
+    validators: this.controlValuesAreEqual('password', 'confirmPassword')
   }) ;
 
 
@@ -33,15 +35,27 @@ export class RegistrationComponent implements OnInit {
   {
     return this.form.get(fieldName)?.touched && this.form.get(fieldName)?.dirty && this.form.get(fieldName)?.invalid || false;
   }
-  /*
-  isOver18(dateOfBirth) {
-    // find the date 18 years ago
-    const date18YrsAgo = new Date();
-    date18YrsAgo.setFullYear(date18YrsAgo.getFullYear() - 18);
-    // check if the date of birth is before that date
-    return dateOfBirth <= date18YrsAgo;
+
+  isPasswordEquals(): boolean{
+    if (this.form.errors) {
+      return this.form.errors['valuesDoNotMatch'];
+    }
+    return false ;
   }
-  */
+  private controlValuesAreEqual(controlName1: string, controlName2: string): ValidatorFn{
+    return (control: AbstractControl): ValidationErrors | null => {
+      const formGroup = control as FormGroup ;
+      const valueOfControlA = formGroup.get(controlName1)?.value ;
+      const valueOfControlB = formGroup.get(controlName2)?.value ;
+
+      if(valueOfControlA === valueOfControlB){
+        return null ;
+      }
+      else{
+        return {valuesDoNotMatch: true}
+      }
+    }
+  }
   emitRegistrationForm() {
 
   }

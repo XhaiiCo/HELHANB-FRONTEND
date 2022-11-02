@@ -1,27 +1,27 @@
 <div class="container">
   <form class="form-group" [formGroup]="form" (ngSubmit)="emitRegistrationForm()">
-<div class="inline-input">
+    <div class="inline-input">
 
-  <!-- LAST NAME -->
-  <div class="form-group">
-    <label for="lastName" class="label">Nom</label>
-    <input type="text" id="lastName" class="input-text" formControlName="lastName"  [class.invalid]="isInvalid('lastName')">
-    <span *ngIf="isInvalid('lastName'); else blank" class="feedback">Veuillez entrer votre nom</span>
-    <ng-template #blank>
-      <span class="feedback"></span>
-    </ng-template>
-  </div>
+      <!-- LAST NAME -->
+      <div class="form-group">
+        <label for="lastName" class="label">Nom</label>
+        <input type="text" id="lastName" class="input-text" formControlName="lastName"  [class.invalid]="isInvalid('lastName')">
+        <span *ngIf="isInvalid('lastName'); else blank" class="feedback">Veuillez entrer votre nom</span>
+        <ng-template #blank>
+          <span class="feedback"></span>
+        </ng-template>
+      </div>
 
-  <!-- FIRST NAME -->
-  <div class="form-group">
-    <label for="firstName" class="label">Prénom</label>
-    <input type="text" id="firstName" class="input-text" formControlName="firstName"  [class.invalid]="isInvalid('firstName')">
-    <span *ngIf="isInvalid('firstName'); else blank" class="feedback">Veuillez entrer votre prénom</span>
-    <ng-template #blank>
-      <span class="feedback"></span>
-    </ng-template>
-  </div>
-</div>
+      <!-- FIRST NAME -->
+      <div class="form-group">
+        <label for="firstName" class="label">Prénom</label>
+        <input type="text" id="firstName" class="input-text" formControlName="firstName"  [class.invalid]="isInvalid('firstName')">
+        <span *ngIf="isInvalid('firstName'); else blank" class="feedback">Veuillez entrer votre prénom</span>
+        <ng-template #blank>
+          <span class="feedback"></span>
+        </ng-template>
+      </div>
+    </div>
 
     <!-- EMAIL -->
     <div class="form-group">
@@ -33,6 +33,25 @@
       </ng-template>
     </div>
 
+    <!-- PASSWORD -->
+    <div class="form-group">
+      <label for="password" class="label">Mot de passe</label>
+      <input type="password" id="password" class="input-text" formControlName="password"  [class.invalid]="isInvalid('password')">
+      <span *ngIf="isInvalid('password'); else blank" class="feedback">Veuillez un mot de passe valide</span>
+      <ng-template #blank>
+        <span class="feedback"></span>
+      </ng-template>
+    </div>
+
+    <!-- CONFIRM PASSWORD -->
+    <div class="form-group">
+      <label for="confirmPassword" class="label">Confirmer votre mot de passe</label>
+      <input type="password" id="confirmPassword" class="input-text" formControlName="confirmPassword"  [class.invalid]="form.get('confirmPassword')?.touched && isPasswordEquals()">
+      <span *ngIf="form.get('confirmPassword')?.touched && isPasswordEquals(); else blank" class="feedback">Les mots de passes ne correspondent pas</span>
+      <ng-template #blank>
+        <span class="feedback"></span>
+      </ng-template>
+    </div>
     <input type="submit" value="Inscription" class="btn-primary" [disabled]="form.invalid" [class.disabled]="form.invalid">
   </form>
 </div>
