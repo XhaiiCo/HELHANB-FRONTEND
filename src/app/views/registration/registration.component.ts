@@ -17,9 +17,11 @@ export class RegistrationComponent implements OnInit {
     confirmPassword: this._fb.control("", [Validators.required, Validators.minLength(6)]),
   }) ;
 
-  constructor(private _fb: FormBuilder) { }
+
+  constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
+
   }
 
   /**
@@ -31,7 +33,15 @@ export class RegistrationComponent implements OnInit {
   {
     return this.form.get(fieldName)?.touched && this.form.get(fieldName)?.dirty && this.form.get(fieldName)?.invalid || false;
   }
-
+  /*
+  isOver18(dateOfBirth) {
+    // find the date 18 years ago
+    const date18YrsAgo = new Date();
+    date18YrsAgo.setFullYear(date18YrsAgo.getFullYear() - 18);
+    // check if the date of birth is before that date
+    return dateOfBirth <= date18YrsAgo;
+  }
+  */
   emitRegistrationForm() {
 
   }

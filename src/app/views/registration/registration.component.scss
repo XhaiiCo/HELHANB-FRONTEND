@@ -18,3 +18,9 @@
 .btn-primary{
   margin-top: 10px;
 }
+.inline-input{
+  @media (min-width: 600px) {
+    display: flex;
+    gap: 20px ;
+  }
+}

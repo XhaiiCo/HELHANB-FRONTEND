@@ -1,7 +1,29 @@
 <div class="container">
   <form class="form-group" [formGroup]="form" (ngSubmit)="emitRegistrationForm()">
+<div class="inline-input">
 
-    <!-- LOGIN -->
+  <!-- LAST NAME -->
+  <div class="form-group">
+    <label for="lastName" class="label">Nom</label>
+    <input type="text" id="lastName" class="input-text" formControlName="lastName"  [class.invalid]="isInvalid('lastName')">
+    <span *ngIf="isInvalid('lastName'); else blank" class="feedback">Veuillez entrer votre nom</span>
+    <ng-template #blank>
+      <span class="feedback"></span>
+    </ng-template>
+  </div>
+
+  <!-- FIRST NAME -->
+  <div class="form-group">
+    <label for="firstName" class="label">Prénom</label>
+    <input type="text" id="firstName" class="input-text" formControlName="firstName"  [class.invalid]="isInvalid('firstName')">
+    <span *ngIf="isInvalid('firstName'); else blank" class="feedback">Veuillez entrer votre prénom</span>
+    <ng-template #blank>
+      <span class="feedback"></span>
+    </ng-template>
+  </div>
+</div>
+
+    <!-- EMAIL -->
     <div class="form-group">
       <label for="email" class="label">E-mail</label>
       <input type="email" id="email" class="input-text" placeholder="exemple@nom.com" formControlName="email"  [class.invalid]="isInvalid('email')">
@@ -11,6 +33,6 @@
       </ng-template>
     </div>
 
-    <input type="submit" value="Se connecter" class="btn-primary" [disabled]="form.invalid" [class.disabled]="form.invalid">
+    <input type="submit" value="Inscription" class="btn-primary" [disabled]="form.invalid" [class.disabled]="form.invalid">
   </form>
 </div>
