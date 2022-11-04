@@ -1,0 +1,12 @@
+<mbsc-datepicker
+  [(ngModel)]="calendar"
+  (onOpen)="removeTrialDivs()"
+  (onChange)="dateChanged()"
+  dateFormat="DD/MM/YYYY"
+  [min]="min"
+  [max]="max"
+  select="range"
+  class="md-mobile-picker-box-label"
+  inputStyle="box"
+  placeholder="Sélectionnez vos dates">
+</mbsc-datepicker>
