@@ -42,10 +42,17 @@
 #subtitle {
   font-size: 20px;
   color: gray;
-  font-family: serif;
 }
 
 #container_reservation > div {
   width: 100%;
+}
 
+#span_price_price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#span_price_str {
+  font-size: 18px;
 }
