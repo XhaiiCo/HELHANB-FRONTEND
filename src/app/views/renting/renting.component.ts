@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 
+const dayDif = (date1: Date, date2: Date) => Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000);
+
 @Component({
   selector: 'app-renting',
   templateUrl: './renting.component.html',
@@ -17,9 +19,27 @@ export class RentingComponent implements OnInit {
   str_nb_bedroom: string = this.nb_bedroom > 1 ? "chambres" : "chambre";
   str_nb_bed: string = this.nb_bed > 1 ? "lits" : "lit";
 
+  beginDate!: Date;
+  endDate!: Date;
+  nbDays: number = 0;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  setDate(dates: any) {
+    if (dates[1] != null) {
+      this.beginDate = dates[0];
+      this.endDate = dates[1];
+
+      this.nbDays = dayDif(this.beginDate, this.endDate);
+    } else {
+      this.nbDays = 0;
+    }
+  }
+
+  submit() {
+    console.log("test");
+  }
 }

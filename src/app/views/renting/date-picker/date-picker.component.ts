@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { MbscDatepicker, setOptions } from "@mobiscroll/angular";
 
 setOptions({
@@ -20,8 +20,7 @@ export class DatePickerComponent implements OnInit {
 
   //@ViewChild('picker', { static: false })
   calendar!: any;
-  beginDate!: Date;
-  endDate!: Date;
+  @Output() dateUpdated: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
@@ -36,10 +35,6 @@ export class DatePickerComponent implements OnInit {
   }
 
   dateChanged() {
-    //console.log(this.calendar[0]);
-    if (this.calendar[1] != null) {
-      this.beginDate = this.calendar[0];
-      this.endDate = this.calendar[1];
-    }
+    this.dateUpdated.next(this.calendar);
   }
 }
