@@ -1,5 +1,8 @@
 <div class="container">
   <form class="form-group" [formGroup]="form" (ngSubmit)="emitRegistrationForm()">
+    <div *ngIf="errorFeedback" class="feedback-error">
+      {{errorFeedback}}
+    </div>
     <div class="inline-input">
 
       <!-- LAST NAME -->

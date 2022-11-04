@@ -10,6 +10,7 @@ import {DtoOutputRegistrationUser} from "../../dtos/auth/dto-output-registration
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+  errorFeedback: string = "" ;
 
   form: FormGroup = this._fb.group({
     firstName: this._fb.control("", [Validators.required]),
@@ -67,6 +68,9 @@ export class RegistrationComponent implements OnInit {
       email: this.form.get('email')?.value,
       password: this.form.get('password')?.value,
     } ;
-    this._authService.registration(user).subscribe( (user: DtoInputUserRegistration) => console.log(user)) ;
+    this._authService.registration(user).subscribe(
+      () => {this.errorFeedback = ""},
+      () => {this.errorFeedback = "Erreur: cet email est déjà utilisé"}
+    ) ;
   }
 }
