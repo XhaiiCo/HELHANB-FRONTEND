@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
+import {DtoInputUserLogin} from "../../dtos/auth/dto-input-user-login";
+import {DtoOutputLoginUser} from "../../dtos/auth/dto-output-login-user";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +18,7 @@ export class LoginComponent implements OnInit {
     password: this._fb.control("", [Validators.required, Validators.minLength(6)]),
   }) ;
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder, private _authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -46,6 +49,11 @@ export class LoginComponent implements OnInit {
   }
 
   emitLoginForm() {
-    console.log(this.form.value) ;
+    let userDto: DtoOutputLoginUser = {
+      email: this.form.get('email')?.value,
+      password: this.form.get('password')?.value
+    }
+
+    this._authService.login(userDto).subscribe( (user) => console.log(user)) ;
   }
 }

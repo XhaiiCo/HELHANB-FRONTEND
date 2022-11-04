@@ -17,8 +17,9 @@ import {LoginComponent} from "./views/login/login.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RentingComponent } from './views/renting/renting.component';
 import {RegistrationComponent} from "./views/registration/registration.component";
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import {HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { DatePickerComponent } from './views/renting/date-picker/date-picker.component';
+import {CredentialsInterceptor} from "./interceptors/credentials.interceptor";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { DatePickerComponent } from './views/renting/date-picker/date-picker.com
     HttpClientModule,
     HttpClientJsonpModule,
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: CredentialsInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
