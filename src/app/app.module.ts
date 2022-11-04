@@ -16,6 +16,7 @@ import {LoginComponent} from "./views/login/login.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import { RentingComponent } from './views/renting/renting.component';
 import {RegistrationComponent} from "./views/registration/registration.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {RegistrationComponent} from "./views/registration/registration.component
     RoutingModule,
     ImageCropperModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

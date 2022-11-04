@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+import {AuthService} from "../../services/auth.service";
+import {DtoInputUserRegistration} from "../../dtos/auth/dto-input-user-registration";
+import {DtoOutputRegistrationUser} from "../../dtos/auth/dto-output-registration-user";
 
 @Component({
   selector: 'app-registration',
@@ -20,7 +23,7 @@ export class RegistrationComponent implements OnInit {
   }) ;
 
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder, private _authService: AuthService) {}
 
   ngOnInit(): void {
 
@@ -56,7 +59,14 @@ export class RegistrationComponent implements OnInit {
       }
     }
   }
-  emitRegistrationForm() {
 
+  emitRegistrationForm() {
+    let user: DtoOutputRegistrationUser = {
+      firstName: this.form.get('firstName')?.value,
+      lastName: this.form.get('lastName')?.value,
+      email: this.form.get('email')?.value,
+      password: this.form.get('password')?.value,
+    } ;
+    this._authService.registration(user).subscribe( (user: DtoInputUserRegistration) => console.log(user)) ;
   }
 }
