@@ -20,9 +20,8 @@ export class DatePickerComponent implements OnInit {
 
   //@ViewChild('picker', { static: false })
   calendar!: any;
-
-  beginDate: Date;
-  endDate: Date;
+  beginDate!: Date;
+  endDate!: Date;
 
   constructor() { }
 
