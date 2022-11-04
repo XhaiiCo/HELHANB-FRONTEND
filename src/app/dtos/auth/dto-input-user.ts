@@ -1,4 +1,4 @@
-export interface DtoInputUserLogin {
+export interface DtoInputUser {
   id: number ;
   firstName: string;
   lastName: string;

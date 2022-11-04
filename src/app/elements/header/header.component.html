@@ -16,9 +16,12 @@
     <div class="dropdown-container">
       <div class="dropdown" [class.active]="dropDownOpen" (click)="dropDownOpen = !dropDownOpen">
         <img src="../../../assets/img/user_pic-50x50.png" alt="profil pic">
-        <div class="options">
-          <div [routerLink]="[option.path]" *ngFor="let option of dropDownOption">{{option.name}}</div>
-        </div>
+          <div *ngIf="authService.user == null" class="options">
+            <div  [routerLink]="[option.path]" *ngFor="let option of notConnectedDropDownOption">{{option.name}}</div>
+          </div>
+          <div *ngIf="authService.user" class="options">
+            <div  [routerLink]="[option.path]" *ngFor="let option of connectedDropDownOption">{{option.name}}</div>
+          </div>
       </div>
     </div>
   </header>

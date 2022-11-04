@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DropDownOption} from "../../interfaces/drop-down-option";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -9,14 +10,16 @@ import {DropDownOption} from "../../interfaces/drop-down-option";
 export class HeaderComponent implements OnInit {
   dropDownOpen: boolean = false;
 
-  dropDownOption: DropDownOption[] = [
+  notConnectedDropDownOption: DropDownOption[] = [
     {name: 'Connexion', path: '/connexion'},
     {name: 'Inscription', path: '/inscription'},
-    {name: 'Compte', path: '/compte'},
-    {name: 'Devenir hôte', path: '/hote'}
   ]
 
-  constructor() { }
+  connectedDropDownOption: DropDownOption[] = [
+    {name: 'Compte', path: '/compte'},
+    {name: 'Deconnexion', path: '/logout'}
+  ]
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
   }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
-import {DtoInputUserRegistration} from "../../dtos/auth/dto-input-user-registration";
 import {DtoOutputRegistrationUser} from "../../dtos/auth/dto-output-registration-user";
 
 @Component({
@@ -69,8 +68,8 @@ export class RegistrationComponent implements OnInit {
       password: this.form.get('password')?.value,
     } ;
     this._authService.registration(user).subscribe(
-      () => {this.errorFeedback = ""},
-      () => {this.errorFeedback = "Erreur: cet email est déjà utilisé"}
+      (user) => {this.errorFeedback = "";},
+      () => {this.errorFeedback = "Erreur: cet email est déjà utilisé" ;}
     ) ;
   }
 }

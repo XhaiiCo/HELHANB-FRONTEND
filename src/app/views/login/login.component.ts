@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
-import {DtoInputUserLogin} from "../../dtos/auth/dto-input-user-login";
 import {DtoOutputLoginUser} from "../../dtos/auth/dto-output-login-user";
 import {AuthService} from "../../services/auth.service";
 
@@ -57,7 +56,10 @@ export class LoginComponent implements OnInit {
     }
 
     this._authService.login(userDto).subscribe(
-      (user) => {},
+      (user) => {
+        this.errorFeedback = "" ;
+        this._authService.user = user ;
+        },
       () => {this.errorFeedback = "Email ou mot de passe incorrect"}
     ) ;
   }

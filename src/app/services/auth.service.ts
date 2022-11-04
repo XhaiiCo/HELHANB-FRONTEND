@@ -4,23 +4,24 @@ import {DtoOutputLoginUser} from "../dtos/auth/dto-output-login-user";
 import {DtoOutputRegistrationUser} from "../dtos/auth/dto-output-registration-user";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
-import {DtoInputUserRegistration} from "../dtos/auth/dto-input-user-registration";
-import {DtoInputUserLogin} from "../dtos/auth/dto-input-user-login";
+import {DtoInputUser} from "../dtos/auth/dto-input-user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  user: DtoInputUser | null = null ;
+
   private static readonly ENTRY_POINT_URL = environment.apiUrl + "users" ;
 
   constructor(private _httpClient: HttpClient) { }
 
-  public login(user: DtoOutputLoginUser): Observable<DtoInputUserLogin>{
-    return this._httpClient.post<DtoInputUserLogin>(`${AuthService.ENTRY_POINT_URL}/login`, user);
+  public login(user: DtoOutputLoginUser): Observable<DtoInputUser>{
+    return this._httpClient.post<DtoInputUser>(`${AuthService.ENTRY_POINT_URL}/login`, user);
   }
 
-  public registration(user: DtoOutputRegistrationUser): Observable<DtoInputUserRegistration>{
-    return this._httpClient.post<DtoInputUserRegistration>(AuthService.ENTRY_POINT_URL, user) ;
+  public registration(user: DtoOutputRegistrationUser): Observable<DtoInputUser>{
+    return this._httpClient.post<DtoInputUser>(AuthService.ENTRY_POINT_URL, user) ;
   }
 }
