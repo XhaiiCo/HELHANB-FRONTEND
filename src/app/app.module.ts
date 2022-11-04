@@ -1,3 +1,4 @@
+import { MbscModule } from '@mobiscroll/angular';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,10 +14,11 @@ import {HeaderComponent} from "./elements/header/header.component";
 import {NotFoundComponent} from "./views/not-found/not-found.component";
 import {HomepageComponent} from "./views/homepage/homepage.component";
 import {LoginComponent} from "./views/login/login.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RentingComponent } from './views/renting/renting.component';
 import {RegistrationComponent} from "./views/registration/registration.component";
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { DatePickerComponent } from './views/renting/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +34,17 @@ import {HttpClientModule} from "@angular/common/http";
     LoginComponent,
     RentingComponent,
     RegistrationComponent,
+    DatePickerComponent,
   ],
   imports: [
+    MbscModule,
     BrowserModule,
     RoutingModule,
     ImageCropperModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpClientJsonpModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
