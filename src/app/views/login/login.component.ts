@@ -13,6 +13,8 @@ export class LoginComponent implements OnInit {
   passwordInputType: string = "password";
   passwordInputFocused: boolean = false;
 
+  errorFeedback: string = "" ;
+
   form: FormGroup = this._fb.group({
     email: this._fb.control("", [Validators.required, Validators.email]),
     password: this._fb.control("", [Validators.required, Validators.minLength(6)]),
@@ -54,6 +56,9 @@ export class LoginComponent implements OnInit {
       password: this.form.get('password')?.value
     }
 
-    this._authService.login(userDto).subscribe( (user) => console.log(user)) ;
+    this._authService.login(userDto).subscribe(
+      (user) => {},
+      () => {this.errorFeedback = "Email ou mot de passe incorrect"}
+    ) ;
   }
 }
