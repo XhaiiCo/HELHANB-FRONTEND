@@ -8,9 +8,11 @@
     <!--<app-card  [link]="'/location/1'" [images]="images"></app-card>-->
   </div>
   <div id="container_reservation">
-    <div id="reserv_price"><span>{{ daily_price }} € </span><span>par nuit</span></div>
-    <div id="reserv_calendars">// Calendriers</div>
-    <div id="reserv_btn_reserv"><input value="Réserver" /></div>
-    <div id="reserv_calc_price"></div>
+    <div><span id="span_price_price">{{ daily_price }} € </span><span id="span_price_str">par nuit</span></div>
+    <div>
+      <app-date-picker></app-date-picker>
+    </div>
+    <div></div>
+    <div><button>Réserver</button></div>
   </div>
 </div>
