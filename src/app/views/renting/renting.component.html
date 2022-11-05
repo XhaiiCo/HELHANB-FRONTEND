@@ -13,7 +13,7 @@
       <div id="div_price_price">
         <span id="span_price_price">{{ daily_price }} €</span>&nbsp;<span id="span_price_str">par nuit</span>
       </div>
-      <div>
+      <div id="div_date-picker">
         <app-date-picker (dateUpdated)="setDate($event)"></app-date-picker>
       </div>
       <div id="div_price_total" *ngIf="nbDays != 0">
