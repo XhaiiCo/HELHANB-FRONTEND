@@ -13,9 +13,9 @@ export class UserService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  public updateProfilePicture(id: number, image: any): Observable<string>{
+  public updateProfilePicture(id: number, image: any): Observable<DtoInputUser>{
     let formData = new FormData() ;
     formData.append("profilePicture", image, image.name) ;
-    return this._httpClient.post<string>(`${UserService.ENTRY_POINT_URL}/${id}/profilePicture`, formData) ;
+    return this._httpClient.post<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}/profilePicture`, formData) ;
   }
 }

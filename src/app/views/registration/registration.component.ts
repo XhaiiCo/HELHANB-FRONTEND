@@ -75,10 +75,11 @@ export class RegistrationComponent implements OnInit {
     this._authService.registration(user).subscribe(
       (user) => {
           this.errorFeedback = "";
+          this._authService.user = user ;
 
           if(this.profilePicture){
             this._userService.updateProfilePicture(user.id, this.profilePicture).subscribe(
-              (text) => console.log(text),
+              (user) => this._authService.user = user,
               (text) => console.log(text)
             )
           }
