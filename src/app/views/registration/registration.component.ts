@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {DtoOutputRegistrationUser} from "../../dtos/auth/dto-output-registration-user";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-registration',
@@ -12,6 +13,7 @@ export class RegistrationComponent implements OnInit {
   errorFeedback: string = "" ;
 
   form: FormGroup = this._fb.group({
+    profilePicture: this._fb.control(""),
     firstName: this._fb.control("", [Validators.required]),
     lastName: this._fb.control("", [Validators.required]),
     //dateOfBirth: this._fb.control("", [Validators.required]),
@@ -23,7 +25,10 @@ export class RegistrationComponent implements OnInit {
   }) ;
 
 
-  constructor(private _fb: FormBuilder, private _authService: AuthService) {}
+  profilePicture: null | File = null;
+
+
+  constructor(private _fb: FormBuilder, private _authService: AuthService, private _userService: UserService) {}
 
   ngOnInit(): void {
 
@@ -68,8 +73,21 @@ export class RegistrationComponent implements OnInit {
       password: this.form.get('password')?.value,
     } ;
     this._authService.registration(user).subscribe(
-      (user) => {this.errorFeedback = "";},
+      (user) => {
+          this.errorFeedback = "";
+
+          if(this.profilePicture){
+            this._userService.updateProfilePicture(user.id, this.profilePicture).subscribe(
+              (text) => console.log(text),
+              (text) => console.log(text)
+            )
+          }
+        },
       () => {this.errorFeedback = "Erreur: cet email est déjà utilisé" ;}
     ) ;
+  }
+
+  onUploadPicture(event: any) {
+    this.profilePicture = event.target.files[0] ;
   }
 }

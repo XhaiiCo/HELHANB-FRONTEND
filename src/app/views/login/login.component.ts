@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
       (user) => {
         this.errorFeedback = "" ;
         this._authService.user = user ;
-        },
+      },
       () => {this.errorFeedback = "Email ou mot de passe incorrect"}
     ) ;
   }

@@ -3,6 +3,8 @@
     <div *ngIf="errorFeedback" class="feedback-error">
       {{errorFeedback}}
     </div>
+
+    <input type="file" accept="image/*" formControlName="profilePicture" (change)="onUploadPicture($event)">
     <div class="inline-input">
 
       <!-- LAST NAME -->
