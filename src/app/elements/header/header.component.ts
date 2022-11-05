@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DropDownOption} from "../../interfaces/drop-down-option";
 import {AuthService} from "../../services/auth.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import {AuthService} from "../../services/auth.service";
 })
 export class HeaderComponent implements OnInit {
   dropDownOpen: boolean = false;
-
+  profilePictureBaseUri: string  = environment.pictureUrl ;
   notConnectedDropDownOption: DropDownOption[] = [
     {name: 'Connexion', path: '/connexion'},
     {name: 'Inscription', path: '/inscription'},
