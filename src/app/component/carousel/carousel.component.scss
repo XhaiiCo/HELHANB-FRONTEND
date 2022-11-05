@@ -29,11 +29,10 @@ img
 :host-context(.homepage) .image-active {
   aspect-ratio : 1 / 1;
 }
-//décomenter si nécessaire et changer le ratio mais meme sans ça fait le taff
-/*
+
 :host-context(.renting) .image-active {
   aspect-ratio : 2 / 1;
-}*/
+}
 
 .carousel-dot-container {
   position: absolute;
@@ -80,8 +79,14 @@ img
 .btn-carousel {
   display: none;
   position: absolute;
-  top: 157px;
-  bottom: 157px;
+
+  //à remettre après avec un host context selon l avis du chef
+  /*  top: 157px;
+  bottom: 157px;*/
+
+
+  top: 0%;
+  bottom: 0%;
   align-items: center;
   justify-content: center;
   width: 13%;
