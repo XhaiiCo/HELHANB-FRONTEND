@@ -9,13 +9,19 @@
     <!--<app-card [images]="images"></app-card>-->
   </div>
   <div id="container_reservation">
-    <div><span id="span_price_price">{{ daily_price }} € </span><span id="span_price_str">par nuit</span></div>
     <div>
-      <app-date-picker (dateUpdated)="setDate($event)"></app-date-picker>
+      <div id="div_price_price">
+        <span id="span_price_price">{{ daily_price }} €</span>&nbsp;<span id="span_price_str">par nuit</span>
+      </div>
+      <div>
+        <app-date-picker (dateUpdated)="setDate($event)"></app-date-picker>
+      </div>
+      <div id="div_price_total" *ngIf="nbDays != 0">
+        <span>{{ daily_price }} € x {{ nbDays }} {{ nbDays > 1 ? "nuits" : "nuit" }} = <b>{{ nbDays * daily_price }} €</b></span>
+      </div>
+      <div>
+        <button (click)="submit()" [disabled]="nbDays == 0">Réserver</button>
+      </div>
     </div>
-    <div>
-      <span *ngIf="nbDays != 0">{{ nbDays }} x {{ daily_price }} € =  {{ nbDays * daily_price }} €</span>
-    </div>
-    <div><button (click)="submit()" [disabled]="nbDays == 0">Réserver</button></div>
   </div>
 </div>
