@@ -4,5 +4,6 @@ export interface DtoInputUser {
   lastName: string;
   accountCreation: Date ;
   email: string;
+  profilePicturePath: string | null ;
   roleId: number ;
 }
