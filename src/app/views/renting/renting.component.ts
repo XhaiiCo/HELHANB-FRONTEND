@@ -23,6 +23,14 @@ export class RentingComponent implements OnInit {
   endDate!: Date;
   nbDays: number = 0;
 
+  //Jesuremie was here
+  images: string[]  = [
+    "../assets/img/maison1.1.webp",
+    "../assets/img/maison1.2.webp",
+    "../assets/img/maison1.3.webp",
+    "https://www.zooplus.be/magazine/wp-content/uploads/2019/06/comprendre-le-langage-des-chats.jpg"
+  ]
+
   constructor() { }
 
   ngOnInit(): void {

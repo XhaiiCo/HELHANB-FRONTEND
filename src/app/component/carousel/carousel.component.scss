@@ -2,11 +2,15 @@
   position: relative;
 
   overflow: hidden;
-  border-radius: 15px;
+
 
   &:hover .btn-carousel{
     display: flex ;
   }
+}
+
+:host-context(.homepage) .image-active {
+  border-radius: 15px;
 }
 
 img
@@ -19,9 +23,17 @@ img
     width: 100%;
     object-position: 50% 50%;
     object-fit: cover;
-    aspect-ratio : 1 / 1;
   }
 }
+
+:host-context(.homepage) .image-active {
+  aspect-ratio : 1 / 1;
+}
+//décomenter si nécessaire et changer le ratio mais meme sans ça fait le taff
+/*
+:host-context(.renting) .image-active {
+  aspect-ratio : 2 / 1;
+}*/
 
 .carousel-dot-container {
   position: absolute;
