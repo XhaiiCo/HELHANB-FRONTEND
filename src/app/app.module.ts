@@ -20,6 +20,7 @@ import {RegistrationComponent} from "./views/registration/registration.component
 import {HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { DatePickerComponent } from './views/renting/date-picker/date-picker.component';
 import {CredentialsInterceptor} from "./interceptors/credentials.interceptor";
+import { RoundPipePipe } from './views/renting/round-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {CredentialsInterceptor} from "./interceptors/credentials.interceptor";
     RentingComponent,
     RegistrationComponent,
     DatePickerComponent,
+    RoundPipePipe,
   ],
   imports: [
     MbscModule,

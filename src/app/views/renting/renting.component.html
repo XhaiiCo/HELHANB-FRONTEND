@@ -17,7 +17,7 @@
         <app-date-picker (dateUpdated)="setDate($event)"></app-date-picker>
       </div>
       <div id="div_price_total" *ngIf="nbDays != 0">
-        <span>{{ daily_price }} € x {{ nbDays }} {{ nbDays > 1 ? "nuits" : "nuit" }} = <b>{{ nbDays * daily_price }} €</b></span>
+        <span>{{ daily_price }} € x {{ nbDays }} {{ nbDays > 1 ? "nuits" : "nuit" }} = <b>{{ (nbDays * daily_price) | round }} €</b></span>
       </div>
       <div>
         <button (click)="submit()" [disabled]="nbDays == 0">Réserver</button>
