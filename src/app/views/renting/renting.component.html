@@ -1,41 +1,50 @@
-<div id="container_body" class="container wrapper">
-  <div id="container_title">
-    <p id="title">{{ ad_name }} ⸱ {{ owner_name }}</p>
-    <p id="subtitle">{{ nb_max_tenant }} {{ str_nb_max_tenant }} ⸱ {{ nb_bedroom }} {{ str_nb_bedroom
-      }} ⸱ {{ nb_bed }} {{ str_nb_bed }}</p>
-  </div>
+<main class="renting_page">
+  <header>
+    <div class="title_container">
+      <p class="title">{{ ad_name }} ⸱ {{ owner_name }}</p>
+      <p class="subtitle">
+        {{ nb_max_tenant }} {{ str_nb_max_tenant }} ⸱ {{ nb_bedroom }} {{ str_nb_bedroom}} ⸱ {{ nb_bed }} {{ str_nb_bed }}
+      </p>
+    </div>
 
-  <div id="container_carrousel_features">
-    <div id="container_carrousel">
+    <div class="carousel_container">
       <app-carousel [images]="images" class="renting"></app-carousel>
     </div>
-    <div id="body_container">
-      <div class="features_container">
+  </header>
+
+  <main class="main">
+    <section class="body">
+      <section class="features_container">
         <h2>Disponible dans ce logement :</h2>
-        <div id="container_features_list">
+        <div class="features_list">
           <span *ngFor="let feature of renting_features.slice(0, 4)">
             {{ feature }}
           </span>
         </div>
-        <div id="container_btn_feature" [hidden]="renting_features.length <= 4"><button class="btn-primary" id="btn_features">Voir tout</button></div>
-      </div>
-    </div>
-  </div>
+        <div class="btn_feature_container" [hidden]="renting_features.length <= 4">
+          <button class="btn-primary" id="btn_features">Voir tout</button>
+        </div>
+      </section>
+    </section>
 
-  <div id="container_reservation">
-    <div>
-      <div id="div_price_price">
-        <span id="span_price_price">{{ daily_price }} €</span>&nbsp;<span id="span_price_str">par nuit</span>
-      </div>
-      <div id="div_date-picker">
+    <section class="reservation">
+      <header class="reservation_price_by_night">
+        <span class="span_price">{{ daily_price }} €</span>&nbsp;<span class="span_price_str">par nuit</span>
+      </header>
+
+      <main class="reservation_date-picker">
         <app-date-picker (dateUpdated)="setDate($event)"></app-date-picker>
-      </div>
-      <div id="div_price_total" *ngIf="nbDays != 0">
-        <span>{{ daily_price }} € x {{ nbDays }} {{ nbDays > 1 ? "nuits" : "nuit" }} = <b>{{ (nbDays * daily_price) | round }} €</b></span>
-      </div>
-      <div>
-        <button class="btn-primary" id="btn_submit" (click)="submit()" [disabled]="nbDays == 0">Réserver</button>
-      </div>
-    </div>
-  </div>
-</div>
+      </main>
+
+      <footer class="reservation_total_price" *ngIf="nbDays != 0">
+        <span>
+          {{ daily_price }} € x {{ nbDays }} {{ nbDays > 1 ? "nuits" : "nuit" }} =
+          <b>{{ (nbDays * daily_price) | round }} €</b>
+        </span>
+        <button class="btn-primary" (click)="submit()" [disabled]="nbDays == 0">
+          Réserver
+        </button>
+      </footer>
+    </section>
+  </main>
+</main>

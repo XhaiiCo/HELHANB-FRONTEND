@@ -1,166 +1,100 @@
 @import '../../../styles/components/button' ;
-.container {
-  padding: 25px 6% 0 8%;
+.renting_page {
+  width: 60% ;
+  margin: auto;
 }
 
-.wrapper {
+.title_container {
   width: 100%;
-  padding-bottom: 20px;
+  padding-top: 15px ;
+
+  & .title {
+    font-size: 26px;
+    font-family: Georgia, serif;
+    margin-bottom: 3px;
+  }
+
+  & .subtitle {
+    font-size: 20px;
+    color: gray;
+  }
 }
 
-#container_body {
+.carousel_container {
+  width: 100%;
+  margin: 30px 0 ;
+}
+
+.main{
+  display: flex;
+  justify-content: space-between;
+}
+
+.reservation_price_by_night {
+  margin-top: 5px;
+  margin-bottom: -5px;
+}
+
+.reservation_total_price {
+  font-family: Calibri, serif;
+  margin-bottom: 20px;
+}
+
+.reservation_date-picker {
+  margin-top: 20px;
+  margin-bottom: 18px;
+}
+
+.features_list {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 8px;
+
+  & > span{
+    width: 50%;
+    padding: 5px;
+  }
 }
 
-#container_body > div {
-  margin: 10px;
-}
-
-#container_title {
-  width: 100%;
-}
-
-#container_carrousel_features {
-  width: auto;
-  max-width: 1110px;
-}
-
-#container_carrousel {
-  width: 100%;
-}
-
-#container_reservation {
-  min-width: 360px;
-  height: 560px;
+.btn_feature_container {
+  margin-top: 5px;
   display: flex;
   align-content: center;
-  padding-left: 4%;
 }
 
-#container_reservation > div {
-  width: 360px;
+.reservation {
   border-radius: 15px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
   padding: 12px 12px;
-  height: max-content;
-  position: fixed;
+  text-align: center;
 }
 
-#container_reservation > div > div {
-  display: flex;
-  justify-content: center;
-}
-
-@media (max-width: 1772px) {
-
-  #container_reservation {
-    padding-left: 0;
-    margin-top: 25px !important;
-  }
-
-  #container_reservation > div {
-    position: static;
-  }
-}
-
-#title {
-  font-size: 26px;
-  font-family: Georgia, serif;
-  margin-bottom: 3px;
-}
-
-#subtitle {
-  font-size: 20px;
-  color: gray;
-}
-
-#span_price_price {
+.span_price {
   font-size: 20px;
   font-weight: bold;
   font-family: Calibri, serif;
 }
 
-#span_price_str {
+.span_price_str {
   font-size: 19px;
   color: #9b9b9b;
   padding-top: 1px;
   font-family: Calibri, serif;
 }
 
-/*
-#btn_submit {
-  background: linear-gradient(to top, rgb(194, 162, 122) 0%, rgb(235, 211, 180) 100%);
-  border: none;
-  color: white;
-  font-family: Franklin Gothic Medium, serif;
-  height: 40px;
-  width: 175px;
-  padding: 6px 16px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 15px;
-  margin-bottom: 8px;
-  cursor: pointer;
+@media (max-width: 1200px) {
+  .renting_page{
+    width: 75%;
+  }
+
+  .main{
+    flex-direction: column;
+    gap: 30px ;
+  }
 }
 
-#btn_submit:hover {
-  background: linear-gradient(to top, rgb(214, 176, 131) 0%, rgb(235, 211, 180) 100%);
-}
-
-#btn_submit:active {
-  background: linear-gradient(to top, rgb(214, 193, 167) 0%, rgba(235, 211, 180, 0.658) 100%);
-}
-
-#btn_submit:disabled {
-  background: linear-gradient(to top, rgb(240, 210, 180) 0%, rgba(235, 211, 180, 0.658) 100%);
-  cursor: not-allowed;
-}
-*/
-
-#div_price_price {
-  margin-top: 5px;
-  margin-bottom: -5px;
-}
-
-#div_price_total {
-  font-family: Calibri, serif;
-  margin-bottom: 20px;
-}
-
-#div_date-picker {
-  margin-top: 20px;
-  margin-bottom: 18px;
-}
-
-#body_container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center ;
-  margin-top: 30px !important;
-}
-
-#body_container > div {
-  width: 100% ;
-  padding: 12px 12px;
-}
-
-#container_features_list {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-#container_features_list > span {
-  width: 50%;
-  padding: 5px;
-}
-
-#container_btn_feature {
-  margin-top: 5px;
-  display: flex;
-  align-content: center;
+@media (max-width: 800px) {
+  .renting_page{
+    width: 95%;
+  }
 }
