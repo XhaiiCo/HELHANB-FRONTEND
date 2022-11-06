@@ -19,7 +19,7 @@
   @extend %btn ;
   background: $main-color;
 
-  &.disabled{
+  &.disabled, &:disabled{
     background-color: $secondary-color;
     cursor: auto ;
     &:hover{

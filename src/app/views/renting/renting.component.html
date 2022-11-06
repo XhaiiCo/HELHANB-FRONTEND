@@ -9,15 +9,15 @@
     <div id="container_carrousel">
       <app-carousel [images]="images" class="renting"></app-carousel>
     </div>
-    <div id="container_features">
-      <div>
+    <div id="body_container">
+      <div class="features_container">
         <h2>Disponible dans ce logement :</h2>
         <div id="container_features_list">
           <span *ngFor="let feature of renting_features.slice(0, 4)">
             {{ feature }}
           </span>
         </div>
-        <div id="container_btn_feature" [hidden]="renting_features.length <= 4"><button id="btn_features">Voir tout</button></div>
+        <div id="container_btn_feature" [hidden]="renting_features.length <= 4"><button class="btn-primary" id="btn_features">Voir tout</button></div>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
         <span>{{ daily_price }} € x {{ nbDays }} {{ nbDays > 1 ? "nuits" : "nuit" }} = <b>{{ (nbDays * daily_price) | round }} €</b></span>
       </div>
       <div>
-        <button id="btn_submit" (click)="submit()" [disabled]="nbDays == 0">Réserver</button>
+        <button class="btn-primary" id="btn_submit" (click)="submit()" [disabled]="nbDays == 0">Réserver</button>
       </div>
     </div>
   </div>
