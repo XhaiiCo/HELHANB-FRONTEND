@@ -1,8 +1,11 @@
 @import "../styles/helpers/variable.scss" ;
+
 main {
   margin-top: $header-height;
 }
 
-.tmp-height{
-  height: 2000px;
+app-toast-notification{
+  position: fixed;
+  top: $header-height ;
+  right: 0 ;
 }

@@ -1,0 +1,13 @@
+.toast{
+  background-color: green ;
+  display: flex ;
+  margin: 20px ;
+
+  & .body{
+    padding: 20px ;
+  }
+
+  & .toast-btn-close{
+    cursor: pointer;
+  }
+}
