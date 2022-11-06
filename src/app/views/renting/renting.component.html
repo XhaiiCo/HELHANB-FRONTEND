@@ -13,10 +13,11 @@
       <div>
         <h2>Disponible dans ce logement :</h2>
         <div id="container_features_list">
-          <span *ngFor="let feature of renting_features">
+          <span *ngFor="let feature of renting_features.slice(0, 4)">
             {{ feature }}
           </span>
         </div>
+        <div id="container_btn_feature" [hidden]="renting_features.length <= 4"><button id="btn_features">Voir tout</button></div>
       </div>
     </div>
   </div>
