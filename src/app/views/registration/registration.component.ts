@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {DtoOutputRegistrationUser} from "../../dtos/auth/dto-output-registration-user";
 import {UserService} from "../../services/user.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -22,44 +23,46 @@ export class RegistrationComponent implements OnInit {
     confirmPassword: this._fb.control("", [Validators.required, Validators.minLength(6)]),
   }, {
     validators: this.controlValuesAreEqual('password', 'confirmPassword')
-  }) ;
+  });
 
 
   profilePicture: null | File = null;
 
   constructor(private _fb: FormBuilder,
-  private _authService: AuthService,
-  private _userService: UserService,
-  private _toastNotificationService: ToastNotificationService) {}
+              private _authService: AuthService,
+              private _userService: UserService,
+              private _toastNotificationService: ToastNotificationService,
+              private _router: Router) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   /**
    * Return is a field of the form is valid according to the validators options
    * @param fieldName the field name
    * @return true if the field name is valid, false otherwise
    */
-  isInvalid(fieldName: string): boolean
-  {
+  isInvalid(fieldName: string): boolean {
     return this.form.get(fieldName)?.touched && this.form.get(fieldName)?.dirty && this.form.get(fieldName)?.invalid || false;
   }
 
-  isPasswordEquals(): boolean{
+  isPasswordEquals(): boolean {
     if (this.form.errors) {
       return this.form.errors['valuesDoNotMatch'];
     }
-    return false ;
+    return false;
   }
-  private controlValuesAreEqual(controlName1: string, controlName2: string): ValidatorFn{
-    return (control: AbstractControl): ValidationErrors | null => {
-      const formGroup = control as FormGroup ;
-      const valueOfControlA = formGroup.get(controlName1)?.value ;
-      const valueOfControlB = formGroup.get(controlName2)?.value ;
 
-      if(valueOfControlA === valueOfControlB){
-        return null ;
-      }
-      else{
+  private controlValuesAreEqual(controlName1: string, controlName2: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const formGroup = control as FormGroup;
+      const valueOfControlA = formGroup.get(controlName1)?.value;
+      const valueOfControlB = formGroup.get(controlName2)?.value;
+
+      if (valueOfControlA === valueOfControlB) {
+        return null;
+      } else {
         return {valuesDoNotMatch: true}
       }
     }
@@ -71,25 +74,26 @@ export class RegistrationComponent implements OnInit {
       lastName: this.form.get('lastName')?.value,
       email: this.form.get('email')?.value,
       password: this.form.get('password')?.value,
-    } ;
+    };
     this._authService.registration(user).subscribe(
       (user) => {
-          this._authService.user = user ;
-          this._toastNotificationService.add(`Hello ${user.firstName}`, "success") ;
+        this._authService.user = user;
+        this._toastNotificationService.add(`Hello ${user.firstName}`, "success");
 
-          if(this.profilePicture){
-            this._userService.updateProfilePicture(user.id, this.profilePicture).subscribe(
-              (user) => this._authService.user = user,
-            )
-          }
-        },
+        if (this.profilePicture) {
+          this._userService.updateProfilePicture(user.id, this.profilePicture).subscribe(
+            (user) => this._authService.user = user,
+          )
+        }
+        this._router.navigate(['']);
+      },
       () => {
-        this._toastNotificationService.add("Cet email est déjà utilisé", "error") ;
+        this._toastNotificationService.add("Cet email est déjà utilisé", "error");
       }
-    ) ;
+    );
   }
 
   onUploadPicture(event: any) {
-    this.profilePicture = event.target.files[0] ;
+    this.profilePicture = event.target.files[0];
   }
 }
