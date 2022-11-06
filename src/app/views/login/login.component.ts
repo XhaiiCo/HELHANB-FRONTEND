@@ -13,8 +13,6 @@ export class LoginComponent implements OnInit {
   passwordInputType: string = "password";
   passwordInputFocused: boolean = false;
 
-  errorFeedback: string = "" ;
-
   form: FormGroup = this._fb.group({
     email: this._fb.control("", [Validators.required, Validators.email]),
     password: this._fb.control("", [Validators.required, Validators.minLength(6)]),
@@ -60,8 +58,8 @@ export class LoginComponent implements OnInit {
 
     this._authService.login(userDto).subscribe(
       (user) => {
-        this.errorFeedback = "" ;
         this._authService.user = user ;
+        this._toastNotificationService.add(`Hello ${user.firstName}`, "success") ;
       },
       () => {
         this._toastNotificationService.add("Email ou mot de passe incorrect", "error");

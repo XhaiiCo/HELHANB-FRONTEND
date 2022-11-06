@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, 
 import {AuthService} from "../../services/auth.service";
 import {DtoOutputRegistrationUser} from "../../dtos/auth/dto-output-registration-user";
 import {UserService} from "../../services/user.service";
+import {ToastNotificationService} from "../../services/toast-notification.service";
 
 @Component({
   selector: 'app-registration',
@@ -10,7 +11,6 @@ import {UserService} from "../../services/user.service";
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  errorFeedback: string = "" ;
 
   form: FormGroup = this._fb.group({
     profilePicture: this._fb.control(""),
@@ -27,12 +27,12 @@ export class RegistrationComponent implements OnInit {
 
   profilePicture: null | File = null;
 
+  constructor(private _fb: FormBuilder,
+  private _authService: AuthService,
+  private _userService: UserService,
+  private _toastNotificationService: ToastNotificationService) {}
 
-  constructor(private _fb: FormBuilder, private _authService: AuthService, private _userService: UserService) {}
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   /**
    * Return is a field of the form is valid according to the validators options
@@ -74,17 +74,18 @@ export class RegistrationComponent implements OnInit {
     } ;
     this._authService.registration(user).subscribe(
       (user) => {
-          this.errorFeedback = "";
           this._authService.user = user ;
+          this._toastNotificationService.add(`Hello ${user.firstName}`, "success") ;
 
           if(this.profilePicture){
             this._userService.updateProfilePicture(user.id, this.profilePicture).subscribe(
               (user) => this._authService.user = user,
-              (text) => console.log(text)
             )
           }
         },
-      () => {this.errorFeedback = "Erreur: cet email est déjà utilisé" ;}
+      () => {
+        this._toastNotificationService.add("Cet email est déjà utilisé", "error") ;
+      }
     ) ;
   }
 
