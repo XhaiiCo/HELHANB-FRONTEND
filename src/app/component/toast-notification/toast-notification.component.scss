@@ -1,24 +1,38 @@
+@import '../../../styles/helpers/variable' ;
+
 .toast{
   display: flex ;
+  justify-content: space-around;
+  padding: 0 ;
   margin: 20px ;
+  border-radius: 8px;
+  font-family: $main-bold-font;
+  font-size: 14px ;
+  z-index: 100;
 
   & .body{
     padding: 20px ;
+    flex: 2 ;
   }
 
   & .toast-btn-close{
     cursor: pointer;
+    background: none ;
+    padding: 0 10px ;
   }
 }
 
 .success{
-  background-color: green ;
+  background-color: #d1ecf1;
+  color: #1f5f2d ;
 }
 
 .error{
-  background-color: red ;
+  background-color: #f8d7da ;
+  color: #721c24 ;
 }
 
 .info{
-  background-color: blue ;
+  background-color: #cfe2ff ;
+  color: #084298 ;
 }
