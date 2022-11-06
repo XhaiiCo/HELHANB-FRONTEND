@@ -12,6 +12,7 @@ export class RentingComponent implements OnInit {
   @Input() daily_price: number = 149.99;
   @Input() ad_name: string = "Chalet au bord du lac";
   @Input() owner_name: string = "François";
+
   @Input() nb_max_tenant: number = 4;
   @Input() nb_bedroom: number = 2;
   @Input() nb_bed: number = 3;
@@ -23,13 +24,14 @@ export class RentingComponent implements OnInit {
   endDate!: Date;
   nbDays: number = 0;
 
-  //Jesuremie was here
   images: string[]  = [
     "../assets/img/maison1.1.webp",
     "../assets/img/maison1.2.webp",
     "../assets/img/maison1.3.webp",
     "https://www.zooplus.be/magazine/wp-content/uploads/2019/06/comprendre-le-langage-des-chats.jpg"
   ]
+
+  
 
   constructor() { }
 

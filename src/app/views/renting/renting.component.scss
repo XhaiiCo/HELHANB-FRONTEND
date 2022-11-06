@@ -1,5 +1,5 @@
 .container {
-  padding: 30px 4% 0 4%;
+  padding: 30px 8% 0 8%;
 }
 
 .wrapper {
@@ -22,15 +22,16 @@
 
 #container_carrousel {
   width: calc(70% - 20px);
-  height: 50px;
   min-width: 600px;
 }
 
 #container_reservation {
-  width: calc(30% - 20px);
-  min-width: 320px;
+  /*width: calc(30% - 50px);
+  min-width: 320px;*/
+
+  width: 380px;
+  margin-left: 90px !important;
   display: flex;
-  justify-content: center;
 }
 
 #container_reservation > div {
@@ -38,6 +39,7 @@
   border-radius: 15px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
   padding: 12px 12px;
+  position: fixed;
 }
 
 #container_reservation > div > div {
@@ -112,4 +114,19 @@ button:disabled {
 #div_date-picker {
   margin-top: 20px;
   margin-bottom: 18px;
+}
+
+#container_disponible {
+  width: calc(70% - 20px);
+  min-width: 600px;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px !important;
+}
+
+#container_disponible > div {
+  width: 500px;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+  padding: 12px 12px;
 }
