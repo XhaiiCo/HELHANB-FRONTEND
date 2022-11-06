@@ -4,9 +4,23 @@
     <p id="subtitle">{{ nb_max_tenant }} {{ str_nb_max_tenant }} ⸱ {{ nb_bedroom }} {{ str_nb_bedroom
       }} ⸱ {{ nb_bed }} {{ str_nb_bed }}</p>
   </div>
-  <div id="container_carrousel">
-    <app-carousel [images]="images" class="renting"></app-carousel>
+
+  <div id="container_carrousel_features">
+    <div id="container_carrousel">
+      <app-carousel [images]="images" class="renting"></app-carousel>
+    </div>
+    <div id="container_features">
+      <div>
+        <h2>Disponible dans ce logement :</h2>
+        <div id="container_features_list">
+          <span *ngFor="let feature of renting_features">
+            {{ feature }}
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div id="container_reservation">
     <div>
       <div id="div_price_price">
@@ -20,16 +34,6 @@
       </div>
       <div>
         <button (click)="submit()" [disabled]="nbDays == 0">Réserver</button>
-      </div>
-    </div>
-  </div>
-  <div id="container_disponible">
-    <div>
-      <h2>Disponible dans ce logement :</h2>
-      <div>
-        <span *ngFor="let feature of renting_features">
-          {{ feature }}
-        </span>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 .container {
-  padding: 30px 8% 0 8%;
+  padding: 25px 6% 0 8%;
 }
 
 .wrapper {
@@ -20,18 +20,22 @@
   width: 100%;
 }
 
+#container_carrousel_features {
+  width: auto;
+  max-width: 1110px;
+}
+
 #container_carrousel {
-  width: calc(70% - 20px);
-  min-width: 600px;
+  width: 100%;
 }
 
 #container_reservation {
-  /*width: calc(30% - 50px);
-  min-width: 320px;*/
-
-  width: 380px;
-  margin-left: 90px !important;
+  min-width: 360px;
+  height: max-content;
   display: flex;
+  align-content: center;
+  padding-left: 4%;
+  margin-top: 25px !important;
 }
 
 #container_reservation > div {
@@ -39,12 +43,25 @@
   border-radius: 15px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
   padding: 12px 12px;
+  height: max-content;
   position: fixed;
 }
 
 #container_reservation > div > div {
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 1772px) {
+
+  #container_reservation {
+    height: 560px;
+    padding-left: 0;
+  }
+
+  #container_reservation > div {
+    position: static;
+  }
 }
 
 #title {
@@ -116,18 +133,25 @@ button:disabled {
   margin-bottom: 18px;
 }
 
-#container_disponible {
-  width: calc(70% - 20px);
-  min-width: 600px;
+#container_features {
+  width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 30px !important;
 }
 
-#container_disponible > div {
+#container_features > div {
   width: 500px;
   border-radius: 15px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
   padding: 12px 12px;
 }
 
+#container_features_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#container_features_list > span {
+  width: 50%;
+}
