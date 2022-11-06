@@ -21,6 +21,7 @@ import {HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS} from '@angul
 import { DatePickerComponent } from './views/renting/date-picker/date-picker.component';
 import {CredentialsInterceptor} from "./interceptors/credentials.interceptor";
 import { RoundPipePipe } from './views/renting/round-pipe.pipe';
+import {ToastNotificationComponent} from "./component/toast-notification/toast-notification.component";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { RoundPipePipe } from './views/renting/round-pipe.pipe';
     RegistrationComponent,
     DatePickerComponent,
     RoundPipePipe,
+    ToastNotificationComponent,
   ],
   imports: [
     MbscModule,

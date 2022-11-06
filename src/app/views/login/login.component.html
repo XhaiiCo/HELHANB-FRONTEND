@@ -1,8 +1,5 @@
 <div class="container">
   <form class="form-group" [formGroup]="form" (ngSubmit)="emitLoginForm()">
-    <div *ngIf="errorFeedback" class="feedback-error">
-      {{ errorFeedback }}
-    </div>
 
     <!-- LOGIN -->
     <div class="form-group">

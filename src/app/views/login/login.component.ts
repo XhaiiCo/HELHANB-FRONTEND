@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
 import {DtoOutputLoginUser} from "../../dtos/auth/dto-output-login-user";
 import {AuthService} from "../../services/auth.service";
+import {ToastNotificationService} from "../../services/toast-notification.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,14 +14,15 @@ export class LoginComponent implements OnInit {
   passwordInputType: string = "password";
   passwordInputFocused: boolean = false;
 
-  errorFeedback: string = "" ;
-
   form: FormGroup = this._fb.group({
     email: this._fb.control("", [Validators.required, Validators.email]),
     password: this._fb.control("", [Validators.required, Validators.minLength(6)]),
   }) ;
 
-  constructor(private _fb: FormBuilder, private _authService: AuthService) { }
+  constructor(private _fb: FormBuilder,
+              private _authService: AuthService,
+              private _toastNotificationService: ToastNotificationService,
+              private _router: Router) { }
 
   ngOnInit(): void {
   }
@@ -57,10 +60,13 @@ export class LoginComponent implements OnInit {
 
     this._authService.login(userDto).subscribe(
       (user) => {
-        this.errorFeedback = "" ;
         this._authService.user = user ;
+        this._toastNotificationService.add(`Hello ${user.firstName}`, "success") ;
+        this._router.navigate(['']) ;
       },
-      () => {this.errorFeedback = "Email ou mot de passe incorrect"}
+      () => {
+        this._toastNotificationService.add("Email ou mot de passe incorrect", "error");
+      }
     ) ;
   }
 }
