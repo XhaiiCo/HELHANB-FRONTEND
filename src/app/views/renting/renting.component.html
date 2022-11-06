@@ -25,7 +25,12 @@
   </div>
   <div id="container_disponible">
     <div>
-      <h3>Disponible dans ce logement :</h3>
+      <h2>Disponible dans ce logement :</h2>
+      <div>
+        <span *ngFor="let feature of renting_features">
+          {{ feature }}
+        </span>
+      </div>
     </div>
   </div>
 </div>
