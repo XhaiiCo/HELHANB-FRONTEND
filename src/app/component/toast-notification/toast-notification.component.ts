@@ -12,9 +12,9 @@ export class ToastNotificationComponent implements OnInit {
   constructor(public toastNotificationService: ToastNotificationService) { }
 
   ngOnInit(): void {
-    this.toastNotificationService.add("test success", "success") ;
+    /*this.toastNotificationService.add("test success", "success") ;
     this.toastNotificationService.add("test info", "info") ;
-    this.toastNotificationService.add("test error", "error") ;
+    this.toastNotificationService.add("test error", "error") ;*/
   }
 
   removeNotification(id: number) {
