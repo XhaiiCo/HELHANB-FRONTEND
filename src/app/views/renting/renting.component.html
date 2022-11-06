@@ -34,7 +34,7 @@
         <span>{{ daily_price }} € x {{ nbDays }} {{ nbDays > 1 ? "nuits" : "nuit" }} = <b>{{ (nbDays * daily_price) | round }} €</b></span>
       </div>
       <div>
-        <button (click)="submit()" [disabled]="nbDays == 0">Réserver</button>
+        <button id="btn_submit" (click)="submit()" [disabled]="nbDays == 0">Réserver</button>
       </div>
     </div>
   </div>

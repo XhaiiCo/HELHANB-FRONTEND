@@ -87,7 +87,7 @@
   font-family: Calibri, serif;
 }
 
-button {
+#btn_submit {
   background: linear-gradient(to top, rgb(194, 162, 122) 0%, rgb(235, 211, 180) 100%);
   border: none;
   color: white;
@@ -104,15 +104,15 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+#btn_submit:hover {
   background: linear-gradient(to top, rgb(214, 176, 131) 0%, rgb(235, 211, 180) 100%);
 }
 
-button:active {
+#btn_submit:active {
   background: linear-gradient(to top, rgb(214, 193, 167) 0%, rgba(235, 211, 180, 0.658) 100%);
 }
 
-button:disabled {
+#btn_submit:disabled {
   background: linear-gradient(to top, rgb(240, 210, 180) 0%, rgba(235, 211, 180, 0.658) 100%);
   cursor: not-allowed;
 }
@@ -149,8 +149,46 @@ button:disabled {
 #container_features_list {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 8px;
 }
 
 #container_features_list > span {
   width: 50%;
+  padding: 5px;
+}
+
+#container_btn_feature {
+  margin-top: 5px;
+  display: flex;
+  align-content: center;
+}
+
+#btn_features {
+  background: linear-gradient(to top, rgb(194, 162, 122) 0%, rgb(235, 211, 180) 100%);
+  border: none;
+  color: white;
+  font-family: Franklin Gothic Medium, serif;
+  height: 40px;
+  width: 175px;
+  padding: 6px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 15px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+#btn_features:hover {
+  background: linear-gradient(to top, rgb(214, 176, 131) 0%, rgb(235, 211, 180) 100%);
+}
+
+#btn_features:active {
+  background: linear-gradient(to top, rgb(214, 193, 167) 0%, rgba(235, 211, 180, 0.658) 100%);
+}
+
+#btn_features:disabled {
+  background: linear-gradient(to top, rgb(240, 210, 180) 0%, rgba(235, 211, 180, 0.658) 100%);
+  cursor: not-allowed;
 }
