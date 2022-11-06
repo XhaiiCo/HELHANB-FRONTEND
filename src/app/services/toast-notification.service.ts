@@ -7,10 +7,13 @@ import {ToastNotification} from "../interfaces/toastNotification";
 export class ToastNotificationService {
 
   notifications: ToastNotification[] = [] ;
+  private readonly possibleTypes: string[] = ["success", "error", "info"];
+  private readonly defaultType: string = "info" ;
 
   constructor() { }
 
   add(content: string, type: string): void{
+    if(!this.possibleTypes.includes(type)) type = this.defaultType ;
     let newNotification: ToastNotification = {
       id: this.generateNewId(),
       content: content,

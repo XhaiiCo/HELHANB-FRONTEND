@@ -1,5 +1,4 @@
 .toast{
-  background-color: green ;
   display: flex ;
   margin: 20px ;
 
@@ -10,4 +9,16 @@
   & .toast-btn-close{
     cursor: pointer;
   }
+}
+
+.success{
+  background-color: green ;
+}
+
+.error{
+  background-color: red ;
+}
+
+.info{
+  background-color: blue ;
 }

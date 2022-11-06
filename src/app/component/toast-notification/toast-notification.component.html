@@ -1,5 +1,5 @@
 <div class="toasts-container">
-  <div *ngFor="let notification of toastNotificationService.notifications" class="toast">
+  <div *ngFor="let notification of toastNotificationService.notifications" class="toast" [class]="notification.type">
     <div class="body">
       {{ notification.content }}
     </div>
