@@ -6,6 +6,7 @@ main {
 
 app-toast-notification{
   position: fixed;
+  z-index: 1000;
   top: $header-height ;
   right: 0 ;
 }
