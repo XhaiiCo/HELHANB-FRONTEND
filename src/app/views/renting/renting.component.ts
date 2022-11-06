@@ -31,7 +31,14 @@ export class RentingComponent implements OnInit {
     "https://www.zooplus.be/magazine/wp-content/uploads/2019/06/comprendre-le-langage-des-chats.jpg"
   ]
 
-  
+  @Input() renting_features: string[] =
+    [
+      "Wifi",
+      "Salle de bain",
+      "Cuisine",
+      "Télévision",
+      "Chauffage"
+    ]
 
   constructor() { }
 
