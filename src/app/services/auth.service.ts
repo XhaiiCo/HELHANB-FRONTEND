@@ -24,4 +24,8 @@ export class AuthService {
   public registration(user: DtoOutputRegistrationUser): Observable<DtoInputUser>{
     return this._httpClient.post<DtoInputUser>(`${AuthService.ENTRY_POINT_URL}/registration`, user) ;
   }
+
+  public disconnect(){
+    return this._httpClient.get(`${AuthService.ENTRY_POINT_URL}/disconnect`) ;
+  }
 }
