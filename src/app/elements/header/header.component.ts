@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
 
   connectedDropDownOption: DropDownOption[] = [
     {name: 'Compte', path: '/compte'},
-    {name: 'Deconnexion', path: '/logout'}
+    {name: 'Deconnexion', path: '/deconnexion'}
   ]
   constructor(public authService: AuthService) { }
 

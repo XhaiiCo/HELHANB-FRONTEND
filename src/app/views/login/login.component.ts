@@ -13,6 +13,7 @@ import {Router} from "@angular/router";
 export class LoginComponent implements OnInit {
   passwordInputType: string = "password";
   passwordInputFocused: boolean = false;
+  disableLoginBtn: boolean = false ;
 
   form: FormGroup = this._fb.group({
     email: this._fb.control("", [Validators.required, Validators.email]),
@@ -53,20 +54,23 @@ export class LoginComponent implements OnInit {
   }
 
   emitLoginForm() {
+    this.disableLoginBtn = true ;
+
     let userDto: DtoOutputLoginUser = {
       email: this.form.get('email')?.value,
       password: this.form.get('password')?.value
     }
 
-    this._authService.login(userDto).subscribe(
-      (user) => {
+    this._authService.login(userDto).subscribe({
+      next: user => {
         this._authService.user = user ;
         this._toastNotificationService.add(`Hello ${user.firstName}`, "success") ;
         this._router.navigate(['']) ;
       },
-      () => {
+      error: () => {
         this._toastNotificationService.add("Email ou mot de passe incorrect", "error");
+        this.disableLoginBtn = false ;
       }
-    ) ;
+    }) ;
   }
 }
