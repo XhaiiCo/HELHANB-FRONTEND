@@ -1,5 +1,6 @@
 <mbsc-datepicker
   [(ngModel)]="calendar"
+  [firstDay]="1"
   (onPageLoaded)="removeTrialDivs()"
   (onChange)="dateChanged()"
   dateFormat="DD MMM YYYY"

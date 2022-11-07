@@ -41,6 +41,7 @@
           <b>{{ (nbDays * daily_price) | round }} €</b>
         </span>
       </footer>
+
       <button class="btn-primary" (click)="submit()" [disabled]="nbDays == 0">
         Réserver
       </button>
