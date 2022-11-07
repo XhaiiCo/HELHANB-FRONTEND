@@ -37,6 +37,13 @@ export class DatePickerComponent implements OnInit {
     let dayNamesShort = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
     for (let i = 0; i < 7; i++)
       tags2.children[i].innerHTML = dayNamesShort[i];
+
+    let tags3 = document.getElementsByTagName("mbsc-segmented-group");
+    let arrStr = ['Début', 'Fin'];
+    for (let i = 0; i < 2; i++) {
+      tags3[0].children[i].children[0].children[2].children[0].innerHTML = arrStr[i];
+    }
+
   }
 
   dateChanged() {
