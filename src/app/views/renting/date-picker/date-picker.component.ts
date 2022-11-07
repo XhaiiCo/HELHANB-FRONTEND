@@ -32,6 +32,11 @@ export class DatePickerComponent implements OnInit {
     for (let i = 0; i < tags.length; i++)
       if (tags[i].textContent == "TRIAL")
         tags[i].remove();
+
+    let tags2 = document.getElementsByTagName("mbsc-calendar-weekdays")[1];
+    let dayNamesShort = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+    for (let i = 0; i < 7; i++)
+      tags2.children[i].innerHTML = dayNamesShort[i];
   }
 
   dateChanged() {

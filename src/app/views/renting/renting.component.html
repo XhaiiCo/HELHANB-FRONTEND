@@ -13,18 +13,17 @@
   </header>
 
   <main class="main">
-    <section class="body">
-      <section class="features_container">
-        <h2>Disponible dans ce logement :</h2>
-        <div class="features_list">
-          <span *ngFor="let feature of renting_features.slice(0, 4)">
-            {{ feature }}
-          </span>
-        </div>
-        <div class="btn_feature_container" [hidden]="renting_features.length <= 4">
-          <button class="btn-primary" id="btn_features">Voir tout</button>
-        </div>
-      </section>
+    <section class="features_container">
+      <h2>Disponible dans ce logement :</h2>
+      <div class="features_list">
+        <span *ngFor="let feature of renting_features.slice(0, 4)">
+          {{ feature }}
+        </span>
+      </div>
+
+      <div class="btn_feature_container" [hidden]="renting_features.length <= 4">
+        <button class="btn-primary" id="btn_features">Voir tout</button>
+      </div>
     </section>
 
     <section class="reservation">
@@ -42,6 +41,7 @@
           <b>{{ (nbDays * daily_price) | round }} €</b>
         </span>
       </footer>
+
       <button class="btn-primary" (click)="submit()" [disabled]="nbDays == 0">
         Réserver
       </button>
