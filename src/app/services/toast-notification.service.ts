@@ -18,14 +18,17 @@ export class ToastNotificationService {
       id: this.generateNewId(),
       content: content,
       type: type,
+      isRemove: false,
     }
 
     this.notifications.push(newNotification) ;
   }
 
   remove(id: number){
-    this.notifications = this.notifications.filter(value => value.id != id) ;
-    console.log(this.notifications);
+    let notif = this.notifications.find(value => value.id == id) ;
+    if(notif)
+      notif.isRemove = true ;
+    //this.notifications = this.notifications.filter(value => value.id != id) ;
   }
   private generateNewId(): number{
     if(this.notifications.length)

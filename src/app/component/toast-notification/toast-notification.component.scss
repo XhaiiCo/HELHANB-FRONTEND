@@ -20,6 +20,11 @@
     background: none ;
     padding: 0 10px ;
   }
+
+  &.slide {
+    transition: 0.7s;
+    transform: translate(200px);
+  }
 }
 
 .success{
@@ -36,3 +41,4 @@
   background-color: #cfe2ff ;
   color: #084298 ;
 }
+
