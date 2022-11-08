@@ -10,12 +10,14 @@ import {LoginComponent} from "./views/login/login.component";
 import {RegistrationComponent} from "./views/registration/registration.component";
 import {RentingComponent} from "./views/renting/renting.component";
 import {DisconnectComponent} from "./views/disconnect/disconnect.component";
+import {AccountComponent} from "./views/account/account.component";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent   },
   {path: 'connexion', component: LoginComponent},
   {path: 'inscription', component: RegistrationComponent},
   {path: 'deconnexion', component: DisconnectComponent},
+  {path: 'compte', component: AccountComponent},
   {path: 'dev', component: IndexComponent},//Remove
   {path: 'assets', component: AssetsComponent  },//Remove
   {path: 'card', component: CardComponent},//Remove
