@@ -87,8 +87,8 @@ export class RegistrationComponent implements OnInit {
         }
         this._router.navigate(['']);
       },
-      () => {
-        this._toastNotificationService.add("Cet email est déjà utilisé", "error");
+      (err) => {
+        this._toastNotificationService.add(err.error, "error");
       }
     );
   }
