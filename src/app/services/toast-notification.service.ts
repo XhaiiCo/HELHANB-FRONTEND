@@ -13,7 +13,7 @@ export class ToastNotificationService {
 
   constructor() { }
 
-  add(content: string, type: string): void{
+  add(content: string, type: string = "info"): void{
     if(!this.possibleTypes.includes(type)) type = this.defaultType ;
     let newNotification: ToastNotification = {
       id: ++this.id,
