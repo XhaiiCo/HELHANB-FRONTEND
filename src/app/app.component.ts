@@ -17,7 +17,9 @@ export class AppComponent implements OnInit{
     this._AuthService.isConnected().subscribe(
       (user) => {
         this._AuthService.user = user ;
-        this._ToastNotificationService.add(`Hello ${user.firstName}`, "info") ;
+        setTimeout(() => {
+          this._ToastNotificationService.add(`Hello ${user.firstName}`, "info") ;
+        },500) ;
       }
     )
   }

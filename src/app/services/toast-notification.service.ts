@@ -34,6 +34,6 @@ export class ToastNotificationService {
 
     setTimeout(() => {
       this.notifications = this.notifications.filter(value => value.id != id) ;
-    }, 1000) ;
+    }, 750) ;
   }
 }

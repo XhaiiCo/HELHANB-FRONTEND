@@ -10,7 +10,8 @@
   font-size: 14px ;
   z-index: 100;
 
-  max-width: 300px;
+  max-width: 250px;
+  min-width: 250px;
 
   & .body{
     padding: 20px ;
@@ -24,8 +25,8 @@
   }
 
   &.slide {
-    transition: 1s;
-    transform: translate(320px);
+    transition: 0.750s;
+    transform: translate(270px);
   }
 }
 
