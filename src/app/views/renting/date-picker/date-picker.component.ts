@@ -15,11 +15,11 @@ const now = new Date();
 })
 export class DatePickerComponent implements OnInit {
 
-  min = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
-  max = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
+  min = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) // Date de début de location de la baraque
+  max = new Date(now.getFullYear()+1, now.getMonth() + 1, now.getDate()) // Date jusqu'à laquelle la personne veut louer sa baraque
 
   //@ViewChild('picker', { static: false })
-  calendar!: any;
+  calendar!: Date[];
   @Output() dateUpdated: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
@@ -42,11 +42,46 @@ export class DatePickerComponent implements OnInit {
     let arrStr = ['Début', 'Fin'];
     for (let i = 0; i < 2; i++) {
       tags3[0].children[i].children[0].children[2].children[0].innerHTML = arrStr[i];
+      this.dateChanged();
     }
-
   }
 
   dateChanged() {
-    this.dateUpdated.next(this.calendar);
+    this.changeSelectionString();
+
+    if (this.calendar == null) { return }
+    // Si les deux dates sont encodées
+    if (this.calendar[1] != null)
+      this.dateUpdated.next(this.calendar);
+  }
+
+  changeSelectionString() {
+    let tags3 = document.getElementsByTagName("mbsc-segmented-group");
+    // Le calendrier est initialisé
+    if (this.calendar != null) {
+      // les deux dates sont entrée
+      if (this.calendar[1] != null) {
+        for (let i = 0; i < 2; i++)
+          tags3[0].children[i].children[0].children[2].children[1].innerHTML = this.calendar[i].toString().substring(8, 10) + " " + this.calendar[i].toString().substring(4, 7) + " " + this.calendar[i].toString().substring(11, 15);
+        return;
+      }
+
+      // que la première date est entrée
+      if (this.calendar[0] != null) {
+        tags3[0].children[0].children[0].children[2].children[1].innerHTML = this.calendar[0].toString().substring(8, 10) + " " + this.calendar[0].toString().substring(4, 7) + " " + this.calendar[0].toString().substring(11, 15);
+        tags3[0].children[1].children[0].children[2].children[1].innerHTML = "Séléctionnez";
+        return;
+      }
+
+      // aucune
+      for (let i = 0; i < 2; i++)
+        tags3[0].children[i].children[0].children[2].children[1].innerHTML = "Séléctionnez";
+
+      return;
+    }
+
+    // le calendrier n'est pas initialisé
+    for (let i = 0; i < 2; i++)
+      tags3[0].children[i].children[0].children[2].children[1].innerHTML = "Séléctionnez";
   }
 }
