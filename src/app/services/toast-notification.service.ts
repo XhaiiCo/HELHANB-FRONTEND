@@ -13,7 +13,7 @@ export class ToastNotificationService {
 
   constructor() { }
 
-  add(content: string, type: string): void{
+  add(content: string, type: string = "info"): void{
     if(!this.possibleTypes.includes(type)) type = this.defaultType ;
     let newNotification: ToastNotification = {
       id: ++this.id,
@@ -34,6 +34,6 @@ export class ToastNotificationService {
 
     setTimeout(() => {
       this.notifications = this.notifications.filter(value => value.id != id) ;
-    }, 1000) ;
+    }, 750) ;
   }
 }
