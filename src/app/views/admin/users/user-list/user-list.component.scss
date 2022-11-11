@@ -1,45 +1,50 @@
 @import '../../../../../styles/helpers/variable';
 
+$media-mobile: 650px;
 .user-list-section {
-  display: flex;
-  justify-content: center;
+  margin: auto ;
+  width: 75% ;
 }
 
 .responsive-table {
   border-collapse: collapse;
-  min-width: 750px;
+  min-width: calc($media-mobile - 25%);
+  width: 100% ;
+
   thead {
     font-family: $main-bold-font;
     font-size: 12px;
     text-align: left;
     height: 50px;
 
-    th{
+    th {
       border-bottom: 3px solid silver;
       padding: 10px;
     }
   }
 
-  tbody{
-    font-family: $main-font ;
-    font-size: 11px ;
+  tbody {
+    font-family: $main-font;
+    font-size: 11px;
     text-align: left;
 
-    & td{
-      padding: 5px ;
+    & td {
+      padding: 5px;
     }
   }
-}
 
-@media (max-width: 750px) {
-
-  .responsive-table {
+  @media (max-width: $media-mobile) {
+    display: flex;
+    justify-content: center;
+    min-width: 0;
     thead {
       display: none;
     }
 
     tbody, tr, td {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      font-size: 15px;
     }
 
     tr {
@@ -48,11 +53,12 @@
   }
 }
 
-.user{
+.user {
   display: flex;
-  gap: 10px ;
+  gap: 10px;
   align-items: center;
-  .user_pp > img{
+
+  .user_pp > img {
     border-radius: 50%;
     height: 40px;
     object-position: 50% 50%;
@@ -60,4 +66,55 @@
     aspect-ratio: 1 / 1;
   }
 
+  @media (max-width: $media-mobile) {
+    display: flex;
+    flex-direction: row !important;
+    align-items: start;
+
+    .user_pp > img{
+      height: 60px ;
+    }
+  }
 }
+
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+
+  @media (max-width: $media-mobile) {
+    align-items: flex-end !important;
+    justify-content: flex-end !important;
+  }
+
+  & button {
+    padding: 3px;
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .icon {
+    width: 17px;
+  }
+
+  .btn-delete {
+    background: red;
+  }
+
+  .btn-update {
+    background-color: green;
+  }
+
+  @media (max-width: $media-mobile) {
+
+    .icon {
+      width: 27px;
+    }
+  }
+}
+
