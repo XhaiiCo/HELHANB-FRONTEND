@@ -20,6 +20,12 @@ export class HeaderComponent implements OnInit {
     {name: 'Compte', path: '/compte'},
     {name: 'Deconnexion', path: '/deconnexion'}
   ]
+
+  adminDropDownOption: DropDownOption[] = [
+    {name: 'Compte', path: '/compte'},
+    {name: 'Administration', path: '/administration'},
+    {name: 'Deconnexion', path: '/deconnexion'}
+  ]
   constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
