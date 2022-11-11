@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CardComponent } from './component/card/card.component';
 import { AssetsComponent } from './dev/assets/assets.component';
-import {RoutingModule} from "./routing.module";
+import {RoutingModule} from "./routing/routing.module";
 import {IndexComponent} from "./views/index/index.component";
 import {CropperComponent} from "./component/cropper/cropper.component";
 import {ImageCropperModule} from "ngx-image-cropper";
