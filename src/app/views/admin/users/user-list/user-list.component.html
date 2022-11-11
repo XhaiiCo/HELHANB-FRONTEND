@@ -1,26 +1,39 @@
 <section class="user-list-section">
   <table class="responsive-table">
     <thead>
-      <tr>
-        <th>Utilisateur</th>
-        <th>Creation du compte</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Action</th>
-      </tr>
+    <tr>
+      <th>Utilisateur</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Action</th>
+    </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let user of userList">
-        <td>{{user.lastName + " " + user.firstName}}</td>
-        <td>{{user.accountCreation}}</td>
-        <td>{{user.email}}</td>
-        <td>{{user.roleId}}</td>
-        <td>
-          <button>Modifier</button>
-          <button (click)="deleteUser(user.id)">Supprimer</button>
-        </td>
-      </tr>
+    <tr *ngFor="let user of userList">
+      <td class="user">
+        <div class="user_pp">
+          <img *ngIf="user.profilePicturePath == null"
+               src="../../../../../assets/img/user_pic-50x50.png" alt="profil pic">
+          <img *ngIf="user.profilePicturePath != null"
+               [src]="profilePictureBaseUri + user.profilePicturePath" alt="profil pic">
+        </div>
+        <div class="user_body">
+          <div>
+            <b>{{user.lastName + " " + user.firstName}}</b>
+          </div>
+          <div>
+            {{user.accountCreation}}
+          </div>
+        </div>
+      </td>
+      <td>{{user.email}}</td>
+      <td>{{user.roleId}}</td>
+      <td>
+        <button>Modifier</button>
+        <button (click)="deleteUser(user.id)">Supprimer</button>
+      </td>
+    </tr>
     </tbody>
   </table>
 </section>

@@ -7,17 +7,27 @@
 
 .responsive-table {
   border-collapse: collapse;
+  min-width: 750px;
   thead {
     font-family: $main-bold-font;
+    font-size: 12px;
     text-align: left;
+    height: 50px;
+
     th{
       border-bottom: 3px solid silver;
+      padding: 10px;
     }
   }
 
   tbody{
     font-family: $main-font ;
+    font-size: 11px ;
     text-align: left;
+
+    & td{
+      padding: 5px ;
+    }
   }
 }
 
@@ -38,3 +48,16 @@
   }
 }
 
+.user{
+  display: flex;
+  gap: 10px ;
+  align-items: center;
+  .user_pp > img{
+    border-radius: 50%;
+    height: 40px;
+    object-position: 50% 50%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+  }
+
+}

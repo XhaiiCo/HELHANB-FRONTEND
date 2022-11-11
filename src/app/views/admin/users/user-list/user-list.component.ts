@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../../services/user.service";
 import {DtoInputUser} from "../../../../dtos/auth/dto-input-user";
 import {ToastNotificationService} from "../../../../services/toast-notification.service";
+import {AuthService} from "../../../../services/auth.service";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-list',
@@ -11,8 +13,10 @@ import {ToastNotificationService} from "../../../../services/toast-notification.
 export class UserListComponent implements OnInit {
 
   userList: DtoInputUser[] = [];
+  profilePictureBaseUri: string  = environment.pictureUrl ;
 
-  constructor(private _userService: UserService, private _toastNotificationService: ToastNotificationService) {
+  constructor(private _userService: UserService,
+              private _toastNotificationService: ToastNotificationService,) {
   }
 
   ngOnInit(): void {
