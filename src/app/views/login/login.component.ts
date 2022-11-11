@@ -70,8 +70,11 @@ export class LoginComponent implements OnInit {
         this._toastNotificationService.add(`Hello ${user.firstName}`, "success") ;
         this._router.navigate(['']) ;
       },
-      error: () => {
-        this._toastNotificationService.add("Email ou mot de passe incorrect", "error");
+      error: (err) => {
+        if(err.status === 401)
+          this._toastNotificationService.add(err.error, "error");
+        else
+          this._toastNotificationService.add("Erreur de connexion au serveur", "error") ;
 
         this.submitBtnText = "Se connecter" ;
         this.disableLoginBtn = false ;

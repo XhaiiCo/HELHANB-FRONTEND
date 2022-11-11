@@ -27,6 +27,8 @@ export class RegistrationComponent implements OnInit {
 
 
   profilePicture: null | File = null;
+  btnSubmitRegistrationText: string = "S'inscrire" ;
+  disableRegistrationBtn: boolean = false ;
 
   constructor(private _fb: FormBuilder,
               private _authService: AuthService,
@@ -69,6 +71,9 @@ export class RegistrationComponent implements OnInit {
   }
 
   emitRegistrationForm() {
+   this.btnSubmitRegistrationText = "Inscription..." ;
+   this.disableRegistrationBtn = true ;
+
     let user: DtoOutputRegistrationUser = {
       firstName: this.form.get('firstName')?.value,
       lastName: this.form.get('lastName')?.value,
@@ -88,7 +93,13 @@ export class RegistrationComponent implements OnInit {
         this._router.navigate(['']);
       },
       (err) => {
-        this._toastNotificationService.add(err.error, "error");
+        this.btnSubmitRegistrationText = "S'inscrire" ;
+        this.disableRegistrationBtn = false ;
+
+        if(err.status === 409)
+          this._toastNotificationService.add(err.error, "error");
+        else
+          this._toastNotificationService.add("Erreur de connexion au serveur", "error") ;
       }
     );
   }

@@ -54,7 +54,7 @@
         <span class="feedback"></span>
       </ng-template>
     </div>
-    <input type="submit" value="Inscription" class="btn-primary" [disabled]="form.invalid" [class.disabled]="form.invalid">
+    <input type="submit" [value]="btnSubmitRegistrationText" class="btn-primary" [disabled]="form.invalid || disableRegistrationBtn" [class.disabled]="form.invalid">
   </form>
   <p class="redirection">Déjà inscrit? <a [routerLink]="'/connexion'">Connexion</a></p>
 </div>
