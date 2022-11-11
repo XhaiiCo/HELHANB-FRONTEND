@@ -14,6 +14,9 @@ export class DisconnectComponent implements OnInit {
         private _authService: AuthService,
         private _toastNotification: ToastNotificationService) { }
 
+  /**
+   * Disconnect the user
+   */
   ngOnInit(): void {
     this._authService.disconnect().subscribe({
       next: () => {

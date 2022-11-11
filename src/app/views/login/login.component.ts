@@ -55,6 +55,10 @@ export class LoginComponent implements OnInit {
     return this.form.get(fieldName)?.touched && this.form.get(fieldName)?.dirty && this.form.get(fieldName)?.invalid || false;
   }
 
+  /**
+   * It sends the user's credentials to the server, and if the server responds with a success, it redirects the user to the
+   * home page, otherwise it displays an error message
+   */
   emitLoginForm() {
     this.disableLoginBtn = true ;
     this.submitBtnText = "Connexion..." ;

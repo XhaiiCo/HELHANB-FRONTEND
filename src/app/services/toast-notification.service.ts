@@ -13,6 +13,11 @@ export class ToastNotificationService {
 
   constructor() { }
 
+  /**
+   * We're adding a new notification to the array of notifications, and then we're removing it after 5 seconds
+   * @param {string} content - The content of the notification.
+   * @param {string} [type=info] - The type of the notification (success, error or info).
+   */
   add(content: string, type: string = "info"): void{
     if(!this.possibleTypes.includes(type)) type = this.defaultType ;
     let newNotification: ToastNotification = {
@@ -27,6 +32,9 @@ export class ToastNotificationService {
     setTimeout(() => this.remove(newNotification.id), 5000) ;
   }
 
+  /**
+   * @param {number} id - The id of the notification.
+   */
   remove(id: number){
     let notif = this.notifications.find(value => value.id == id) ;
     if(notif)

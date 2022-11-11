@@ -17,6 +17,9 @@ export class ToastNotificationComponent implements OnInit {
     this.toastNotificationService.add("test error", "error") ;*/
   }
 
+  /**
+   * @param {number} id - The id of the notification to remove.
+   */
   removeNotification(id: number) {
     this.toastNotificationService.remove(id) ;
   }

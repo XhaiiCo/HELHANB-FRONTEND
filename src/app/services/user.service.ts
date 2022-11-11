@@ -13,6 +13,12 @@ export class UserService {
 
   constructor(private _httpClient: HttpClient) { }
 
+  /**
+   * It takes a user id and an image, and it returns an observable of the updated user
+   * @param {number} id - number - the id of the user to update
+   * @param {any} image - any - this is the image file that you want to upload.
+   * @returns The user with the updated profile picture.
+   */
   public updateProfilePicture(id: number, image: any): Observable<DtoInputUser>{
     let formData = new FormData() ;
     formData.append("profilePicture", image, image.name) ;
@@ -23,6 +29,11 @@ export class UserService {
     return this._httpClient.get<DtoInputUser[]>(`${UserService.ENTRY_POINT_URL}`) ;
   }
 
+  /**
+   * It deletes a user from the database.
+   * @param {number} id - number - the id of the user to be deleted
+   * @returns Observable<DtoInputUser>
+   */
   public delete(id: number): Observable<DtoInputUser>{
     return this._httpClient.delete<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}`) ;
   }

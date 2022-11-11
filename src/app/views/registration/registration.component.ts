@@ -56,6 +56,12 @@ export class RegistrationComponent implements OnInit {
     return false;
   }
 
+  /**
+   * It returns a validator function that takes a form control as an argument and returns a validation error if the values
+   * of two controls in the form group are not equal
+   * @param {string} controlName1 - The name of the first control to compare.
+   * @param {string} controlName2 - string - The name of the control to compare the value of the current control to.
+   */
   private controlValuesAreEqual(controlName1: string, controlName2: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const formGroup = control as FormGroup;
@@ -70,6 +76,10 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
+  /**
+   * We're sending a request to the server to register a new user, and if the request is successful, we're redirecting the
+   * user to the home page
+   */
   emitRegistrationForm() {
     this.btnSubmitRegistrationText = "Inscription...";
     this.disableRegistrationBtn = true;
