@@ -27,8 +27,8 @@ export class RegistrationComponent implements OnInit {
 
 
   profilePicture: null | File = null;
-  btnSubmitRegistrationText: string = "S'inscrire" ;
-  disableRegistrationBtn: boolean = false ;
+  btnSubmitRegistrationText: string = "S'inscrire";
+  disableRegistrationBtn: boolean = false;
 
   constructor(private _fb: FormBuilder,
               private _authService: AuthService,
@@ -71,8 +71,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   emitRegistrationForm() {
-   this.btnSubmitRegistrationText = "Inscription..." ;
-   this.disableRegistrationBtn = true ;
+    this.btnSubmitRegistrationText = "Inscription...";
+    this.disableRegistrationBtn = true;
 
     let user: DtoOutputRegistrationUser = {
       firstName: this.form.get('firstName')?.value,
@@ -80,28 +80,33 @@ export class RegistrationComponent implements OnInit {
       email: this.form.get('email')?.value,
       password: this.form.get('password')?.value,
     };
-    this._authService.registration(user).subscribe(
-      (user) => {
+
+    this._authService.registration(user).subscribe({
+      next: (user) => {
         this._authService.user = user;
         this._toastNotificationService.add(`Hello ${user.firstName}`, "success");
 
         if (this.profilePicture) {
-          this._userService.updateProfilePicture(user.id, this.profilePicture).subscribe(
-            (user) => this._authService.user = user,
-          )
+          this._userService.updateProfilePicture(user.id, this.profilePicture).subscribe({
+            next: (user) => this._authService.user = user,
+            error: (err) => {
+              if(err.status === 401)
+                this._toastNotificationService.add(err.error, "error") ;
+            }
+          });
         }
         this._router.navigate(['']);
       },
-      (err) => {
-        this.btnSubmitRegistrationText = "S'inscrire" ;
-        this.disableRegistrationBtn = false ;
+      error: (err) => {
+        this.btnSubmitRegistrationText = "S'inscrire";
+        this.disableRegistrationBtn = false;
 
-        if(err.status === 409)
+        if (err.status === 409)
           this._toastNotificationService.add(err.error, "error");
         else
-          this._toastNotificationService.add("Erreur de connexion au serveur", "error") ;
+          this._toastNotificationService.add("Erreur de connexion au serveur", "error");
       }
-    );
+    });
   }
 
   onUploadPicture(event: any) {
