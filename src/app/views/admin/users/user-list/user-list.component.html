@@ -1,1 +1,26 @@
-<p>user-list works!</p>
+<section class="user-list-section">
+  <table class="responsive-table">
+    <thead>
+      <tr>
+        <th>Utilisateur</th>
+        <th>Creation du compte</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let user of userList">
+        <td>{{user.lastName + " " + user.firstName}}</td>
+        <td>{{user.accountCreation}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.roleId}}</td>
+        <td>
+          <button>Modifier</button>
+          <button>Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

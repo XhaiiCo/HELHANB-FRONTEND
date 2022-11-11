@@ -1,0 +1,40 @@
+@import '../../../../../styles/helpers/variable';
+
+.user-list-section {
+  display: flex;
+  justify-content: center;
+}
+
+.responsive-table {
+  border-collapse: collapse;
+  thead {
+    font-family: $main-bold-font;
+    text-align: left;
+    th{
+      border-bottom: 3px solid silver;
+    }
+  }
+
+  tbody{
+    font-family: $main-font ;
+    text-align: left;
+  }
+}
+
+@media (max-width: 750px) {
+
+  .responsive-table {
+    thead {
+      display: none;
+    }
+
+    tbody, tr, td {
+      display: block;
+    }
+
+    tr {
+      margin-bottom: 15px;
+    }
+  }
+}
+

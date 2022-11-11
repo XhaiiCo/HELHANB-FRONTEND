@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../../../../services/user.service";
+import {DtoInputUser} from "../../../../dtos/auth/dto-input-user";
 
 @Component({
   selector: 'app-user-list',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListComponent implements OnInit {
 
-  constructor() { }
+  userList: DtoInputUser[] = [] ;
+
+  constructor(private _userService: UserService) { }
 
   ngOnInit(): void {
+    this._userService.fetchAll().subscribe(
+      (userList) => this.userList = userList
+    );
   }
-
 }
