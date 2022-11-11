@@ -22,4 +22,8 @@ export class UserService {
   public fetchAll(): Observable<DtoInputUser[]>{
     return this._httpClient.get<DtoInputUser[]>(`${UserService.ENTRY_POINT_URL}`) ;
   }
+
+  public delete(id: number): Observable<DtoInputUser>{
+    return this._httpClient.delete<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}`) ;
+  }
 }
