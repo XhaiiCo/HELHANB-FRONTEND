@@ -18,4 +18,8 @@ export class UserService {
     formData.append("profilePicture", image, image.name) ;
     return this._httpClient.post<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}/profilePicture`, formData) ;
   }
+
+  public fetchAll(): Observable<DtoInputUser[]>{
+    return this._httpClient.get<DtoInputUser[]>(`${UserService.ENTRY_POINT_URL}`) ;
+  }
 }
