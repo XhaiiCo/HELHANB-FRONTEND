@@ -12,6 +12,7 @@ import {RentingComponent} from "../views/renting/renting.component";
 import {DisconnectComponent} from "../views/disconnect/disconnect.component";
 import {AccountComponent} from "../views/account/account.component";
 import {AdminPageComponent} from "../views/admin/admin-page/admin-page.component";
+import {RoleGuardService} from "./guards/role-guard.service";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent   },
@@ -24,8 +25,14 @@ const routes: Routes = [
   {path: 'card', component: CardComponent},//Remove
   {path: 'cropper', component: CropperComponent},//Remove
   {path: 'location/:id', component: RentingComponent },
-
-  {path: 'administration', component: AdminPageComponent},
+  {
+    path: 'administration',
+    component: AdminPageComponent,
+    canActivate: [RoleGuardService],
+    data: {
+      expectedRole: 2,
+    },
+  },
   {path: '**', component: NotFoundComponent},
 ]
 
