@@ -13,6 +13,7 @@ import {DisconnectComponent} from "../views/disconnect/disconnect.component";
 import {AccountComponent} from "../views/account/account.component";
 import {AdminPageComponent} from "../views/admin/admin-page/admin-page.component";
 import {RoleGuardService} from "./guards/role-guard.service";
+import {UserListComponent} from "../views/admin/users/user-list/user-list.component";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent   },
@@ -32,6 +33,9 @@ const routes: Routes = [
     data: {
       expectedRole: 2,
     },
+    children: [
+      {path: 'utilisateurs', component: UserListComponent},
+    ]
   },
   {path: '**', component: NotFoundComponent},
 ]

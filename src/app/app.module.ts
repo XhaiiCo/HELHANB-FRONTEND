@@ -23,6 +23,7 @@ import {CredentialsInterceptor} from "./interceptors/credentials.interceptor";
 import { RoundPipePipe } from './views/renting/round-pipe.pipe';
 import {ToastNotificationComponent} from "./component/toast-notification/toast-notification.component";
 import {AdminPageComponent} from "./views/admin/admin-page/admin-page.component";
+import {UserListComponent} from "./views/admin/users/user-list/user-list.component";
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {AdminPageComponent} from "./views/admin/admin-page/admin-page.component"
     RoundPipePipe,
     ToastNotificationComponent,
     AdminPageComponent,
+    UserListComponent,
   ],
   imports: [
     MbscModule,
