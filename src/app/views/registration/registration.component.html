@@ -1,13 +1,18 @@
 <div class="container">
   <form class="form-group" [formGroup]="form" (ngSubmit)="emitRegistrationForm()">
 
-    <input type="file" accept="image/*" formControlName="profilePicture" (change)="onUploadPicture($event)">
+    <div class="form-group">
+      <label for="pp" class="label">Photo de profile</label>
+      <input id="pp" class="file-input" type="file" accept="image/*" formControlName="profilePicture" (change)="onUploadPicture($event)">
+    </div>
+
     <div class="inline-input">
 
       <!-- LAST NAME -->
       <div class="form-group">
         <label for="lastName" class="label">Nom</label>
-        <input type="text" id="lastName" class="input-text" formControlName="lastName"  [class.invalid]="isInvalid('lastName')">
+        <input type="text" id="lastName" class="input-text" formControlName="lastName"
+               [class.invalid]="isInvalid('lastName')">
         <span *ngIf="isInvalid('lastName'); else blank" class="feedback">Veuillez entrer votre nom</span>
         <ng-template #blank>
           <span class="feedback"></span>
@@ -17,7 +22,8 @@
       <!-- FIRST NAME -->
       <div class="form-group">
         <label for="firstName" class="label">Prénom</label>
-        <input type="text" id="firstName" class="input-text" formControlName="firstName"  [class.invalid]="isInvalid('firstName')">
+        <input type="text" id="firstName" class="input-text" formControlName="firstName"
+               [class.invalid]="isInvalid('firstName')">
         <span *ngIf="isInvalid('firstName'); else blank" class="feedback">Veuillez entrer votre prénom</span>
         <ng-template #blank>
           <span class="feedback"></span>
@@ -28,8 +34,10 @@
     <!-- EMAIL -->
     <div class="form-group">
       <label for="email" class="label">E-mail</label>
-      <input type="email" id="email" class="input-text" placeholder="exemple@nom.com" formControlName="email"  [class.invalid]="isInvalid('email')">
-      <span *ngIf="isInvalid('email'); else blank" class="feedback">Entrez une adresse valide. Exemple contact@nom.com</span>
+      <input type="email" id="email" class="input-text" placeholder="exemple@nom.com" formControlName="email"
+             [class.invalid]="isInvalid('email')">
+      <span *ngIf="isInvalid('email'); else blank"
+            class="feedback">Entrez une adresse valide. Exemple contact@nom.com</span>
       <ng-template #blank>
         <span class="feedback"></span>
       </ng-template>
@@ -38,7 +46,8 @@
     <!-- PASSWORD -->
     <div class="form-group">
       <label for="password" class="label">Mot de passe</label>
-      <input type="password" id="password" class="input-text" formControlName="password"  [class.invalid]="isInvalid('password')">
+      <input type="password" id="password" class="input-text" formControlName="password"
+             [class.invalid]="isInvalid('password')">
       <span *ngIf="isInvalid('password'); else blank" class="feedback">Veuillez un mot de passe valide</span>
       <ng-template #blank>
         <span class="feedback"></span>
@@ -48,13 +57,16 @@
     <!-- CONFIRM PASSWORD -->
     <div class="form-group">
       <label for="confirmPassword" class="label">Confirmation mot de passe</label>
-      <input type="password" id="confirmPassword" class="input-text" formControlName="confirmPassword"  [class.invalid]="form.get('confirmPassword')?.touched && isPasswordEquals()">
+      <input type="password" id="confirmPassword" class="input-text" formControlName="confirmPassword"
+             [class.invalid]="form.get('confirmPassword')?.touched && isPasswordEquals()">
       <span *ngIf="form.get('confirmPassword')?.touched && isPasswordEquals(); else blank" class="feedback">Les mots de passes ne correspondent pas</span>
       <ng-template #blank>
         <span class="feedback"></span>
       </ng-template>
     </div>
-    <input type="submit" [value]="btnSubmitRegistrationText" class="btn-primary" [disabled]="form.invalid || disableRegistrationBtn" [class.disabled]="form.invalid">
+
+    <input type="submit" [value]="btnSubmitRegistrationText" class="btn-primary"
+           [disabled]="form.invalid || disableRegistrationBtn" [class.disabled]="form.invalid">
   </form>
   <p class="redirection">Déjà inscrit? <a [routerLink]="'/connexion'">Connexion</a></p>
 </div>
