@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
     password: this._fb.control("", [Validators.required, Validators.minLength(6)]),
   }) ;
 
+  submitBtnText: string = "Se connecter" ;
+
   constructor(private _fb: FormBuilder,
               private _authService: AuthService,
               private _toastNotificationService: ToastNotificationService,
@@ -55,6 +57,7 @@ export class LoginComponent implements OnInit {
 
   emitLoginForm() {
     this.disableLoginBtn = true ;
+    this.submitBtnText = "Connexion..." ;
 
     let userDto: DtoOutputLoginUser = {
       email: this.form.get('email')?.value,
@@ -69,6 +72,8 @@ export class LoginComponent implements OnInit {
       },
       error: () => {
         this._toastNotificationService.add("Email ou mot de passe incorrect", "error");
+
+        this.submitBtnText = "Se connecter" ;
         this.disableLoginBtn = false ;
       }
     }) ;
