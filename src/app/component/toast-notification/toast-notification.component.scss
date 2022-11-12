@@ -31,17 +31,17 @@
 }
 
 .success{
-  background-color: #d1ecf1;
-  color: #1f5f2d ;
+  background-color: $success-background-color;
+  color: $success-color ;
 }
 
 .error{
-  background-color: #f8d7da ;
-  color: #721c24 ;
+  background-color: $error-background-color ;
+  color: $error-color ;
 }
 
 .info{
-  background-color: #cfe2ff ;
-  color: #084298 ;
+  background-color: $info-background-color ;
+  color: $info-color ;
 }
 

@@ -1,5 +1,4 @@
 /* COLOR */
-//$main-color: #903DF4 ;
 $main-color: #7676ff ;
 $secondary-color: #D4D5DA ;
 $background-color: #f8f8f8;
@@ -8,7 +7,15 @@ $orange: #e1a237 ;
 $light-blue: #7676ff;
 $black:  #1d1d31 ;
 $very-light-grey: #ebebeb ;
+$grey: #e6e6ea ;
 $invalid: #ff0000;
+
+$success-background-color: #d1ecf1 ;
+$success-color: #1f5f2d ;
+$error-background-color: #f8d7da ;
+$error-color: #721c24 ;
+$info-background-color: #cfe2ff ;
+$info-color: #084298 ;
 
 /* FONT */
 $main-font: Poppins-regular,  sans-serif;
@@ -16,6 +23,9 @@ $main-bold-font: Poppins-bold,  sans-serif;
 
 /* FONT SIZE */
 $input-font-size: 14px ;
+
+/* MEDIA QUERIES */
+$responsive-table-mobile-size: 650px;
 
 /* OTHER */
 $radius: 5px ;

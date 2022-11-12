@@ -1,56 +1,9 @@
-@import '../../../../../styles/helpers/variable';
+@import '../../../../../styles/helpers/variable' ;
+@import '../../../../../styles/components/responsive-table' ;
 
-$media-mobile: 650px;
 .user-list-section {
   margin: auto ;
   width: 75% ;
-}
-
-.responsive-table {
-  border-collapse: collapse;
-  min-width: calc($media-mobile - 25%);
-  width: 100% ;
-
-  thead {
-    font-family: $main-bold-font;
-    font-size: 12px;
-    text-align: left;
-    height: 50px;
-
-    th {
-      border-bottom: 3px solid silver;
-      padding: 10px;
-    }
-  }
-
-  tbody {
-    font-family: $main-font;
-    font-size: 11px;
-    text-align: left;
-
-    & td {
-      padding: 5px;
-    }
-  }
-
-  @media (max-width: $media-mobile) {
-    display: flex;
-    justify-content: center;
-    min-width: 0;
-    thead {
-      display: none;
-    }
-
-    tbody, tr, td {
-      display: flex;
-      flex-direction: column;
-      font-size: 15px;
-    }
-
-    tr {
-      margin-bottom: 15px;
-    }
-  }
 }
 
 .user {
@@ -66,7 +19,7 @@ $media-mobile: 650px;
     aspect-ratio: 1 / 1;
   }
 
-  @media (max-width: $media-mobile) {
+  @media (max-width: $responsive-table-mobile-size) {
     display: flex;
     flex-direction: row !important;
     align-items: start;
@@ -80,10 +33,10 @@ $media-mobile: 650px;
 .btn-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 3px;
 
-  @media (max-width: $media-mobile) {
+  @media (max-width: $responsive-table-mobile-size) {
     align-items: flex-end !important;
     justify-content: flex-end !important;
   }
@@ -91,7 +44,7 @@ $media-mobile: 650px;
   & button {
     padding: 3px;
     height: 100%;
-    border-radius: 5px;
+    border-radius: $radius;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,19 +52,20 @@ $media-mobile: 650px;
   }
 
   .icon {
-    width: 17px;
+    width: 20px;
   }
 
   .btn-delete {
-    background: red;
+    background: $error-background-color;
+    color: $error-color ;
   }
 
   .btn-update {
-    background-color: green;
+    background-color: $info-background-color;
+    color: $info-color ;
   }
 
-  @media (max-width: $media-mobile) {
-
+  @media (max-width: $responsive-table-mobile-size) {
     .icon {
       width: 27px;
     }
