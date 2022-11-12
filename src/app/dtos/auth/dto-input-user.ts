@@ -6,4 +6,5 @@ export interface DtoInputUser {
   email: string;
   profilePicturePath: string | null ;
   roleId: number ;
+  roleName: string ;
 }
