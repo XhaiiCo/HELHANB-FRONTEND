@@ -23,7 +23,7 @@ const routes: Routes = [
     component: AdminPageComponent,
     //canActivate: [RoleGuardService],
     data: {
-      expectedRole: 2,
+      expectedRole: 3,
     },
     children: [
       {path: 'utilisateurs', component: UserListComponent},
