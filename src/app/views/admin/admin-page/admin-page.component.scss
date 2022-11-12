@@ -1,0 +1,31 @@
+@import "../../../../styles/helpers/variable";
+.menu{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 13px ;
+  font-family: $main-font;
+  font-size: 12px;
+  margin-bottom: 20px ;
+
+  .menu-item{
+   display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3px ;
+
+    .icon svg{
+      width: 30px ;
+    }
+    &.active{
+      border-bottom: 3px solid black;
+    }
+  }
+
+  @media (max-width: $responsive-table-mobile-size) {
+    .description{
+      display: none;
+    }
+  }
+}
