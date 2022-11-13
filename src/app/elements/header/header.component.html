@@ -27,11 +27,11 @@
           <div [routerLink]="[option.path]" *ngFor="let option of notConnectedDropDownOption">{{option.name}}</div>
         </div>
 
-        <div *ngIf="authService.user && authService.user.roleId === 1" class="options">
+        <div *ngIf="authService.user && authService.user.role.id === 1" class="options">
           <div [routerLink]="[option.path]" *ngFor="let option of connectedDropDownOption">{{option.name}}</div>
         </div>
 
-        <div *ngIf="authService.user && authService.user.roleId === 3" class="options">
+        <div *ngIf="authService.user && authService.user.role.id === 3" class="options">
           <div [routerLink]="[option.path]" *ngFor="let option of adminDropDownOption">{{option.name}}</div>
         </div>
       </div>

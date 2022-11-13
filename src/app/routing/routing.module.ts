@@ -21,7 +21,7 @@ const routes: Routes = [
   {
     path: 'administration',
     component: AdminPageComponent,
-    //canActivate: [RoleGuardService],
+    canActivate: [RoleGuardService],
     data: {
       expectedRole: 3,
     },

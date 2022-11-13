@@ -22,7 +22,7 @@ export class RoleGuardService implements CanActivate{
     //Get User
     const connectedUser: DtoInputUser | null = this._authService.user ;
     if(expectedRole && connectedUser){
-      if(connectedUser.roleId === expectedRole) return true ;
+      if(connectedUser.role.id === expectedRole) return true ;
     }
 
     this._router.navigate(['connexion']) ;

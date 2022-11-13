@@ -5,6 +5,10 @@ export interface DtoInputUser {
   accountCreation: Date ;
   email: string;
   profilePicturePath: string | null ;
-  roleId: number ;
-  roleName: string ;
+  role: Role ;
+}
+
+interface Role{
+  id: number ;
+  name: string ;
 }
