@@ -84,4 +84,12 @@ export class RentingComponent implements OnInit {
   submit() {
     console.log("test");
   }
+
+  showAllFeatures() {
+    this.displayAllFeatures = true;
+  }
+
+  closeAllFeatures() {
+    this.displayAllFeatures = false;
+  }
 }
