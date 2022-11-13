@@ -35,9 +35,19 @@
   }
 }
 
+.reservation_container{
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+  padding: 12px 12px;
+  text-align: center;
+  margin-bottom: 25px;
+  margin-left: 7px;
+  width: auto;
+}
+
 .reservation_price_by_night {
-  margin-top: 5px;
-  margin-bottom: -5px;
+  margin-top: 8px;
+  margin-bottom: -8px;
 }
 
 .reservation_total_price {
@@ -47,7 +57,15 @@
 
 .reservation_date-picker {
   margin-top: 20px;
-  //margin-bottom: 8px;
+}
+
+.features_container {
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+  padding: 16px 16px 12px 20px;
+  width: auto;
+  height: min-content;
+  margin-right: 7px;
 }
 
 .features_list {
@@ -59,20 +77,13 @@
   & > span{
     width: 50%;
     padding: 5px;
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
 .btn_feature_container {
   margin-top: 10px;
-}
-
-.reservation {
-  border-radius: 15px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
-  padding: 12px 12px;
   text-align: center;
-  margin-bottom: 25px;
 }
 
 .span_price {
