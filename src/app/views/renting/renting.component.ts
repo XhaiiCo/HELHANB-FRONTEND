@@ -37,7 +37,30 @@ export class RentingComponent implements OnInit {
       "Salle de bain",
       "Cuisine",
       "Télévision",
-      "Chauffage"
+      "Chauffage",
+      /*"Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage",
+      "Chauffage_caché",
+      "Chauffage_caché",
+      "Chauffage_caché",
+      "Chauffage_caché"*/
     ]
 
   constructor() { }
