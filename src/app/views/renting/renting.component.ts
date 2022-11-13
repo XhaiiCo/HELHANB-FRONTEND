@@ -31,6 +31,8 @@ export class RentingComponent implements OnInit {
     "https://www.zooplus.be/magazine/wp-content/uploads/2019/06/comprendre-le-langage-des-chats.jpg"
   ]
 
+  displayAllFeatures: boolean = false;
+
   @Input() renting_features: string[] =
     [
       "Wifi",
