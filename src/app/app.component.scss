@@ -1,7 +1,13 @@
 @import "../styles/helpers/variable.scss" ;
 
+html {
+  overflow: hidden;
+}
+
 main {
   margin-top: $header-height;
+  overflow-y: auto;
+  height: calc(100vh - $header-height) ;
 }
 
 app-toast-notification{
