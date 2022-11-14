@@ -133,7 +133,7 @@ h2 {
 
 #background_allFeatures_container {
   z-index: 999;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
@@ -142,7 +142,7 @@ h2 {
 }
 
 #allFeatures_container {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 15%;
   transform: translate(-50%, 0);
