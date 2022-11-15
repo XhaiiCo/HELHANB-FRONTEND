@@ -172,8 +172,9 @@ h2 {
   padding: 8px 16px 16px 20px;
   width: 400px;
   height: max-content;
+  max-height: 360px;
+  overflow-y: auto;
   background-color: white;
-  margin-bottom: 25px;
 }
 
 #btn_close_features {
