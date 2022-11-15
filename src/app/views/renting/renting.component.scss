@@ -1,4 +1,5 @@
-@import '../../../styles/components/button' ;
+@import '../../../styles/components/button';
+
 .renting_page {
   width: 60% ;
   margin: auto;
@@ -35,7 +36,7 @@
   }
 }
 
-.reservation_container{
+.reservation_container {
   border-radius: 15px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
   padding: 12px 12px;
@@ -103,13 +104,14 @@
 }
 
 @media (max-width: 1200px) {
-  .renting_page{
+  .renting_page {
     width: 75%;
   }
 
   .main{
     flex-direction: column;
     gap: 30px ;
+    gap: 20px;
   }
 }
 
