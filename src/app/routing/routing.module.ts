@@ -12,7 +12,7 @@ import {RoleGuardService} from "./guards/role-guard.service";
 import {UserListComponent} from "../views/admin/users/user-list/user-list.component";
 
 const routes: Routes = [
-  {path: '', component: HomepageComponent   },
+  {path: '', component: HomepageComponent },
   {path: 'connexion', component: LoginComponent},
   {path: 'inscription', component: RegistrationComponent},
   {path: 'deconnexion', component: DisconnectComponent},
