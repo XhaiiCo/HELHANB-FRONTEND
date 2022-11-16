@@ -1,7 +1,77 @@
 <main class="account_page">
-  <section class="profile_picture_section">
+<!--  <section class="profile_picture_section">
     <div class="profile_picture_container">
       <img src="assets/img/user_pic-50x50.png" alt="photo de profile">
     </div>
   </section>
+-->
+  <form class="form-group" [formGroup]="form" (ngSubmit)="emitRegistrationForm()">
+
+    <div class="form-group">
+      <label for="pp" class="label">Photo de profile</label>
+      <input id="pp" class="file-input" type="file" accept="image/*" formControlName="profilePicture" (change)="onUploadPicture($event)">
+    </div>
+
+    <div class="inline-input">
+
+      <!-- LAST NAME -->
+      <div class="form-group">
+        <label for="lastName" class="label">Nom</label>
+        <input type="text" id="lastName" class="input-text" formControlName="lastName"
+               [class.invalid]="isInvalid('lastName')">
+        <span *ngIf="isInvalid('lastName'); else blank" class="feedback">Veuillez entrer votre nom</span>
+        <ng-template #blank>
+          <span class="feedback"></span>
+        </ng-template>
+      </div>
+
+      <!-- FIRST NAME -->
+      <div class="form-group">
+        <label for="firstName" class="label">Prénom</label>
+        <input type="text" id="firstName" class="input-text" formControlName="firstName"
+               [class.invalid]="isInvalid('firstName')">
+        <span *ngIf="isInvalid('firstName'); else blank" class="feedback">Veuillez entrer votre prénom</span>
+        <ng-template #blank>
+          <span class="feedback"></span>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- EMAIL -->
+    <div class="form-group">
+      <label for="email" class="label">E-mail</label>
+      <input type="email" id="email" class="input-text" placeholder="exemple@nom.com" formControlName="email"
+             [class.invalid]="isInvalid('email')">
+      <span *ngIf="isInvalid('email'); else blank"
+            class="feedback">Entrez une adresse valide. Exemple contact@nom.com</span>
+      <ng-template #blank>
+        <span class="feedback"></span>
+      </ng-template>
+    </div>
+
+    <!-- PASSWORD -->
+    <div class="form-group">
+      <label for="password" class="label">Nouveau mot de passe</label>
+      <input type="password" id="password" class="input-text" formControlName="password"
+             [class.invalid]="isInvalid('password')">
+      <span *ngIf="isInvalid('password'); else blank" class="feedback">Veuillez un mot de passe valide</span>
+      <ng-template #blank>
+        <span class="feedback"></span>
+      </ng-template>
+    </div>
+
+    <!-- CONFIRM PASSWORD -->
+    <div class="form-group">
+      <label for="confirmPassword" class="label">Confirmation du nouveau mot de passe</label>
+      <input type="password" id="confirmPassword" class="input-text" formControlName="confirmPassword"
+             [class.invalid]="form.get('confirmPassword')?.touched && isPasswordEquals()">
+      <span *ngIf="form.get('confirmPassword')?.touched && isPasswordEquals(); else blank" class="feedback">Les mots de passes ne correspondent pas</span>
+      <ng-template #blank>
+        <span class="feedback"></span>
+      </ng-template>
+    </div>
+
+    <input type="submit" [value]="btnSubmitRegistrationText" class="btn-primary"
+           [disabled]="form.invalid || disableRegistrationBtn || dataHasBeenChanged()" [class.disabled]="form.invalid">
+  </form>
 </main>

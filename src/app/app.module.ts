@@ -21,6 +21,7 @@ import {ToastNotificationComponent} from "./component/toast-notification/toast-n
 import {AdminPageComponent} from "./views/admin/admin-page/admin-page.component";
 import {UserListComponent} from "./views/admin/users/user-list/user-list.component";
 import { ModalConfirmationComponent } from './component/modal-confirmation/modal-confirmation.component';
+import {AccountComponent} from "./views/account/account.component";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ModalConfirmationComponent } from './component/modal-confirmation/modal
     AdminPageComponent,
     UserListComponent,
     ModalConfirmationComponent,
+    AccountComponent,
   ],
   imports: [
     MbscModule,
