@@ -23,8 +23,8 @@ export class AccountComponent implements OnInit {
     lastName: this._fb.control("", [Validators.required]),
     //dateOfBirth: this._fb.control("", [Validators.required]),
     email: this._fb.control("", [Validators.required, Validators.email]),
-    password: this._fb.control(""),
-    confirmPassword: this._fb.control(""),
+    password: this._fb.control("", Validators.minLength(6)),
+    confirmPassword: this._fb.control("", Validators.minLength(6)),
   }, {
     validators: this.controlValuesAreEqual('password', 'confirmPassword')
   });
