@@ -13,6 +13,10 @@ import {DtoOutputRegistrationUser} from "../../dtos/auth/dto-output-registration
 })
 export class AccountComponent implements OnInit {
 
+  @Input() firstName?: string = "Victor";
+  @Input() lastName?: string = "Guillaume";
+  @Input() email?: string = "gllme.victor@gmail.com";
+
   form: FormGroup = this._fb.group({
     profilePicture: this._fb.control(""),
     firstName: this._fb.control("", [Validators.required]),
@@ -34,6 +38,9 @@ export class AccountComponent implements OnInit {
               private _userService: UserService,
               private _toastNotificationService: ToastNotificationService,
               private _router: Router) {
+    this.form.get('firstName')?.setValue(this.firstName);
+    this.form.get('lastName')?.setValue(this.lastName);
+    this.form.get('email')?.setValue(this.email);
   }
 
   ngOnInit(): void {
@@ -120,5 +127,15 @@ export class AccountComponent implements OnInit {
 
   onUploadPicture(event: any) {
     this.profilePicture = event.target.files[0];
+  }
+
+  dataHasBeenChanged(): boolean {
+    return !(
+        this.firstName != this.form.get('firstName')?.value
+        || this.lastName != this.form.get('lastName')?.value
+        || this.email != this.form.get('email')?.value
+        || this.form.get('password')?.value != ""
+        || this.form.get('profilePicture')?.value != ""
+      );
   }
 }
