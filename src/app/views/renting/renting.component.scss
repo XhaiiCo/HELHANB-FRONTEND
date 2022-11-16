@@ -29,8 +29,12 @@
 .main{
   margin-top: 10px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  gap: 30px ;
 
+  .main-body{
+    flex: 2 ;
+  }
   & > section {
     width: 380px;
   }
@@ -180,4 +184,8 @@ h2 {
 #btn_close_features {
   margin-top: 5px;
   margin-bottom: 1px;
+}
+
+.host-profile{
+  border-bottom: 1px solid $grey;
 }

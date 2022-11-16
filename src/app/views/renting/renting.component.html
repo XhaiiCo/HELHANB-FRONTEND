@@ -3,7 +3,8 @@
     <div class="title_container">
       <p class="title">{{ ad_name }} ⸱ {{ owner_name }}</p>
       <p class="subtitle">
-        {{ nb_max_tenant }} {{ str_nb_max_tenant }} ⸱ {{ nb_bedroom }} {{ str_nb_bedroom}} ⸱ {{ nb_bed }} {{ str_nb_bed }}
+        {{ nb_max_tenant }} {{ str_nb_max_tenant }} ⸱ {{ nb_bedroom }} {{ str_nb_bedroom}}
+        ⸱ {{ nb_bed }} {{ str_nb_bed }}
       </p>
     </div>
 
@@ -13,19 +14,25 @@
   </header>
 
   <main class="main">
-    <section class="features_container">
-      <h2>Disponible dans ce logement :</h2>
-      <div class="features_list">
+    <section class="main-body">
+
+      <section class="host-profile">
+        <h1>TODO: le profile de l'hôte: pp, nom et un bouton pour le contacter</h1>
+      </section>
+
+      <section class="features_container">
+        <h2>Disponible dans ce logement :</h2>
+        <div class="features_list">
         <span *ngFor="let feature of renting_features.slice(0, 4)">
           &#x2022; {{ feature }}
         </span>
-      </div>
+        </div>
 
-      <div class="btn_feature_container" [hidden]="renting_features.length <= 4">
-        <button class="btn-primary" id="btn_open_features" (click)="showAllFeatures()">Voir tout</button>
-      </div>
+        <div class="btn_feature_container" [hidden]="renting_features.length <= 4">
+          <button class="btn-primary" id="btn_open_features" (click)="showAllFeatures()">Voir tout</button>
+        </div>
+      </section>
     </section>
-
 
     <section class="reservation_container">
       <header class="reservation_price_by_night">
