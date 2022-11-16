@@ -1,1 +1,17 @@
-<p>modal-confirmation works!</p>
+<main
+  class="modal"
+  [class.hidden]="!showModal"
+>
+  <header>
+    <h1>Modal</h1>
+  </header>
+
+  <main>
+    <p>modal-confirmation works!</p>
+  </main>
+
+  <footer>
+    <button (click)="accepted()">Oui</button>
+    <button (click)="rejected()">Non</button>
+  </footer>
+</main>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-modal-confirmation',
@@ -7,9 +7,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalConfirmationComponent implements OnInit {
 
+  @Input() showModal: boolean = false ;
+  @Output() isAccepted: EventEmitter<boolean> = new EventEmitter<boolean>() ;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  hiddeModal() {
+    this.showModal = false ;
+  }
+
+  rejected(){
+    this.isAccepted.emit(false) ;
+    this.hiddeModal() ;
+  }
+
+  accepted(){
+    this.isAccepted.emit(true) ;
+    this.hiddeModal() ;
   }
 
 }
