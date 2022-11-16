@@ -1,10 +1,49 @@
+@import "../../../styles/helpers/variable";
+@import "../../../styles/components/button";
+
 :host {
   position: fixed;
   width: 100vw;
-  height: 50vh;
+  height: calc(100vh - $header-height);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
+  background-color: $modal-background-color;
+}
+
+:host-context(.hidden) {
   display: none;
+}
+
+.modal {
+  font-family: $main-font;
+  background-color: #FFF;
+  min-width: 300px;
+  border-radius: $radius;
+}
+
+.modal-header, .modal-body, .modal-footer {
+  padding: 10px;
+}
+
+.modal-header, .modal-body {
+  border-bottom: 1px solid $grey;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-close {
+  background: none;
+  cursor: pointer;
 }
