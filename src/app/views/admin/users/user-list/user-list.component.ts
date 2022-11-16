@@ -20,7 +20,7 @@ export class UserListComponent implements OnInit {
     titleText: "Confirmation de suppression",
     bodyText: "",
   }
-  userToDelete: undefined | number ;
+  userToDelete: undefined | number;
 
   constructor(private _userService: UserService,
               private _toastNotificationService: ToastNotificationService,) {
@@ -32,24 +32,25 @@ export class UserListComponent implements OnInit {
     );
   }
 
-  onModalDeleteAction(isAccepted: boolean){
-    this.deleteModalOptions.showDeleteUserConfirmationModal = false ;
-    if(!isAccepted) return ;
-    if(!this.userToDelete) return ;
+  onModalDeleteAction(isAccepted: boolean) {
+    this.deleteModalOptions.showDeleteUserConfirmationModal = false;
+    if (!isAccepted) return;
+    if (!this.userToDelete) return;
 
     this._userService.delete(this.userToDelete).subscribe((user) => {
       this.userList = this.userList.filter(value => value.id != user.id);
       this._toastNotificationService.add(`${user.lastName} ${user.firstName} supprimé avec succès`, "success");
     });
 
-    this.userToDelete = undefined ;
+    this.userToDelete = undefined;
   }
-  deleteButtonClick(id: number) {
-    const user: DtoInputUser | undefined = this.userList.find(value => value.id === id) ;
-    if(!user) return ;
 
-    this.userToDelete = id ;
-    this.deleteModalOptions.bodyText = `Êtes vous sûr de vouloir supprimer ${user.lastName} ${user.firstName}` ;
-    this.deleteModalOptions.showDeleteUserConfirmationModal = true ;
+  deleteButtonClick(id: number) {
+    const user: DtoInputUser | undefined = this.userList.find(value => value.id === id);
+    if (!user) return;
+
+    this.userToDelete = id;
+    this.deleteModalOptions.bodyText = `Êtes vous sûr de vouloir supprimer ${user.lastName} ${user.firstName}`;
+    this.deleteModalOptions.showDeleteUserConfirmationModal = true;
   }
 }
