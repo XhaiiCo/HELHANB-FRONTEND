@@ -7,7 +7,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class ModalConfirmationComponent implements OnInit {
 
-  @Input() showModal: boolean = false ;
   @Input() bodyText: string = "" ;
   @Input() title: string = "" ;
   @Output() isAccepted: EventEmitter<boolean> = new EventEmitter<boolean>() ;
@@ -17,18 +16,11 @@ export class ModalConfirmationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  hiddeModal() {
-    this.showModal = false ;
-  }
-
   rejected(){
     this.isAccepted.emit(false) ;
-    this.hiddeModal() ;
   }
 
   accepted(){
     this.isAccepted.emit(true) ;
-    this.hiddeModal() ;
   }
-
 }
