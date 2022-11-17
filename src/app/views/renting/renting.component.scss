@@ -186,6 +186,36 @@ h2 {
   margin-bottom: 1px;
 }
 
+#host-container {
+  padding-bottom: 10px;
+}
+
 .host-profile{
   border-bottom: 1px solid $grey;
+  display: flex;
+}
+
+#host-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#host-profile-name {
+  font-size: 20px;
+  font-family: Georgia, serif;
+  margin-bottom: 3px;
+}
+
+#host-profile-pp {
+}
+
+img{
+  border-radius: 50%;
+  height: 50px;
+  margin-top: 5px ;
+  margin-left: 10px ;
+  object-position: 50% 50%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
 }
