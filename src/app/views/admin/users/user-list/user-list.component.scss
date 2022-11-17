@@ -1,9 +1,15 @@
+@import '../../../../../styles/components/form' ;
 @import '../../../../../styles/helpers/variable' ;
 @import '../../../../../styles/components/responsive-table' ;
 
 .user-list-section {
   margin: 20px auto ;
   width: 75% ;
+}
+
+.filter-form{
+  display: flex ;
+  gap: 10px ;
 }
 
 .user {
