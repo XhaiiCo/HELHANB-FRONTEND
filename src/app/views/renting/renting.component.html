@@ -14,13 +14,13 @@
   </header>
 
   <main class="main">
-    <section class="main-body">
+    <section class="main_body">
 
-      <section id="host-container">
-        <h2>Hôte :</h2>
-        <div id="host-profile">
-          <div id="host-profile-name"><span>{{ host_name }}</span></div>
-          <div id="host-profile-pp">
+      <section id="host_container">
+        <h2>Hôte</h2>
+        <div id="host_profile">
+          <div id="host_profile_name"><span>{{ host_name }}</span></div>
+          <div id="host_profile_pp">
             <span>
               <img *ngIf="authService.user == null || authService.user.profilePicturePath == null"
                    src="../../../assets/img/user_pic-50x50.png" alt="profil pic">
@@ -29,10 +29,17 @@
             </span>
           </div>
         </div>
+        <div id="host_div_btn">
+          <button class="btn-primary" id="btn_contact_host" (click)="showAllFeatures()">Contacter {{ host_name }}</button>
+        </div>
       </section>
 
+      <!--<section id="description_container">
+        <h2>Description du logement</h2>
+      </section>-->
+
       <section class="features_container">
-        <h2>Disponible dans ce logement :</h2>
+        <h2>Disponible dans le logement</h2>
         <div class="features_list">
         <span *ngFor="let feature of renting_features.slice(0, 4)">
           &#x2022; {{ feature }}
