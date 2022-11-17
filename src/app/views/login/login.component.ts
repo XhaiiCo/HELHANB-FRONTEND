@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
-import {DtoOutputLoginUser} from "../../dtos/auth/dto-output-login-user";
+import {DtoOutputLoginUser} from "../../dtos/User/dto-output-login-user";
 import {AuthService} from "../../services/auth.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";
@@ -63,10 +63,7 @@ export class LoginComponent implements OnInit {
     this.disableLoginBtn = true ;
     this.submitBtnText = "Connexion..." ;
 
-    let userDto: DtoOutputLoginUser = {
-      email: this.form.get('email')?.value,
-      password: this.form.get('password')?.value
-    }
+    let userDto: DtoOutputLoginUser = this.form.value ;
 
     this._authService.login(userDto).subscribe({
       next: user => {

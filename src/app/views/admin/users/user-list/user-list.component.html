@@ -5,6 +5,20 @@
   (isAccepted)="onModalDeleteAction($event)"
 ></app-modal-confirmation>
 
+<section class="filter-section">
+  <form [formGroup]="filterForm" (ngSubmit)="emitFilter()">
+    <input type="text" formControlName="search">
+    <select formControlName="search">
+      <option value="" selected>Tous les roles</option>
+      <option>test</option>
+      <option>test</option>
+      <option>test</option>
+    </select>
+
+    <button type="submit">Filtrer</button>
+  </form>
+</section>
+
 <section class="user-list-section">
   <table class="responsive-table">
     <thead>
