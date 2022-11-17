@@ -16,8 +16,19 @@
   <main class="main">
     <section class="main-body">
 
-      <section class="host-profile">
-        <h1>TODO: le profile de l'hôte: pp, nom et un bouton pour le contacter</h1>
+      <section id="host-container">
+        <h2>Hôte :</h2>
+        <div id="host-profile">
+          <div id="host-profile-name"><span>{{ host_name }}</span></div>
+          <div id="host-profile-pp">
+            <span>
+              <img *ngIf="authService.user == null || authService.user.profilePicturePath == null"
+                   src="../../../assets/img/user_pic-50x50.png" alt="profil pic">
+              <img *ngIf="authService.user != null && authService.user.profilePicturePath != null"
+                   [src]="profilePictureBaseUri + authService.user.profilePicturePath" alt="profil pic">
+            </span>
+          </div>
+        </div>
       </section>
 
       <section class="features_container">
