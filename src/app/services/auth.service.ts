@@ -33,6 +33,10 @@ export class AuthService {
     return this._httpClient.get<DtoInputUser>(`${AuthService.ENTRY_POINT_URL}/connected`) ;
   }
 
+  isConnected(): boolean {
+    return this.user !== null ;
+  }
+
   isUser(): boolean{
     return this.user?.role.name === "user" ;
   }

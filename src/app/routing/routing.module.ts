@@ -10,13 +10,14 @@ import {AccountComponent} from "../views/account/account.component";
 import {AdminPageComponent} from "../views/admin/admin-page/admin-page.component";
 import {RoleGuardService} from "./guards/role-guard.service";
 import {UserListComponent} from "../views/admin/users/user-list/user-list.component";
+import {ConnectedGuardService} from "./guards/connected-guard.service";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent },
   {path: 'connexion', component: LoginComponent},
   {path: 'inscription', component: RegistrationComponent},
   {path: 'deconnexion', component: DisconnectComponent},
-  {path: 'compte', component: AccountComponent},
+  {path: 'compte', component: AccountComponent, canActivate: [ConnectedGuardService]},
   {path: 'location/:id', component: RentingComponent },
   {
     path: 'administration',
