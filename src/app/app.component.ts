@@ -14,7 +14,7 @@ export class AppComponent implements OnInit{
               private _ToastNotificationService: ToastNotificationService) {}
 
   ngOnInit(): void {
-    this._AuthService.isConnected().subscribe(
+    this._AuthService.connectUser().subscribe(
       (user) => {
         this._AuthService.user = user ;
         setTimeout(() => {
