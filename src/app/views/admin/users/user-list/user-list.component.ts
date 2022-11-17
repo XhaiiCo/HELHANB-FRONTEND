@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../../services/user.service";
-import {DtoInputUser} from "../../../../dtos/User/dto-input-user";
+import {DtoInputUser} from "../../../../dtos/user/dto-input-user";
 import {ToastNotificationService} from "../../../../services/toast-notification.service";
 import {AuthService} from "../../../../services/auth.service";
 import {environment} from 'src/environments/environment';
 import {DeleteModalOptions} from "../../../../interfaces/delete-modal-options";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {DtoOutputFilteringUsers} from "../../../../dtos/User/dto-output-filtering-users";
+import {DtoOutputFilteringUsers} from "../../../../dtos/user/dto-output-filtering-users";
 
 @Component({
   selector: 'app-user-list',

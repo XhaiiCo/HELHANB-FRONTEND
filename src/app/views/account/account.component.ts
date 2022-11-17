@@ -4,7 +4,7 @@ import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";
-import {DtoOutputRegistrationUser} from "../../dtos/User/dto-output-registration-user";
+import {DtoOutputRegistrationUser} from "../../dtos/user/dto-output-registration-user";
 
 @Component({
   selector: 'app-account',

@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {DtoInputUser} from "../dtos/User/dto-input-user";
-import {DtoOutputFilteringUsers} from "../dtos/User/dto-output-filtering-users";
+import {DtoInputUser} from "../dtos/user/dto-input-user";
+import {DtoOutputFilteringUsers} from "../dtos/user/dto-output-filtering-users";
 
 @Injectable({
   providedIn: 'root'

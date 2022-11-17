@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {DtoOutputLoginUser} from "../dtos/User/dto-output-login-user";
-import {DtoOutputRegistrationUser} from "../dtos/User/dto-output-registration-user";
+import {DtoOutputLoginUser} from "../dtos/user/dto-output-login-user";
+import {DtoOutputRegistrationUser} from "../dtos/user/dto-output-registration-user";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
-import {DtoInputUser} from "../dtos/User/dto-input-user";
+import {DtoInputUser} from "../dtos/user/dto-input-user";
 
 @Injectable({
   providedIn: 'root'

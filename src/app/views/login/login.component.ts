@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
-import {DtoOutputLoginUser} from "../../dtos/User/dto-output-login-user";
+import {DtoOutputLoginUser} from "../../dtos/user/dto-output-login-user";
 import {AuthService} from "../../services/auth.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";

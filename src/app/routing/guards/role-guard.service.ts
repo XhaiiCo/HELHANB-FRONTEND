@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
-import {DtoInputUser} from "../../dtos/User/dto-input-user";
+import {DtoInputUser} from "../../dtos/user/dto-input-user";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class RoleGuardService implements CanActivate{
     //Get data passed from the route config
     const expectedRole = route.data['expectedRole'] ;
 
-    //Get User
+    //Get user
     const connectedUser: DtoInputUser | null = this._authService.user ;
     if(expectedRole && connectedUser)
       if(connectedUser.role.name === expectedRole) return true ;
