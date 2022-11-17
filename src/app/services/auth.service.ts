@@ -38,7 +38,7 @@ export class AuthService {
   }
 
   isUser(): boolean{
-    return this.user?.role.name === "user" ;
+    return this.user?.role.name === "utilisateur" ;
   }
   isAdmin(): boolean{
     return this.user?.role.name === "administrateur" ;
