@@ -2,11 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../../services/user.service";
 import {DtoInputUser} from "../../../../dtos/user/dto-input-user";
 import {ToastNotificationService} from "../../../../services/toast-notification.service";
-import {AuthService} from "../../../../services/auth.service";
 import {environment} from 'src/environments/environment';
 import {DeleteModalOptions} from "../../../../interfaces/delete-modal-options";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {DtoOutputFilteringUsers} from "../../../../dtos/user/dto-output-filtering-users";
+import {RolesService} from "../../../../services/roles.service";
+import {DtoInputRole} from "../../../../dtos/roles/dto-input-role";
 
 @Component({
   selector: 'app-user-list',
@@ -16,6 +17,8 @@ import {DtoOutputFilteringUsers} from "../../../../dtos/user/dto-output-filterin
 export class UserListComponent implements OnInit {
 
   userList: DtoInputUser[] = [];
+  roleList: DtoInputRole[] = [];
+
   profilePictureBaseUri: string = environment.pictureUrl;
 
   deleteModalOptions: DeleteModalOptions = {
@@ -31,14 +34,25 @@ export class UserListComponent implements OnInit {
   });
 
   constructor(private _userService: UserService,
+              private _roleService: RolesService,
               private _toastNotificationService: ToastNotificationService,
-              private _fb: FormBuilder) {
+              private _fb: FormBuilder,
+  ) {
   }
 
   ngOnInit(): void {
-    this._userService.fetchAll().subscribe(
+    this._fetchUsers();
+    this._fetchRoles();
+  }
+
+  private _fetchUsers(filter?: DtoOutputFilteringUsers): void {
+    this._userService.fetchAll(filter).subscribe(
       (userList) => this.userList = userList
     );
+  }
+
+  private _fetchRoles(): void{
+    this._roleService.fetchAll().subscribe( (roleList) => this.roleList = roleList) ;
   }
 
   onModalDeleteAction(isAccepted: boolean) {
@@ -64,10 +78,7 @@ export class UserListComponent implements OnInit {
   }
 
   emitFilter() {
-    const filter: DtoOutputFilteringUsers = this.filterForm.value ;
-
-    this._userService.fetchAll(filter).subscribe(
-      (userList) => this.userList = userList
-    );
+    const filter: DtoOutputFilteringUsers = this.filterForm.value;
+    this._fetchUsers(filter);
   }
 }

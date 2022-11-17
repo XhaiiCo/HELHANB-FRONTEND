@@ -8,11 +8,10 @@
 <section class="filter-section">
   <form [formGroup]="filterForm" (ngSubmit)="emitFilter()">
     <input type="text" formControlName="search">
-    <select formControlName="search">
+
+    <select formControlName="role">
       <option value="" selected>Tous les roles</option>
-      <option>test</option>
-      <option>test</option>
-      <option>test</option>
+      <option *ngFor="let role of roleList" [value]="role.name">{{role.name}}</option>
     </select>
 
     <button type="submit">Filtrer</button>

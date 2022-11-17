@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {DtoInputRole} from "../dtos/roles/dto-input-role";
 import {Observable} from "rxjs";
@@ -9,11 +9,12 @@ import {environment} from "../../environments/environment";
 })
 export class RolesService {
 
-  private static readonly ENTRY_POINT_URL = environment.apiUrl + "users" ;
+  private static readonly ENTRY_POINT_URL = environment.apiUrl + "roles";
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient) {
+  }
 
-  public fetchAll(): Observable<DtoInputRole[]>{
-  return this._httpClient.get<DtoInputRole[]>(`${RolesService.ENTRY_POINT_URL}`) ;
+  public fetchAll(): Observable<DtoInputRole[]> {
+    return this._httpClient.get<DtoInputRole[]>(`${RolesService.ENTRY_POINT_URL}`);
   }
 }
