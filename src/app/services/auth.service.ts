@@ -29,7 +29,18 @@ export class AuthService {
     return this._httpClient.get(`${AuthService.ENTRY_POINT_URL}/disconnect`) ;
   }
 
-  public isConnected(): Observable<DtoInputUser>{
+  public connectUser(): Observable<DtoInputUser>{
     return this._httpClient.get<DtoInputUser>(`${AuthService.ENTRY_POINT_URL}/connected`) ;
+  }
+
+  isUser(): boolean{
+    return this.user?.role.name === "user" ;
+  }
+  isAdmin(): boolean{
+    return this.user?.role.name === "administrateur" ;
+  }
+
+  isHost(): boolean{
+    return this.user?.role.name === "hote" ;
   }
 }
