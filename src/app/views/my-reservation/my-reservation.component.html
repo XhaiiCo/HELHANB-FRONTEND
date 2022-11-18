@@ -1,1 +1,27 @@
-<p>my-reservation works!</p>
+<main class="reservations_page">
+
+  <section class="reservations_container" *ngIf="reservationsList.length !== 0; else noReservation">
+
+    <ul class="reservations_list">
+      <li *ngFor="let reservation of reservationsList" class="reservation">
+        <div>
+          <img [src]="reservation.reservationPicture">
+        </div>
+        <div>
+          <h1>{{reservation.name}}</h1>
+          <p>{{reservation.destination}}</p>
+          <p>{{reservation.host_name}}</p>
+          <p class="dates">{{reservation.beginDate}} - {{reservation.endDate}}</p>
+        </div>
+      </li>
+    </ul>
+
+  </section>
+
+  <ng-template #noReservation>
+    <section class="no_reservation">
+      <h1>Vous n'avez pas de réservation</h1>
+    </section>
+  </ng-template>
+
+</main>
