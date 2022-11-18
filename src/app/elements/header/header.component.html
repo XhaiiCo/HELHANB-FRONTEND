@@ -27,8 +27,12 @@
           <div [routerLink]="[option.path]" *ngFor="let option of notConnectedDropDownOption">{{option.name}}</div>
         </div>
 
-        <div *ngIf="authService.isUser() || authService.isHost()" class="options">
+        <div *ngIf="authService.isUser()" class="options">
           <div [routerLink]="[option.path]" *ngFor="let option of connectedDropDownOption">{{option.name}}</div>
+        </div>
+
+        <div *ngIf="authService.isHost()" class="options">
+          <div [routerLink]="[option.path]" *ngFor="let option of hostDropDownOption">{{option.name}}</div>
         </div>
 
         <div *ngIf="authService.isAdmin()" class="options">

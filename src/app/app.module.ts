@@ -22,6 +22,8 @@ import {AdminPageComponent} from "./views/admin/admin-page/admin-page.component"
 import {UserListComponent} from "./views/admin/users/user-list/user-list.component";
 import { ModalConfirmationComponent } from './component/modal-confirmation/modal-confirmation.component';
 import {AccountComponent} from "./views/account/account.component";
+import { MyRentingComponent } from './views/my-renting/my-renting.component';
+import { MyReservationComponent } from './views/my-reservation/my-reservation.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import {AccountComponent} from "./views/account/account.component";
     UserListComponent,
     ModalConfirmationComponent,
     AccountComponent,
+    MyRentingComponent,
+    MyReservationComponent,
   ],
   imports: [
     MbscModule,

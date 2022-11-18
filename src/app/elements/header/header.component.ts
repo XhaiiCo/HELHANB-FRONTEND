@@ -18,6 +18,14 @@ export class HeaderComponent implements OnInit {
 
   connectedDropDownOption: DropDownOption[] = [
     {name: 'Compte', path: '/compte'},
+    {name: 'Mes réservations', path: '/mes-reservations'},
+    {name: 'Deconnexion', path: '/deconnexion'}
+  ]
+
+  hostDropDownOption: DropDownOption[] = [
+    {name: 'Compte', path: '/compte'},
+    {name: 'Mes réservations', path: '/mes-reservations'},
+    {name: 'Mes annonces', path: '/mes-annonces'},
     {name: 'Deconnexion', path: '/deconnexion'}
   ]
 
