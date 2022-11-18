@@ -5,12 +5,10 @@
   (isAccepted)="onModalDeleteAction($event)"
 ></app-modal-confirmation>
 
-
 <section class="user-list-section">
-
   <header class="filter-section">
     <form [formGroup]="filterForm" (ngSubmit)="emitFilter()" class="filter-form">
-      <input type="text" formControlName="search" class="input-text">
+      <input type="text" placeholder="Recherchez..." formControlName="search" class="input-text">
 
       <select formControlName="role" class="input-select">
         <option value="" selected>Tous les roles</option>
@@ -32,7 +30,7 @@
       </tr>
       </thead>
 
-      <tbody>
+      <tbody *ngIf="userList.length !== 0; else noUsers">
       <tr *ngFor="let user of userList">
         <td class="user">
           <div class="user_pp">
@@ -77,6 +75,14 @@
         </td>
       </tr>
       </tbody>
+
+      <ng-template #noUsers>
+        <tbody>
+        <tr>
+          <td>Aucun utilisateur trouvé !</td>
+        </tr>
+        </tbody>
+      </ng-template>
     </table>
   </main>
 </section>
