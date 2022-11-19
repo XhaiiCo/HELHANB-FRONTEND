@@ -70,11 +70,11 @@ export class RentingComponent implements OnInit {
 
   }
 
-  showAllFeatures() {
+  showListFeatures() {
     this.displayAllFeatures = true;
   }
 
-  closeAllFeatures() {
+  closeListFeatures() {
     this.displayAllFeatures = false;
   }
 }

@@ -27,7 +27,7 @@
   }
 }
 
-.btn-secondary{
+.btn-secondary {
   @extend  %btn ;
   background: $secondary-color;
   color: $black;

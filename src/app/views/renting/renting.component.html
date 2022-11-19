@@ -24,8 +24,9 @@
             <span>
               <img *ngIf="authService.user == null || authService.user.profilePicturePath == null"
                    src="../../../assets/img/user_pic-50x50.png" alt="profil pic">
+              <!-- TODO : image de l'hôte
               <img *ngIf="authService.user != null && authService.user.profilePicturePath != null"
-                   [src]="profilePictureBaseUri + authService.user.profilePicturePath" alt="profil pic">
+                    alt="profil pic">-->
             </span>
           </div>
         </div>
@@ -47,7 +48,7 @@
         </div>
 
         <div class="btn_feature_container" [hidden]="renting_features.length <= 4">
-          <button class="btn-primary" id="btn_open_features" (click)="showAllFeatures()">Voir tout</button>
+          <button class="btn-primary" id="btn_open_features" (click)="showListFeatures()">Voir tout</button>
         </div>
       </section>
     </section>
@@ -84,7 +85,7 @@
         </div>
 
         <div class="btn_close_features_container">
-          <button class="btn-primary" id="btn_close_features" (click)="closeAllFeatures()">Fermer</button>
+          <button class="btn-primary" id="btn_close_features" (click)="closeListFeatures()">Fermer</button>
         </div>
       </div>
     </div>
