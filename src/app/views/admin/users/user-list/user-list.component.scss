@@ -1,9 +1,20 @@
-@import '../../../../../styles/helpers/variable' ;
-@import '../../../../../styles/components/responsive-table' ;
+@import '/src/styles/components/form' ;
+@import '/src/styles/helpers/variable' ;
+@import '/src/styles/components/responsive-table' ;
 
 .user-list-section {
   margin: 20px auto ;
   width: 75% ;
+}
+
+.filter-form{
+  display: flex ;
+  gap: 10px ;
+  margin-bottom: 15px ;
+
+  @media (max-width: $responsive-table-mobile-size) {
+    flex-direction: column;
+  }
 }
 
 .user {
@@ -71,4 +82,3 @@
     }
   }
 }
-

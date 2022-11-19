@@ -1,10 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../../services/user.service";
-import {DtoInputUser} from "../../../../dtos/auth/dto-input-user";
+import {DtoInputUser} from "../../../../dtos/user/dto-input-user";
 import {ToastNotificationService} from "../../../../services/toast-notification.service";
-import {AuthService} from "../../../../services/auth.service";
 import {environment} from 'src/environments/environment';
 import {DeleteModalOptions} from "../../../../interfaces/delete-modal-options";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {DtoOutputFilteringUsers} from "../../../../dtos/user/dto-output-filtering-users";
+import {RolesService} from "../../../../services/roles.service";
+import {DtoInputRole} from "../../../../dtos/roles/dto-input-role";
 
 @Component({
   selector: 'app-user-list',
@@ -14,7 +17,10 @@ import {DeleteModalOptions} from "../../../../interfaces/delete-modal-options";
 export class UserListComponent implements OnInit {
 
   userList: DtoInputUser[] = [];
+  roleList: DtoInputRole[] = [];
+
   profilePictureBaseUri: string = environment.pictureUrl;
+
   deleteModalOptions: DeleteModalOptions = {
     showDeleteUserConfirmationModal: false,
     titleText: "Confirmation de suppression",
@@ -22,14 +28,31 @@ export class UserListComponent implements OnInit {
   }
   userToDelete: undefined | number;
 
+  filterForm: FormGroup = this._fb.group({
+    role: this._fb.control(""),
+    search: this._fb.control(""),
+  });
+
   constructor(private _userService: UserService,
-              private _toastNotificationService: ToastNotificationService,) {
+              private _roleService: RolesService,
+              private _toastNotificationService: ToastNotificationService,
+              private _fb: FormBuilder,
+  ) {
   }
 
   ngOnInit(): void {
-    this._userService.fetchAll().subscribe(
+    this._fetchUsers();
+    this._fetchRoles();
+  }
+
+  private _fetchUsers(filter?: DtoOutputFilteringUsers): void {
+    this._userService.fetchAll(filter).subscribe(
       (userList) => this.userList = userList
     );
+  }
+
+  private _fetchRoles(): void{
+    this._roleService.fetchAll().subscribe( (roleList) => this.roleList = roleList) ;
   }
 
   onModalDeleteAction(isAccepted: boolean) {
@@ -52,5 +75,10 @@ export class UserListComponent implements OnInit {
     this.userToDelete = id;
     this.deleteModalOptions.bodyText = `Êtes vous sûr de vouloir supprimer ${user.lastName} ${user.firstName}`;
     this.deleteModalOptions.showDeleteUserConfirmationModal = true;
+  }
+
+  emitFilter() {
+    const filter: DtoOutputFilteringUsers = this.filterForm.value;
+    this._fetchUsers(filter);
   }
 }

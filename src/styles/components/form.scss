@@ -6,33 +6,34 @@
   flex-direction: column;
   gap: 5px;
 
-  .label {
-    font-family: $main-bold-font;
-    font-size: 13px;
-  }
+}
 
-  .input-text {
-    border-radius: $radius;
-    padding: 12px;
-    border: 1px solid #ccc;
-    font-family: $main-font;
-    font-size: $input-font-size;
+.label {
+  font-family: $main-bold-font;
+  font-size: 13px;
+}
 
-    &:focus {
-      outline: none;
-      border: 1px solid $light-blue;
-    }
-  }
+.input-text {
+  border-radius: $radius;
+  padding: 12px;
+  border: 1px solid #ccc;
+  font-family: $main-font;
+  font-size: $input-font-size;
 
-  .invalid {
-    border: 1px solid $invalid !important;
+  &:focus {
+    outline: none;
+    border: 1px solid $light-blue;
   }
+}
 
-  .feedback {
-    font-family: $main-font;
-    font-size: 13px;
-    min-height: 20px;
-  }
+.invalid {
+  border: 1px solid $invalid !important;
+}
+
+.feedback {
+  font-family: $main-font;
+  font-size: 13px;
+  min-height: 20px;
 }
 
 .file-input {
@@ -54,5 +55,18 @@
 
   &::file-selector-button:hover {
     opacity: 0.5;
+  }
+}
+
+.input-select{
+  border-radius: $radius;
+  padding: 12px;
+  border: 1px solid #ccc;
+  font-family: $main-font;
+  font-size: $input-font-size;
+
+  &:focus {
+    outline: none;
+    border: 1px solid $light-blue;
   }
 }

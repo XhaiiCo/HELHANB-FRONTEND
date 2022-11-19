@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {NotFoundComponent} from "../views/not-found/not-found.component";
 import {HomepageComponent} from "../views/homepage/homepage.component";
@@ -12,20 +12,36 @@ import {RoleGuardService} from "./guards/role-guard.service";
 import {UserListComponent} from "../views/admin/users/user-list/user-list.component";
 import {ConnectedGuardService} from "./guards/connected-guard.service";
 import {NotConnectedGuardService} from "./guards/not-connected-guard.service";
+import {MyReservationComponent} from "../views/my-reservation/my-reservation.component";
+import {MyRentingComponent} from "../views/my-renting/my-renting.component";
 
 const routes: Routes = [
-  {path: '', component: HomepageComponent },
+  {path: '', component: HomepageComponent},
   {path: 'connexion', component: LoginComponent, canActivate: [NotConnectedGuardService]},
   {path: 'inscription', component: RegistrationComponent, canActivate: [NotConnectedGuardService]},
   {path: 'deconnexion', component: DisconnectComponent, canActivate: [ConnectedGuardService]},
   {path: 'compte', component: AccountComponent, canActivate: [ConnectedGuardService]},
-  {path: 'location/:id', component: RentingComponent },
+  {
+    path: 'mes-reservations', component: MyReservationComponent,
+    canActivate: [RoleGuardService],
+    data: {
+      expectedRoles: ["utilisateur", "hote"],
+    },
+  },
+  {
+    path: 'mes-annonces', component: MyRentingComponent,
+    canActivate: [RoleGuardService],
+    data: {
+      expectedRoles: ["hote"],
+    },
+  },
+  {path: 'location/:id', component: RentingComponent},
   {
     path: 'administration',
     component: AdminPageComponent,
     canActivate: [RoleGuardService],
     data: {
-      expectedRole: "administrateur",
+      expectedRoles: ["administrateur"],
     },
     children: [
       {path: 'utilisateurs', component: UserListComponent},
@@ -39,4 +55,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class RoutingModule { }
+export class RoutingModule {
+}

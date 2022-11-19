@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
-import {DtoOutputRegistrationUser} from "../../dtos/auth/dto-output-registration-user";
+import {DtoOutputRegistrationUser} from "../../dtos/user/dto-output-registration-user";
 import {UserService} from "../../services/user.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";
@@ -100,8 +100,8 @@ export class RegistrationComponent implements OnInit {
           this._userService.updateProfilePicture(user.id, this.profilePicture).subscribe({
             next: (user) => this._authService.user = user,
             error: (err) => {
-              if(err.status === 401)
-                this._toastNotificationService.add(err.error, "error") ;
+              if (err.status === 401)
+                this._toastNotificationService.add(err.error, "error");
             }
           });
         }
