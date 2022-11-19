@@ -77,4 +77,9 @@ export class RentingComponent implements OnInit {
   closeListFeatures() {
     this.displayAllFeatures = false;
   }
+
+  // Called when the contact button is triggered
+  contactHost() {
+
+  }
 }
