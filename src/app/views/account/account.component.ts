@@ -34,7 +34,7 @@ export class AccountComponent implements OnInit {
   disableRegistrationBtn: boolean = false;
 
   constructor(private _fb: FormBuilder,
-              private _authService: AuthService,
+              public authService: AuthService,
               private _userService: UserService,
               private _toastNotificationService: ToastNotificationService,
               private _router: Router) {
