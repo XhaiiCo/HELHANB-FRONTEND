@@ -139,4 +139,8 @@ export class AccountComponent implements OnInit {
         || this.form.get('profilePicture')?.value != ""
       );
   }
+
+  toggleDisplayNewPasswordField() {
+    this.showPwFields = !this.showPwFields;
+  }
 }
