@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   padding: 40px ;
+  background-color: white;
 }
 
 .profile_picture_section{
@@ -42,5 +43,67 @@
       cursor: pointer ;
       text-decoration: underline ;
     }
+  }
+}
+
+.file-input-input {
+  visibility: hidden;
+}
+
+.file-input-label {
+  font-family: $main-font;
+  border: none;
+  background: $main-color;
+  padding: 10px 14px;
+  border-radius: $radius;
+  color: #fff;
+  cursor: pointer;
+  width: 240px;
+  transition: background .2s ease-in-out;
+}
+
+.file-input-label:hover {
+  opacity: 0.5;
+}
+
+h2 {
+  font-size: 1.6em;
+}
+
+.userImg {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  margin-left: auto;
+}
+
+.space_between_sections {
+  margin-bottom: 20px;
+}
+
+
+#container_password {
+}
+
+#input_password_dropbox {
+  cursor: pointer;
+  border-radius: 12px;
+  position: relative;
+  z-index: 2;
+  background-color: white;
+}
+
+#container_password_input {
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(gray, 0.5);
+  margin: -20px auto auto;
+  border-radius: 20px;
+  width: 95%;
+  padding-bottom: 6px;
+
+  & > div {
+    width: 85%;
+    margin: 35px auto auto;
   }
 }
