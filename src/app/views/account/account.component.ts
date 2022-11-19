@@ -32,6 +32,7 @@ export class AccountComponent implements OnInit {
   profilePicture: null | File = null;
   btnSubmitRegistrationText: string = "Enregistrer les modification";
   disableRegistrationBtn: boolean = false;
+  showPwFields: boolean= false;
 
   constructor(private _fb: FormBuilder,
               public authService: AuthService,
@@ -134,7 +135,7 @@ export class AccountComponent implements OnInit {
         this.firstName != this.form.get('firstName')?.value
         || this.lastName != this.form.get('lastName')?.value
         || this.email != this.form.get('email')?.value
-        || this.form.get('password')?.value != ""
+        || (this.showPwFields && this.form.get('password')?.value != "")
         || this.form.get('profilePicture')?.value != ""
       );
   }
