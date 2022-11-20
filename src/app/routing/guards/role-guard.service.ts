@@ -30,7 +30,7 @@ export class RoleGuardService implements CanActivate {
       }
     }
 
-    this._router.navigate(['connexion']);
+    this._router.navigate(['']);
     return false;
   }
 }
