@@ -58,8 +58,9 @@
 
     <h2 style="margin-top: 5px">Nouveau mot de passe</h2>
     <div id="container_password" class="space_between_sections">
-      <div id="input_password_dropbox" class="input-text" (click)="toggleDisplayNewPasswordField()">
+      <div class="input_password_dropbox input-text" (click)="toggleDisplayNewPasswordField()">
         <span>Changer de mot de passe</span>
+        <svg [ngClass]="{'onClickRotation': showPwFields, 'defaultRotation': !showPwFields}" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M15.125 21.1L6.7 12.7q-.15-.15-.212-.325q-.063-.175-.063-.375t.063-.375q.062-.175.212-.325l8.425-8.425q.35-.35.875-.35t.9.375q.375.375.375.875t-.375.875L9.55 12l7.35 7.35q.35.35.35.862q0 .513-.375.888t-.875.375q-.5 0-.875-.375Z"/></svg>
       </div>
       <div id="container_password_input" [hidden]="!showPwFields">
         <div>
