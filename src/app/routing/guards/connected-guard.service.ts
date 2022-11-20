@@ -17,7 +17,7 @@ export class ConnectedGuardService implements CanActivate{
   canActivate(route: ActivatedRouteSnapshot): boolean{
     if(this._authService.isConnected()) return true ;
 
-    this._router.navigate(['connexion']) ;
+    this._router.navigate(['']) ;
     return false;
   }
 }

@@ -10,9 +10,13 @@ main {
   height: calc(100vh - $header-height) ;
 }
 
+header{
+  z-index: 1000;
+}
+
 app-toast-notification{
   position: fixed;
-  z-index: 1000;
+  z-index: 999;
   top: $header-height ;
   right: 0 ;
 }

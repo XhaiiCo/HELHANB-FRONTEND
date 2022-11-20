@@ -2,7 +2,7 @@
   <form class="form-group" [formGroup]="form" (ngSubmit)="emitRegistrationForm()">
 
     <div class="form-group">
-      <label for="pp" class="label">Photo de profile</label>
+      <label for="pp" class="label">Ajouter une photo</label>
       <input id="pp" class="file-input" type="file" accept="image/*" formControlName="profilePicture" (change)="onUploadPicture($event)">
     </div>
 
