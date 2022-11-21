@@ -1,0 +1,35 @@
+@import '/src/styles/components/form';
+@import '/src/styles/components/button';
+@import '/src/styles/helpers/variable';
+
+.container{
+  padding: 40px ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px ;
+}
+
+.form-group{
+  width: 100%;
+  max-width: 500px;
+}
+
+.btn-primary{
+  margin-top: 10px;
+}
+.inline-input{
+  @media (min-width: 600px) {
+    display: flex;
+    gap: 20px ;
+  }
+}
+
+.features-form{
+  display: flex;
+}
+
+.error {
+  color: red;
+}
