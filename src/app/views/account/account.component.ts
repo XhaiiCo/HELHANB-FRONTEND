@@ -5,7 +5,7 @@ import {UserService} from "../../services/user.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";
 import {DtoOutputRegistrationUser} from "../../dtos/user/dto-output-registration-user";
-import { environment } from 'src/environments/environment';
+import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-account',
@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AccountComponent implements OnInit {
 
-  profilePictureBaseUri: string  = environment.pictureUrl ;
+  profilePictureBaseUri: string = environment.pictureUrl;
 
   @Input() firstName?: string = "Victor";
   @Input() lastName?: string = "Guillaume";
@@ -32,10 +32,9 @@ export class AccountComponent implements OnInit {
     validators: this.controlValuesAreEqual('password', 'confirmPassword')
   });
 
-  profilePicture: null | File = null;
   btnSubmitRegistrationText: string = "Enregistrer les modification";
   disableRegistrationBtn: boolean = false;
-  showPwFields: boolean= false;
+  showPwFields: boolean = false;
 
   constructor(private _fb: FormBuilder,
               public authService: AuthService,
@@ -101,46 +100,30 @@ export class AccountComponent implements OnInit {
       password: this.form.get('password')?.value,
     };
 
-    /*this._authService.registration(user).subscribe({
-      next: (user) => {
-        this._authService.user = user;
-        this._toastNotificationService.add(`Hello ${user.firstName}`, "success");
-
-        if (this.profilePicture) {
-          this._userService.updateProfilePicture(user.id, this.profilePicture).subscribe({
-            next: (user) => this._authService.user = user,
-            error: (err) => {
-              if(err.status === 401)
-                this._toastNotificationService.add(err.error, "error") ;
-            }
-          });
-        }
-        this._router.navigate(['']);
-      },
-      error: (err) => {
-        this.btnSubmitRegistrationText = "Enregistrer les modification";
-        this.disableRegistrationBtn = false;
-
-        if (err.status === 409)
-          this._toastNotificationService.add(err.error, "error");
-        else
-          this._toastNotificationService.add("Erreur de connexion au serveur", "error");
-      }
-    });*/
   }
 
   onUploadPicture(event: any) {
-    this.profilePicture = event.target.files[0];
+    let profilePicture = event.target.files[0];
+
+    if (this.authService.user)
+      this._userService.updateProfilePicture(this.authService.user.id, profilePicture)
+        .subscribe({
+          next: (user) => this.authService.user = user,
+          error: (err) => {
+            if (err.status === 401)
+              this._toastNotificationService.add(err.error, "error");
+          }
+        }) ;
   }
 
   dataHasBeenChanged(): boolean {
     return !(
-        this.firstName != this.form.get('firstName')?.value
-        || this.lastName != this.form.get('lastName')?.value
-        || this.email != this.form.get('email')?.value
-        || (this.showPwFields && this.form.get('password')?.value != "")
-        || this.form.get('profilePicture')?.value != ""
-      );
+      this.firstName != this.form.get('firstName')?.value
+      || this.lastName != this.form.get('lastName')?.value
+      || this.email != this.form.get('email')?.value
+      || (this.showPwFields && this.form.get('password')?.value != "")
+      || this.form.get('profilePicture')?.value != ""
+    );
   }
 
   toggleDisplayNewPasswordField() {
