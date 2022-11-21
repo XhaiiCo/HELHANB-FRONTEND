@@ -33,6 +33,7 @@
     gap: 20px ;
   }
 }
+
 .redirection{
   font-family: $main-font;
   font-size: 15px;
@@ -50,19 +51,55 @@
   visibility: hidden;
 }
 
+.pp_container {
+  display: flex;
+}
+
 .file-input-label {
+  width: 42px;
+  height: 42px;
+  align-content: center;
   font-family: $main-font;
   border: none;
   background: $main-color;
-  padding: 10px 14px;
   border-radius: $radius;
   color: #fff;
   cursor: pointer;
-  width: 240px;
-  transition: background .2s ease-in-out;
+  margin: auto 0 auto;
+  display: flex;
+
+  & > svg {
+    display: block;
+    margin: auto;
+    align-content: center;
+  }
 }
 
 .file-input-label:hover {
+  opacity: 0.5;
+}
+
+#removePpButton {
+  width: 42px;
+  height: 42px;
+  align-content: center;
+  font-family: $main-font;
+  border: none;
+  background: red;
+  border-radius: $radius;
+  color: #fff;
+  cursor: pointer;
+  margin: auto 0 auto 6px;
+  display: flex;
+
+  & > svg {
+    display: block;
+    margin: auto;
+    align-content: center;
+  }
+}
+
+#removePpButton:hover {
   opacity: 0.5;
 }
 
@@ -71,7 +108,7 @@ h2 {
 }
 
 .userImg {
-  height: 100px;
+  height: 55px;
 
   object-position: 50% 50%;
   object-fit: cover;
@@ -84,7 +121,6 @@ h2 {
 .space_between_sections {
   margin-bottom: 20px;
 }
-
 
 #container_password {
 }
