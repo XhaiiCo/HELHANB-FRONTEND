@@ -146,4 +146,9 @@ export class AccountComponent implements OnInit {
   toggleDisplayNewPasswordField() {
     this.showPwFields = !this.showPwFields;
   }
+
+  removePp() {
+    // Supprimer la pp en db
+    // Changer le dto (?)
+  }
 }
