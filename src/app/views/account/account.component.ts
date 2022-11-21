@@ -5,6 +5,7 @@ import {UserService} from "../../services/user.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";
 import {DtoOutputRegistrationUser} from "../../dtos/user/dto-output-registration-user";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-account',
@@ -12,6 +13,8 @@ import {DtoOutputRegistrationUser} from "../../dtos/user/dto-output-registration
   styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
+
+  profilePictureBaseUri: string  = environment.pictureUrl ;
 
   @Input() firstName?: string = "Victor";
   @Input() lastName?: string = "Guillaume";
