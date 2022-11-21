@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {DtoInputUser} from "../dtos/user/dto-input-user";
 import {DtoOutputFilteringUsers} from "../dtos/user/dto-output-filtering-users";
+import {DtoOutputUpdatePassword} from "../dtos/user/dto-output-update-password";
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,14 @@ export class UserService {
    */
   public delete(id: number): Observable<DtoInputUser> {
     return this._httpClient.delete<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}`);
+  }
+
+  /**
+   * It updates the password of the user.
+   * @param {DtoOutputUpdatePassword} dtoUpdatePassword - DtoOutputUpdatePassword
+   * @returns An observable of type DtoInputUser
+   */
+  public updatePassword(dtoUpdatePassword: DtoOutputUpdatePassword): Observable<DtoInputUser>{
+    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/password`, dtoUpdatePassword) ;
   }
 }

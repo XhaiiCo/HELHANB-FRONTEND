@@ -32,7 +32,7 @@ export class AccountComponent implements OnInit {
   btnSubmitRegistrationText: string = "Enregistrer les modification";
   disableRegistrationBtn: boolean = false;
   showPwFields: boolean = false;
-  user!: DtoInputUser ;
+  user!: DtoInputUser;
 
   constructor(private _fb: FormBuilder,
               public authService: AuthService,
@@ -42,18 +42,25 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const user = this.authService.user ;
-    if(user) {
-      this.user = user ;
+    const user = this.authService.user;
+    if (user) {
+      this.user = user;
+      this.resetForm()
 
-      this.form.get('firstName')?.setValue(user.firstName);
-      this.form.get('lastName')?.setValue(user.lastName);
-      this.form.get('email')?.setValue(user.email);
+    } else {
+      this._toastNotificationService.add("Error", "error");
+      this._router.navigate(['']);
     }
-    else{
-      this._toastNotificationService.add("Error", "error") ;
-      this._router.navigate(['']) ;
-    }
+  }
+
+  resetForm() {
+
+    this.form.get('firstName')?.setValue(this.user.firstName);
+    this.form.get('lastName')?.setValue(this.user.lastName);
+    this.form.get('email')?.setValue(this.user.email);
+
+    this.form.get('password')?.setValue("");
+    this.form.get('confirmPassword')?.setValue("");
   }
 
   /**
@@ -96,13 +103,31 @@ export class AccountComponent implements OnInit {
     this.btnSubmitRegistrationText = "Modification...";
     this.disableRegistrationBtn = true;
 
-    let user: DtoOutputRegistrationUser = {
-      firstName: this.form.get('firstName')?.value,
-      lastName: this.form.get('lastName')?.value,
-      email: this.form.get('email')?.value,
-      password: this.form.get('password')?.value,
-    };
+    if (this.showPwFields) {
+      //Update password
 
+      const dtoPasswordUpdate = {
+        id: this.user.id,
+        password: this.form.get("password")?.value
+      };
+
+      this._userService.updatePassword(dtoPasswordUpdate).subscribe({
+        next: (user) => {
+          this._toastNotificationService.add("Mot de passe modifié", "success");
+
+          this.resetForm()
+          this.btnSubmitRegistrationText = "Enregistrer les modification";
+          this.disableRegistrationBtn = false;
+        },
+        error: (err) => {
+          this._toastNotificationService.add("Erreur lors de la modification du mot de passe", "error");
+
+          this.resetForm()
+          this.btnSubmitRegistrationText = "Enregistrer les modification";
+          this.disableRegistrationBtn = false;
+        }
+      });
+    }
   }
 
   onUploadPicture(event: any) {
