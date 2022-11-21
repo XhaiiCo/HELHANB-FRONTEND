@@ -6,6 +6,7 @@ import {ToastNotificationService} from "../../services/toast-notification.servic
 import {Router} from "@angular/router";
 import {DtoOutputRegistrationUser} from "../../dtos/user/dto-output-registration-user";
 import {environment} from 'src/environments/environment';
+import {DtoInputUser} from "../../dtos/user/dto-input-user";
 
 @Component({
   selector: 'app-account',
@@ -15,10 +16,6 @@ import {environment} from 'src/environments/environment';
 export class AccountComponent implements OnInit {
 
   profilePictureBaseUri: string = environment.pictureUrl;
-
-  @Input() firstName?: string = "Victor";
-  @Input() lastName?: string = "Guillaume";
-  @Input() email?: string = "gllme.victor@gmail.com";
 
   form: FormGroup = this._fb.group({
     profilePicture: this._fb.control(""),
@@ -35,18 +32,28 @@ export class AccountComponent implements OnInit {
   btnSubmitRegistrationText: string = "Enregistrer les modification";
   disableRegistrationBtn: boolean = false;
   showPwFields: boolean = false;
+  user!: DtoInputUser ;
 
   constructor(private _fb: FormBuilder,
               public authService: AuthService,
               private _userService: UserService,
               private _toastNotificationService: ToastNotificationService,
               private _router: Router) {
-    this.form.get('firstName')?.setValue(this.firstName);
-    this.form.get('lastName')?.setValue(this.lastName);
-    this.form.get('email')?.setValue(this.email);
   }
 
   ngOnInit(): void {
+    const user = this.authService.user ;
+    if(user) {
+      this.user = user ;
+
+      this.form.get('firstName')?.setValue(user.firstName);
+      this.form.get('lastName')?.setValue(user.lastName);
+      this.form.get('email')?.setValue(user.email);
+    }
+    else{
+      this._toastNotificationService.add("Error", "error") ;
+      this._router.navigate(['']) ;
+    }
   }
 
   /**
@@ -85,11 +92,7 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  /**
-   * We're sending a request to the server to register a new user, and if the request is successful, we're redirecting the
-   * user to the home page
-   */
-  emitRegistrationForm() {
+  emitUpdateForm() {
     this.btnSubmitRegistrationText = "Modification...";
     this.disableRegistrationBtn = true;
 
@@ -116,20 +119,30 @@ export class AccountComponent implements OnInit {
         });
   }
 
+  /**
+   * If the user's first name, last name, or email address has changed, or if the password field is not empty, then the
+   * data has been changed
+   * @returns A boolean value.
+   */
   dataHasBeenChanged(): boolean {
     return !(
-      this.firstName != this.form.get('firstName')?.value
-      || this.lastName != this.form.get('lastName')?.value
-      || this.email != this.form.get('email')?.value
+      this.user.firstName != this.form.get('firstName')?.value
+      || this.user.lastName != this.form.get('lastName')?.value
+      || this.user.email != this.form.get('email')?.value
       || (this.showPwFields && this.form.get('password')?.value != "")
-      || this.form.get('profilePicture')?.value != ""
     );
   }
 
+  /**
+   * If the showPwFields variable is true, then set it to false. If the showPwFields variable is false, then set it to true
+   */
   toggleDisplayNewPasswordField() {
     this.showPwFields = !this.showPwFields;
   }
 
+  /**
+   * Send a request to the server to remove the user's profile picture
+   */
   removePp() {
     if (this.authService.user)
       this._userService.updateProfilePicture(this.authService.user.id, null)

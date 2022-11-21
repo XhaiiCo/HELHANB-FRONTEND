@@ -5,7 +5,7 @@
     </div>
   </section>
 -->
-  <form class="form-group" [formGroup]="form" (ngSubmit)="emitRegistrationForm()">
+  <form class="form-group" [formGroup]="form" (ngSubmit)="emitUpdateForm()">
 
     <h2>Photo de profile</h2>
     <div class="pp_container space_between_sections">
@@ -67,7 +67,7 @@
         <span>Changer de mot de passe</span>
         <svg [ngClass]="{'onClickRotation': showPwFields, 'defaultRotation': !showPwFields}" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M15.125 21.1L6.7 12.7q-.15-.15-.212-.325q-.063-.175-.063-.375t.063-.375q.062-.175.212-.325l8.425-8.425q.35-.35.875-.35t.9.375q.375.375.375.875t-.375.875L9.55 12l7.35 7.35q.35.35.35.862q0 .513-.375.888t-.875.375q-.5 0-.875-.375Z"/></svg>
       </div>
-      <div id="container_password_input" [hidden]="!showPwFields">
+      <div id="container_password_input" [class.hidden_container_password_input]="!showPwFields">
         <div>
           <!-- PASSWORD -->
           <div class="form-group">

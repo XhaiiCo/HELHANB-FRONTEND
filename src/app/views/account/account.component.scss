@@ -127,7 +127,7 @@ h2 {
 
 .input_password_dropbox {
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: $radius;
   position: relative;
   z-index: 2;
   background-color: white;
@@ -137,7 +137,7 @@ h2 {
     display: block;
     margin-left: auto;
     margin-right: 5px;
-    transition: all .3s;
+    transition: all .5s;
   }
 }
 
@@ -149,14 +149,21 @@ h2 {
   transform: rotate(270deg);
 }
 
+.hidden_container_password_input{
+  height: 0 !important;
+}
+
 #container_password_input {
   position: relative;
   z-index: 1;
   border: 1px solid rgba(gray, 0.5);
   margin: -20px auto auto;
-  border-radius: 20px;
+  border-radius: $radius;
   width: 95%;
   padding-bottom: 6px;
+  height: 90%;
+  transition: all .5s;
+  overflow: hidden;
 
   & > div {
     width: 85%;
