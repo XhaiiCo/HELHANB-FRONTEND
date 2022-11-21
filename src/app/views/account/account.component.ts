@@ -113,7 +113,7 @@ export class AccountComponent implements OnInit {
             if (err.status === 401)
               this._toastNotificationService.add(err.error, "error");
           }
-        }) ;
+        });
   }
 
   dataHasBeenChanged(): boolean {
@@ -131,7 +131,14 @@ export class AccountComponent implements OnInit {
   }
 
   removePp() {
-    // Supprimer la pp en db
-    // Changer le dto (?)
+    if (this.authService.user)
+      this._userService.updateProfilePicture(this.authService.user.id, null)
+        .subscribe({
+          next: (user) => this.authService.user = user,
+          error: (err) => {
+            if (err.status === 401)
+              this._toastNotificationService.add(err.error, "error");
+          }
+        });
   }
 }
