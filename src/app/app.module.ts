@@ -24,6 +24,7 @@ import { ModalConfirmationComponent } from './component/modal-confirmation/modal
 import {AccountComponent} from "./views/account/account.component";
 import { MyRentingComponent } from './views/my-renting/my-renting.component';
 import { MyReservationComponent } from './views/my-reservation/my-reservation.component';
+import { CreateAdComponent } from './views/create-ad/create-ad.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { MyReservationComponent } from './views/my-reservation/my-reservation.co
     AccountComponent,
     MyRentingComponent,
     MyReservationComponent,
+    CreateAdComponent,
   ],
   imports: [
     MbscModule,

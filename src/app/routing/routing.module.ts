@@ -14,6 +14,7 @@ import {ConnectedGuardService} from "./guards/connected-guard.service";
 import {NotConnectedGuardService} from "./guards/not-connected-guard.service";
 import {MyReservationComponent} from "../views/my-reservation/my-reservation.component";
 import {MyRentingComponent} from "../views/my-renting/my-renting.component";
+import {CreateAdComponent} from "../views/create-ad/create-ad.component";
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'inscription', component: RegistrationComponent, canActivate: [NotConnectedGuardService]},
   {path: 'deconnexion', component: DisconnectComponent, canActivate: [ConnectedGuardService]},
   {path: 'compte', component: AccountComponent, canActivate: [ConnectedGuardService]},
+  {path: 'nouvelle-annonce', component: CreateAdComponent},
   {
     path: 'mes-reservations', component: MyReservationComponent,
     canActivate: [RoleGuardService],
