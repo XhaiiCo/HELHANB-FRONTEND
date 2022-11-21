@@ -1,59 +1,59 @@
 <div class="container">
   <form class="form-group" (ngSubmit)="submit()" [formGroup]="adCreateForm">
 
-    <div *ngIf="step == 1" formGroupName="step1">
+    <div *ngIf="step == 0" formGroupName="step1">
         <div class="form-group">
           <label class="label">Nom du logement</label>
           <input type="text" class="input-text" formControlName="name">
-          <span class="error" *ngIf="submitted && inputName?.invalid">Veuillez entrer un nom.</span>
+          <span *ngIf="inputName?.dirty && inputName?.invalid">Veuillez entrer un nom.</span>
         </div>
 
         <div class="form-group">
           <label class="label">Description</label>
           <textarea class="input-text" formControlName="description"></textarea>
-          <span class="error" *ngIf="submitted && inputDescription?.invalid">Veuillez entrer une description.</span>
+          <span *ngIf="inputDescription?.dirty && inputDescription?.invalid">Veuillez entrer une description.</span>
         </div>
     </div>
 
-    <div *ngIf="step == 2" formGroupName="step2">
+    <div *ngIf="step == 1" formGroupName="step2">
       <div class="form-group">
         <label class="label">Rue</label>
         <input type="text" class="input-text" formControlName="street">
-        <span class="error" *ngIf="submitted && inputStreet?.invalid">Veuillez entrer une rue.</span>
+        <span *ngIf="inputStreet?.dirty && inputStreet?.invalid">Veuillez entrer une rue.</span>
       </div>
 
       <div class="inline-input">
         <div class="form-group">
           <label class="label">Ville</label>
           <input type="text" class="input-text" formControlName="city">
-          <span class="error" *ngIf="submitted && inputCity?.invalid">Veuillez entrer une ville.</span>
+          <span *ngIf="inputCity?.dirty && inputCity?.invalid">Veuillez entrer une ville.</span>
         </div>
 
         <div class="form-group">
           <label class="label">Code postal</label>
           <input type="text" class="input-text" formControlName="postalCode">
-          <span class="error" *ngIf="submitted && inputPostalCode?.invalid">Veuillez entrer un code postal.</span>
+          <span *ngIf="inputPostalCode?.dirty && inputPostalCode?.invalid">Veuillez entrer un code postal.</span>
         </div>
       </div>
 
       <div class="form-group">
         <label class="label">Pays</label>
         <input type="text" class="input-text" formControlName="country">
-        <span class="error" *ngIf="submitted && inputCountry?.invalid">Veuillez entrer un pays.</span>
+        <span *ngIf="inputCountry?.dirty && inputCountry?.invalid">Veuillez entrer un pays.</span>
       </div>
     </div>
 
-    <div *ngIf="step == 3" formGroupName="step3">
+    <div *ngIf="step == 2" formGroupName="step3">
       <div class="form-group">
         <label class="label">Prix par nuit</label>
-        <input type="number" class="input-text" formControlName="pricePerNight">
-        <span class="error" *ngIf="submitted && inputPricePerNight?.invalid">Veuillez entrer un prix par nuit.</span>
+        <input type="text" class="input-text" formControlName="pricePerNight">
+        <span *ngIf="inputPricePerNight?.dirty && inputPricePerNight?.invalid">Veuillez entrer un prix par nuit.</span>
       </div>
 
       <div class="form-group">
         <label class="label">Nombre de personnes</label>
-        <input type="number" class="input-text" formControlName="nbOfPersons">
-        <span class="error" *ngIf="submitted && inputNbOfPersons?.invalid">Veuillez entrer un nombre de personnes.</span>
+        <input type="text" class="input-text" formControlName="nbOfPersons">
+        <span *ngIf="inputNbOfPersons?.dirty && inputNbOfPersons?.invalid">Veuillez entrer un nombre de personnes.</span>
       </div>
 
       <div class="form-group">
@@ -68,15 +68,15 @@
       </ul>
     </div>
 
-    <div *ngIf="step == 4">
+    <div *ngIf="step == 3">
       <div class="form-group">
         <label class="label">Ajouter au moins 5 images</label>
         <input class="file-input" type="file" accept="image/*">
       </div>
     </div>
 
-    <button type="button" class="btn-primary" *ngIf="step != 1" (click)="previous()">Précédent</button>
-    <input type="submit" class="btn-primary" [value]="submitBtnValue">
+    <button type="button" class="btn-primary" *ngIf="step != 0" (click)="previous()">Précédent</button>
+    <input type="submit" class="btn-primary" [value]="submitBtnValue" [disabled]="adCreateForm.get(stepsName[step])?.invalid">
 
     <pre>{{adCreateForm.value | json}}</pre>
   </form>

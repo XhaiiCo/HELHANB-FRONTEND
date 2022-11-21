@@ -9,8 +9,8 @@ import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/form
 export class CreateAdComponent implements OnInit {
 
   submitBtnValue: string = "Suivant";
-  step : number = 1;
-  submitted : boolean = false;
+  step : number = 0;
+  stepsName : string[] = ["step1", "step2", "step3", "step4"]
 
   adCreateForm = new FormGroup({
 
@@ -27,12 +27,11 @@ export class CreateAdComponent implements OnInit {
     }),
 
     step3: new FormGroup({
-      pricePerNight: new FormControl(0, [Validators.required, Validators.min(0)]),
-      nbOfPersons: new FormControl(0, [Validators.required, Validators.min(0)])
+      pricePerNight: new FormControl(0, [Validators.required, Validators.pattern(/^\d+(,|.\d{1,2})?$/)]),
+      nbOfPersons: new FormControl(0, [Validators.required, Validators.pattern(/^\d*[1-9]\d*$/)])
     })
 
   })
-
 
   constructor() { }
 
@@ -41,20 +40,13 @@ export class CreateAdComponent implements OnInit {
 
   submit()
   {
-    if(this.adCreateForm.controls.step1.invalid && this.step == 1) {this.submitted = true; return;}
-    if(this.adCreateForm.controls.step2.invalid && this.step == 2) {this.submitted = true; return;}
-    if(this.adCreateForm.controls.step3.invalid && this.step == 3) {this.submitted = true; return;}
-
     this.step++;
     this.changeSubmitButtonValue()
 
-    if(this.step == 5)
+    if(this.step == 4)
     {
       //submit
     }
-
-    this.submitted = false;
-
   }
 
   previous()
@@ -65,7 +57,7 @@ export class CreateAdComponent implements OnInit {
 
   changeSubmitButtonValue()
   {
-    this.submitBtnValue = this.step < 4 ? "Suivant" : "Créer annonce";
+    this.submitBtnValue = this.step < 4 ? "Suivant" : "Valider";
   }
 
   //step1
