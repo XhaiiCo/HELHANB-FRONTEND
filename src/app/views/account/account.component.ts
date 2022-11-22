@@ -1,12 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";
-import {DtoOutputRegistrationUser} from "../../dtos/user/dto-output-registration-user";
 import {environment} from 'src/environments/environment';
 import {DtoInputUser} from "../../dtos/user/dto-input-user";
+import {DtoOutputUpdatePassword} from "../../dtos/user/dto-output-update-password";
+import {DtoOutputUpdateUser} from "../../dtos/user/dto-output-update-user";
 
 @Component({
   selector: 'app-account',
@@ -103,10 +104,10 @@ export class AccountComponent implements OnInit {
     this.btnSubmitRegistrationText = "Modification...";
     this.disableRegistrationBtn = true;
 
-    if (this.showPwFields) {
+    if (this.showPwFields && this.form.get("password")?.value != "") {
       //Update password
 
-      const dtoPasswordUpdate = {
+      const dtoPasswordUpdate: DtoOutputUpdatePassword = {
         id: this.user.id,
         password: this.form.get("password")?.value
       };
@@ -121,6 +122,42 @@ export class AccountComponent implements OnInit {
         },
         error: (err) => {
           this._toastNotificationService.add("Erreur lors de la modification du mot de passe", "error");
+
+          this.resetForm()
+          this.btnSubmitRegistrationText = "Enregistrer les modification";
+          this.disableRegistrationBtn = false;
+        }
+      });
+    }
+
+    if (
+      this.user.firstName != this.form.get('firstName')?.value
+      || this.user.lastName != this.form.get('lastName')?.value
+      || this.user.email != this.form.get('email')?.value
+    ) {
+      const dtoUpdateUser: DtoOutputUpdateUser = {
+        id: this.user.id,
+        firstName: this.form.get("firstName")?.value,
+        lastName: this.form.get("lastName")?.value,
+        email: this.form.get("email")?.value,
+      };
+
+      this._userService.updateUser(dtoUpdateUser).subscribe({
+        next: (user) => {
+          this.authService.user = user;
+          this.user = user;
+
+          this._toastNotificationService.add("Informations personnelles modifiées", "success");
+
+          this.resetForm()
+          this.btnSubmitRegistrationText = "Enregistrer les modification";
+          this.disableRegistrationBtn = false;
+        },
+        error: (err) => {
+          if (err.status == 409)
+            this._toastNotificationService.add(err.error, "error");
+          else
+            this._toastNotificationService.add("Erreur lors de la modification des Informations personnelles ", "error");
 
           this.resetForm()
           this.btnSubmitRegistrationText = "Enregistrer les modification";

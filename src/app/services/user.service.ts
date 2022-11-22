@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {DtoInputUser} from "../dtos/user/dto-input-user";
 import {DtoOutputFilteringUsers} from "../dtos/user/dto-output-filtering-users";
 import {DtoOutputUpdatePassword} from "../dtos/user/dto-output-update-password";
+import {DtoOutputUpdateUser} from "../dtos/user/dto-output-update-user";
 
 @Injectable({
   providedIn: 'root'
@@ -64,5 +65,14 @@ export class UserService {
    */
   public updatePassword(dtoUpdatePassword: DtoOutputUpdatePassword): Observable<DtoInputUser>{
     return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/password`, dtoUpdatePassword) ;
+  }
+
+  /**
+   * It updates the user.
+   * @param {DtoOutputUpdateUser} dtoUpdateUser - DtoOutputUpdateUser
+   * @returns An observable of type DtoInputUser
+   */
+  public updateUser(dtoUpdateUser: DtoOutputUpdateUser): Observable<DtoInputUser>{
+    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}`, dtoUpdateUser) ;
   }
 }
