@@ -41,3 +41,55 @@ textarea.ng-invalid.ng-dirty {
 textarea {
   resize: vertical;
 }
+
+#background_allFeatures_container {
+  z-index: 999;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $modal-background-color ;
+}
+
+#allFeatures_container {
+  position: fixed;
+  left: 50%;
+  top: 27%;
+  transform: translate(-50%, 0);
+}
+
+#allFeatures_div {
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+  padding: 8px 16px 16px 20px;
+  width: 400px;
+  height: max-content;
+  max-height: 360px;
+  overflow-y: auto;
+  background-color: white;
+}
+
+#btn_close_features {
+  margin-top: 5px;
+  margin-bottom: 1px;
+}
+
+
+.features_list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  margin-left: 4px;
+
+  & > span{
+    width: 50%;
+    padding: 5px;
+    font-size: 18px;
+  }
+}
+
+.btn_close_features_container {
+  margin-top: 5px;
+  text-align: right;
+}

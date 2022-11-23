@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -33,6 +33,17 @@ export class CreateAdComponent implements OnInit {
 
   })
 
+  displayAllFeatures: boolean = false;
+  tmp_feature: string = "";
+  @Input() renting_features: string[] =
+    [
+      "Wifi",
+      "Salle de bain",
+      "Cuisine",
+      "Télévision",
+      "Chauffage"
+    ]
+
   constructor() { }
 
   ngOnInit(): void {
@@ -65,5 +76,26 @@ export class CreateAdComponent implements OnInit {
       var control = this.adCreateForm.get(subFormName)?.get(controlName);
 
       return control?.dirty && control?.invalid;
+  }
+
+  // Afficher la liste (Victor)
+  showListFeatures() {
+    this.displayAllFeatures = true;
+  }
+
+  // Fermer la liste (Victor)
+  closeListFeatures() {
+    this.displayAllFeatures = false;
+  }
+
+  addFeature(feature: string) {
+    this.renting_features.push(feature);
+    this.tmp_feature = "";
+  }
+
+  removeFeature(feature: string) {
+    this.renting_features = this.renting_features.filter(obj => obj !== feature);
+    if (this.renting_features.length == 0)
+      this.displayAllFeatures = false;
   }
 }

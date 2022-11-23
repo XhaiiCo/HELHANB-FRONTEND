@@ -42,9 +42,9 @@
       <section class="features_container">
         <h2>Disponible dans le logement</h2>
         <div class="features_list">
-        <span *ngFor="let feature of renting_features.slice(0, 4)">
-          &#x2022; {{ feature }}
-        </span>
+          <span *ngFor="let feature of renting_features.slice(0, 4)">
+            &#x2022; {{ feature }}
+          </span>
         </div>
 
         <div class="btn_feature_container" [hidden]="renting_features.length <= 4">
