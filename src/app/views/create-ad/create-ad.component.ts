@@ -89,7 +89,9 @@ export class CreateAdComponent implements OnInit {
   }
 
   addFeature(feature: string) {
-    this.renting_features.push(feature);
+    if(!this.renting_features.find(f => f.toLowerCase() === feature.toLowerCase()))
+      this.renting_features.push(feature);
+    
     this.tmp_feature = "";
   }
 
