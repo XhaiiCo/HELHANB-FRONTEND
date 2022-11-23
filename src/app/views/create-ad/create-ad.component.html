@@ -59,7 +59,7 @@
       <div class="form-group">
         <label class="label">Options</label>
         <div>
-          <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature">
+          <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature" [ngModelOptions]="{standalone: true}">
           <button type="button" class="btn-secondary" (click)="addFeature(tmp_feature)" [disabled]="tmp_feature == ''">+</button>
           <button [hidden]="renting_features.length == 0" type="button" class="btn-primary" id="btn_open_features" (click)="showListFeatures()">Voir tout</button>
         </div>
