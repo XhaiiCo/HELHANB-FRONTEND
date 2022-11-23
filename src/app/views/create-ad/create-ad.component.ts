@@ -9,8 +9,8 @@ import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/form
 export class CreateAdComponent implements OnInit {
 
   submitBtnValue: string = "Suivant";
-  step : number = 0;
-  stepsName : string[] = ["step0", "step1", "step2", "step3"]
+  step: number = 0;
+  stepsName: string[] = ["step0", "step1", "step2", "step3"]
 
   adCreateForm = new FormGroup({
 
@@ -44,54 +44,55 @@ export class CreateAdComponent implements OnInit {
       "Chauffage"
     ]
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
-  submit()
-  {
+  submit() {
     this.step++;
     this.changeSubmitButtonValue()
 
-    if(this.step == 4)
-    {
-      //submit
+    if (this.step == 4) {
+      const tmp = {
+        ...this.adCreateForm.get(this.stepsName[0])?.value,
+        ...this.adCreateForm.get(this.stepsName[1])?.value,
+        ...this.adCreateForm.get(this.stepsName[2])?.value,
+        features: this.renting_features
+      };
+
+      console.log(tmp);
     }
   }
 
-  previous()
-  {
+  previous() {
     this.step--;
     this.changeSubmitButtonValue()
   }
 
-  changeSubmitButtonValue()
-  {
+  changeSubmitButtonValue() {
     this.submitBtnValue = this.step < 4 ? "Suivant" : "Valider";
   }
 
-  isInvalid(subFormName: string, controlName: string)
-  {
-      var control = this.adCreateForm.get(subFormName)?.get(controlName);
+  isInvalid(subFormName: string, controlName: string) {
+    const control = this.adCreateForm.get(subFormName)?.get(controlName);
 
-      return control?.dirty && control?.invalid;
+    return control?.dirty && control?.invalid;
   }
 
-  // Afficher la liste (Victor)
   showListFeatures() {
     this.displayAllFeatures = true;
   }
 
-  // Fermer la liste (Victor)
   closeListFeatures() {
     this.displayAllFeatures = false;
   }
 
   addFeature(feature: string) {
-    if(!this.renting_features.find(f => f.toLowerCase() === feature.toLowerCase()))
+    if (!this.renting_features.find(f => f.toLowerCase() === feature.toLowerCase()))
       this.renting_features.push(feature);
-    
+
     this.tmp_feature = "";
   }
 

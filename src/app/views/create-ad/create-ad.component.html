@@ -2,17 +2,17 @@
   <form class="form-group" (ngSubmit)="submit()" [formGroup]="adCreateForm">
 
     <div *ngIf="step == 0" formGroupName="step0">
-        <div class="form-group">
-          <label class="label">Nom du logement</label>
-          <input type="text" class="input-text" formControlName="name">
-          <span *ngIf="isInvalid('step0', 'name')">Veuillez entrer un nom.</span>
-        </div>
+      <div class="form-group">
+        <label class="label">Nom du logement</label>
+        <input type="text" class="input-text" formControlName="name">
+        <span *ngIf="isInvalid('step0', 'name')">Veuillez entrer un nom.</span>
+      </div>
 
-        <div class="form-group">
-          <label class="label">Description</label>
-          <textarea class="input-text" formControlName="description"></textarea>
-          <span *ngIf="isInvalid('step0', 'description')">Veuillez entrer une description.</span>
-        </div>
+      <div class="form-group">
+        <label class="label">Description</label>
+        <textarea class="input-text" formControlName="description"></textarea>
+        <span *ngIf="isInvalid('step0', 'description')">Veuillez entrer une description.</span>
+      </div>
     </div>
 
     <div *ngIf="step == 1" formGroupName="step1">
@@ -59,9 +59,14 @@
       <div class="form-group">
         <label class="label">Options</label>
         <div>
-          <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature" [ngModelOptions]="{standalone: true}">
-          <button type="button" class="btn-secondary" (click)="addFeature(tmp_feature)" [disabled]="tmp_feature == ''">+</button>
-          <button [hidden]="renting_features.length == 0" type="button" class="btn-primary" id="btn_open_features" (click)="showListFeatures()">Voir tout</button>
+          <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature"
+                 [ngModelOptions]="{standalone: true}">
+          <button type="button" class="btn-secondary" (click)="addFeature(tmp_feature)" [disabled]="tmp_feature == ''">
+            +
+          </button>
+          <button [hidden]="renting_features.length == 0" type="button" class="btn-primary" id="btn_open_features"
+                  (click)="showListFeatures()">Voir tout
+          </button>
         </div>
       </div>
       <ul>
@@ -76,8 +81,9 @@
       </div>
     </div>
 
+    <input type="submit" class="btn-primary" [value]="submitBtnValue"
+           [disabled]="adCreateForm.get(stepsName[step])?.invalid">
     <button type="button" class="btn-primary" *ngIf="step != 0" (click)="previous()">Précédent</button>
-    <input type="submit" class="btn-primary" [value]="submitBtnValue" [disabled]="adCreateForm.get(stepsName[step])?.invalid">
 
     <pre>{{adCreateForm.value | json}}</pre>
   </form>
