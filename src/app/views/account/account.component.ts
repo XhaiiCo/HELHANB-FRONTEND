@@ -27,8 +27,8 @@ export class AccountComponent implements OnInit {
   });
 
   passwordForm: FormGroup = this._fb.group({
-    password: this._fb.control("", Validators.minLength(6)),
-    confirmPassword: this._fb.control("", Validators.minLength(6)),
+    password: this._fb.control("", [Validators.minLength(6), Validators.required]),
+    confirmPassword: this._fb.control("", [Validators.minLength(6), Validators.required]),
   }, {
     validators: this.controlValuesAreEqual('password', 'confirmPassword')
   });
@@ -39,7 +39,7 @@ export class AccountComponent implements OnInit {
   btnSubmitPasswordText: string = "Enregistrer le mot de passe";
   disablePasswordBtn: boolean = false;
 
-  showPwFields: boolean = false;
+  showPwFields: boolean = true;
   user!: DtoInputUser;
 
   constructor(private _fb: FormBuilder,
@@ -81,8 +81,8 @@ export class AccountComponent implements OnInit {
   }
 
   isPasswordEquals(): boolean {
-    if (this.personalDataForm.errors) {
-      return this.personalDataForm.errors['valuesDoNotMatch'];
+    if (this.passwordForm.errors) {
+      return this.passwordForm.errors['valuesDoNotMatch'];
     }
     return false;
   }
@@ -202,9 +202,7 @@ export class AccountComponent implements OnInit {
     return !(
       this.user.firstName != this.personalDataForm.get('firstName')?.value
       || this.user.lastName != this.personalDataForm.get('lastName')?.value
-      || this.user.email != this.personalDataForm.get('email')?.value
-      || (this.showPwFields && this.personalDataForm.get('password')?.value != "")
-    );
+      || this.user.email != this.personalDataForm.get('email')?.value);
   }
 
   /**

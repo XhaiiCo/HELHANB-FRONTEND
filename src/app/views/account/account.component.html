@@ -65,8 +65,7 @@
     </div>
 
     <input type="submit" [value]="btnSubmitPersonalDataText" class="btn-primary"
-           [disabled]="personalDataForm.invalid || disablePersonalDataBtn || dataHasBeenChanged()"
-           [class.disabled]="personalDataForm.invalid">
+           [disabled]="personalDataForm.invalid || disablePersonalDataBtn || dataHasBeenChanged()">
   </form>
 
   <form class="form-group" [formGroup]="passwordForm" (ngSubmit)="emitUpdatePasswordForm()">
@@ -98,8 +97,8 @@
           <div class="form-group">
             <label for="confirmPassword" class="label">Confirmation du nouveau mot de passe</label>
             <input type="password" id="confirmPassword" class="input-text" formControlName="confirmPassword"
-                   [class.invalid]="personalDataForm.get('confirmPassword')?.touched && isPasswordEquals()">
-            <span *ngIf="personalDataForm.get('confirmPassword')?.touched && isPasswordEquals(); else blank"
+                   [class.invalid]="passwordForm.get('confirmPassword')?.touched && isPasswordEquals()">
+            <span *ngIf="passwordForm.get('confirmPassword')?.touched && isPasswordEquals(); else blank"
                   class="feedback">Les mots de passes ne correspondent pas</span>
             <ng-template #blank>
               <span class="feedback"></span>
@@ -107,8 +106,8 @@
           </div>
 
           <input type="submit" [value]="btnSubmitPasswordText" class="btn-primary"
-                 [disabled]="passwordForm.invalid"
-                 [class.disabled]="passwordForm.invalid">
+                 [disabled]="passwordForm.invalid">
+
         </div>
       </div>
     </div>
