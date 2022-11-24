@@ -60,7 +60,6 @@ export class CreateAdComponent implements OnInit {
 
     if (!startHour || !endHour) return;
 
-
     if (startHour >= endHour) {
       this.controlSetErrors(startHourIdentifier.stepName, startHourIdentifier.controlName, {"error": true});
       this.controlSetErrors(endHourIdentifier.stepName, endHourIdentifier.controlName, {"error": true});
