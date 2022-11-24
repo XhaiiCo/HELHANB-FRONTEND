@@ -84,6 +84,12 @@
       </div>
 
       <div class="form-group">
+        <label class="label">Nombre de chambres</label>
+        <input type="number" class="input-text" formControlName="numberOfBedrooms">
+        <span *ngIf="isInvalid('step2', 'numberOfBedrooms')">Veuillez entrer un nombre de chambres.</span>
+      </div>
+
+      <div class="form-group">
         <label class="label">Options</label>
         <div>
           <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature"
@@ -100,8 +106,9 @@
 
     <div *ngIf="step == 3">
       <div class="form-group">
-        <label class="label">Ajouter au moins 5 images</label>
-        <input class="file-input" type="file" accept="image/*" multiple>
+        <label class="label">Ajouter au moins {{nbMinPictures}} images</label>
+        <input class="file-input" type="file" accept="image/*" (change)="addPictureName($event)" multiple>
+        <label *ngFor="let file of files">{{file}}</label>
       </div>
     </div>
 
@@ -128,4 +135,3 @@
     </div>
   </div>
 </div>
-

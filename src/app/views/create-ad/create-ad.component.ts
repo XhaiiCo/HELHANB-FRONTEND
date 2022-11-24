@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {FormGroupIdentifier} from "../../interfaces/form-group-identifier";
 import {DtoOutputCreateAd, DtoOutputTime} from "../../dtos/ad/dto-output-create-ad";
 import {Time} from "@angular/common";
@@ -14,8 +14,10 @@ import {AuthService} from "../../services/auth.service";
 export class CreateAdComponent implements OnInit {
 
   submitBtnValue: string = "Suivant";
-  step: number = 0;
+  step: number = 3;
   stepsName: string[] = ["step0", "step1", "step2", "step3"]
+  readonly nbMinPictures : number = 3;
+  private readonly nbMaxPictures : number = 15;
 
   adCreateForm = new FormGroup({
 
@@ -37,10 +39,28 @@ export class CreateAdComponent implements OnInit {
       leaveTime: new FormControl(Validators.required),
       pricePerNight: new FormControl(0, [Validators.required, Validators.pattern(/^\d+(,|.\d{1,2})?$/)]),
       numberOfPersons: new FormControl(0, [Validators.required, Validators.pattern(/^\d*[1-9]\d*$/)]),
-      //numberOfBedrooms: new FormControl(0, [Validators.required, Validators.pattern(/^\d*[1-9]\d*$/)])
-    })
+      numberOfBedrooms: new FormControl(0, [Validators.required, Validators.pattern(/^\d*[1-9]\d*$/)])
+    }),
 
   })
+
+  files: Array<string> = [];
+
+  addPictureName(event: any)
+  {
+    let filesFromEvent = event.target.files;
+
+    //for each marche pas non comprendo perqué
+    for(let i = 0; i < filesFromEvent.length; i++)
+    {
+      let fileName = filesFromEvent[i].name;
+
+      if(!this.files.includes(fileName))
+      {
+        this.files.push(fileName);
+      }
+    }
+  }
 
   displayAllFeatures: boolean = false;
   tmp_feature: string = "";
@@ -90,11 +110,9 @@ export class CreateAdComponent implements OnInit {
         ...this.adCreateForm.get(this.stepsName[0])?.value,
         ...this.adCreateForm.get(this.stepsName[1])?.value,
         ...this.adCreateForm.get(this.stepsName[2])?.value,
+
         features: this.renting_features,
         userId: this._authService.user.id,
-        numberOfBedrooms: 0,
-        //pricePerNight: Number(this.adCreateForm.get(this.stepsName[2])?.get("pricePerNight")?.value),
-        //numberOfPersons = Number(this)
       };
 
       //Add the time

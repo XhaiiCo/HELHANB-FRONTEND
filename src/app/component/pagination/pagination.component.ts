@@ -44,11 +44,6 @@ export class PaginationComponent implements OnInit
     }
   }
 
-  trackByFn(index: number): number
-  {
-    return index;
-  }
-
   ruler(currentIndex: number, maxPages: number, rulerLength: number): number[]
   {
     const array = new Array(rulerLength).fill(null);

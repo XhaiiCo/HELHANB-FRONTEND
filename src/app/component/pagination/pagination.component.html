@@ -1,6 +1,6 @@
 <ol class="paginator-container">
   <button (click)="navigateToPage(index - 1)" [disabled]="index == 1"><<</button>
-  <li *ngFor="let numPage of pagination.numPages; trackBy: trackByFn"
+  <li *ngFor="let numPage of pagination.numPages;"
       class="paginator-number"
       [class.active]="numPage === pagination.index"
       (click)="navigateToPage(numPage)">
