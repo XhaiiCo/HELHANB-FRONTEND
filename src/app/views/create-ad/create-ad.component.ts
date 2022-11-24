@@ -63,9 +63,14 @@ export class CreateAdComponent implements OnInit {
 
     if (arrivalHour >= leaveHour) {
       this.changeValidity("step2", "arrivalHour", true);
+      return;
     } else if (leaveHour <= arrivalHour) {
       this.changeValidity("step2", "leaveHour", true);
+      return;
     }
+
+    this.changeValidity("step2", "arrivalHour", false);
+    this.changeValidity("step2", "leaveHour", false);
   }
 
   changeValidity(subFormName: string, controlName: string, value: boolean) {
