@@ -44,6 +44,19 @@
     </div>
 
     <div *ngIf="step == 2" formGroupName="step2">
+
+      <div class="form-group">
+        <label class="label">Heure d'arrivée</label>
+        <input type="time" class="input-text" formControlName="arrivalHour">
+        <span *ngIf="isInvalid('step2', 'arrivalHour')">Veuillez entrer une heure d'arrivée.</span>
+      </div>
+
+      <div class="form-group">
+        <label class="label">Heure de départ</label>
+        <input type="time" class="input-text" formControlName="leaveHour">
+        <span *ngIf="isInvalid('step2', 'leaveHour')">Veuillez entrer une heure de départ.</span>
+      </div>
+
       <div class="form-group">
         <label class="label">Prix par nuit</label>
         <input type="text" class="input-text" formControlName="pricePerNight">

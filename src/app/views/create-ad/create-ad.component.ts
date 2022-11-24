@@ -27,6 +27,8 @@ export class CreateAdComponent implements OnInit {
     }),
 
     step2: new FormGroup({
+      arrivalHour: new FormControl(Validators.required),
+      leaveHour: new FormControl(Validators.required),
       pricePerNight: new FormControl('', [Validators.required, Validators.pattern(/^\d+(,|.\d{1,2})?$/)]),
       nbOfPersons: new FormControl('', [Validators.required, Validators.pattern(/^\d*[1-9]\d*$/)])
     })
