@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Time} from "@angular/common";
 
 @Component({
   selector: 'app-create-ad',
@@ -52,29 +53,22 @@ export class CreateAdComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  validHours()
-  {
+  validHours() {
     const formStep = this.adCreateForm.get("step2");
     const arrivalHour = formStep?.get("arrivalHour")?.value;
     const leaveHour = formStep?.get("leaveHour")?.value;
 
-    if(!arrivalHour || !leaveHour) return;
+    if (!arrivalHour || !leaveHour) return;
 
-    if(arrivalHour >= leaveHour)
-    {
+
+    if (arrivalHour >= leaveHour) {
       this.changeValidity("step2", "arrivalHour", true);
-    }
-    else if(leaveHour <= arrivalHour)
-    {
+    } else if (leaveHour <= arrivalHour) {
       this.changeValidity("step2", "leaveHour", true);
     }
-
-    this.changeValidity("step2", "arrivalHour", false);
-    this.changeValidity("step2", "leaveHour", false);
   }
 
-  changeValidity(subFormName: string, controlName: string, value: boolean)
-  {
+  changeValidity(subFormName: string, controlName: string, value: boolean) {
     this.adCreateForm.get(subFormName)?.get(controlName)?.setErrors({'incorrect': value});
   }
 
