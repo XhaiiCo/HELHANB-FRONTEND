@@ -62,19 +62,19 @@ export class CreateAdComponent implements OnInit {
 
 
     if (arrivalHour >= leaveHour) {
-      this.changeValidity("step2", "arrivalHour", true);
+      this.controlSetErrors("step2", "arrivalHour", {"error": true});
       return;
     } else if (leaveHour <= arrivalHour) {
-      this.changeValidity("step2", "leaveHour", true);
+      this.controlSetErrors("step2", "leaveHour", {"error": true});
       return;
     }
 
-    this.changeValidity("step2", "arrivalHour", false);
-    this.changeValidity("step2", "leaveHour", false);
+    this.controlSetErrors("step2", "arrivalHour", null);
+    this.controlSetErrors("step2", "leaveHour", null);
   }
 
-  changeValidity(subFormName: string, controlName: string, value: boolean) {
-    this.adCreateForm.get(subFormName)?.get(controlName)?.setErrors({'incorrect': value});
+  controlSetErrors(subFormName: string, controlName: string, value: {} | null) {
+    this.adCreateForm.get(subFormName)?.get(controlName)?.setErrors(value);
   }
 
   submit() {
