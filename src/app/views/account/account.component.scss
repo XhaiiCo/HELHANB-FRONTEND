@@ -1,55 +1,61 @@
-@import '/src/styles/helpers/variable' ;
-@import '/src/styles/components/form' ;
-@import '/src/styles/components/button' ;
+@import '/src/styles/helpers/variable';
+@import '/src/styles/components/form';
+@import '/src/styles/components/button';
 
-*{
+* {
   font-family: $main-font;
 }
 
-.account_page{
+.account_page {
   margin: auto;
   display: flex;
-  justify-content: center;
-  padding: 40px ;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
   background-color: white;
+  max-width: 500px ;
 }
 
-.pp_section{
-  margin-bottom: 30px ;
+.pp_section {
+  margin-bottom: 30px;
+  width: 100% ;
 }
 
-.profile_picture_section{
-  border: 1px solid silver ;
+.profile_picture_section {
+  border: 1px solid silver;
   border-radius: 10px;
   width: 100%;
   height: 90px;
   padding: 20px;
 }
 
-.form-group{
+.form-group {
   width: 100%;
   max-width: 500px;
 }
 
-.btn-primary{
+.btn-primary {
   margin-top: 10px;
+  width: 100% ;
 }
-.inline-input{
+
+.inline-input {
   @media (min-width: 600px) {
     display: flex;
-    gap: 20px ;
+    gap: 20px;
   }
 }
 
-.redirection{
+.redirection {
   font-family: $main-font;
   font-size: 15px;
-  a{
-    color: $main-color ;
 
-    &:hover{
-      cursor: pointer ;
-      text-decoration: underline ;
+  a {
+    color: $main-color;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
     }
   }
 }
@@ -155,7 +161,7 @@ h2 {
   transform: rotate(270deg);
 }
 
-.hidden_container_password_input{
+.hidden_container_password_input {
   height: 0 !important;
 }
 
