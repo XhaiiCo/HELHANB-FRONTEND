@@ -47,13 +47,15 @@
 
       <div class="form-group">
         <label class="label">Heure d'arrivée</label>
-        <input type="time" class="input-text" formControlName="arrivalHour" (change)="validHours()">
+        <input type="time" class="input-text" formControlName="arrivalHour"
+               (change)="validHours({stepName: 'step2', controlName: 'arrivalHour'}, {stepName: 'step2', controlName:'leaveHour'})">
         <span *ngIf="isInvalid('step2', 'arrivalHour')">Veuillez entrer une heure d'arrivée valide.</span>
       </div>
 
       <div class="form-group">
         <label class="label">Heure de départ</label>
-        <input type="time" class="input-text" formControlName="leaveHour" (change)="validHours()">
+        <input type="time" class="input-text" formControlName="leaveHour"
+               (change)="validHours({stepName: 'step2', controlName: 'arrivalHour'}, {stepName: 'step2', controlName:'leaveHour'})">
         <span *ngIf="isInvalid('step2', 'leaveHour')">Veuillez entrer une heure de départ valide.</span>
       </div>
 

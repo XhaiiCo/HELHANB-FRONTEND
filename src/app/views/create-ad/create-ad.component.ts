@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Time} from "@angular/common";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormGroupIdentifier} from "../../interfaces/form-group-identifier";
 
 @Component({
   selector: 'app-create-ad',
@@ -53,18 +53,18 @@ export class CreateAdComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  validHours() {
+  validHours(startHourIdentifier: FormGroupIdentifier, endHourIdentifier: FormGroupIdentifier) {
     const formStep = this.adCreateForm.get("step2");
-    const arrivalHour = formStep?.get("arrivalHour")?.value;
-    const leaveHour = formStep?.get("leaveHour")?.value;
+    const startHour = this.adCreateForm.get(startHourIdentifier.stepName)?.get(startHourIdentifier.controlName)?.value;
+    const endHour = this.adCreateForm.get(endHourIdentifier.stepName)?.get(endHourIdentifier.controlName)?.value;
 
-    if (!arrivalHour || !leaveHour) return;
+    if (!startHour || !endHour) return;
 
 
-    if (arrivalHour >= leaveHour) {
+    if (startHour >= endHour) {
       this.controlSetErrors("step2", "arrivalHour", {"error": true});
       return;
-    } else if (leaveHour <= arrivalHour) {
+    } else if (endHour <= startHour) {
       this.controlSetErrors("step2", "leaveHour", {"error": true});
       return;
     }
