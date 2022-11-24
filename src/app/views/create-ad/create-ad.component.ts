@@ -44,22 +44,39 @@ export class CreateAdComponent implements OnInit {
 
   })
 
-  files: Array<string> = [];
+  files: File[] = [];
 
-  addPictureName(event: any)
+  addPicture(event: any)
   {
+    //pas la peine de continuer si on est déjà au max
+    if(this.isFilesFull()) return;
+
     let filesFromEvent = event.target.files;
 
-    //for each marche pas non comprendo perqué
     for(let i = 0; i < filesFromEvent.length; i++)
     {
-      let fileName = filesFromEvent[i].name;
+      //on reverif à la prochaine iteration si on atteint pas le max
+      if(this.isFilesFull()) return;
 
-      if(!this.files.includes(fileName))
+      let file = filesFromEvent[i];
+
+      if(!this.isInFiles(file))
       {
-        this.files.push(fileName);
+        this.files.push(file);
       }
     }
+  }
+
+  isInFiles(fileToCheck: File): boolean
+  {
+    let filesName = this.files.map((file) => file.name)
+
+    return filesName.includes(fileToCheck.name);
+  }
+
+  isFilesFull() : boolean
+  {
+    return this.files.length == this.nbMaxPictures;
   }
 
   displayAllFeatures: boolean = false;

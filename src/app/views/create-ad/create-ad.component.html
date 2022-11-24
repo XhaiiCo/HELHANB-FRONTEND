@@ -107,8 +107,8 @@
     <div *ngIf="step == 3">
       <div class="form-group">
         <label class="label">Ajouter au moins {{nbMinPictures}} images</label>
-        <input class="file-input" type="file" accept="image/*" (change)="addPictureName($event)" multiple>
-        <label *ngFor="let file of files">{{file}}</label>
+        <input class="file-input" type="file" accept="image/*" (change)="addPicture($event)" multiple>
+        <label *ngFor="let file of files">{{file.name}}</label>
       </div>
     </div>
 
