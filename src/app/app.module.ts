@@ -25,6 +25,7 @@ import {AccountComponent} from "./views/account/account.component";
 import { MyRentingComponent } from './views/my-renting/my-renting.component';
 import { MyReservationComponent } from './views/my-reservation/my-reservation.component';
 import { CreateAdComponent } from './views/create-ad/create-ad.component';
+import { PaginationComponent } from './component/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { CreateAdComponent } from './views/create-ad/create-ad.component';
     MyRentingComponent,
     MyReservationComponent,
     CreateAdComponent,
+    PaginationComponent,
   ],
   imports: [
     MbscModule,
