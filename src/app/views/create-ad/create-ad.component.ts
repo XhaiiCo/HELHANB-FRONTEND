@@ -1,6 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {FormGroupIdentifier} from "../../interfaces/form-group-identifier";
+import {DtoOutputCreateAd, DtoOutputTime} from "../../dtos/ad/dto-output-create-ad";
+import {Time} from "@angular/common";
+import {AdService} from "../../services/ad.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-create-ad',
@@ -23,16 +27,17 @@ export class CreateAdComponent implements OnInit {
     step1: new FormGroup({
       street: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
-      postalCode: new FormControl('', Validators.required),
+      postalCode: new FormControl(Validators.required),
       country: new FormControl('', Validators.required)
     }),
 
     step2: new FormGroup({
-      minArrivalHour: new FormControl(Validators.required),
-      maxArrivalHour: new FormControl(Validators.required),
-      leaveHour: new FormControl(Validators.required),
-      pricePerNight: new FormControl('', [Validators.required, Validators.pattern(/^\d+(,|.\d{1,2})?$/)]),
-      nbOfPersons: new FormControl('', [Validators.required, Validators.pattern(/^\d*[1-9]\d*$/)])
+      arrivalTimeRangeStart: new FormControl(Validators.required),
+      arrivalTimeRangeEnd: new FormControl(Validators.required),
+      leaveTime: new FormControl(Validators.required),
+      pricePerNight: new FormControl(0, [Validators.required, Validators.pattern(/^\d+(,|.\d{1,2})?$/)]),
+      numberOfPersons: new FormControl(0, [Validators.required, Validators.pattern(/^\d*[1-9]\d*$/)]),
+      //numberOfBedrooms: new FormControl(0, [Validators.required, Validators.pattern(/^\d*[1-9]\d*$/)])
     })
 
   })
@@ -48,15 +53,15 @@ export class CreateAdComponent implements OnInit {
       "Chauffage"
     ]
 
-  constructor() {
+  constructor(private _adService: AdService, private _authService: AuthService) {
   }
 
   ngOnInit(): void {
   }
 
   validHours(startHourIdentifier: FormGroupIdentifier, endHourIdentifier: FormGroupIdentifier) {
-    const startHour = this.adCreateForm.get(startHourIdentifier.stepName)?.get(startHourIdentifier.controlName)?.value;
-    const endHour = this.adCreateForm.get(endHourIdentifier.stepName)?.get(endHourIdentifier.controlName)?.value;
+    const startHour: Time = this.adCreateForm.get(startHourIdentifier.stepName)?.get(startHourIdentifier.controlName)?.value;
+    const endHour: Time = this.adCreateForm.get(endHourIdentifier.stepName)?.get(endHourIdentifier.controlName)?.value;
 
     if (!startHour || !endHour) return;
 
@@ -80,15 +85,39 @@ export class CreateAdComponent implements OnInit {
     this.changeSubmitButtonValue()
 
     if (this.step == 4) {
-      const tmp = {
+      if(!this._authService.user) return ;
+
+      let tmp: DtoOutputCreateAd = {
         ...this.adCreateForm.get(this.stepsName[0])?.value,
         ...this.adCreateForm.get(this.stepsName[1])?.value,
         ...this.adCreateForm.get(this.stepsName[2])?.value,
-        features: this.renting_features
+        features: this.renting_features,
+        userId: this._authService.user.id,
+        numberOfBedrooms: 0,
+        //pricePerNight: Number(this.adCreateForm.get(this.stepsName[2])?.get("pricePerNight")?.value),
+        //numberOfPersons = Number(this)
       };
 
+      //Add the time
+      const arrivalTimeRangeStart: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeStart")?.value;
+      const arrivalTimeRangeEnd: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeEnd")?.value;
+      const leaveTime: string = this.adCreateForm.get(this.stepsName[2])?.get("leaveTime")?.value;
+      tmp.arrivalTimeRangeStart = this.toDtoOutputTime(arrivalTimeRangeStart) ;
+      tmp.leaveTime = this.toDtoOutputTime(leaveTime) ;
+      tmp.arrivalTimeRangeEnd = this.toDtoOutputTime(arrivalTimeRangeEnd) ;
+
       console.log(tmp);
+
+      this._adService.create(tmp).subscribe(ad => console.log(ad)) ;
+
     }
+  }
+
+  toDtoOutputTime(value: string): DtoOutputTime {
+    return {
+      hours: Number(value.substring(0, 2)),
+      minutes: Number(value.substring(3, 5)),
+    } ;
   }
 
   previous() {

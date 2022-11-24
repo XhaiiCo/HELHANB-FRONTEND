@@ -31,7 +31,7 @@
 
         <div class="form-group">
           <label class="label">Code postal</label>
-          <input type="text" class="input-text" formControlName="postalCode">
+          <input type="number" class="input-text" formControlName="postalCode">
           <span *ngIf="isInvalid('step1', 'postalCode')">Veuillez entrer un code postal.</span>
         </div>
       </div>
@@ -48,39 +48,39 @@
       <div class="inline-input">
         <div class="form-group">
           <label class="label">Arrivée entre</label>
-          <input type="time" class="input-text" formControlName="minArrivalHour"
-                 (change)="validHours({stepName: 'step2', controlName: 'minArrivalHour'}, {stepName: 'step2', controlName:'maxArrivalHour'});
-                  validHours({stepName: 'step2', controlName: 'minArrivalHour'}, {stepName: 'step2', controlName:'leaveHour'})">
-          <span *ngIf="isInvalid('step2', 'minArrivalHour')">Veuillez entrer une heure d'arrivée valide.</span>
+          <input type="time" class="input-text" formControlName="arrivalTimeRangeStart"
+                 (change)="validHours({stepName: 'step2', controlName: 'arrivalTimeRangeStart'}, {stepName: 'step2', controlName:'arrivalTimeRangeEnd'});
+                  validHours({stepName: 'step2', controlName: 'arrivalTimeRangeStart'}, {stepName: 'step2', controlName:'leaveTime'})">
+          <span *ngIf="isInvalid('step2', 'arrivalTimeRangeStart')">Veuillez entrer une heure d'arrivée valide.</span>
         </div>
 
         <div class="form-group">
           <label class="label">et</label>
-          <input type="time" class="input-text" formControlName="maxArrivalHour"
-                 (change)="validHours({stepName: 'step2', controlName: 'minArrivalHour'}, {stepName: 'step2', controlName:'maxArrivalHour'});
-                  validHours({stepName: 'step2', controlName: 'maxArrivalHour'}, {stepName: 'step2', controlName:'leaveHour'})">
-          <span *ngIf="isInvalid('step2', 'maxArrivalHour')">Veuillez entrer une heure d'arrivée valide.</span>
+          <input type="time" class="input-text" formControlName="arrivalTimeRangeEnd"
+                 (change)="validHours({stepName: 'step2', controlName: 'arrivalTimeRangeStart'}, {stepName: 'step2', controlName:'arrivalTimeRangeEnd'});
+                  validHours({stepName: 'step2', controlName: 'maxArrivalHour'}, {stepName: 'step2', controlName:'leaveTime'})">
+          <span *ngIf="isInvalid('step2', 'arrivalTimeRangeEnd')">Veuillez entrer une heure d'arrivée valide.</span>
         </div>
       </div>
 
       <div class="form-group">
         <label class="label">Heure de départ</label>
-        <input type="time" class="input-text" formControlName="leaveHour"
-               (change)="validHours({stepName: 'step2', controlName: 'minArrivalHour'}, {stepName: 'step2', controlName:'leaveHour'});
-                validHours({stepName: 'step2', controlName: 'maxArrivalHour'}, {stepName: 'step2', controlName:'leaveHour'})">
-        <span *ngIf="isInvalid('step2', 'leaveHour')">Veuillez entrer une heure de départ valide.</span>
+        <input type="time" class="input-text" formControlName="leaveTime"
+               (change)="validHours({stepName: 'step2', controlName: 'minArrivalHour'}, {stepName: 'step2', controlName:'leaveTime'});
+                validHours({stepName: 'step2', controlName: 'maxArrivalHour'}, {stepName: 'step2', controlName:'leaveTime'})">
+        <span *ngIf="isInvalid('step2', 'leaveTime')">Veuillez entrer une heure de départ valide.</span>
       </div>
 
       <div class="form-group">
         <label class="label">Prix par nuit</label>
-        <input type="text" class="input-text" formControlName="pricePerNight">
+        <input type="number" class="input-text" formControlName="pricePerNight">
         <span *ngIf="isInvalid('step2', 'pricePerNight')">Veuillez entrer un prix par nuit.</span>
       </div>
 
       <div class="form-group">
         <label class="label">Nombre de personnes</label>
-        <input type="text" class="input-text" formControlName="nbOfPersons">
-        <span *ngIf="isInvalid('step2', 'nbOfPersons')">Veuillez entrer un nombre de personnes.</span>
+        <input type="number" class="input-text" formControlName="numberOfPersons">
+        <span *ngIf="isInvalid('step2', 'numberOfPersons')">Veuillez entrer un nombre de personnes.</span>
       </div>
 
       <div class="form-group">
@@ -96,9 +96,6 @@
           </button>
         </div>
       </div>
-      <ul>
-        <li>option 1</li>
-      </ul>
     </div>
 
     <div *ngIf="step == 3">
