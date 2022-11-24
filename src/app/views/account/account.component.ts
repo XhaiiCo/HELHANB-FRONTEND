@@ -17,6 +17,7 @@ import {DtoOutputUpdateUser} from "../../dtos/user/dto-output-update-user";
 export class AccountComponent implements OnInit {
 
   profilePictureBaseUri: string = environment.pictureUrl;
+  defaultProfilePicture: string = environment.defaultProfilePictureUrl;
 
   form: FormGroup = this._fb.group({
     profilePicture: this._fb.control(""),

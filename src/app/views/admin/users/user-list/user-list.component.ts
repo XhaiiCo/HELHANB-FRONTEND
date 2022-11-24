@@ -20,6 +20,7 @@ export class UserListComponent implements OnInit {
   roleList: DtoInputRole[] = [];
 
   profilePictureBaseUri: string = environment.pictureUrl;
+  defaultProfilePicture: string = environment.defaultProfilePictureUrl;
 
   deleteModalOptions: DeleteModalOptions = {
     showDeleteUserConfirmationModal: false,

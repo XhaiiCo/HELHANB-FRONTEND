@@ -35,7 +35,7 @@
         <td class="user">
           <div class="user_pp">
             <img *ngIf="user.profilePicturePath == null"
-                 src="/assets/img/user_pic-50x50.png" alt="profil pic">
+                 [src]="defaultProfilePicture" alt="profil pic">
             <img *ngIf="user.profilePicturePath != null"
                  [src]="profilePictureBaseUri + user.profilePicturePath" alt="profil pic">
           </div>

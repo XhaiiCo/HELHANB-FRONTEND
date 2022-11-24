@@ -11,6 +11,7 @@ import {environment} from "../../../environments/environment";
 export class HeaderComponent implements OnInit {
   dropDownOpen: boolean = false;
   profilePictureBaseUri: string  = environment.pictureUrl ;
+  defaultProfilePicture: string  = environment.defaultProfilePictureUrl ;
   notConnectedDropDownOption: DropDownOption[] = [
     {name: 'Connexion', path: '/connexion'},
     {name: 'Inscription', path: '/inscription'},

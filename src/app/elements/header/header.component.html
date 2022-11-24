@@ -19,9 +19,9 @@
     <div class="dropdown-container">
       <div class="dropdown" [class.active]="dropDownOpen" (click)="dropDownOpen = !dropDownOpen">
         <img *ngIf="!authService.isConnected() || authService.user?.profilePicturePath == null"
-             src="/assets/img/user_pic-50x50.png" alt="profil pic">
+             [src]="defaultProfilePicture" alt="Photo de profil">
         <img *ngIf="authService.isConnected() && authService.user?.profilePicturePath != null"
-             [src]="profilePictureBaseUri + authService.user?.profilePicturePath" alt="profil pic">
+             [src]="profilePictureBaseUri + authService.user?.profilePicturePath" alt="Photo de profil">
 
         <div *ngIf="!authService.isConnected()" class="options">
           <div [routerLink]="[option.path]" *ngFor="let option of notConnectedDropDownOption">{{option.name}}</div>
