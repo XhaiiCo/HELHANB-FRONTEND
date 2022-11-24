@@ -54,7 +54,6 @@ export class CreateAdComponent implements OnInit {
   }
 
   validHours(startHourIdentifier: FormGroupIdentifier, endHourIdentifier: FormGroupIdentifier) {
-    const formStep = this.adCreateForm.get("step2");
     const startHour = this.adCreateForm.get(startHourIdentifier.stepName)?.get(startHourIdentifier.controlName)?.value;
     const endHour = this.adCreateForm.get(endHourIdentifier.stepName)?.get(endHourIdentifier.controlName)?.value;
 
