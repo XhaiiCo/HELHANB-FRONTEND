@@ -28,7 +28,8 @@ export class CreateAdComponent implements OnInit {
     }),
 
     step2: new FormGroup({
-      arrivalHour: new FormControl(Validators.required),
+      minArrivalHour: new FormControl(Validators.required),
+      maxArrivalHour: new FormControl(Validators.required),
       leaveHour: new FormControl(Validators.required),
       pricePerNight: new FormControl('', [Validators.required, Validators.pattern(/^\d+(,|.\d{1,2})?$/)]),
       nbOfPersons: new FormControl('', [Validators.required, Validators.pattern(/^\d*[1-9]\d*$/)])
@@ -62,8 +63,6 @@ export class CreateAdComponent implements OnInit {
 
     if (startHour >= endHour) {
       this.controlSetErrors(startHourIdentifier.stepName, startHourIdentifier.controlName, {"error": true});
-      return;
-    } else if (endHour <= startHour) {
       this.controlSetErrors(endHourIdentifier.stepName, endHourIdentifier.controlName, {"error": true});
       return;
     }
