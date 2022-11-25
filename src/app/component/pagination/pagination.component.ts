@@ -15,9 +15,6 @@ export class PaginationComponent implements OnInit
   @Input() index: number = 1;
   @Output() indexChange: EventEmitter<number> = new EventEmitter<number>();
 
-  //probablement frauduleux
-  @Output() indexUpdated: EventEmitter<string> = new EventEmitter<string>();
-
   ngOnInit(): void {
 
   }
@@ -37,8 +34,6 @@ export class PaginationComponent implements OnInit
     {
       this.index = pageNumber;
       this.indexChange.emit(this.index);
-      //probablement frauduleux
-      this.indexUpdated.emit("index updated");
     }
   }
 

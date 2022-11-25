@@ -49,7 +49,6 @@ export class HomepageComponent implements OnInit {
       .subscribe(ads => this.ads = ads);
   }
 
-  //probablement frauduleux
   changePage(event: any)
   {
     this.fetchForPagination();
