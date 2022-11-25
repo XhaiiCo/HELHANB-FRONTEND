@@ -111,9 +111,9 @@
               Ajouter
             </button>
             <div class="features_list">
-          <span *ngFor="let feature of renting_features" (dblclick)="removeFeature(feature)">
-            &#x2022; {{ feature }}
-          </span>
+              <span class="feature" *ngFor="let feature of renting_features" (click)="removeFeature(feature)">
+                &#x2022; {{ feature }}
+              </span>
             </div>
           </div>
         </div>
@@ -125,9 +125,9 @@
           <label class="label">Ajouter au moins {{nbMinPictures}} images</label>
           <input class="file-input" type="file" accept="image/*" (change)="addPicture($event)" multiple>
         </div>
-        <div class="preview_container" >
+        <div class="preview_container">
           <div *ngFor="let file of files" class="preview">
-            <img [src]="file.imageSrc" alt="ta maison"/>
+            <img [src]="file.imageSrc" alt="ta maison" (click)="removePicture(file)"/>
           </div>
         </div>
       </section>

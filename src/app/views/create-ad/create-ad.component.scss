@@ -2,6 +2,9 @@
 @import '/src/styles/components/button';
 @import '/src/styles/helpers/variable';
 
+*{
+  font-family: $main-font;
+}
 .container{
   padding: 40px ;
   display: flex;
@@ -92,7 +95,14 @@ textarea {
     width: 50%;
     padding: 5px;
     font-size: 18px;
+    cursor: pointer ;
+
+    &:hover{
+      color: $invalid ;
+      text-decoration: line-through;
+    }
   }
+
 }
 
 .btn_close_features_container {
@@ -114,6 +124,11 @@ textarea {
     object-position: 50% 50%;
     object-fit: cover;
     border-radius: $radius;
+    cursor: pointer ;
+  }
+
+  img:hover{
+    filter: grayscale(100%);
   }
 
   .preview{

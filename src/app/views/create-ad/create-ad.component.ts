@@ -92,6 +92,11 @@ export class CreateAdComponent implements OnInit {
     }
   }
 
+  removePicture(file: ImgData) {
+    this.files = this.files.filter(image => image.file.name !== file.file.name)
+    this.nbImg-- ;
+  }
+
   /**
    * It returns true if the fileToCheck is in the files array
    * @param {File} fileToCheck - File - the file to check if it's in the files array
@@ -257,4 +262,5 @@ export class CreateAdComponent implements OnInit {
 
     return this.files.length >= 3;
   }
+
 }
