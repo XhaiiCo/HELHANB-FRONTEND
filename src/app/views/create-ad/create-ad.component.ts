@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {FormGroupIdentifier} from "../../interfaces/form-group-identifier";
 import {DtoOutputCreateAd, DtoOutputTime} from "../../dtos/ad/dto-output-create-ad";
 import {Time} from "@angular/common";
@@ -16,14 +16,13 @@ export class CreateAdComponent implements OnInit {
 
   submitBtnValue: string = "Suivant";
   step: number = 0;
-  stepsName: string[] = ["step0", "step1", "step2", "step3"]
+  stepsName: string[] = ["step0", "step1", "step2", "step3", "step4", "step5"]
 
   readonly nbMinPictures: number = 3;
   readonly nbMaxPictures: number = 15;
 
   files: ImgData[] = [];
 
-  displayAllFeatures: boolean = false;
   tmp_feature: string = "";
   renting_features: string[] = [];
 
@@ -36,19 +35,21 @@ export class CreateAdComponent implements OnInit {
     step1: new FormGroup({
       street: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
-      postalCode: new FormControl(Validators.required),
+      postalCode: new FormControl([], [Validators.required, Validators.min(0)]),
       country: new FormControl('', Validators.required)
     }),
 
     step2: new FormGroup({
-      arrivalTimeRangeStart: new FormControl(Validators.required),
-      arrivalTimeRangeEnd: new FormControl(Validators.required),
-      leaveTime: new FormControl(Validators.required),
-      pricePerNight: new FormControl(0, [Validators.required, Validators.pattern(/^\d+(,|.\d{1,2})?$/)]),
-      numberOfPersons: new FormControl(0, [Validators.required, Validators.pattern(/^\d*[1-9]\d*$/)]),
-      numberOfBedrooms: new FormControl(0, [Validators.required, Validators.pattern(/^\d*[1-9]\d*$/)])
+      arrivalTimeRangeStart: new FormControl([], Validators.required),
+      arrivalTimeRangeEnd: new FormControl([], Validators.required),
+      leaveTime: new FormControl([], Validators.required),
     }),
 
+    step3: new FormGroup({
+      pricePerNight: new FormControl([], [Validators.required, Validators.min(0)]),
+      numberOfPersons: new FormControl([], [Validators.required, Validators.min(0)]),
+      numberOfBedrooms: new FormControl([], [Validators.required, Validators.min(0)]),
+    }),
   })
 
   /**
@@ -103,11 +104,18 @@ export class CreateAdComponent implements OnInit {
 
 
   constructor(private _adService: AdService, private _authService: AuthService) {
+
   }
 
   ngOnInit(): void {
   }
 
+  /**
+   * It validates the start and end hours of a form group
+   * @param {FormGroupIdentifier} startHourIdentifier - FormGroupIdentifier - The identifier of the start hour control.
+   * @param {FormGroupIdentifier} endHourIdentifier - FormGroupIdentifier
+   * @returns a boolean value.
+   */
   validHours(startHourIdentifier: FormGroupIdentifier, endHourIdentifier: FormGroupIdentifier) {
     const startHour: Time = this.adCreateForm.get(startHourIdentifier.stepName)?.get(startHourIdentifier.controlName)?.value;
     const endHour: Time = this.adCreateForm.get(endHourIdentifier.stepName)?.get(endHourIdentifier.controlName)?.value;
@@ -129,16 +137,17 @@ export class CreateAdComponent implements OnInit {
   }
 
   submit() {
-    this.step++;
-    this.changeSubmitButtonValue()
-
-    if (this.step == 4) {
+    if (this.stepsName[this.step] !== "step5") {
+      this.step++;
+      this.changeSubmitButtonValue()
+    } else {
       if (!this._authService.user) return;
 
       let tmp: DtoOutputCreateAd = {
         ...this.adCreateForm.get(this.stepsName[0])?.value,
         ...this.adCreateForm.get(this.stepsName[1])?.value,
         ...this.adCreateForm.get(this.stepsName[2])?.value,
+        ...this.adCreateForm.get(this.stepsName[3])?.value,
 
         features: this.renting_features,
         userId: this._authService.user.id,
@@ -154,11 +163,30 @@ export class CreateAdComponent implements OnInit {
 
       console.log(tmp);
 
-      this._adService.create(tmp).subscribe(ad => console.log(ad));
-
+      this._adService.create(tmp).subscribe({
+          next: ad => {
+            console.log(ad)
+            this.submitPictures(ad.id)
+          },
+          error: err => console.log(err)
+        }
+      );
     }
   }
 
+  /**
+   * @param {number} id - number - the id of the ad that we want to add the images to
+   */
+  submitPictures(id: number): void {
+    this.files.forEach(file => this._adService.addImg(id, file.file).subscribe());
+  }
+
+  /**
+   * It takes a string in the format "HH:mm" and returns an object with two properties, hours and minutes, which are both
+   * numbers
+   * @param {string} value - string - the value to be converted
+   * @returns An object with two properties, hours and minutes.
+   */
   toDtoOutputTime(value: string): DtoOutputTime {
     return {
       hours: Number(value.substring(0, 2)),
@@ -166,29 +194,36 @@ export class CreateAdComponent implements OnInit {
     };
   }
 
+  /**
+   * The previous() function decreases the step value by 1 and calls the changeSubmitButtonValue() function
+   */
   previous() {
     this.step--;
     this.changeSubmitButtonValue()
   }
 
+  /**
+   * It changes the value of the submit button depending on the current step
+   */
   changeSubmitButtonValue() {
-    this.submitBtnValue = this.step < 4 ? "Suivant" : "Valider";
+    this.submitBtnValue = this.step < 5 ? "Suivant" : "Valider";
   }
 
-  isInvalid(subFormName: string, controlName: string) {
-    const control = this.adCreateForm.get(subFormName)?.get(controlName);
+  /**
+   * It checks if the control is dirty, touched and invalid.
+   * @param {FormGroupIdentifier} controlIdentifier - FormGroupIdentifier
+   * @returns A boolean value.
+   */
+  isInvalid(controlIdentifier: FormGroupIdentifier) {
+    const control = this.adCreateForm.get(controlIdentifier.stepName)?.get(controlIdentifier.controlName);
 
-    return control?.dirty && control?.invalid;
+    return control?.dirty && control?.touched && control?.invalid || false;
   }
 
-  showListFeatures() {
-    this.displayAllFeatures = true;
-  }
-
-  closeListFeatures() {
-    this.displayAllFeatures = false;
-  }
-
+  /**
+   * If the feature doesn't already exist in the array, add it
+   * @param {string} feature - string - the feature to add
+   */
   addFeature(feature: string) {
     if (!this.renting_features.find(f => f.toLowerCase() === feature.toLowerCase()))
       this.renting_features.push(feature);
@@ -196,9 +231,20 @@ export class CreateAdComponent implements OnInit {
     this.tmp_feature = "";
   }
 
+  /**
+   * @param {string} feature - string - the feature to be removed
+   */
   removeFeature(feature: string) {
     this.renting_features = this.renting_features.filter(obj => obj !== feature);
-    if (this.renting_features.length == 0)
-      this.displayAllFeatures = false;
+  }
+
+  /**
+   * It returns true if the current step is not step5, or if the number of files is greater than or equal to 3
+   */
+  isNbFileValid(): boolean{
+    if (this.stepsName[this.step] !== "step5")
+      return true ;
+
+    return this.files.length >= 3;
   }
 }

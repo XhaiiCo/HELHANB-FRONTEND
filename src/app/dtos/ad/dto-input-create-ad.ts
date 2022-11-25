@@ -1,4 +1,5 @@
 export interface DtoInputCreateAd {
+  id: number ;
   name: string ;
   pricePerNight: number ;
   description: string ;
