@@ -39,7 +39,7 @@ export class AccountComponent implements OnInit {
   btnSubmitPasswordText: string = "Enregistrer le mot de passe";
   disablePasswordBtn: boolean = false;
 
-  showPwFields: boolean = true;
+  showPwFields: boolean = false;
   user!: DtoInputUser;
 
   constructor(private _fb: FormBuilder,
