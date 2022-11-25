@@ -6,6 +6,7 @@ import {Time} from "@angular/common";
 import {AdService} from "../../services/ad.service";
 import {AuthService} from "../../services/auth.service";
 import {ImgData} from "../../interfaces/img-data";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-create-ad',
@@ -51,7 +52,13 @@ export class CreateAdComponent implements OnInit {
       numberOfBedrooms: new FormControl([], [Validators.required, Validators.min(0)]),
     }),
   })
-  private nbImg: number = 0 ;
+  private nbImg: number = 0;
+
+  constructor(private _adService: AdService, private _authService: AuthService, private _userService: UserService) {
+  }
+
+  ngOnInit(): void {
+  }
 
   /**
    * We're looping through the files from the event, checking if the file is already in the files array, and if it's not,
@@ -71,7 +78,7 @@ export class CreateAdComponent implements OnInit {
 
       if (!this.isInFiles(file)) {
 
-        this.nbImg++ ;
+        this.nbImg++;
         const reader = new FileReader();
 
         reader.onload = e => {
@@ -105,14 +112,6 @@ export class CreateAdComponent implements OnInit {
     return this.nbImg == this.nbMaxPictures;
   }
 
-
-  constructor(private _adService: AdService, private _authService: AuthService) {
-
-  }
-
-  ngOnInit(): void {
-  }
-
   /**
    * It validates the start and end hours of a form group
    * @param {FormGroupIdentifier} startHourIdentifier - FormGroupIdentifier - The identifier of the start hour control.
@@ -139,42 +138,51 @@ export class CreateAdComponent implements OnInit {
     this.adCreateForm.get(subFormName)?.get(controlName)?.setErrors(value);
   }
 
-  submit() {
+  submitForm() {
     if (this.stepsName[this.step] !== "step5") {
       this.step++;
       this.changeSubmitButtonValue()
     } else {
       if (!this._authService.user) return;
-
-      let tmp: DtoOutputCreateAd = {
-        ...this.adCreateForm.get(this.stepsName[0])?.value,
-        ...this.adCreateForm.get(this.stepsName[1])?.value,
-        ...this.adCreateForm.get(this.stepsName[2])?.value,
-        ...this.adCreateForm.get(this.stepsName[3])?.value,
-
-        features: this.renting_features,
-        userId: this._authService.user.id,
-      };
-
-      //Add the time
-      const arrivalTimeRangeStart: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeStart")?.value;
-      const arrivalTimeRangeEnd: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeEnd")?.value;
-      const leaveTime: string = this.adCreateForm.get(this.stepsName[2])?.get("leaveTime")?.value;
-      tmp.arrivalTimeRangeStart = this.toDtoOutputTime(arrivalTimeRangeStart);
-      tmp.leaveTime = this.toDtoOutputTime(leaveTime);
-      tmp.arrivalTimeRangeEnd = this.toDtoOutputTime(arrivalTimeRangeEnd);
-
-      console.log(tmp);
-
-      this._adService.create(tmp).subscribe({
-          next: ad => {
-            console.log(ad)
-            this.submitPictures(ad.id)
-          },
-          error: err => console.log(err)
-        }
-      );
+      if (this._authService.user.role.name == "utilisateur"){
+        this._userService.becomeHost(this._authService.user.id).subscribe(
+          (user) => {
+            this._authService.user = user ;
+            this.submitAd() ;
+          }
+        )
+      }
     }
+  }
+
+  submitAd() {
+    if (!this._authService.user) return;
+
+    let dtoOutputCreateAd: DtoOutputCreateAd = {
+      ...this.adCreateForm.get(this.stepsName[0])?.value,
+      ...this.adCreateForm.get(this.stepsName[1])?.value,
+      ...this.adCreateForm.get(this.stepsName[2])?.value,
+      ...this.adCreateForm.get(this.stepsName[3])?.value,
+
+      features: this.renting_features,
+      userId: this._authService.user.id,
+    };
+
+    //Add the time
+    const arrivalTimeRangeStart: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeStart")?.value;
+    const arrivalTimeRangeEnd: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeEnd")?.value;
+    const leaveTime: string = this.adCreateForm.get(this.stepsName[2])?.get("leaveTime")?.value;
+    dtoOutputCreateAd.arrivalTimeRangeStart = this.toDtoOutputTime(arrivalTimeRangeStart);
+    dtoOutputCreateAd.leaveTime = this.toDtoOutputTime(leaveTime);
+    dtoOutputCreateAd.arrivalTimeRangeEnd = this.toDtoOutputTime(arrivalTimeRangeEnd);
+
+    this._adService.create(dtoOutputCreateAd).subscribe({
+        next: ad => {
+          this.submitPictures(ad.id)
+        },
+        error: err => console.log(err)
+      }
+    );
   }
 
   /**
@@ -244,9 +252,9 @@ export class CreateAdComponent implements OnInit {
   /**
    * It returns true if the current step is not step5, or if the number of files is greater than or equal to 3
    */
-  isNbFileValid(): boolean{
+  isNbFileValid(): boolean {
     if (this.stepsName[this.step] !== "step5")
-      return true ;
+      return true;
 
     return this.files.length >= 3;
   }

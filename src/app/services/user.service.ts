@@ -75,4 +75,8 @@ export class UserService {
   public updateUser(dtoUpdateUser: DtoOutputUpdateUser): Observable<DtoInputUser>{
     return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}`, dtoUpdateUser) ;
   }
+
+  public becomeHost(id: number): Observable<DtoInputUser>{
+    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}/becomeHost`, {});
+  }
 }
