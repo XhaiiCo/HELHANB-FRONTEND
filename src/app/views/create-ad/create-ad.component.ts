@@ -51,6 +51,7 @@ export class CreateAdComponent implements OnInit {
       numberOfBedrooms: new FormControl([], [Validators.required, Validators.min(0)]),
     }),
   })
+  private nbImg: number = 0 ;
 
   /**
    * We're looping through the files from the event, checking if the file is already in the files array, and if it's not,
@@ -70,6 +71,7 @@ export class CreateAdComponent implements OnInit {
 
       if (!this.isInFiles(file)) {
 
+        this.nbImg++ ;
         const reader = new FileReader();
 
         reader.onload = e => {
@@ -99,7 +101,8 @@ export class CreateAdComponent implements OnInit {
    * @returns A boolean value.
    */
   isFilesFull(): boolean {
-    return this.files.length == this.nbMaxPictures;
+    //NbImg cause the image adding is async
+    return this.nbImg == this.nbMaxPictures;
   }
 
 
