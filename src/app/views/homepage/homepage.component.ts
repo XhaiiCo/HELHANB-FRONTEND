@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AdService} from "../../services/ad.service";
 
 @Component({
   selector: 'app-homepage',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  maxPages: number = 0;
+
+  //will be also the limit that we send in the api
+  itemsPerPage: number = 5;
+
+  rulerLength: number = 5;
+
+  constructor(private _adService : AdService) {
+  }
 
   images: string[]  = [
     "https://a0.muscache.com/im/pictures/miso/Hosting-717134404264905813/original/dfe9fd1e-a010-43c9-b546-0bbc7d59f7f3.jpeg?im_w=1200",
@@ -18,6 +27,18 @@ export class HomepageComponent implements OnInit {
   ]
 
   ngOnInit(): void {
+    this.count();
+  }
+
+  count() {
+    this._adService
+      .count()
+      .subscribe(count =>
+      {
+        this.maxPages = Math.ceil(count/this.itemsPerPage);
+
+        if(this.maxPages < this.rulerLength) this.rulerLength = this.maxPages;
+      });
   }
 
 }
