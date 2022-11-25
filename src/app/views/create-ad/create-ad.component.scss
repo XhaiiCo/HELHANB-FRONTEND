@@ -16,6 +16,12 @@
   max-width: 500px;
 }
 
+.input_section{
+  height: 500px ;
+  overflow: auto;
+}
+
+
 .btn-primary{
   margin-top: 10px;
 }
@@ -97,7 +103,10 @@ textarea {
 .preview_container{
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   gap: 10px ;
+  margin-top: 10px ;
 
   img{
     width: 150px;
