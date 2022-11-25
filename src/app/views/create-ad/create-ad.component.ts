@@ -41,9 +41,9 @@ export class CreateAdComponent implements OnInit {
     }),
 
     step2: new FormGroup({
-      arrivalTimeRangeStart: new FormControl([], Validators.required),
-      arrivalTimeRangeEnd: new FormControl([], Validators.required),
-      leaveTime: new FormControl([], Validators.required),
+      arrivalTimeRangeStart: new FormControl('', Validators.required),
+      arrivalTimeRangeEnd: new FormControl('', Validators.required),
+      leaveTime: new FormControl('', Validators.required),
     }),
 
     step3: new FormGroup({
@@ -92,6 +92,11 @@ export class CreateAdComponent implements OnInit {
     }
   }
 
+  removePicture(file: ImgData) {
+    this.files = this.files.filter(image => image.file.name !== file.file.name)
+    this.nbImg-- ;
+  }
+
   /**
    * It returns true if the fileToCheck is in the files array
    * @param {File} fileToCheck - File - the file to check if it's in the files array
@@ -119,13 +124,12 @@ export class CreateAdComponent implements OnInit {
    * @returns a boolean value.
    */
   validHours(startHourIdentifier: FormGroupIdentifier, endHourIdentifier: FormGroupIdentifier) {
-    const startHour: Time = this.adCreateForm.get(startHourIdentifier.stepName)?.get(startHourIdentifier.controlName)?.value;
-    const endHour: Time = this.adCreateForm.get(endHourIdentifier.stepName)?.get(endHourIdentifier.controlName)?.value;
+    const startHour: any = this.adCreateForm.get(startHourIdentifier.stepName)?.get(startHourIdentifier.controlName)?.value;
+    const endHour: any = this.adCreateForm.get(endHourIdentifier.stepName)?.get(endHourIdentifier.controlName)?.value;
 
-    if (!startHour || !endHour) return;
+    if (startHour === '' || endHour === '') return;
 
     if (startHour >= endHour) {
-      this.controlSetErrors(startHourIdentifier.stepName, startHourIdentifier.controlName, {"error": true});
       this.controlSetErrors(endHourIdentifier.stepName, endHourIdentifier.controlName, {"error": true});
       return;
     }
@@ -258,4 +262,5 @@ export class CreateAdComponent implements OnInit {
 
     return this.files.length >= 3;
   }
+
 }
