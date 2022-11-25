@@ -20,4 +20,10 @@ export class AdService {
   create(dto: DtoOutputCreateAd): Observable<DtoInputCreateAd>{
     return this._httpClient.post<DtoInputCreateAd>(`${AdService.ENTRY_POINT_URL}`, dto) ;
   }
+
+  count(): Observable<number>
+  {
+    return this._httpClient.get<number>(AdService.ENTRY_POINT_URL + '/count');
+  }
+
 }

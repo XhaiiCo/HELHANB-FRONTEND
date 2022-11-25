@@ -8,25 +8,18 @@ import {Pagination} from "./pagination";
 })
 export class PaginationComponent implements OnInit
 {
+  @Input() maxPages: number = 0;
 
-  maxPages: number = 0;
+  @Input() rulerLength: number = 5;
 
   @Input() index: number = 1;
-  @Input() totalCount: number = 50;
-  itemsPerPage: number = 5;
-  rulerLength: number = 5;
-
   @Output() page: EventEmitter<number> = new EventEmitter<number>();
 
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
 
   }
 
-  constructor()
-  {
-    this.maxPages = Math.ceil(this.totalCount / this.itemsPerPage);
-  }
+  constructor() {}
 
   get pagination(): Pagination
   {
