@@ -108,7 +108,11 @@
       <div class="form-group">
         <label class="label">Ajouter au moins {{nbMinPictures}} images</label>
         <input class="file-input" type="file" accept="image/*" (change)="addPicture($event)" multiple>
-        <label *ngFor="let file of files">{{file.name}}</label>
+        <div class="preview_container" >
+          <div *ngFor="let file of files" class="preview">
+            <img [src]="file.imageSrc" alt="ta maison"/>
+          </div>
+        </div>
       </div>
     </div>
 

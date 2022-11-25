@@ -5,6 +5,7 @@ import {DtoOutputCreateAd, DtoOutputTime} from "../../dtos/ad/dto-output-create-
 import {Time} from "@angular/common";
 import {AdService} from "../../services/ad.service";
 import {AuthService} from "../../services/auth.service";
+import {ImgData} from "../../interfaces/img-data";
 
 @Component({
   selector: 'app-create-ad',
@@ -14,13 +15,19 @@ import {AuthService} from "../../services/auth.service";
 export class CreateAdComponent implements OnInit {
 
   submitBtnValue: string = "Suivant";
-  step: number = 3;
+  step: number = 0;
   stepsName: string[] = ["step0", "step1", "step2", "step3"]
-  readonly nbMinPictures : number = 3;
-  private readonly nbMaxPictures : number = 15;
+
+  readonly nbMinPictures: number = 3;
+  readonly nbMaxPictures: number = 15;
+
+  files: ImgData[] = [];
+
+  displayAllFeatures: boolean = false;
+  tmp_feature: string = "";
+  renting_features: string[] = [];
 
   adCreateForm = new FormGroup({
-
     step0: new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required)
@@ -44,51 +51,56 @@ export class CreateAdComponent implements OnInit {
 
   })
 
-  files: File[] = [];
+  /**
+   * We're looping through the files from the event, checking if the file is already in the files array, and if it's not,
+   * we're pushing it to the array
+   * @param {any} event - any - the event that is triggered when the user selects a file.
+   * @returns the value of the variable 'reader.result'
+   */
+  addPicture(event: any): void {
+    if (this.isFilesFull()) return;
 
-  addPicture(event: any)
-  {
-    //pas la peine de continuer si on est déjà au max
-    if(this.isFilesFull()) return;
+    const filesFromEvent = event.target.files;
 
-    let filesFromEvent = event.target.files;
+    for (let i = 0; i < filesFromEvent.length; i++) {
 
-    for(let i = 0; i < filesFromEvent.length; i++)
-    {
-      //on reverif à la prochaine iteration si on atteint pas le max
-      if(this.isFilesFull()) return;
+      if (this.isFilesFull()) return;
+      const file = filesFromEvent[i];
 
-      let file = filesFromEvent[i];
+      if (!this.isInFiles(file)) {
 
-      if(!this.isInFiles(file))
-      {
-        this.files.push(file);
+        const reader = new FileReader();
+
+        reader.onload = e => {
+          this.files.push({
+            file: file,
+            imageSrc: reader.result
+          });
+        }
+        reader.readAsDataURL(file);
       }
     }
   }
 
-  isInFiles(fileToCheck: File): boolean
-  {
-    let filesName = this.files.map((file) => file.name)
+  /**
+   * It returns true if the fileToCheck is in the files array
+   * @param {File} fileToCheck - File - the file to check if it's in the files array
+   * @returns A boolean value.
+   */
+  isInFiles(fileToCheck: File): boolean {
+    let filesName = this.files.map((file) => file.file.name)
 
     return filesName.includes(fileToCheck.name);
   }
 
-  isFilesFull() : boolean
-  {
+  /**
+   * It returns true if the number of files is equal to the maximum number of pictures
+   * @returns A boolean value.
+   */
+  isFilesFull(): boolean {
     return this.files.length == this.nbMaxPictures;
   }
 
-  displayAllFeatures: boolean = false;
-  tmp_feature: string = "";
-  @Input() renting_features: string[] =
-    [
-      "Wifi",
-      "Salle de bain",
-      "Cuisine",
-      "Télévision",
-      "Chauffage"
-    ]
 
   constructor(private _adService: AdService, private _authService: AuthService) {
   }
@@ -121,7 +133,7 @@ export class CreateAdComponent implements OnInit {
     this.changeSubmitButtonValue()
 
     if (this.step == 4) {
-      if(!this._authService.user) return ;
+      if (!this._authService.user) return;
 
       let tmp: DtoOutputCreateAd = {
         ...this.adCreateForm.get(this.stepsName[0])?.value,
@@ -136,13 +148,13 @@ export class CreateAdComponent implements OnInit {
       const arrivalTimeRangeStart: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeStart")?.value;
       const arrivalTimeRangeEnd: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeEnd")?.value;
       const leaveTime: string = this.adCreateForm.get(this.stepsName[2])?.get("leaveTime")?.value;
-      tmp.arrivalTimeRangeStart = this.toDtoOutputTime(arrivalTimeRangeStart) ;
-      tmp.leaveTime = this.toDtoOutputTime(leaveTime) ;
-      tmp.arrivalTimeRangeEnd = this.toDtoOutputTime(arrivalTimeRangeEnd) ;
+      tmp.arrivalTimeRangeStart = this.toDtoOutputTime(arrivalTimeRangeStart);
+      tmp.leaveTime = this.toDtoOutputTime(leaveTime);
+      tmp.arrivalTimeRangeEnd = this.toDtoOutputTime(arrivalTimeRangeEnd);
 
       console.log(tmp);
 
-      this._adService.create(tmp).subscribe(ad => console.log(ad)) ;
+      this._adService.create(tmp).subscribe(ad => console.log(ad));
 
     }
   }
@@ -151,7 +163,7 @@ export class CreateAdComponent implements OnInit {
     return {
       hours: Number(value.substring(0, 2)),
       minutes: Number(value.substring(3, 5)),
-    } ;
+    };
   }
 
   previous() {

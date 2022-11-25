@@ -93,3 +93,22 @@ textarea {
   margin-top: 5px;
   text-align: right;
 }
+
+.preview_container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px ;
+
+  img{
+    width: 150px;
+    aspect-ratio: 16 / 9;
+    object-position: 50% 50%;
+    object-fit: cover;
+    border-radius: $radius;
+  }
+
+  .preview{
+    display: flex;
+    flex-direction: column;
+  }
+}
