@@ -22,7 +22,13 @@ const routes: Routes = [
   {path: 'inscription', component: RegistrationComponent, canActivate: [NotConnectedGuardService]},
   {path: 'deconnexion', component: DisconnectComponent, canActivate: [ConnectedGuardService]},
   {path: 'compte', component: AccountComponent, canActivate: [ConnectedGuardService]},
-  {path: 'nouvelle-annonce', component: CreateAdComponent},
+  {
+    path: 'nouvelle-annonce', component: CreateAdComponent,
+    canActivate: [RoleGuardService],
+    data: {
+      expectedRoles: ["hote", "utilisateur"],
+    }
+  },
   {
     path: 'mes-reservations', component: MyReservationComponent,
     canActivate: [RoleGuardService],
