@@ -13,7 +13,10 @@ export class PaginationComponent implements OnInit
   @Input() rulerLength: number = 5;
 
   @Input() index: number = 1;
-  @Output() page: EventEmitter<number> = new EventEmitter<number>();
+  @Output() indexChange: EventEmitter<number> = new EventEmitter<number>();
+
+  //probablement frauduleux
+  @Output() indexUpdated: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit(): void {
 
@@ -33,7 +36,9 @@ export class PaginationComponent implements OnInit
     if(pageNumber !== this.index)
     {
       this.index = pageNumber;
-      this.page.emit(this.index);
+      this.indexChange.emit(this.index);
+      //probablement frauduleux
+      this.indexUpdated.emit("index updated");
     }
   }
 

@@ -4,6 +4,7 @@ import {environment} from "../../environments/environment";
 import {DtoOutputCreateAd} from "../dtos/ad/dto-output-create-ad";
 import {Observable} from "rxjs";
 import {DtoInputCreateAd} from "../dtos/ad/dto-input-create-ad";
+import {DtoInputAdSummary} from "../dtos/ad/dto-input-ad-summary";
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +31,8 @@ export class AdService {
     return this._httpClient.get<number>(AdService.ENTRY_POINT_URL + '/count');
   }
 
+  fetchForPagination(limit: number, offset: number):Observable<DtoInputAdSummary[]>
+  {
+    return this._httpClient.get<DtoInputAdSummary[]>(`${AdService.ENTRY_POINT_URL}/summary?limit=${limit}&offset=${offset}`);
+  }
 }
