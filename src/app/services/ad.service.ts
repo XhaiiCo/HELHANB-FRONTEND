@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {DtoInputCreateAd} from "../dtos/ad/dto-input-create-ad";
 import {DtoInputAdSummary} from "../dtos/ad/dto-input-ad-summary";
 import {DtoInputAdPending} from "../dtos/ad/dto-input-ad-pending";
+import {DtoOutputUpdateStatusAd} from "../dtos/ad/dto-output-update-status-ad";
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,9 @@ export class AdService {
 
   fetchAllPendings(): Observable<DtoInputAdPending[]>{
     return this._httpClient.get<DtoInputAdPending[]>(`${AdService.ENTRY_POINT_URL}?statusId=1`);
+  }
+
+  updateStatus(dto: DtoOutputUpdateStatusAd): Observable<DtoInputAdPending>{
+    return this._httpClient.put<DtoInputAdPending>(`${AdService.ENTRY_POINT_URL}/status`, dto) ;
   }
 }
