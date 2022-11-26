@@ -1,71 +1,41 @@
-<main class="renting_page">
-  <header>
-    <div class="title_container">
-      <p class="title">Titre</p>
-      <p class="subtitle">
-        4 personnes ⸱ 2 chambres
-      </p>
+<main class="ad_item_page">
+  <h1>Titre</h1>
+  <p>
+    4 personnes ⸱ 2 chambres
+  </p>
 
-      <p class="subtitle">
-        Rue factice 265, 7000 Mons, Belgique
-      </p>
-    </div>
+  <p>
+    Rue factice 265, 7000 Mons, Belgique
+  </p>
 
-    <div class="pictures_container">
-      <img *ngFor="let image of images" alt="maison" [src]="image">
-    </div>
-  </header>
+  <div class="pictures_container">
+    <img *ngFor="let image of images" alt="maison" [src]="image">
+  </div>
 
-  <main class="main">
-    <section class="main_body">
 
-      <section id="host_container">
-        <h2>Hôte</h2>
-        <div id="host_profile">
-          <div id="host_profile_name"><span>Hote nom</span></div>
-          <div id="host_profile_pp">
-            <span>
-              <img src="../../../assets/img/user_pic-50x50.png" alt="profil pic">
-            </span>
-          </div>
-        </div>
-      </section>
+  <h2>Hôte</h2>
+  <div id="host_profile">
+    <div id="host_profile_name"><span>Hote nom</span></div>
+  </div>
 
-      <section class="features_container">
-        <h2>Disponible dans le logement</h2>
-        <div class="features_list">
+  <h2>Disponible dans le logement</h2>
+  <div class="features_list">
           <span *ngFor="let feature of renting_features">
             &#x2022; {{ feature }}
           </span>
-        </div>
+  </div>
 
-        <div class="btn_feature_container" [hidden]="renting_features.length <= 4">
-          <button class="btn-primary" id="btn_open_features" (click)="showListFeatures()">Voir tout</button>
-        </div>
-      </section>
-
-      <section>
-
-
-      </section>
-
-      <section>
-        <h2>Description</h2>
-        <p style="width: 100%">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-          molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-          numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-          optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
-          obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
-          nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
-          tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
-          quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos
-          sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
-          recusandae alias error harum maxime adipisci amet laborum.
-        </p>
-
-      </section>
-
-    </section>
-  </main>
+  <h2>Description</h2>
+  <p style="width: 100%">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+    optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+    obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+    nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+    tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+    quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos
+    sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
+    recusandae alias error harum maxime adipisci amet laborum.
+  </p>
 </main>

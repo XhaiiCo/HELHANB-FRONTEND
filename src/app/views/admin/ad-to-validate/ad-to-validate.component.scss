@@ -1,26 +1,72 @@
-@import '/src/styles/helpers/variable' ;
+@import '/src/styles/helpers/variable';
 
-.ad-to-validate-page{
+.ad-to-validate-page {
+  font-family: $main-font;
   display: flex;
-  gap: 10px ;
-  width: 95% ;
+  gap: 10px;
+  width: 95%;
   margin: auto;
 }
 
-.ad_list{
+.ad_list {
   border-right: 1px solid $grey;
-  min-width: 300px ;
+  min-width: 300px;
   overflow: auto;
+  height: calc(100vh - $header-height - $admin-nav-height) ;
+
+  li {
+    padding: 10px;
+    border-top: 1px solid $grey;
+
+  }
 }
 
-@media only screen and (max-width: 800px){
+.active {
+  background-color: $very-light-grey;
+}
 
-  .ad-to-validate-page{
+.buttons_section{
+  padding-right: 30px ;
+  gap: 10px ;
+  margin-top: 1px solid $grey ;
+  height: 50px;
+  display: flex ;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-valid, .btn-reject{
+  padding: 10px ;
+  border-radius: $radius;
+  cursor: pointer ;
+}
+
+.btn-valid{
+  background-color: $success-background-color ;
+  color: $success-color ;
+
+  &:hover{
+    border: 1px solid $success-color ;
+  }
+}
+
+.btn-reject{
+  background-color: $error-background-color ;
+  color: $error-color ;
+
+  &:hover{
+    border: 1px solid $error-color ;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+
+  .ad-to-validate-page {
     flex-direction: column;
   }
 
-  .ad_list{
-    width: 100% ;
+  .ad_list {
+    width: 100%;
     height: 100px;
   }
 }
