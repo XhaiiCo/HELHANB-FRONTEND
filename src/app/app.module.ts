@@ -31,6 +31,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon'
 import { PaginationComponent } from './component/pagination/pagination.component';
+import { AdToValidateComponent } from './views/admin/ad-to-validate/ad-to-validate.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { PaginationComponent } from './component/pagination/pagination.component
     MyReservationComponent,
     CreateAdComponent,
     PaginationComponent,
+    AdToValidateComponent,
   ],
   imports: [
     BrowserModule,
