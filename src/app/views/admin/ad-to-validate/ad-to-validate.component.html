@@ -1,38 +1,21 @@
 <main class="ad-to-validate-page">
   <section class="ad_list">
     <ul>
-      <li>Chalet au bord du lac</li>
-      <li class="active">Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
-      <li>Chalet au bord du lac</li>
+      <li *ngFor="let ad of ads" (click)="changeCurrentId(ad)"
+          [class.active]="currentAd && ad.id === currentAd?.id">{{ad.name}}</li>
     </ul>
   </section>
 
-  <section class="ad_preview">
-    <app-ad-item class="preview"></app-ad-item>
+  <section class="ad_preview" *ngIf="currentAd; else noAdSelected">
+    <app-ad-item [ad]="currentAd" class="preview"></app-ad-item>
     <section class="buttons_section">
-      <button class="btn-valid">Valider</button>
-      <button class="btn-reject">Refuser</button>
+      <button class="btn-valid" (click)="validCurrentAd()">Valider</button>
+      <button class="btn-reject" (click)="rejectCurrentAd()">Refuser</button>
     </section>
-
   </section>
+
+  <ng-template #noAdSelected>
+    <p>Veuillez sélectionner une annonce</p>
+  </ng-template>
 </main>
 
