@@ -1,11 +1,13 @@
 <div [class.pointer]="link !== undefined">
   <div class="carousel">
-    <app-carousel [link]="link" [images]="images"></app-carousel>
+    <app-carousel [link]="link" [images]="ad.pictures"></app-carousel>
   </div>
   <div class="body" [routerLink]="link">
-    <span>Harlingen, Pays-Bas</span>
-    <span>Professionnel</span>
-    <span>18-23 déc.</span>
-    <span>382 € par nuit</span>
+
+    <span>{{ad.name}}</span>
+    <span>{{ad.city}}, {{ad.country}}</span>
+    <span>{{ad.numberOfBedrooms}} chambres</span>
+    <span>{{ad.numberOfPersons}} personnes</span>
+    <span>{{ad.pricePerNight}} € par nuit</span>
   </div>
 </div>

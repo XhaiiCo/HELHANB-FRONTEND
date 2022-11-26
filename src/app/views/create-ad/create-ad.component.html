@@ -1,134 +1,140 @@
 <div class="container">
-  <form class="form-group" (ngSubmit)="submit()" [formGroup]="adCreateForm">
+  <form class="form-group" (ngSubmit)="submitForm()" [formGroup]="adCreateForm">
 
-    <div *ngIf="step == 0" formGroupName="step0">
-      <div class="form-group">
-        <label class="label">Nom du logement</label>
-        <input type="text" class="input-text" formControlName="name">
-        <span *ngIf="isInvalid('step0', 'name')">Veuillez entrer un nom.</span>
-      </div>
-
-      <div class="form-group">
-        <label class="label">Description</label>
-        <textarea class="input-text" formControlName="description"></textarea>
-        <span *ngIf="isInvalid('step0', 'description')">Veuillez entrer une description.</span>
-      </div>
-    </div>
-
-    <div *ngIf="step == 1" formGroupName="step1">
-      <div class="form-group">
-        <label class="label">Rue</label>
-        <input type="text" class="input-text" formControlName="street">
-        <span *ngIf="isInvalid('step1', 'street')">Veuillez entrer une rue.</span>
-      </div>
-
-      <div class="inline-input">
+    <section class="input_section">
+      <!-- step 0 -->
+      <section *ngIf="step == 0" formGroupName="step0">
         <div class="form-group">
-          <label class="label">Ville</label>
-          <input type="text" class="input-text" formControlName="city">
-          <span *ngIf="isInvalid('step1', 'city')">Veuillez entrer une ville.</span>
+          <label class="label">Nom du logement</label>
+          <input type="text" class="input-text" formControlName="name">
+          <span *ngIf="isInvalid({stepName: 'step0', controlName: 'name'})">Veuillez entrer un nom.</span>
         </div>
 
         <div class="form-group">
-          <label class="label">Code postal</label>
-          <input type="text" class="input-text" formControlName="postalCode">
-          <span *ngIf="isInvalid('step1', 'postalCode')">Veuillez entrer un code postal.</span>
+          <label class="label">Description</label>
+          <textarea class="input-text" formControlName="description"></textarea>
+          <span
+            *ngIf="isInvalid({stepName: 'step0', controlName:'description'})">Veuillez entrer une description.</span>
         </div>
-      </div>
+      </section>
 
-      <div class="form-group">
-        <label class="label">Pays</label>
-        <input type="text" class="input-text" formControlName="country">
-        <span *ngIf="isInvalid('step1', 'country')">Veuillez entrer un pays.</span>
-      </div>
-    </div>
-
-    <div *ngIf="step == 2" formGroupName="step2">
-
-      <div class="inline-input">
+      <!-- step 1 -->
+      <section *ngIf="step == 1" formGroupName="step1">
         <div class="form-group">
-          <label class="label">Arrivée entre</label>
-          <input type="time" class="input-text" formControlName="minArrivalHour"
-                 (change)="validHours({stepName: 'step2', controlName: 'minArrivalHour'}, {stepName: 'step2', controlName:'maxArrivalHour'});
-                  validHours({stepName: 'step2', controlName: 'minArrivalHour'}, {stepName: 'step2', controlName:'leaveHour'})">
-          <span *ngIf="isInvalid('step2', 'minArrivalHour')">Veuillez entrer une heure d'arrivée valide.</span>
+          <label class="label">Rue</label>
+          <input type="text" class="input-text" formControlName="street">
+          <span *ngIf="isInvalid({stepName: 'step1', controlName: 'street'})">Veuillez entrer une rue.</span>
+        </div>
+
+        <div class="inline-input">
+          <div class="form-group">
+            <label class="label">Ville</label>
+            <input type="text" class="input-text" formControlName="city">
+            <span *ngIf="isInvalid({stepName: 'step1', controlName: 'city'})">Veuillez entrer une ville.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="label">Code postal</label>
+            <input type="number" class="input-text" formControlName="postalCode">
+            <span
+              *ngIf="isInvalid({stepName: 'step1', controlName: 'postalCode'})">Veuillez entrer un code postal.</span>
+          </div>
         </div>
 
         <div class="form-group">
-          <label class="label">et</label>
-          <input type="time" class="input-text" formControlName="maxArrivalHour"
-                 (change)="validHours({stepName: 'step2', controlName: 'minArrivalHour'}, {stepName: 'step2', controlName:'maxArrivalHour'});
-                  validHours({stepName: 'step2', controlName: 'maxArrivalHour'}, {stepName: 'step2', controlName:'leaveHour'})">
-          <span *ngIf="isInvalid('step2', 'maxArrivalHour')">Veuillez entrer une heure d'arrivée valide.</span>
+          <label class="label">Pays</label>
+          <input type="text" class="input-text" formControlName="country">
+          <span *ngIf="isInvalid({stepName: 'step1', controlName: 'country'})">Veuillez entrer un pays.</span>
         </div>
-      </div>
+      </section>
 
-      <div class="form-group">
-        <label class="label">Heure de départ</label>
-        <input type="time" class="input-text" formControlName="leaveHour"
-               (change)="validHours({stepName: 'step2', controlName: 'minArrivalHour'}, {stepName: 'step2', controlName:'leaveHour'});
-                validHours({stepName: 'step2', controlName: 'maxArrivalHour'}, {stepName: 'step2', controlName:'leaveHour'})">
-        <span *ngIf="isInvalid('step2', 'leaveHour')">Veuillez entrer une heure de départ valide.</span>
-      </div>
+      <!-- step 2 -->
+      <section *ngIf="step == 2" formGroupName="step2">
 
-      <div class="form-group">
-        <label class="label">Prix par nuit</label>
-        <input type="text" class="input-text" formControlName="pricePerNight">
-        <span *ngIf="isInvalid('step2', 'pricePerNight')">Veuillez entrer un prix par nuit.</span>
-      </div>
+        <div class="inline-input">
+          <div class="form-group">
+            <label class="label">Arrivée entre</label>
+            <input type="time" class="input-text" formControlName="arrivalTimeRangeStart"
+                   (change)="validHours({stepName: 'step2', controlName: 'arrivalTimeRangeStart'}, {stepName: 'step2', controlName:'arrivalTimeRangeEnd'})">
+            <span *ngIf="isInvalid({stepName: 'step2', controlName: 'arrivalTimeRangeStart'})">Veuillez entrer une heure d'arrivée valide.</span>
+          </div>
 
-      <div class="form-group">
-        <label class="label">Nombre de personnes</label>
-        <input type="text" class="input-text" formControlName="nbOfPersons">
-        <span *ngIf="isInvalid('step2', 'nbOfPersons')">Veuillez entrer un nombre de personnes.</span>
-      </div>
-
-      <div class="form-group">
-        <label class="label">Options</label>
-        <div>
-          <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature"
-                 [ngModelOptions]="{standalone: true}">
-          <button type="button" class="btn-secondary" (click)="addFeature(tmp_feature)" [disabled]="tmp_feature == ''">
-            +
-          </button>
-          <button [hidden]="renting_features.length == 0" type="button" class="btn-primary" id="btn_open_features"
-                  (click)="showListFeatures()">Voir tout
-          </button>
+          <div class="form-group">
+            <label class="label">et</label>
+            <input type="time" class="input-text" formControlName="arrivalTimeRangeEnd"
+                   (change)="validHours({stepName: 'step2', controlName: 'arrivalTimeRangeStart'}, {stepName: 'step2', controlName:'arrivalTimeRangeEnd'});
+                  validHours({stepName: 'step2', controlName: 'arrivalTimeRangeEnd'}, {stepName: 'step2', controlName:'leaveTime'})">
+            <span *ngIf="isInvalid({stepName: 'step2', controlName: 'arrivalTimeRangeEnd'})">Veuillez entrer une heure d'arrivée valide.</span>
+          </div>
         </div>
-      </div>
-      <ul>
-        <li>option 1</li>
-      </ul>
-    </div>
 
-    <div *ngIf="step == 3">
-      <div class="form-group">
-        <label class="label">Ajouter au moins 5 images</label>
-        <input class="file-input" type="file" accept="image/*" multiple>
-      </div>
-    </div>
+        <div class="form-group">
+          <label class="label">Heure de départ</label>
+          <input type="time" class="input-text" formControlName="leaveTime"
+                 (change)="validHours({stepName: 'step2', controlName: 'arrivalTimeRangeEnd'}, {stepName: 'step2', controlName:'leaveTime'})">
+          <span *ngIf="isInvalid({stepName: 'step2', controlName: 'leaveTime'})">Veuillez entrer une heure de départ valide.</span>
+        </div>
+      </section>
+
+      <!-- step 3 -->
+      <section *ngIf="step == 3" formGroupName="step3">
+        <div class="form-group">
+          <label class="label">Prix par nuit</label>
+          <input type="number" class="input-text" formControlName="pricePerNight">
+          <span
+            *ngIf="isInvalid({stepName: 'step3', controlName: 'pricePerNight'})">Veuillez entrer un prix par nuit.</span>
+        </div>
+
+        <div class="form-group">
+          <label class="label">Nombre de personnes</label>
+          <input type="number" class="input-text" formControlName="numberOfPersons">
+          <span *ngIf="isInvalid({stepName: 'step3', controlName: 'numberOfPersons'})">Veuillez entrer un nombre de personnes.</span>
+        </div>
+
+        <div class="form-group">
+          <label class="label">Nombre de chambres</label>
+          <input type="number" class="input-text" formControlName="numberOfBedrooms">
+          <span *ngIf="isInvalid({stepName: 'step3', controlName: 'numberOfBedrooms'})">Veuillez entrer un nombre de chambres.</span>
+        </div>
+
+      </section>
+
+      <!-- step 4 -->
+      <section *ngIf="step == 4">
+        <div class="form-group">
+          <label class="label">Options</label>
+          <div>
+            <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature"
+                   [ngModelOptions]="{standalone: true}">
+            <button type="button" class="btn-secondary" (click)="addFeature(tmp_feature)"
+                    [disabled]="tmp_feature == ''">
+              Ajouter
+            </button>
+            <div class="features_list">
+              <span class="feature" *ngFor="let feature of renting_features" (click)="removeFeature(feature)">
+                &#x2022; {{ feature }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- step 5 -->
+      <section *ngIf="step == 5">
+        <div class="form-group">
+          <label class="label">Ajouter au moins {{nbMinPictures}} images</label>
+          <input class="file-input" type="file" accept="image/*" (change)="addPicture($event)" multiple>
+        </div>
+        <div class="preview_container">
+          <div *ngFor="let file of files" class="preview">
+            <img [src]="file.imageSrc" alt="ta maison" (click)="removePicture(file)"/>
+          </div>
+        </div>
+      </section>
+    </section>
 
     <input type="submit" class="btn-primary" [value]="submitBtnValue"
-           [disabled]="adCreateForm.get(stepsName[step])?.invalid">
+           [disabled]="adCreateForm.get(stepsName[step])?.invalid || !isNbFileValid() || disabledSubmitBtn">
     <button type="button" class="btn-primary" *ngIf="step != 0" (click)="previous()">Précédent</button>
-
-    <pre>{{adCreateForm.value | json}}</pre>
   </form>
-
-  <div id="background_allFeatures_container" *ngIf="displayAllFeatures">
-    <div id="allFeatures_container">
-      <div id="allFeatures_div">
-        <div class="features_list">
-          <span *ngFor="let feature of renting_features" (dblclick)="removeFeature(feature)">
-            &#x2022; {{ feature }}
-          </span>
-        </div>
-
-        <div class="btn_close_features_container">
-          <button class="btn-primary" id="btn_close_features" (click)="closeListFeatures()">Fermer</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
-

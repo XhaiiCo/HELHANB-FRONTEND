@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {environment} from "../../../environments/environment";
 
 
 @Component({
@@ -7,6 +8,8 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent implements OnInit {
+
+  profilePictureBaseUri: string = environment.pictureUrl;
 
   @Input() images: string[] = []
   @Input() indicators = true;
@@ -25,6 +28,7 @@ export class CarouselComponent implements OnInit {
 
   onPrevClick() {
     if (this.selectedIndex === 0) {
+
       this.selectedIndex = this.images.length - 1;
     } else {
       this.selectedIndex--;

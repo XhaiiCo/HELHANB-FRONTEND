@@ -1,38 +1,32 @@
 <main class="account_page">
-  <!--  <section class="profile_picture_section">
-      <div class="profile_picture_container">
-        <img src="assets/img/user_pic-50x50.png" alt="photo de profile">
-      </div>
-    </section>
-  -->
-  <form class="form-group" [formGroup]="form" (ngSubmit)="emitUpdateForm()">
 
-    <section class="pp_section">
-      <h2>Photo de profile</h2>
-      <div class="pp_container space_between_sections">
-        <label for="updatePpButton" class="file-input-label">
-          <svg width="24" height="24" viewBox="0 0 256 256">
-            <path fill="currentColor"
-                  d="m226.8 73.9l-44.7-44.7a19.8 19.8 0 0 0-28.2 0l-120 120a19.7 19.7 0 0 0-5.9 14.1V208a20.1 20.1 0 0 0 20 20h44.7a19.7 19.7 0 0 0 14.1-5.9l120-120a19.9 19.9 0 0 0 0-28.2ZM89 184l75-75l11 11l-75 75Zm-17-17l-11-11l75-75l11 11Zm-20 14l11.5 11.5L75 204H52Zm140-78l-39-39l15-15l39 39Z"/>
-          </svg>
-        </label>
-        <input hidden id="updatePpButton" class="file-input-input" type="file" accept="image/*"
-               formControlName="profilePicture" (change)="onUploadPicture($event)">
+  <section class="pp_section">
+    <h2>Photo de profile</h2>
+    <div class="pp_container space_between_sections">
+      <label for="updatePpButton" class="file-input-label">
+        <svg width="24" height="24" viewBox="0 0 256 256">
+          <path fill="currentColor"
+                d="m226.8 73.9l-44.7-44.7a19.8 19.8 0 0 0-28.2 0l-120 120a19.7 19.7 0 0 0-5.9 14.1V208a20.1 20.1 0 0 0 20 20h44.7a19.7 19.7 0 0 0 14.1-5.9l120-120a19.9 19.9 0 0 0 0-28.2ZM89 184l75-75l11 11l-75 75Zm-17-17l-11-11l75-75l11 11Zm-20 14l11.5 11.5L75 204H52Zm140-78l-39-39l15-15l39 39Z"/>
+        </svg>
+      </label>
+      <input hidden id="updatePpButton" class="file-input-input" type="file" accept="image/*"
+             formControlName="profilePicture" (change)="onUploadPicture($event)">
 
-        <label id="removePpButton" (click)="removePp()">
-          <svg width="24" height="24" viewBox="0 0 15 15">
-            <path fill="currentColor"
-                  d="M3.64 2.27L7.5 6.13l3.84-3.84A.92.92 0 0 1 12 2a1 1 0 0 1 1 1a.9.9 0 0 1-.27.66L8.84 7.5l3.89 3.89A.9.9 0 0 1 13 12a1 1 0 0 1-1 1a.92.92 0 0 1-.69-.27L7.5 8.87l-3.85 3.85A.92.92 0 0 1 3 13a1 1 0 0 1-1-1a.9.9 0 0 1 .27-.66L6.16 7.5L2.27 3.61A.9.9 0 0 1 2 3a1 1 0 0 1 1-1c.24.003.47.1.64.27Z"/>
-          </svg>
-        </label>
+      <label id="removePpButton" (click)="removePp()">
+        <svg width="24" height="24" viewBox="0 0 15 15">
+          <path fill="currentColor"
+                d="M3.64 2.27L7.5 6.13l3.84-3.84A.92.92 0 0 1 12 2a1 1 0 0 1 1 1a.9.9 0 0 1-.27.66L8.84 7.5l3.89 3.89A.9.9 0 0 1 13 12a1 1 0 0 1-1 1a.92.92 0 0 1-.69-.27L7.5 8.87l-3.85 3.85A.92.92 0 0 1 3 13a1 1 0 0 1-1-1a.9.9 0 0 1 .27-.66L6.16 7.5L2.27 3.61A.9.9 0 0 1 2 3a1 1 0 0 1 1-1c.24.003.47.1.64.27Z"/>
+        </svg>
+      </label>
 
-        <img *ngIf="!authService.isConnected() || authService.user?.profilePicturePath == null" class="userImg"
-             [src]="defaultProfilePicture" alt="Photo de profil">
-        <img *ngIf="authService.isConnected() && authService.user?.profilePicturePath != null" class="userImg"
-             [src]="profilePictureBaseUri + authService.user?.profilePicturePath" alt="Photo de profil">
-      </div>
-    </section>
+      <img *ngIf="!authService.isConnected() || authService.user?.profilePicturePath == null" class="userImg"
+           [src]="defaultProfilePicture" alt="Photo de profil">
+      <img *ngIf="authService.isConnected() && authService.user?.profilePicturePath != null" class="userImg"
+           [src]="profilePictureBaseUri + authService.user?.profilePicturePath" alt="Photo de profil">
+    </div>
+  </section>
 
+  <form class="form-group" [formGroup]="personalDataForm" (ngSubmit)="emitUpdatePersonalDataForm()">
     <h2>Informations personnelles</h2>
     <div class="inline-input">
       <!-- LAST NAME -->
@@ -70,6 +64,11 @@
       </ng-template>
     </div>
 
+    <input type="submit" [value]="btnSubmitPersonalDataText" class="btn-primary"
+           [disabled]="personalDataForm.invalid || disablePersonalDataBtn || dataHasBeenChanged()">
+  </form>
+
+  <form class="form-group" [formGroup]="passwordForm" (ngSubmit)="emitUpdatePasswordForm()">
     <h2 style="margin-top: 5px">Nouveau mot de passe</h2>
     <div id="container_password" class="space_between_sections">
       <div class="input_password_dropbox input-text" (click)="toggleDisplayNewPasswordField()">
@@ -80,6 +79,7 @@
                 d="M15.125 21.1L6.7 12.7q-.15-.15-.212-.325q-.063-.175-.063-.375t.063-.375q.062-.175.212-.325l8.425-8.425q.35-.35.875-.35t.9.375q.375.375.375.875t-.375.875L9.55 12l7.35 7.35q.35.35.35.862q0 .513-.375.888t-.875.375q-.5 0-.875-.375Z"/>
         </svg>
       </div>
+
       <div id="container_password_input" [class.hidden_container_password_input]="!showPwFields">
         <div>
           <!-- PASSWORD -->
@@ -97,17 +97,20 @@
           <div class="form-group">
             <label for="confirmPassword" class="label">Confirmation du nouveau mot de passe</label>
             <input type="password" id="confirmPassword" class="input-text" formControlName="confirmPassword"
-                   [class.invalid]="form.get('confirmPassword')?.touched && isPasswordEquals()">
-            <span *ngIf="form.get('confirmPassword')?.touched && isPasswordEquals(); else blank" class="feedback">Les mots de passes ne correspondent pas</span>
+                   [class.invalid]="passwordForm.get('confirmPassword')?.touched && isPasswordEquals()">
+            <span *ngIf="passwordForm.get('confirmPassword')?.touched && isPasswordEquals(); else blank"
+                  class="feedback">Les mots de passes ne correspondent pas</span>
             <ng-template #blank>
               <span class="feedback"></span>
             </ng-template>
           </div>
+
+          <input type="submit" [value]="btnSubmitPasswordText" class="btn-primary"
+                 [disabled]="passwordForm.invalid">
+
         </div>
       </div>
     </div>
 
-    <input type="submit" [value]="btnSubmitRegistrationText" class="btn-primary"
-           [disabled]="form.invalid || disableRegistrationBtn || dataHasBeenChanged()" [class.disabled]="form.invalid">
   </form>
 </main>

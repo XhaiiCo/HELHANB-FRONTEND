@@ -20,10 +20,10 @@ export class UserService {
   /**
    * It takes a user id and an image, and it returns an observable of the updated user
    * @param {number} id - number - the id of the user to update
-   * @param {any} image - any - this is the image file that you want to upload.
+   * @param {any} image - File - this is the image file that you want to upload.
    * @returns The user with the updated profile picture.
    */
-  public updateProfilePicture(id: number, image: any): Observable<DtoInputUser> {
+  public updateProfilePicture(id: number, image: File | null): Observable<DtoInputUser> {
     let formData = new FormData();
     if(image)
       formData.append("profilePicture", image, image.name);
@@ -74,5 +74,9 @@ export class UserService {
    */
   public updateUser(dtoUpdateUser: DtoOutputUpdateUser): Observable<DtoInputUser>{
     return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}`, dtoUpdateUser) ;
+  }
+
+  public becomeHost(id: number): Observable<DtoInputUser>{
+    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}/becomeHost`, {});
   }
 }

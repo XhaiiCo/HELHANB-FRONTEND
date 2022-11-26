@@ -30,6 +30,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon'
+import { PaginationComponent } from './component/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import {MatIconModule} from '@angular/material/icon'
     MyRentingComponent,
     MyReservationComponent,
     CreateAdComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

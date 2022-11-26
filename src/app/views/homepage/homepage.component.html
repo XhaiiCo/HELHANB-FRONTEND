@@ -1,5 +1,9 @@
 <div class="container wrapper column">
-  <div *ngFor="let num of [1,2,3,4,5,6,7]">
-    <app-card  [link]="'/location/1'" [images]="images" class="homepage"></app-card>
+  <div *ngFor="let ad of ads">
+    <app-card [link]="'/location/1'" [ad]="ad" class="homepage"></app-card>
   </div>
 </div>
+<app-pagination [maxPages]="maxPages"
+                [rulerLength]="rulerLength"
+                [(index)]="index"
+                (indexChange)="changePage($event)"></app-pagination>

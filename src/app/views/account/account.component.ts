@@ -19,20 +19,26 @@ export class AccountComponent implements OnInit {
   profilePictureBaseUri: string = environment.pictureUrl;
   defaultProfilePicture: string = environment.defaultProfilePictureUrl;
 
-  form: FormGroup = this._fb.group({
+  personalDataForm: FormGroup = this._fb.group({
     profilePicture: this._fb.control(""),
     firstName: this._fb.control("", [Validators.required]),
     lastName: this._fb.control("", [Validators.required]),
-    //dateOfBirth: this._fb.control("", [Validators.required]),
     email: this._fb.control("", [Validators.required, Validators.email]),
-    password: this._fb.control("", Validators.minLength(6)),
-    confirmPassword: this._fb.control("", Validators.minLength(6)),
+  });
+
+  passwordForm: FormGroup = this._fb.group({
+    password: this._fb.control("", [Validators.minLength(6), Validators.required]),
+    confirmPassword: this._fb.control("", [Validators.minLength(6), Validators.required]),
   }, {
     validators: this.controlValuesAreEqual('password', 'confirmPassword')
   });
 
-  btnSubmitRegistrationText: string = "Enregistrer les modification";
-  disableRegistrationBtn: boolean = false;
+  btnSubmitPersonalDataText: string = "Enregistrer les modifications";
+  disablePersonalDataBtn: boolean = false;
+
+  btnSubmitPasswordText: string = "Enregistrer le mot de passe";
+  disablePasswordBtn: boolean = false;
+
   showPwFields: boolean = false;
   user!: DtoInputUser;
 
@@ -57,12 +63,12 @@ export class AccountComponent implements OnInit {
 
   resetForm() {
 
-    this.form.get('firstName')?.setValue(this.user.firstName);
-    this.form.get('lastName')?.setValue(this.user.lastName);
-    this.form.get('email')?.setValue(this.user.email);
+    this.personalDataForm.get('firstName')?.setValue(this.user.firstName);
+    this.personalDataForm.get('lastName')?.setValue(this.user.lastName);
+    this.personalDataForm.get('email')?.setValue(this.user.email);
 
-    this.form.get('password')?.setValue("");
-    this.form.get('confirmPassword')?.setValue("");
+    this.passwordForm.get('password')?.setValue("");
+    this.passwordForm.get('confirmPassword')?.setValue("");
   }
 
   /**
@@ -71,12 +77,12 @@ export class AccountComponent implements OnInit {
    * @return true if the field name is valid, false otherwise
    */
   isInvalid(fieldName: string): boolean {
-    return this.form.get(fieldName)?.touched && this.form.get(fieldName)?.dirty && this.form.get(fieldName)?.invalid || false;
+    return this.personalDataForm.get(fieldName)?.touched && this.personalDataForm.get(fieldName)?.dirty && this.personalDataForm.get(fieldName)?.invalid || false;
   }
 
   isPasswordEquals(): boolean {
-    if (this.form.errors) {
-      return this.form.errors['valuesDoNotMatch'];
+    if (this.passwordForm.errors) {
+      return this.passwordForm.errors['valuesDoNotMatch'];
     }
     return false;
   }
@@ -101,16 +107,16 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  emitUpdateForm() {
-    this.btnSubmitRegistrationText = "Modification...";
-    this.disableRegistrationBtn = true;
+  emitUpdatePasswordForm() {
+    this.btnSubmitPasswordText = "Modification...";
+    this.disablePasswordBtn = true;
 
-    if (this.showPwFields && this.form.get("password")?.value != "") {
+    if (this.showPwFields && this.passwordForm.get("password")?.value != "") {
       //Update password
 
       const dtoPasswordUpdate: DtoOutputUpdatePassword = {
         id: this.user.id,
-        password: this.form.get("password")?.value
+        password: this.passwordForm.get("password")?.value
       };
 
       this._userService.updatePassword(dtoPasswordUpdate).subscribe({
@@ -118,29 +124,34 @@ export class AccountComponent implements OnInit {
           this._toastNotificationService.add("Mot de passe modifié", "success");
 
           this.resetForm()
-          this.btnSubmitRegistrationText = "Enregistrer les modification";
-          this.disableRegistrationBtn = false;
+          this.btnSubmitPasswordText = "Enregistrer le mot de passe";
+          this.disablePasswordBtn = false;
         },
         error: (err) => {
           this._toastNotificationService.add("Erreur lors de la modification du mot de passe", "error");
 
           this.resetForm()
-          this.btnSubmitRegistrationText = "Enregistrer les modification";
-          this.disableRegistrationBtn = false;
+          this.btnSubmitPasswordText = "Enregistrer le mot de passe";
+          this.disablePasswordBtn = false;
         }
       });
     }
+  }
+
+  emitUpdatePersonalDataForm() {
+    this.btnSubmitPersonalDataText = "Modification...";
+    this.disablePersonalDataBtn = true;
 
     if (
-      this.user.firstName != this.form.get('firstName')?.value
-      || this.user.lastName != this.form.get('lastName')?.value
-      || this.user.email != this.form.get('email')?.value
+      this.user.firstName != this.personalDataForm.get('firstName')?.value
+      || this.user.lastName != this.personalDataForm.get('lastName')?.value
+      || this.user.email != this.personalDataForm.get('email')?.value
     ) {
       const dtoUpdateUser: DtoOutputUpdateUser = {
         id: this.user.id,
-        firstName: this.form.get("firstName")?.value,
-        lastName: this.form.get("lastName")?.value,
-        email: this.form.get("email")?.value,
+        firstName: this.personalDataForm.get("firstName")?.value,
+        lastName: this.personalDataForm.get("lastName")?.value,
+        email: this.personalDataForm.get("email")?.value,
       };
 
       this._userService.updateUser(dtoUpdateUser).subscribe({
@@ -151,8 +162,8 @@ export class AccountComponent implements OnInit {
           this._toastNotificationService.add("Informations personnelles modifiées", "success");
 
           this.resetForm()
-          this.btnSubmitRegistrationText = "Enregistrer les modification";
-          this.disableRegistrationBtn = false;
+          this.btnSubmitPersonalDataText = "Enregistrer les modifications";
+          this.disablePersonalDataBtn = false;
         },
         error: (err) => {
           if (err.status == 409)
@@ -161,8 +172,8 @@ export class AccountComponent implements OnInit {
             this._toastNotificationService.add("Erreur lors de la modification des Informations personnelles ", "error");
 
           this.resetForm()
-          this.btnSubmitRegistrationText = "Enregistrer les modification";
-          this.disableRegistrationBtn = false;
+          this.btnSubmitPersonalDataText = "Enregistrer les modifications";
+          this.disablePersonalDataBtn = false;
         }
       });
     }
@@ -189,11 +200,9 @@ export class AccountComponent implements OnInit {
    */
   dataHasBeenChanged(): boolean {
     return !(
-      this.user.firstName != this.form.get('firstName')?.value
-      || this.user.lastName != this.form.get('lastName')?.value
-      || this.user.email != this.form.get('email')?.value
-      || (this.showPwFields && this.form.get('password')?.value != "")
-    );
+      this.user.firstName != this.personalDataForm.get('firstName')?.value
+      || this.user.lastName != this.personalDataForm.get('lastName')?.value
+      || this.user.email != this.personalDataForm.get('email')?.value);
   }
 
   /**
