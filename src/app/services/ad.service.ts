@@ -5,6 +5,7 @@ import {DtoOutputCreateAd} from "../dtos/ad/dto-output-create-ad";
 import {Observable} from "rxjs";
 import {DtoInputCreateAd} from "../dtos/ad/dto-input-create-ad";
 import {DtoInputAdSummary} from "../dtos/ad/dto-input-ad-summary";
+import {DtoInputAdPending} from "../dtos/ad/dto-input-ad-pending";
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,9 @@ export class AdService {
   fetchForPagination(limit: number, offset: number):Observable<DtoInputAdSummary[]>
   {
     return this._httpClient.get<DtoInputAdSummary[]>(`${AdService.ENTRY_POINT_URL}/summary?limit=${limit}&offset=${offset}`);
+  }
+
+  fetchAllPendings(): Observable<DtoInputAdPending[]>{
+    return this._httpClient.get<DtoInputAdPending[]>(`${AdService.ENTRY_POINT_URL}?statusId=1`);
   }
 }

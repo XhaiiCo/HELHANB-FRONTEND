@@ -17,8 +17,13 @@
   li {
     padding: 10px;
     border-top: 1px solid $grey;
+    cursor: pointer;
 
   }
+}
+
+.ad_preview{
+  width: 100% ;
 }
 
 .active {
