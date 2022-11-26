@@ -41,6 +41,7 @@ export class AdService {
 
   fetchById(id: number): Observable<DtoAd> {
     return this._httpClient.get<DtoAd>(`${AdService.ENTRY_POINT_URL}/${id}`);
+  }
 
   fetchAllPendings(): Observable<DtoInputAdPending[]>{
     return this._httpClient.get<DtoInputAdPending[]>(`${AdService.ENTRY_POINT_URL}?statusId=1`);
