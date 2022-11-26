@@ -134,7 +134,7 @@
     </section>
 
     <input type="submit" class="btn-primary" [value]="submitBtnValue"
-           [disabled]="adCreateForm.get(stepsName[step])?.invalid || !isNbFileValid()">
+           [disabled]="adCreateForm.get(stepsName[step])?.invalid || !isNbFileValid() || disabledSubmitBtn">
     <button type="button" class="btn-primary" *ngIf="step != 0" (click)="previous()">Précédent</button>
   </form>
 </div>

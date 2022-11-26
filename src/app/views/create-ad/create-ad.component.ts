@@ -7,6 +7,8 @@ import {AdService} from "../../services/ad.service";
 import {AuthService} from "../../services/auth.service";
 import {ImgData} from "../../interfaces/img-data";
 import {UserService} from "../../services/user.service";
+import {ToastNotificationService} from "../../services/toast-notification.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-ad',
@@ -53,8 +55,13 @@ export class CreateAdComponent implements OnInit {
     }),
   })
   private nbImg: number = 0;
+  disabledSubmitBtn: boolean = false;
 
-  constructor(private _adService: AdService, private _authService: AuthService, private _userService: UserService) {
+  constructor(private _adService: AdService,
+              private _authService: AuthService,
+              private _userService: UserService,
+              private _taostNotificaiton: ToastNotificationService,
+              private _router: Router) {
   }
 
   ngOnInit(): void {
@@ -94,7 +101,7 @@ export class CreateAdComponent implements OnInit {
 
   removePicture(file: ImgData) {
     this.files = this.files.filter(image => image.file.name !== file.file.name)
-    this.nbImg-- ;
+    this.nbImg--;
   }
 
   /**
@@ -148,19 +155,23 @@ export class CreateAdComponent implements OnInit {
       this.changeSubmitButtonValue()
     } else {
       if (!this._authService.user) return;
-      if (this._authService.user.role.name == "utilisateur"){
+      if (this._authService.user.role.name == "utilisateur") {
         this._userService.becomeHost(this._authService.user.id).subscribe(
           (user) => {
-            this._authService.user = user ;
-            this.submitAd() ;
+            this._authService.user = user;
+            this.submitAd();
           }
         )
+      } else {
+        this.submitAd();
       }
     }
   }
 
   submitAd() {
     if (!this._authService.user) return;
+    this.disabledSubmitBtn = true;
+    this.submitBtnValue = "Ajout en cours...";
 
     let dtoOutputCreateAd: DtoOutputCreateAd = {
       ...this.adCreateForm.get(this.stepsName[0])?.value,
@@ -183,8 +194,14 @@ export class CreateAdComponent implements OnInit {
     this._adService.create(dtoOutputCreateAd).subscribe({
         next: ad => {
           this.submitPictures(ad.id)
+          this._taostNotificaiton.add("Annonce ajoutée avec succès", "success");
+          this._router.navigate(['/mes-annonces']);
         },
-        error: err => console.log(err)
+        error: err => {
+          this._taostNotificaiton.add("Erreur, l'annonce n'a pas été ajoutée", "error");
+          this.disabledSubmitBtn = false;
+          this.changeSubmitButtonValue();
+        }
       }
     );
   }
