@@ -39,7 +39,7 @@ export class HomepageComponent implements OnInit {
       });
   }
 
-  fetchForPagination() {
+  private fetchForPagination() {
 
     let offset = (this.index - 1) * this.itemsPerPage;
 

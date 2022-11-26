@@ -9,9 +9,6 @@ import {environment} from "../../../environments/environment";
 })
 export class CarouselComponent implements OnInit {
 
-  tmp : string = '/Upload/AdPictures/Test/2_1_1.webp';
-
-
   pictureBaseUri: string = environment.pictureUrl;
 
   @Input() images: string[] = [];
