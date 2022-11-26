@@ -32,6 +32,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon'
 import { PaginationComponent } from './component/pagination/pagination.component';
 import { AdToValidateComponent } from './views/admin/ad-to-validate/ad-to-validate.component';
+import { AdItemComponent } from './views/admin/ad-to-validate/ad-item/ad-item.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { AdToValidateComponent } from './views/admin/ad-to-validate/ad-to-valida
     CreateAdComponent,
     PaginationComponent,
     AdToValidateComponent,
+    AdItemComponent,
   ],
   imports: [
     BrowserModule,

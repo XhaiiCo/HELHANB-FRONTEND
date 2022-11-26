@@ -1,0 +1,12 @@
+.pictures_container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px ;
+
+  img{
+    width: 160px ;
+    aspect-ratio: 16 / 9 ;
+    object-fit: cover ;
+    object-position: 50% 50% ;
+  }
+}

@@ -1,0 +1,26 @@
+@import '/src/styles/helpers/variable' ;
+
+.ad-to-validate-page{
+  display: flex;
+  gap: 10px ;
+  width: 95% ;
+  margin: auto;
+}
+
+.ad_list{
+  border-right: 1px solid $grey;
+  min-width: 300px ;
+  overflow: auto;
+}
+
+@media only screen and (max-width: 800px){
+
+  .ad-to-validate-page{
+    flex-direction: column;
+  }
+
+  .ad_list{
+    width: 100% ;
+    height: 100px;
+  }
+}
