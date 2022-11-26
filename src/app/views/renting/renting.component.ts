@@ -19,12 +19,9 @@ export class RentingComponent implements OnInit {
   profilePictureBaseUri: string  = environment.pictureUrl;
 
   @Input() nb_max_tenant: number = 4;
-  str_nb_max_tenant: string = this.nb_max_tenant > 1 ? "voyageurs" : "voyageur";
+  str_nb_max_tenant: string = this.nb_max_tenant > 1 ? "personnes" : "personne";
   @Input() nb_bedroom: number = 2;
   str_nb_bedroom: string = this.nb_bedroom > 1 ? "chambres" : "chambre";
-  @Input() nb_bed: number = 3;
-  str_nb_bed: string = this.nb_bed > 1 ? "lits" : "lit";
-
 
   nbDays: number = 0;
 
