@@ -9,9 +9,12 @@ import {environment} from "../../../environments/environment";
 })
 export class CarouselComponent implements OnInit {
 
-  profilePictureBaseUri: string = environment.pictureUrl;
+  tmp : string = '/Upload/AdPictures/Test/2_1_1.webp';
 
-  @Input() images: string[] = []
+
+  pictureBaseUri: string = environment.pictureUrl;
+
+  @Input() images: string[] = [];
   @Input() indicators = true;
   @Input() controls = true;
   @Input() adLink: string = "";
