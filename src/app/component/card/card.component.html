@@ -1,8 +1,8 @@
-<div [class.pointer]="link !== undefined">
+<div [class.pointer]>
   <div class="carousel">
-    <app-carousel [link]="link" [images]="ad.pictures"></app-carousel>
+    <app-carousel [adLink]="adBaseLink + ad.id" [images]="ad.pictures"></app-carousel>
   </div>
-  <div class="body" [routerLink]="link">
+  <div class="body" [routerLink]="adBaseLink + ad.id">
 
     <span>{{ad.name}}</span>
     <span>{{ad.city}}, {{ad.country}}</span>
@@ -11,3 +11,4 @@
     <span>{{ad.pricePerNight}} € par nuit</span>
   </div>
 </div>
+

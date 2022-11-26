@@ -17,7 +17,8 @@ import {MyRentingComponent} from "../views/my-renting/my-renting.component";
 import {CreateAdComponent} from "../views/create-ad/create-ad.component";
 
 const routes: Routes = [
-  {path: '', component: HomepageComponent},
+  {path: '', redirectTo: 'annonces', pathMatch: 'full'},
+  {path: 'annonces', component: HomepageComponent},
   {path: 'connexion', component: LoginComponent, canActivate: [NotConnectedGuardService]},
   {path: 'inscription', component: RegistrationComponent, canActivate: [NotConnectedGuardService]},
   {path: 'deconnexion', component: DisconnectComponent, canActivate: [ConnectedGuardService]},
@@ -43,7 +44,7 @@ const routes: Routes = [
       expectedRoles: ["hote"],
     },
   },
-  {path: 'location/:id', component: RentingComponent},
+  {path: 'annonces/:id', component: RentingComponent},
   {
     path: 'administration',
     component: AdminPageComponent,

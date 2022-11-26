@@ -2,7 +2,7 @@
   <img *ngFor="let image of images; let i=index"
        [src]="profilePictureBaseUri + image"
        [ngClass]="{'image-active':selectedIndex===i}"
-       [routerLink]="link"
+       [routerLink]="adLink"
        class="fade"
   >
 

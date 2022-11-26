@@ -1,6 +1,6 @@
 <div class="container wrapper column">
   <div *ngFor="let ad of ads">
-    <app-card [link]="'/location/1'" [ad]="ad" class="homepage"></app-card>
+    <app-card [ad]="ad" class="homepage"></app-card>
   </div>
 </div>
 <app-pagination [maxPages]="maxPages"

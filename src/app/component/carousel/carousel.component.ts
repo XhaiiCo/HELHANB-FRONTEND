@@ -14,7 +14,7 @@ export class CarouselComponent implements OnInit {
   @Input() images: string[] = []
   @Input() indicators = true;
   @Input() controls = true;
-  @Input() link: string | undefined ;
+  @Input() adLink: string = "";
 
   selectedIndex: number  = 0;
   constructor() { }
