@@ -15,6 +15,7 @@ import {NotConnectedGuardService} from "./guards/not-connected-guard.service";
 import {MyReservationComponent} from "../views/my-reservation/my-reservation.component";
 import {MyRentingComponent} from "../views/my-renting/my-renting.component";
 import {CreateAdComponent} from "../views/create-ad/create-ad.component";
+import {AdToValidateComponent} from "../views/admin/ad-to-validate/ad-to-validate.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'annonces', pathMatch: 'full'},
@@ -54,6 +55,7 @@ const routes: Routes = [
     },
     children: [
       {path: 'utilisateurs', component: UserListComponent},
+      {path: 'validation-annonces', component: AdToValidateComponent},
     ]
   },
   {path: '**', component: NotFoundComponent},
