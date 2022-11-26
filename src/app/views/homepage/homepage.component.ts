@@ -15,14 +15,13 @@ export class HomepageComponent implements OnInit {
   maxPages: number = 0;
 
   //will be also the limit that we send in the api
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 4;
 
   rulerLength: number = 5;
 
   ads : DtoInputAdSummary[] = [];
 
-  constructor(private _adService : AdService) {
-  }
+  constructor(private _adService : AdService) {}
 
   ngOnInit(): void {
     this.count();

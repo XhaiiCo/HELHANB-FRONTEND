@@ -28,6 +28,11 @@ export class PaginationComponent implements OnInit
     return { index, numPages } as Pagination;
   }
 
+  /**
+   * If the page number is not the current page number, then set the current page number to the new page number and emit
+   * the new page number
+   * @param {number} pageNumber - The page number to navigate to.
+   */
   navigateToPage(pageNumber: number): void
   {
     if(pageNumber !== this.index)
@@ -37,6 +42,13 @@ export class PaginationComponent implements OnInit
     }
   }
 
+  /**
+   * It returns an array of indexes of the ruler
+   * @param {number} currentIndex - the current page number
+   * @param {number} maxPages - the total number of pages
+   * @param {number} rulerLength - the length of the ruler
+   * @returns An array of numbers.
+   */
   ruler(currentIndex: number, maxPages: number, rulerLength: number): number[]
   {
     const array = new Array(rulerLength).fill(null);
@@ -44,7 +56,7 @@ export class PaginationComponent implements OnInit
     const min = Math.floor(rulerLength / 2);
 
     return array.map((currentElement, index) => this.indexesOfRuler(currentIndex, index, min, maxPages, rulerLength));
-  };
+  }
 
   indexesOfRuler(currentIndex: number, index: number, min: number, maxPages: number, rulerLength: number): number
   {
@@ -57,5 +69,5 @@ export class PaginationComponent implements OnInit
       return maxPages - rulerLength + index + 1;
     }
     return currentIndex + index - min;
-  };
+  }
 }
