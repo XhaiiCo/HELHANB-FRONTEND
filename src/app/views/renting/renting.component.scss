@@ -53,12 +53,12 @@
 
 .reservation_price_by_night {
   margin-top: 8px;
-  margin-bottom: -8px;
+  margin-bottom: 8px;
 }
 
 .reservation_total_price {
   font-family: Calibri, serif;
-  margin-top: 5px;
+  margin-top: calc(10px - 1.34375em);
   margin-bottom: 15px;
 }
 

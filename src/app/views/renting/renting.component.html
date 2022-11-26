@@ -59,7 +59,7 @@
       </header>
 
       <main class="reservation_date-picker">
-        <app-date-picker (dateUpdated)="setDate($event)"></app-date-picker>
+        <app-date-picker (emitDateChange)="dateChange($event)"></app-date-picker>
       </main>
 
       <footer class="reservation_total_price" *ngIf="nbDays != 0">

@@ -1,4 +1,3 @@
-import { MbscModule } from '@mobiscroll/angular';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -14,7 +13,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RentingComponent } from './views/renting/renting.component';
 import {RegistrationComponent} from "./views/registration/registration.component";
 import {HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import { DatePickerComponent } from './views/renting/date-picker/date-picker.component';
+import { DatePickerComponent } from './component/date-picker/date-picker.component';
 import {CredentialsInterceptor} from "./interceptors/credentials.interceptor";
 import { RoundPipePipe } from './views/renting/round-pipe.pipe';
 import {ToastNotificationComponent} from "./component/toast-notification/toast-notification.component";
@@ -25,6 +24,12 @@ import {AccountComponent} from "./views/account/account.component";
 import { MyRentingComponent } from './views/my-renting/my-renting.component';
 import { MyReservationComponent } from './views/my-reservation/my-reservation.component';
 import { CreateAdComponent } from './views/create-ad/create-ad.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import { MatNativeDateModule } from '@angular/material/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon'
 
 @NgModule({
   declarations: [
@@ -49,15 +54,22 @@ import { CreateAdComponent } from './views/create-ad/create-ad.component';
     CreateAdComponent,
   ],
   imports: [
-    MbscModule,
     BrowserModule,
     RoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatButtonModule,
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: CredentialsInterceptor, multi: true}],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: CredentialsInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

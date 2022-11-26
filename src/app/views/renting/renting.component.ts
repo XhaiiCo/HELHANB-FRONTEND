@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {environment} from "../../../environments/environment";
+import {FormGroup} from "@angular/forms";
 
 const dayDif = (date1: Date, date2: Date) => Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000);
 
@@ -24,8 +25,7 @@ export class RentingComponent implements OnInit {
   @Input() nb_bed: number = 3;
   str_nb_bed: string = this.nb_bed > 1 ? "lits" : "lit";
 
-  beginDate!: Date;
-  endDate!: Date;
+
   nbDays: number = 0;
 
   images: string[]  = [
@@ -55,12 +55,9 @@ export class RentingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setDate(dates: any) {
-    if (dates[1] != null) {
-      this.beginDate = dates[0];
-      this.endDate = dates[1];
-
-      this.nbDays = dayDif(this.beginDate, this.endDate);
+  setDate(range: FormGroup) {
+    if (range.valid) {
+      this.nbDays = dayDif(range.controls['start'].value._d, range.controls['end'].value._d);
     } else {
       this.nbDays = 0;
     }
@@ -81,5 +78,9 @@ export class RentingComponent implements OnInit {
   // Called when the contact button is triggered
   contactHost() {
 
+  }
+
+  dateChange(range: FormGroup) {
+    this.setDate(range);
   }
 }
