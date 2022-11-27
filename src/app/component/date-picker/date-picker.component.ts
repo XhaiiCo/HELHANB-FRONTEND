@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -7,7 +7,6 @@ import {
 } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import 'moment/locale/fr';
-import * as moment from "moment";
 
 const now = new Date();
 
@@ -31,6 +30,16 @@ export class DatePickerComponent implements OnInit {
     start: new FormControl<Date | null>(null, Validators.required),
     end: new FormControl<Date | null>(null, Validators.required),
   });
+
+  notAvailableDates = [
+    new Date("11/30/2022"),  // Example
+    new Date("12/5/2022"),  // Example
+  ];
+
+  dateFilter = (d: Date): boolean => {
+    const time = new Date(d).getTime();
+    return !this.notAvailableDates.find(x => new Date(x).getTime() == time);
+  }
 
   constructor() {
   }
