@@ -1,3 +1,5 @@
+@import '/src/styles/helpers/variable' ;
+
 .carousel-container {
   position: relative;
 
@@ -10,7 +12,7 @@
 }
 
 :host-context(.homepage) .image-active {
-  border-radius: 15px;
+  border-radius: $radius;
 }
 
 img
