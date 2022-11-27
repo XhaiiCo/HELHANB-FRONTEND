@@ -1,9 +1,14 @@
-<div class="container wrapper column">
-  <div *ngFor="let ad of ads">
-    <app-card [ad]="ad" class="homepage"></app-card>
-  </div>
+<div *ngIf="!pageLoaded" class="loader_container">
+  <app-loader></app-loader>
 </div>
-<app-pagination [maxPages]="maxPages"
-                [rulerLength]="rulerLength"
-                [(index)]="index"
-                (indexChange)="changePage($event)"></app-pagination>
+<main *ngIf="pageLoaded">
+  <div class="container wrapper column">
+    <div *ngFor="let ad of ads">
+      <app-card [ad]="ad" class="homepage"></app-card>
+    </div>
+  </div>
+  <app-pagination [maxPages]="maxPages"
+                  [rulerLength]="rulerLength"
+                  [(index)]="index"
+                  (indexChange)="changePage($event)"></app-pagination>
+</main>
