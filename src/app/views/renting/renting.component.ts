@@ -15,6 +15,8 @@ const dayDif = (date1: Date, date2: Date) => Math.ceil(Math.abs(date1.getTime() 
 })
 export class RentingComponent implements OnInit {
 
+  pageLoaded: boolean = false ;
+
   pictureBaseUri: string = environment.pictureUrl;
 
   nbDays: number = 0;
@@ -71,6 +73,8 @@ export class RentingComponent implements OnInit {
 
         //map pour recup les noms d images
         this.images = this.ad.pictures.map(item => item.path);
+
+        this.pageLoaded = true ;
       });
   }
 

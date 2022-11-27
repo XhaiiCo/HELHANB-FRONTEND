@@ -1,4 +1,8 @@
-<main class="renting_page">
+<div *ngIf="!pageLoaded" class="loader_container">
+  <app-loader></app-loader>
+</div>
+
+<main class="renting_page" *ngIf="pageLoaded">
   <header>
     <div class="title_container">
       <p class="title">{{ ad.name }}</p>
