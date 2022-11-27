@@ -13,12 +13,12 @@
   align-items: center;
   padding: 40px;
   background-color: white;
-  max-width: 500px ;
+  max-width: 500px;
 }
 
 .pp_section {
   margin-bottom: 30px;
-  width: 100% ;
+  width: 100%;
 }
 
 .profile_picture_section {
@@ -36,7 +36,7 @@
 
 .btn-primary {
   margin-top: 10px;
-  width: 100% ;
+  width: 100%;
 }
 
 .inline-input {
@@ -88,17 +88,21 @@
   }
 }
 
+svg {
+  width: 24px;
+}
+
 .file-input-label:hover {
   opacity: 0.5;
 }
 
-#removePpButton {
+.removePpButton {
   width: 42px;
   height: 42px;
   align-content: center;
   font-family: $main-font;
   border: none;
-  background: red;
+  background: $main-color;
   border-radius: $radius;
   color: #fff;
   cursor: pointer;
@@ -109,6 +113,10 @@
     display: block;
     margin: auto;
     align-content: center;
+  }
+
+  &:hover {
+    opacity: 0.5;
   }
 }
 
