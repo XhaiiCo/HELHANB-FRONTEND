@@ -1,10 +1,18 @@
-<main class="renting_page">
+<div *ngIf="!pageLoaded" class="loader_container">
+  <app-loader></app-loader>
+</div>
+
+<main class="renting_page" *ngIf="ad && pageLoaded">
   <header>
     <div class="title_container">
-      <p class="title">{{ ad_name }}</p>
+      <h1 class="title">{{ ad.name }}</h1>
       <p class="subtitle">
-        {{ nb_max_tenant }} {{ str_nb_max_tenant }} ⸱ {{ nb_bedroom }} {{ str_nb_bedroom}}
-        ⸱ {{ nb_bed }} {{ str_nb_bed }}
+        {{ad.numberOfPersons}} {{ad.numberOfPersons > 1 ? "personnes" : "personne"}}
+        ⸱ {{ad.numberOfBedrooms}} {{ad.numberOfBedrooms > 1 ? "chambres" : "chambre"}}
+      </p>
+
+      <p class="subtitle">
+        {{ad.street}}, {{ad.postalCode}} {{ad.city}}, {{ad.country}}
       </p>
     </div>
 
@@ -16,60 +24,95 @@
   <main class="main">
     <section class="main_body">
 
-      <section id="host_container">
-        <h2>Hôte</h2>
-        <div id="host_profile">
-          <div id="host_profile_name"><span>{{ host_name }}</span></div>
-          <div id="host_profile_pp">
-            <span>
-              <img *ngIf="authService.user == null || authService.user.profilePicturePath == null"
-                   src="../../../assets/img/user_pic-50x50.png" alt="profil pic">
-              <!-- TODO : image de l'hôte
-              <img *ngIf="authService.user != null && authService.user.profilePicturePath != null"
-                    alt="profil pic">-->
-            </span>
+      <section class="host_container">
+        <div class="host_info">
+          <h3>Accueilli par</h3>
+          <div>
+            <p>{{ad.owner.firstName}} {{ad.owner.lastName}}</p>
+          </div>
+          <div>
+            <button class="btn-secondary" id="btn_contact_host" (click)="contactHost()">
+              Contacter
+            </button>
           </div>
         </div>
-        <div id="host_div_btn">
-          <button class="btn-primary" id="btn_contact_host" (click)="contactHost()">Contacter {{ host_name }}</button>
+        <div class="host_pp">
+          <img [src]="pictureBaseUri + ad.owner.profilePicturePath" alt="photo de l'hôte">
         </div>
       </section>
 
-      <!--<section id="description_container">
-        <h2>Description du logement</h2>
-      </section>-->
-
       <section class="features_container">
-        <h2>Disponible dans le logement</h2>
+        <h3>Disponible dans le logement</h3>
         <div class="features_list">
-          <span *ngFor="let feature of renting_features.slice(0, 4)">
-            &#x2022; {{ feature }}
+          <span *ngFor="let feature of ad.features.slice(0, 4)">
+            &#x2022; {{feature}}
           </span>
         </div>
 
-        <div class="btn_feature_container" [hidden]="renting_features.length <= 4">
-          <button class="btn-primary" id="btn_open_features" (click)="showListFeatures()">Voir tout</button>
+        <div class="btn_feature_container" [hidden]="ad.features.length <= 4">
+          <button class="btn-secondary" id="btn_open_features" (click)="showListFeatures()">Voir tout</button>
         </div>
       </section>
+
+      <section class="description_container">
+        <h3>Description</h3>
+        <div>
+          <p>
+            {{ad.description}}
+          </p>
+        </div>
+      </section>
+
+      <section class="toKnow_container">
+        <h3>À savoir</h3>
+        <div>
+          <p>
+            Arrivée entre {{ad.arrivalTimeRangeStart}} et {{ad.arrivalTimeRangeEnd}}
+          </p>
+          <p>
+            Départ avant {{ad.leaveTime}}
+          </p>
+        </div>
+      </section>
+
     </section>
 
     <section class="reservation_container">
       <header class="reservation_price_by_night">
-        <span class="span_price">{{ daily_price }} €</span>&nbsp;<span class="span_price_str">par nuit</span>
+        <span class="span_price">{{ad.pricePerNight}} €</span>&nbsp;<span class="span_price_str">par nuit</span>
       </header>
 
       <main class="reservation_date-picker">
         <app-date-picker (emitDateChange)="dateChange($event)"></app-date-picker>
       </main>
 
-      <footer class="reservation_total_price" *ngIf="nbDays != 0">
-        <span>
-          {{ daily_price }} € x {{ nbDays }} {{ nbDays > 1 ? "nuits" : "nuit" }} =
-          <b>{{ (nbDays * daily_price) | round }} €</b>
-        </span>
+      <footer class="reservation_summary" *ngIf="nbNights != 0">
+        <div>
+          <div>
+            Prix par nuit
+          </div>
+          <div>
+            {{ad.pricePerNight}} €
+          </div>
+        </div>
+        <div>
+          <div>
+            Nombre de nuits
+          </div>
+          <div>
+            {{nbNights}} {{ nbNights > 1 ? "nuits" : "nuit" }}
+          </div>
+        </div>
+        <div class="result">
+          <div>
+            <b>Total</b>
+          </div>
+          <div>
+            {{ (nbNights * ad.pricePerNight) | round }} €
+          </div>
+        </div>
       </footer>
-
-      <button class="btn-primary" (click)="submit()" [disabled]="nbDays == 0">
+      <button class="btn-primary" (click)="submit()" [disabled]="nbNights == 0">
         Réserver
       </button>
     </section>
@@ -79,7 +122,7 @@
     <div id="allFeatures_container">
       <div id="allFeatures_div">
         <div class="features_list">
-          <span *ngFor="let feature of renting_features">
+          <span *ngFor="let feature of ad.features">
             &#x2022; {{ feature }}
           </span>
         </div>

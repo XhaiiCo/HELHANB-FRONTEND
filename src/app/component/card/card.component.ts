@@ -7,7 +7,6 @@ import {DtoInputAdSummary} from "../../dtos/ad/dto-input-ad-summary";
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() link: string | undefined;
 
   //default declaration for avoiding to handle undefined in the child
   @Input() ad : DtoInputAdSummary = {
@@ -20,6 +19,8 @@ export class CardComponent implements OnInit {
     pricePerNight: 0,
     pictures: []
   };
+
+  adBaseLink : string = "/annonces/";
 
   constructor() { }
 

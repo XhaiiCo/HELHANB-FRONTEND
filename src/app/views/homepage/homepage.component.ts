@@ -21,6 +21,8 @@ export class HomepageComponent implements OnInit {
 
   ads : DtoInputAdSummary[] = [];
 
+  pageLoaded: boolean = false ;
+
   constructor(private _adService : AdService) {}
 
   ngOnInit(): void {
@@ -39,13 +41,16 @@ export class HomepageComponent implements OnInit {
       });
   }
 
-  fetchForPagination() {
+  private fetchForPagination() {
 
     let offset = (this.index - 1) * this.itemsPerPage;
 
     this._adService
       .fetchForPagination(this.itemsPerPage, offset)
-      .subscribe(ads => this.ads = ads);
+      .subscribe(ads => {
+        this.ads = ads
+        this.pageLoaded = true ;
+      });
   }
 
   changePage(event: any)

@@ -1,0 +1,41 @@
+@import '/src/styles/helpers/variable' ;
+
+*{
+  font-family: $main-font;
+  font-size: 12px ;
+}
+
+h1{
+  font-size: 15px ;
+}
+
+h2{
+  font-size: 14px ;
+}
+
+
+.ad_item_page{
+  height: calc(100vh - $header-height - $admin-nav-height - 50px);
+  overflow: auto;
+}
+
+@media only screen and (max-width: 800px) {
+
+  .ad_item_page{
+    height: calc(100vh - $header-height - $admin-nav-height - 150px);
+    overflow: auto;
+  }
+}
+
+.pictures_container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px ;
+
+  img{
+    width: 160px ;
+    aspect-ratio: 16 / 9 ;
+    object-fit: cover ;
+    object-position: 50% 50% ;
+  }
+}

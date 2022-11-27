@@ -1,0 +1,26 @@
+<main class="ad-to-validate-page" *ngIf="ads.length > 0 ; else noAdsToValidate">
+  <section class="ad_list">
+    <ul>
+      <li *ngFor="let ad of ads" (click)="changeCurrentId(ad)"
+          [class.active]="currentAd && ad.id === currentAd.id">{{ad.name}}</li>
+    </ul>
+  </section>
+
+  <section class="ad_preview" *ngIf="currentAd; else noAdSelected">
+    <app-ad-item [ad]="currentAd" class="preview"></app-ad-item>
+    <section class="buttons_section">
+      <button class="btn-valid" (click)="validCurrentAd()">Valider</button>
+      <button class="btn-reject" (click)="rejectCurrentAd()">Refuser</button>
+    </section>
+  </section>
+
+  <ng-template #noAdSelected>
+    <p>Veuillez sélectionner une annonce</p>
+  </ng-template>
+</main>
+
+<ng-template #noAdsToValidate>
+  <main class="ad-to-validate-page">
+    <p>Aucune annonce à valider</p>
+  </main>
+</ng-template>

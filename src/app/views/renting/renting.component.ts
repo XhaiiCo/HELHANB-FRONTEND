@@ -1,7 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AuthService} from "../../services/auth.service";
+import {Component, OnInit} from '@angular/core';
+import {Time} from "@angular/common";
 import {environment} from "../../../environments/environment";
 import {FormGroup} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AdService} from "../../services/ad.service";
+import {DtoAd} from "../../dtos/ad/dto-ad";
 
 const dayDif = (date1: Date, date2: Date) => Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000);
 
@@ -12,54 +15,66 @@ const dayDif = (date1: Date, date2: Date) => Math.ceil(Math.abs(date1.getTime() 
 })
 export class RentingComponent implements OnInit {
 
-  @Input() daily_price: number = 149.99;
-  @Input() ad_name: string = "Chat laid au bord du lac";
-  @Input() host_name: string = "François";
-  @Input() host_pp: string = "";
-  profilePictureBaseUri: string  = environment.pictureUrl;
+  pageLoaded: boolean = false;
 
-  @Input() nb_max_tenant: number = 4;
-  str_nb_max_tenant: string = this.nb_max_tenant > 1 ? "voyageurs" : "voyageur";
-  @Input() nb_bedroom: number = 2;
-  str_nb_bedroom: string = this.nb_bedroom > 1 ? "chambres" : "chambre";
-  @Input() nb_bed: number = 3;
-  str_nb_bed: string = this.nb_bed > 1 ? "lits" : "lit";
+  pictureBaseUri: string = environment.pictureUrl;
 
+  nbNights: number = 0;
 
-  nbDays: number = 0;
-
-  images: string[]  = [
-    "https://a0.muscache.com/im/pictures/miso/Hosting-717134404264905813/original/dfe9fd1e-a010-43c9-b546-0bbc7d59f7f3.jpeg?im_w=1200",
-    "https://a0.muscache.com/im/pictures/miso/Hosting-717134404264905813/original/53b475a3-104f-462e-8faf-85a7bcd1f13b.jpeg?im_w=720",
-    "https://a0.muscache.com/im/pictures/miso/Hosting-717134404264905813/original/56fa6c39-d99f-49d9-91de-4db146a55db9.jpeg?im_w=1200",
-    "https://a0.muscache.com/im/pictures/miso/Hosting-717134404264905813/original/eb68ae58-a771-44d2-9d62-b913a1e5df26.jpeg?im_w=720",
-    "https://www.zooplus.be/magazine/wp-content/uploads/2019/06/comprendre-le-langage-des-chats.jpg",
-  ]
+  images: string[] = []
 
   displayAllFeatures: boolean = false;
-  @Input() renting_features: string[] =
-    [
-      "Wifi",
-      "Salle de bain",
-      "Cuisine",
-      "Télévision",
-      "Chauffage",
-      "Chauffage",
-      "Chauffage",
-      "Chauffage",
-      "Chauffage"
-    ]
 
-  constructor(public authService: AuthService) { }
+  ad!: DtoAd;
+
+  constructor(private _route: ActivatedRoute,
+              private _adService: AdService,
+              private _router: Router) {
+  }
 
   ngOnInit(): void {
+    this._route.paramMap.subscribe(args => {
+
+      if (args.has("id")) {
+        this.fetchAdById(Number(args.get("id")));
+      } else {
+        this._router.navigate(['/404']);
+      }
+    });
+  }
+
+  private fetchAdById(id: number) {
+    this._adService
+      .fetchById(id)
+      .subscribe({
+        next: ad => {
+          this.ad = ad;
+
+          //map pour recup les noms d images
+          this.images = this.ad.pictures.map(item => item.path);
+          this.ad.arrivalTimeRangeStart = this.formatTime(this.ad.arrivalTimeRangeStart);
+          this.ad.arrivalTimeRangeEnd = this.formatTime(this.ad.arrivalTimeRangeEnd);
+          this.ad.leaveTime = this.formatTime(this.ad.leaveTime);
+
+          this.pageLoaded = true;
+        },
+        error: err => {
+          this._router.navigate(['/404']);
+        }
+      });
+  }
+
+  formatTime(time: string) {
+    return time
+      .substring(0, 5)
+      .replace(':', 'h');
   }
 
   setDate(range: FormGroup) {
     if (range.valid) {
-      this.nbDays = dayDif(range.controls['start'].value._d, range.controls['end'].value._d);
+      this.nbNights = dayDif(range.controls['start'].value._d, range.controls['end'].value._d);
     } else {
-      this.nbDays = 0;
+      this.nbNights = 0;
     }
   }
 

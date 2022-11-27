@@ -15,9 +15,11 @@ import {NotConnectedGuardService} from "./guards/not-connected-guard.service";
 import {MyReservationComponent} from "../views/my-reservation/my-reservation.component";
 import {MyRentingComponent} from "../views/my-renting/my-renting.component";
 import {CreateAdComponent} from "../views/create-ad/create-ad.component";
+import {AdToValidateComponent} from "../views/admin/ad-to-validate/ad-to-validate.component";
 
 const routes: Routes = [
-  {path: '', component: HomepageComponent},
+  {path: '', redirectTo: 'annonces', pathMatch: 'full'},
+  {path: 'annonces', component: HomepageComponent},
   {path: 'connexion', component: LoginComponent, canActivate: [NotConnectedGuardService]},
   {path: 'inscription', component: RegistrationComponent, canActivate: [NotConnectedGuardService]},
   {path: 'deconnexion', component: DisconnectComponent, canActivate: [ConnectedGuardService]},
@@ -43,7 +45,7 @@ const routes: Routes = [
       expectedRoles: ["hote"],
     },
   },
-  {path: 'location/:id', component: RentingComponent},
+  {path: 'annonces/:id', component: RentingComponent},
   {
     path: 'administration',
     component: AdminPageComponent,
@@ -53,9 +55,11 @@ const routes: Routes = [
     },
     children: [
       {path: 'utilisateurs', component: UserListComponent},
+      {path: 'validation-annonces', component: AdToValidateComponent},
     ]
   },
-  {path: '**', component: NotFoundComponent},
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '404'},
 ]
 
 @NgModule({

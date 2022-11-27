@@ -32,6 +32,7 @@ img
 
 :host-context(.renting) .image-active {
   aspect-ratio : 2 / 1;
+  pointer-events: none;
 }
 
 .carousel-dot-container {

@@ -1,8 +1,8 @@
 <div *ngIf="images && images.length > 0" class="carousel-container">
   <img *ngFor="let image of images; let i=index"
-       [src]="profilePictureBaseUri + image"
+       [src]="pictureBaseUri + image"
        [ngClass]="{'image-active':selectedIndex===i}"
-       [routerLink]="link"
+       [routerLink]="adLink"
        class="fade"
   >
 
