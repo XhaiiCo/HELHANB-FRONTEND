@@ -58,7 +58,8 @@ const routes: Routes = [
       {path: 'validation-annonces', component: AdToValidateComponent},
     ]
   },
-  {path: '**', component: NotFoundComponent},
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '404'},
 ]
 
 @NgModule({

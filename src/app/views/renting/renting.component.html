@@ -2,17 +2,17 @@
   <app-loader></app-loader>
 </div>
 
-<main class="renting_page" *ngIf="pageLoaded">
+<main class="renting_page" *ngIf="ad && pageLoaded">
   <header>
     <div class="title_container">
-      <p class="title">{{ ad.name }}</p>
+      <h1 class="title">{{ ad.name }}</h1>
       <p class="subtitle">
         {{ad.numberOfPersons}} {{ad.numberOfPersons > 1 ? "personnes" : "personne"}}
         ⸱ {{ad.numberOfBedrooms}} {{ad.numberOfBedrooms > 1 ? "chambres" : "chambre"}}
       </p>
 
       <p class="subtitle">
-        Rue factice 265, 7000 Mons, Belgique
+        {{ad.street}}, {{ad.postalCode}} {{ad.city}}, {{ad.country}}
       </p>
     </div>
 
@@ -24,29 +24,25 @@
   <main class="main">
     <section class="main_body">
 
-      <section id="host_container">
-        <h2>Hôte</h2>
-        <div id="host_profile">
-          <div id="host_profile_name"><span>{{ad.owner.firstName}} {{ad.owner.lastName}}</span></div>
-          <div id="host_profile_pp">
-            <span>
-
-              <!-- retiré juste pour afficher la pdp à remettre si nécessaire-->
-              <!-- *ngIf="authService.user == null || authService.user.profilePicturePath == null" -->
-              <img
-                [src]="pictureBaseUri + ad.owner.profilePicturePath" alt="profil pic">
-
-            </span>
+      <section class="host_container">
+        <div class="host_info">
+          <h3>Accueilli par</h3>
+          <div>
+            <p>{{ad.owner.firstName}} {{ad.owner.lastName}}</p>
+          </div>
+          <div>
+            <button class="btn-secondary" id="btn_contact_host" (click)="contactHost()">
+              Contacter
+            </button>
           </div>
         </div>
-        <div id="host_div_btn">
-          <button class="btn-primary" id="btn_contact_host" (click)="contactHost()">
-            Contacter {{ad.owner.firstName}}</button>
+        <div class="host_pp">
+          <img [src]="pictureBaseUri + ad.owner.profilePicturePath" alt="photo de l'hôte">
         </div>
       </section>
 
       <section class="features_container">
-        <h2>Disponible dans le logement</h2>
+        <h3>Disponible dans le logement</h3>
         <div class="features_list">
           <span *ngFor="let feature of ad.features.slice(0, 4)">
             &#x2022; {{feature}}
@@ -54,36 +50,34 @@
         </div>
 
         <div class="btn_feature_container" [hidden]="ad.features.length <= 4">
-          <button class="btn-primary" id="btn_open_features" (click)="showListFeatures()">Voir tout</button>
+          <button class="btn-secondary" id="btn_open_features" (click)="showListFeatures()">Voir tout</button>
         </div>
       </section>
 
-      <section>
-
-
+      <section class="description_container">
+        <h3>Description</h3>
+        <div>
+          <p>
+            {{ad.description}}
+          </p>
+        </div>
       </section>
 
-      <section>
-        <h2>Description</h2>
-        <p style="width: 100%">
-          {{ad.description}}
-        </p>
-
+      <section class="toKnow_container">
+        <h3>À savoir</h3>
+        <div>
+          <p>
+            Arrivée entre {{ad.arrivalTimeRangeStart}} et {{ad.arrivalTimeRangeEnd}}
+          </p>
+          <p>
+            Départ avant {{ad.leaveTime}}
+          </p>
+        </div>
       </section>
 
     </section>
 
-
     <section class="reservation_container">
-
-      <span>
-        Heure d'arrivée entre {{ad.arrivalTimeRangeStart}} et {{ad.arrivalTimeRangeEnd}}
-      </span>
-      <br>
-      <span>
-        Heure départ à {{ad.leaveTime}}
-      </span>
-
       <header class="reservation_price_by_night">
         <span class="span_price">{{ad.pricePerNight}} €</span>&nbsp;<span class="span_price_str">par nuit</span>
       </header>
@@ -92,14 +86,33 @@
         <app-date-picker (emitDateChange)="dateChange($event)"></app-date-picker>
       </main>
 
-      <footer class="reservation_total_price" *ngIf="nbDays != 0">
-        <span>
-          {{ad.pricePerNight}} € x {{ nbDays }} {{ nbDays > 1 ? "nuits" : "nuit" }} =
-          <b>{{ (nbDays * ad.pricePerNight) | round }} €</b>
-        </span>
+      <footer class="reservation_summary" *ngIf="nbNights != 0">
+        <div>
+          <div>
+            Prix par nuit
+          </div>
+          <div>
+            {{ad.pricePerNight}} €
+          </div>
+        </div>
+        <div>
+          <div>
+            Nombre de nuits
+          </div>
+          <div>
+            {{nbNights}} {{ nbNights > 1 ? "nuits" : "nuit" }}
+          </div>
+        </div>
+        <div class="result">
+          <div>
+            <b>Total</b>
+          </div>
+          <div>
+            {{ (nbNights * ad.pricePerNight) | round }} €
+          </div>
+        </div>
       </footer>
-
-      <button class="btn-primary" (click)="submit()" [disabled]="nbDays == 0">
+      <button class="btn-primary" (click)="submit()" [disabled]="nbNights == 0">
         Réserver
       </button>
     </section>

@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AuthService} from "../../services/auth.service";
+import {Component, OnInit} from '@angular/core';
+import {Time} from "@angular/common";
 import {environment} from "../../../environments/environment";
 import {FormGroup} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AdService} from "../../services/ad.service";
 import {DtoAd} from "../../dtos/ad/dto-ad";
 
@@ -15,74 +15,66 @@ const dayDif = (date1: Date, date2: Date) => Math.ceil(Math.abs(date1.getTime() 
 })
 export class RentingComponent implements OnInit {
 
-  pageLoaded: boolean = false ;
+  pageLoaded: boolean = false;
 
   pictureBaseUri: string = environment.pictureUrl;
 
-  nbDays: number = 0;
+  nbNights: number = 0;
 
   images: string[] = []
 
   displayAllFeatures: boolean = false;
 
-  ad: DtoAd = {
-    id: 0,
-    name: "",
-    created: "",
-    pricePerNight: 0,
-    description: "",
-    numberOfPersons: 0,
-    numberOfBedrooms: 0,
-    street:"",
-    postalCode: 0,
-    country: "",
-    city: "",
-    adStatusId: 0,
-    arrivalTimeRangeStart: "",
-    arrivalTimeRangeEnd: "",
-    leaveTime: "",
-    features: [],
-    pictures: [{id:0, path:""}],
-    owner:{
-      firstName: "",
-      lastName: "",
-      profilePicturePath: ""
-    }
-  }
+  ad!: DtoAd;
 
   constructor(private _route: ActivatedRoute,
-              private _adService : AdService) { }
+              private _adService: AdService,
+              private _router: Router) {
+  }
 
   ngOnInit(): void {
-    this._route.paramMap.subscribe(args =>{
+    this._route.paramMap.subscribe(args => {
 
-      if (args.has("id"))
-      {
+      if (args.has("id")) {
         this.fetchAdById(Number(args.get("id")));
+      } else {
+        this._router.navigate(['/404']);
       }
     });
   }
 
-  private fetchAdById(id: number)
-  {
+  private fetchAdById(id: number) {
     this._adService
       .fetchById(id)
-      .subscribe(ad =>
-      {
-        this.ad = ad;
+      .subscribe({
+        next: ad => {
+          this.ad = ad;
 
-        //map pour recup les noms d images
-        this.images = this.ad.pictures.map(item => item.path);
+          //map pour recup les noms d images
+          this.images = this.ad.pictures.map(item => item.path);
+          this.ad.arrivalTimeRangeStart = this.formatTime(this.ad.arrivalTimeRangeStart);
+          this.ad.arrivalTimeRangeEnd = this.formatTime(this.ad.arrivalTimeRangeEnd);
+          this.ad.leaveTime = this.formatTime(this.ad.leaveTime);
 
-        this.pageLoaded = true ;
+          this.pageLoaded = true;
+        },
+        error: err => {
+          this._router.navigate(['/404']);
+        }
       });
+  }
+
+  formatTime(time: string) {
+    return time
+      .substring(0, 5)
+      .replace(':', 'h');
   }
 
   setDate(range: FormGroup) {
     if (range.valid) {
-      this.nbDays = dayDif(range.controls['start'].value._d, range.controls['end'].value._d);
+      this.nbNights = dayDif(range.controls['start'].value._d, range.controls['end'].value._d);
     } else {
-      this.nbDays = 0;
+      this.nbNights = 0;
     }
   }
 
