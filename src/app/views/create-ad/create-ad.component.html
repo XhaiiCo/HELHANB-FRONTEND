@@ -51,29 +51,30 @@
       <!-- step 2 -->
       <section *ngIf="step == 2" formGroupName="step2">
 
+        <div class="form-group">
+          <label class="label">Heure de départ</label>
+          <input type="time" class="input-text" formControlName="leaveTime"
+                 (change)="validHours({stepName: 'step2', controlName: 'leaveTime'}, {stepName: 'step2', controlName:'arrivalTimeRangeStart'})">
+          <span *ngIf="isInvalid({stepName: 'step2', controlName: 'leaveTime'})">Veuillez entrer une heure de départ valide.</span>
+        </div>
+
         <div class="inline-input">
           <div class="form-group">
             <label class="label">Arrivée entre</label>
             <input type="time" class="input-text" formControlName="arrivalTimeRangeStart"
-                   (change)="validHours({stepName: 'step2', controlName: 'arrivalTimeRangeStart'}, {stepName: 'step2', controlName:'arrivalTimeRangeEnd'})">
+                   (change)="validHours({stepName: 'step2', controlName: 'arrivalTimeRangeStart'}, {stepName: 'step2', controlName:'arrivalTimeRangeEnd'});
+                              validHours({stepName: 'step2', controlName: 'leaveTime'}, {stepName: 'step2', controlName: 'arrivalTimeRangeStart'})">
             <span *ngIf="isInvalid({stepName: 'step2', controlName: 'arrivalTimeRangeStart'})">Veuillez entrer une heure d'arrivée valide.</span>
           </div>
 
           <div class="form-group">
             <label class="label">et</label>
             <input type="time" class="input-text" formControlName="arrivalTimeRangeEnd"
-                   (change)="validHours({stepName: 'step2', controlName: 'arrivalTimeRangeStart'}, {stepName: 'step2', controlName:'arrivalTimeRangeEnd'});
-                  validHours({stepName: 'step2', controlName: 'arrivalTimeRangeEnd'}, {stepName: 'step2', controlName:'leaveTime'})">
+                   (change)="validHours({stepName: 'step2', controlName: 'arrivalTimeRangeStart'}, {stepName: 'step2', controlName:'arrivalTimeRangeEnd'})">
             <span *ngIf="isInvalid({stepName: 'step2', controlName: 'arrivalTimeRangeEnd'})">Veuillez entrer une heure d'arrivée valide.</span>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="label">Heure de départ</label>
-          <input type="time" class="input-text" formControlName="leaveTime"
-                 (change)="validHours({stepName: 'step2', controlName: 'arrivalTimeRangeEnd'}, {stepName: 'step2', controlName:'leaveTime'})">
-          <span *ngIf="isInvalid({stepName: 'step2', controlName: 'leaveTime'})">Veuillez entrer une heure de départ valide.</span>
-        </div>
       </section>
 
       <!-- step 3 -->
