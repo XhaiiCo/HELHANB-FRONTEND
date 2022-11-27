@@ -55,3 +55,11 @@
     grid-template-columns: repeat(6, 1fr);
   }
 }
+
+
+.pagination_container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px ;
+}

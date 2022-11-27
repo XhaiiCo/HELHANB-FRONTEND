@@ -7,8 +7,13 @@
       <app-card [ad]="ad" class="homepage"></app-card>
     </div>
   </div>
-  <app-pagination [maxPages]="maxPages"
-                  [rulerLength]="rulerLength"
-                  [(index)]="index"
-                  (indexChange)="changePage($event)"></app-pagination>
+
+  <div class="pagination_container">
+    <app-pagination
+      [maxPages]="maxPages"
+      [rulerLength]="rulerLength"
+      [(index)]="index"
+      (indexChange)="changePage($event)">
+    </app-pagination>
+  </div>
 </main>

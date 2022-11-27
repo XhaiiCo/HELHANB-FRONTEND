@@ -1,9 +1,31 @@
+@import '/src/styles/helpers/variable.scss' ;
+
+*{
+  font-family: $main-font ;
+}
 ol
 {
   list-style: none;
   margin-block: 0;
   margin-inline: 0;
   padding-inline: 0;
+}
+
+
+svg{
+  width: 17px ;
+}
+
+button{
+  background: none ;
+  display: flex ;
+  text-align: center ;
+  justify-content: center;
+  cursor: pointer ;
+}
+
+button:disabled{
+  cursor: default ;
 }
 
 .paginator-container
@@ -28,7 +50,8 @@ ol
     &.active
     {
       color: #fff;
-      background-color: #00829a;
+      background-color: $main-color;
+      border-radius: $radius;
     }
   }
 }
