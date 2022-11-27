@@ -2,7 +2,7 @@
   <section class="ad_list">
     <ul>
       <li *ngFor="let ad of ads" (click)="changeCurrentId(ad)"
-          [class.active]="currentAd && ad.id === currentAd?.id">{{ad.name}}</li>
+          [class.active]="currentAd && ad.id === currentAd.id">{{ad.name}}</li>
     </ul>
   </section>
 
