@@ -104,19 +104,18 @@
       <section *ngIf="step == 4">
         <div class="form-group">
           <label class="label">Options</label>
-          <div>
-            <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature"
-                   [ngModelOptions]="{standalone: true}">
-            <button type="button" class="btn-secondary" (click)="addFeature(tmp_feature)"
-                    [disabled]="tmp_feature == ''">
-              Ajouter
-            </button>
-            <div class="features_list">
+          <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature"
+                 [placeholder]="renting_features.length == 0 ? 'Piscine, wifi, TV HD...' : '' "
+                 [ngModelOptions]="{standalone: true}">
+          <button type="button" class="btn-secondary" (click)="addFeature(tmp_feature)"
+                  [disabled]="tmp_feature == ''">
+            Ajouter
+          </button>
+        </div>
+        <div class="features_list">
               <span class="feature" *ngFor="let feature of renting_features" (click)="removeFeature(feature)">
                 &#x2022; {{ feature }}
               </span>
-            </div>
-          </div>
         </div>
       </section>
 

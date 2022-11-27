@@ -1,6 +1,3 @@
-@import "./styles/helpers/fonts" ;
+@import "styles/helpers/fonts" ;
 @import "styles/helpers/reset";
-
-html, body { height: 100%;
-  overflow: hidden;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "styles/components/scrollbar" ;
