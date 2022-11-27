@@ -1,4 +1,4 @@
-<main class="ad-to-validate-page">
+<main class="ad-to-validate-page" *ngIf="ads.length > 0 ; else noAdsToValidate">
   <section class="ad_list">
     <ul>
       <li *ngFor="let ad of ads" (click)="changeCurrentId(ad)"
@@ -19,3 +19,8 @@
   </ng-template>
 </main>
 
+<ng-template #noAdsToValidate>
+  <main class="ad-to-validate-page">
+    <p>Aucune annonce à valider</p>
+  </main>
+</ng-template>
