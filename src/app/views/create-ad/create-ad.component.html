@@ -12,9 +12,10 @@
 
         <div class="form-group">
           <label class="label">Description</label>
-          <textarea class="input-text" formControlName="description"></textarea>
+          <textarea #taDescription class="input-text" formControlName="description"></textarea>
+          <span class="description_cpt">{{taDescription.value.length > 0 ? taDescription.value.length + "/500" : ""}}</span>
           <span
-            *ngIf="isInvalid({stepName: 'step0', controlName:'description'})">Veuillez entrer une description.</span>
+            *ngIf="isInvalid({stepName: 'step0', controlName:'description'})">Veuillez entrer une description (max 500 car.).</span>
         </div>
       </section>
 

@@ -32,7 +32,7 @@ export class CreateAdComponent implements OnInit {
   adCreateForm = new FormGroup({
     step0: new FormGroup({
       name: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required)
+      description: new FormControl('', [Validators.required, Validators.maxLength(500)])
     }),
 
     step1: new FormGroup({
