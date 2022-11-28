@@ -16,6 +16,7 @@ import {MyReservationComponent} from "../views/my-reservation/my-reservation.com
 import {MyRentingComponent} from "../views/my-renting/my-renting.component";
 import {CreateAdComponent} from "../views/create-ad/create-ad.component";
 import {AdToValidateComponent} from "../views/admin/ad-to-validate/ad-to-validate.component";
+import {MessagesComponent} from "../views/messages/messages.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'annonces', pathMatch: 'full'},
@@ -58,6 +59,7 @@ const routes: Routes = [
       {path: 'validation-annonces', component: AdToValidateComponent},
     ]
   },
+  {path: 'messages', component: MessagesComponent},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '404'},
 ]
