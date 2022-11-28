@@ -23,7 +23,9 @@ const now = new Date();
 export class DatePickerComponent implements OnInit {
   @Output() emitDateChange: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
+  @Input()
   min = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1); // Date de début de location de la baraque
+  @Input()
   max = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate()); // Date jusqu'à laquelle la personne veut louer sa baraque
 
   range = new FormGroup({
@@ -31,9 +33,10 @@ export class DatePickerComponent implements OnInit {
     end: new FormControl<Date | null>(null, Validators.required),
   });
 
+  // Input()
   notAvailableDates = [
-    new Date("11/30/2022"),  // Example
     new Date("12/5/2022"),  // Example
+    new Date("11/30/2022"),  // Example
   ];
 
   dateFilter = (d: Date): boolean => {
