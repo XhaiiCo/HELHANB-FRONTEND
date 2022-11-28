@@ -5,12 +5,7 @@
     <input matEndDate formControlName="end" placeholder="Date de fin" (dateChange)="dateChange()">
   </mat-date-range-input>
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-date-range-picker #picker>
-    <mat-date-range-picker-actions>
-      <button mat-button matDatepickerCancel>Annuler</button>
-      <button mat-raised-button color="primary" matDatepickerApply>Enregistrer</button>
-    </mat-date-range-picker-actions>
-  </mat-date-range-picker>
+  <mat-date-range-picker #picker></mat-date-range-picker>
 
   <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Date de début invalide</mat-error>
   <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Date de fin invalide</mat-error>
