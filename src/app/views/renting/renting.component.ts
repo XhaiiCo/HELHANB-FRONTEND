@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Time} from "@angular/common";
 import {environment} from "../../../environments/environment";
 import {FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AdService} from "../../services/ad.service";
 import {DtoAd} from "../../dtos/ad/dto-ad";
+import {DtoOutputNewReservation} from "../../dtos/ad/dto-output-new-reservation";
+import {AuthService} from "../../services/auth.service";
+import {ToastNotificationService} from "../../services/toast-notification.service";
 
 const dayDif = (date1: Date, date2: Date) => Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000);
 
@@ -27,9 +29,15 @@ export class RentingComponent implements OnInit {
 
   ad!: DtoAd;
 
+  dates!: { arrival: Date, leave: Date };
+
+  disableReservationBtn: boolean = false ;
+
   constructor(private _route: ActivatedRoute,
               private _adService: AdService,
-              private _router: Router) {
+              private _router: Router,
+              private _authService: AuthService,
+              private _toastNotification: ToastNotificationService) {
   }
 
   ngOnInit(): void {
@@ -73,13 +81,52 @@ export class RentingComponent implements OnInit {
   setDate(range: FormGroup) {
     if (range.valid) {
       this.nbNights = dayDif(range.controls['start'].value._d, range.controls['end'].value._d);
+
+      this.dates = {
+        arrival: range.get("start")?.value,
+        leave: range.get("end")?.value,
+      }
+
     } else {
       this.nbNights = 0;
     }
   }
 
   submit() {
+    this.disableReservationBtn = true ;
 
+    if (!this._authService.user) {
+      this._toastNotification.add("Veuillez vous connecter", "error") ;
+      this.disableReservationBtn = false ;
+      return ;
+    }
+
+    const dto: DtoOutputNewReservation = {
+      renterId: this._authService.user?.id,
+      arrivalDate: this.toDtoOutputDate(this.dates.arrival),
+      leaveDate: this.toDtoOutputDate(this.dates.leave),
+    }
+
+    this._adService.createReservation(this.ad.id, dto).subscribe({
+      next: result => {
+        this._toastNotification.add("Demanded de réservation envoyée", "success") ;
+        this.disableReservationBtn = false ;
+      },
+      error: err => {
+        this._toastNotification.add(err.error, "error") ;
+        this.disableReservationBtn = false ;
+      }
+
+    });
+  }
+
+  toDtoOutputDate(date: Date) {
+    const dateObj: Date = new Date(date.toString()) ;
+    return {
+      year: dateObj.getFullYear(),
+      month: dateObj.getMonth() + 1,
+      day: dateObj.getDate(),
+    };
   }
 
   showListFeatures() {

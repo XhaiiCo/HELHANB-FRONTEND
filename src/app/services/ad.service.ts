@@ -9,6 +9,7 @@ import {DtoAd} from "../dtos/ad/dto-ad";
 import {DtoInputAdPending} from "../dtos/ad/dto-input-ad-pending";
 import {DtoOutputUpdateStatusAd} from "../dtos/ad/dto-output-update-status-ad";
 import {DtoInputMyAds} from "../dtos/ad/dto-input-my-ads";
+import {DtoOutputNewReservation} from "../dtos/ad/dto-output-new-reservation";
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,9 @@ export class AdService {
 
   fetchMyAds(id: number): Observable<DtoInputMyAds[]>{
     return this._httpClient.get<DtoInputMyAds[]>(`${AdService.ENTRY_POINT_URL}/${id}/myAds`) ;
+  }
+
+  createReservation(adId: number, dto: DtoOutputNewReservation): Observable<any>{
+   return this._httpClient.post<any>(`${AdService.ENTRY_POINT_URL}/${adId}/reservation`, dto) ;
   }
 }
