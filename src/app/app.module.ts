@@ -35,6 +35,7 @@ import { AdToValidateComponent } from './views/admin/ad-to-validate/ad-to-valida
 import { AdItemComponent } from './views/admin/ad-to-validate/ad-item/ad-item.component';
 import { LoaderComponent } from './component/loader/loader.component';
 import { MessagesComponent } from './views/messages/messages.component';
+import { MyAdComponent } from './views/my-renting/my-ad/my-ad.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { MessagesComponent } from './views/messages/messages.component';
     AdItemComponent,
     LoaderComponent,
     MessagesComponent,
+    MyAdComponent,
   ],
   imports: [
     BrowserModule,

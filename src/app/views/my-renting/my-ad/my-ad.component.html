@@ -1,0 +1,43 @@
+<main class="ad_item_page">
+  <h1>{{ad.name}}</h1>
+  <p>
+    {{ad.numberOfPersons}} personne(s) ⸱ {{ad.numberOfBedrooms}} chambre(s)
+  </p>
+
+  <h2>Adresse</h2>
+  <p>
+    {{ad.street}}, {{ad.postalCode}} {{ad.city}}, {{ad.country}}
+  </p>
+
+  <h2>Images</h2>
+  <div class="pictures_container">
+    <img *ngFor="let image of ad.pictures" alt="maison" [src]="pictureBaseUrl + image.path">
+  </div>
+
+
+  <h2>Hôte</h2>
+  <div id="host_profile">
+    <p>{{ad.owner.lastName}} {{ad.owner.firstName}}</p>
+  </div>
+
+  <h2>Disponible dans le logement</h2>
+  <div class="features_list">
+          <span *ngFor="let feature of ad.features">
+            &#x2022; {{ feature }}
+          </span>
+  </div>
+
+  <h2>Description</h2>
+  <p>
+    {{ad.description}}
+  </p>
+
+  <h2>Prix pour une nuit</h2>
+  <p>
+    {{ad.pricePerNight}}
+  </p>
+
+  <h2>Règles</h2>
+  <p>Arrivée entre {{ad.arrivalTimeRangeStart}} et {{ad.arrivalTimeRangeEnd}}</p>
+  <p>Départ avant {{ad.leaveTime}}</p>
+</main>

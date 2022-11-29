@@ -2,12 +2,27 @@
   <section class="ad_list">
     <ul>
       <li [routerLink]="'/nouvelle-annonce'"><b>Ajouter une nouvelle annonce</b></li>
-      <li *ngFor="let ad of ads" (click)="changeCurrentId(ad)"
-          [class.active]="currentAd && ad.id === currentAd.id">{{ad.name}}</li>
+      <li *ngFor="let ad of ads"
+          (click)="changeCurrentId(ad)"
+          [class.active]="currentAd && ad.id === currentAd.id">
+        <div class="list_item">
+          <div>
+            {{ad.name}}
+          </div>
+          <div
+            [class.status_accepted]="ad.status.id === 3"
+            [class.status_rejected]="ad.status.id === 2"
+            [class.status_pending]="ad.status.id === 1"
+          >
+            {{ad.status.statusName}}
+          </div>
+        </div>
+      </li>
     </ul>
   </section>
 
   <section class="ad_preview" *ngIf="currentAd; else noAdSelected">
+    <app-my-ad [ad]="currentAd"></app-my-ad>
   </section>
 
   <ng-template #noAdSelected>
