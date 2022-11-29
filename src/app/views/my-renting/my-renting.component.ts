@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import {AdService} from "../../services/ad.service";
+import {DtoInputMyAds} from "../../dtos/ad/dto-input-my-ads";
 
 @Component({
   selector: 'app-my-renting',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyRentingComponent implements OnInit {
 
-  constructor() { }
+  ads: DtoInputMyAds[] = [] ;
+  currentAd!: DtoInputMyAds ;
+
+  constructor(private _authService: AuthService, private _adService: AdService) { }
 
   ngOnInit(): void {
+    if(this._authService.user){
+      this._adService.fetchMyAds(this._authService.user.id).subscribe( ads => this.ads = ads )
+    }
   }
 
+  changeCurrentId(ad: DtoInputMyAds) {
+    this.currentAd = ad;
+  }
 }

@@ -1,0 +1,78 @@
+@import '/src/styles/helpers/variable';
+
+.my-renting-page {
+  font-family: $main-font;
+  display: flex;
+  gap: 10px;
+  width: 95%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.ad_list {
+  border-right: 1px solid $grey;
+  min-width: 300px;
+  overflow: auto;
+  height: calc(100vh - $header-height - $admin-nav-height) ;
+
+  li {
+    padding: 10px;
+    border-top: 1px solid $grey;
+    cursor: pointer;
+
+  }
+}
+
+.ad_preview{
+  width: 100% ;
+}
+
+.active {
+  background-color: $very-light-grey;
+}
+
+.buttons_section{
+  padding-right: 30px ;
+  gap: 10px ;
+  margin-top: 1px solid $grey ;
+  height: 50px;
+  display: flex ;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-valid, .btn-reject{
+  padding: 10px ;
+  border-radius: $radius;
+  cursor: pointer ;
+}
+
+.btn-valid{
+  background-color: $success-background-color ;
+  color: $success-color ;
+
+  &:hover{
+    border: 1px solid $success-color ;
+  }
+}
+
+.btn-reject{
+  background-color: $error-background-color ;
+  color: $error-color ;
+
+  &:hover{
+    border: 1px solid $error-color ;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+
+  .my-renting-page {
+    flex-direction: column;
+  }
+
+  .ad_list {
+    width: 100%;
+    height: 100px;
+  }
+}

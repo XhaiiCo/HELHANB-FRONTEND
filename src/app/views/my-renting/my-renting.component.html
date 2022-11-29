@@ -1,1 +1,22 @@
-<a [routerLink]="'/nouvelle-annonce'">Nouvelle annonce</a>
+<main class="my-renting-page" *ngIf="ads.length > 0 ; else noAdsToValidate">
+  <section class="ad_list">
+    <ul>
+      <li [routerLink]="'/nouvelle-annonce'"><b>Ajouter une nouvelle annonce</b></li>
+      <li *ngFor="let ad of ads" (click)="changeCurrentId(ad)"
+          [class.active]="currentAd && ad.id === currentAd.id">{{ad.name}}</li>
+    </ul>
+  </section>
+
+  <section class="ad_preview" *ngIf="currentAd; else noAdSelected">
+  </section>
+
+  <ng-template #noAdSelected>
+    <p>Veuillez sélectionner une annonce</p>
+  </ng-template>
+</main>
+
+<ng-template #noAdsToValidate>
+  <main class="my-renting-page">
+    <p>Aucune annonce</p>
+  </main>
+</ng-template>
