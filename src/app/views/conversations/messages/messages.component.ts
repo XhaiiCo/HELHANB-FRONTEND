@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ChatService} from "../../services/chat.service";
-import {MessageDto} from "../../dtos/MessageDto";
+import {ChatService} from "../../../services/chat.service";
+import {MessageDto} from "../../../dtos/MessageDto";
 import {NavigationEnd, Router} from "@angular/router";
 
 
