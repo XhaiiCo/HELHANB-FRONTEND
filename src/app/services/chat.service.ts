@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import * as signalR from '@microsoft/signalr';          // import signalR
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import {MessageDto} from "../dtos/MessageDto";
+import {MessageDto} from "../dtos/conversation/MessageDto";
 
 @Injectable({
   providedIn: 'root'

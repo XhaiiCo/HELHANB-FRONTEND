@@ -155,7 +155,7 @@ export class RentingComponent implements OnInit {
       .create(dto)
       .subscribe({
         next: conversation => {
-          this._router.navigate(['/messages/' + conversation.id]);
+          this._router.navigate(['/conversations/' + conversation.id]);
         },
         error: err => {
           console.log(err);

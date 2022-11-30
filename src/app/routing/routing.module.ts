@@ -17,6 +17,7 @@ import {MyRentingComponent} from "../views/my-renting/my-renting.component";
 import {CreateAdComponent} from "../views/create-ad/create-ad.component";
 import {AdToValidateComponent} from "../views/admin/ad-to-validate/ad-to-validate.component";
 import {MessagesComponent} from "../views/conversations/messages/messages.component";
+import {ConversationsComponent} from "../views/conversations/conversations.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'annonces', pathMatch: 'full'},
@@ -59,7 +60,7 @@ const routes: Routes = [
       {path: 'validation-annonces', component: AdToValidateComponent},
     ]
   },
-  {path: 'messages', component: MessagesComponent, canActivate: [ConnectedGuardService],
+  {path: 'conversations', component: ConversationsComponent, canActivate: [ConnectedGuardService],
   children: [
     {path: ':id', component: MessagesComponent},
   ],},
