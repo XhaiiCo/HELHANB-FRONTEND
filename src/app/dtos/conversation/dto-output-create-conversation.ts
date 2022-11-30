@@ -1,4 +1,4 @@
 export interface DtoOutputCreateConversation {
-  idUser: number;
-  idHost: number;
+  idUser1: number,
+  idUser2: number,
 }

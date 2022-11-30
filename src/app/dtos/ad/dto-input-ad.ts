@@ -1,4 +1,4 @@
-export interface DtoAd {
+export interface DtoInputAd {
   id: number,
   name: string,
   created: string,
@@ -20,6 +20,7 @@ export interface DtoAd {
     path: string
   }[],
   owner: {
+    id: number ;
     firstName: string,
     lastName: string
     profilePicturePath: string,

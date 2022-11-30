@@ -59,7 +59,10 @@ const routes: Routes = [
       {path: 'validation-annonces', component: AdToValidateComponent},
     ]
   },
-  {path: 'messages', component: MessagesComponent, canActivate: [ConnectedGuardService]},
+  {path: 'messages', component: MessagesComponent, canActivate: [ConnectedGuardService],
+  children: [
+    {path: ':id', component: MessagesComponent},
+  ],},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '404'},
 ]
