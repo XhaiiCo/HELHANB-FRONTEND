@@ -81,7 +81,7 @@
       <!-- step 3 -->
       <section *ngIf="step == 3" formGroupName="step3">
         <div class="form-group">
-          <label class="label">Prix par nuit</label>
+          <label class="label">Prix par nuit (€)</label>
           <input type="number" class="input-text" formControlName="pricePerNight">
           <span
             *ngIf="isInvalid({stepName: 'step3', controlName: 'pricePerNight'})">Veuillez entrer un prix par nuit.</span>

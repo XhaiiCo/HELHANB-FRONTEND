@@ -46,9 +46,8 @@ export class ChatService {
   /* ****************************** Public Mehods **************************************** */
 
   // Calls the controller method
-  public broadcastMessage(msgDto: any) {
-    this.http.post(this.POST_URL, msgDto).subscribe(data => console.log(data));
-    // this.connection.invoke("SendMessage1", msgDto.user, msgDto.msgText).catch(err => console.error(err));    // This can invoke the server method named as "SendMethod1" directly.
+  public broadcastMessage(msgDto: MessageDto) {
+    this.connection.invoke("SendMessage1", msgDto.user, msgDto.msgText, msgDto.group);
   }
 
   public retrieveMappedObject(): Observable<MessageDto> {
