@@ -7,6 +7,8 @@ import {DtoAd} from "../../dtos/ad/dto-ad";
 import {DtoOutputNewReservation} from "../../dtos/ad/dto-output-new-reservation";
 import {AuthService} from "../../services/auth.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
+import {ConversationService} from "../../services/conversation.service";
+import {DtoOutputCreateConversation} from "../../dtos/conversation/dto-output-create-conversation";
 
 const dayDif = (date1: Date, date2: Date) => Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000);
 
@@ -37,7 +39,8 @@ export class RentingComponent implements OnInit {
               private _adService: AdService,
               private _router: Router,
               private _authService: AuthService,
-              private _toastNotification: ToastNotificationService) {
+              private _toastNotification: ToastNotificationService,
+              private _createConversation: ConversationService,) {
   }
 
   ngOnInit(): void {
@@ -137,9 +140,26 @@ export class RentingComponent implements OnInit {
     this.displayAllFeatures = false;
   }
 
-  // Called when the contact button is triggered
   contactHost() {
+    if (this._authService.user == null) {
+      this._toastNotification.add("Il faut être connecté pour contacter un hôte", "error");
+      return;
+    }
 
+    let dto: DtoOutputCreateConversation = {
+      idUser : this._authService.user.id,
+      idHost : 0
+    }
+    this._createConversation
+      .create(dto)
+      .subscribe({
+        next: conversation => {
+          this._router.navigate(['/conversation/' + conversation.id]);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
   }
 
   dateChange(range: FormGroup) {
