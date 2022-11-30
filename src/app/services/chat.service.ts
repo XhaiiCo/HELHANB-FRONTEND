@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import * as signalR from '@microsoft/signalr';          // import signalR
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import {MessageDto} from "../dtos/conversation/MessageDto";
+import {dtoOutputMessage} from "../dtos/conversation/dto-output-message";
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,8 @@ export class ChatService {
     .build();
   readonly POST_URL = "https://localhost:7182/api/chat/send"
 
-  private receivedMessageObject: MessageDto = new MessageDto();
-  private sharedObj = new Subject<MessageDto>();
+  private receivedMessageObject: dtoOutputMessage = new dtoOutputMessage();
+  private sharedObj = new Subject<dtoOutputMessage>();
 
   constructor(private http: HttpClient) {
     this.connection.on("ReceiveOne", (user: string, message: string) => { this.mapReceivedMessage(user, message); });
@@ -41,11 +41,11 @@ export class ChatService {
   /* ****************************** Public Mehods **************************************** */
 
   // Calls the controller method
-  public sendMessage(msgDto: MessageDto) {
+  public sendMessage(msgDto: dtoOutputMessage) {
     this.connection.invoke("SendMessage1", msgDto.user, msgDto.msgText, msgDto.group);
   }
 
-  public retrieveMappedObject(): Observable<MessageDto> {
+  public retrieveMappedObject(): Observable<dtoOutputMessage> {
     return this.sharedObj.asObservable();
   }
 

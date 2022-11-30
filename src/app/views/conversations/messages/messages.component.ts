@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ChatService} from "../../../services/chat.service";
-import {MessageDto} from "../../../dtos/conversation/MessageDto";
+import {dtoOutputMessage} from "../../../dtos/conversation/dto-output-message";
 import {NavigationEnd, Router} from "@angular/router";
 
 
@@ -16,14 +16,14 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.chatService.start().then(r =>
-      this.chatService.retrieveMappedObject().subscribe((receivedObj: MessageDto) => {
+      this.chatService.retrieveMappedObject().subscribe((receivedObj: dtoOutputMessage) => {
         this.addToInbox(receivedObj);
       })  // calls the service method to get the new messages sent
     );
   }
 
-  msgDto: MessageDto = new MessageDto();
-  msgInboxArray: MessageDto[] = [];
+  msgDto: dtoOutputMessage = new dtoOutputMessage();
+  msgInboxArray: dtoOutputMessage[] = [];
 
   send(): void {
     if (this.msgDto) {
@@ -36,8 +36,8 @@ export class MessagesComponent implements OnInit {
     }
   }
 
-  addToInbox(obj: MessageDto) {
-    let newObj = new MessageDto();
+  addToInbox(obj: dtoOutputMessage) {
+    let newObj = new dtoOutputMessage();
     newObj.user = obj.user;
     newObj.msgText = obj.msgText;
     newObj.group = obj.group;

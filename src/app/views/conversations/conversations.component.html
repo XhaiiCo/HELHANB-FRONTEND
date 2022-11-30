@@ -1,2 +1,6 @@
-<p>conversations works!</p>
-<router-outlet></router-outlet>
+<ul>
+  <li
+    *ngFor="let conversation of conversations" (click)="changeCurrantConversation(conversation)">{{conversation.recipient.lastName + " " + conversation.recipient.firstName}}</li>
+</ul>
+
+<app-messages></app-messages>
