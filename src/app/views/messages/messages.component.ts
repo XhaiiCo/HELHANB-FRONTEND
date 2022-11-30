@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ChatService} from "../../services/chat.service";
 import {MessageDto} from "../../dtos/MessageDto";
+import {NavigationEnd, Router} from "@angular/router";
 
 
 @Component({
@@ -10,14 +11,15 @@ import {MessageDto} from "../../dtos/MessageDto";
 })
 export class MessagesComponent implements OnInit {
 
-  constructor(private chatService: ChatService) {
+  constructor(private chatService: ChatService, private _router: Router) {
   }
 
   ngOnInit(): void {
-    this.chatService.retrieveMappedObject().subscribe((receivedObj: MessageDto) => {
-      this.addToInbox(receivedObj);
-    });  // calls the service method to get the new messages sent
-
+    this.chatService.start().then(r =>
+      this.chatService.retrieveMappedObject().subscribe((receivedObj: MessageDto) => {
+        this.addToInbox(receivedObj);
+      })  // calls the service method to get the new messages sent
+    );
   }
 
   msgDto: MessageDto = new MessageDto();
@@ -29,7 +31,7 @@ export class MessagesComponent implements OnInit {
         window.alert("Both fields are required.");
         return;
       } else {
-        this.chatService.broadcastMessage(this.msgDto);                   // Send the message via a service
+        this.chatService.sendMessage(this.msgDto);                   // Send the message via a service
       }
     }
   }

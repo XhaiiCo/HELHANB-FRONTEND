@@ -18,19 +18,14 @@ export class ChatService {
   private sharedObj = new Subject<MessageDto>();
 
   constructor(private http: HttpClient) {
-    this.connection.onclose(async () => {
-      await this.start();
-    });
     this.connection.on("ReceiveOne", (user: string, message: string) => { this.mapReceivedMessage(user, message); });
-    this.start();
   }
 
 
-  // Strart the connection
+  // Start the connection
   public async start() {
     try {
       await this.connection.start();
-      console.log("connected");
     } catch (err) {
       console.log(err);
       setTimeout(() => this.start(), 5000);
@@ -46,13 +41,12 @@ export class ChatService {
   /* ****************************** Public Mehods **************************************** */
 
   // Calls the controller method
-  public broadcastMessage(msgDto: MessageDto) {
+  public sendMessage(msgDto: MessageDto) {
     this.connection.invoke("SendMessage1", msgDto.user, msgDto.msgText, msgDto.group);
   }
 
   public retrieveMappedObject(): Observable<MessageDto> {
     return this.sharedObj.asObservable();
   }
-
 
 }
