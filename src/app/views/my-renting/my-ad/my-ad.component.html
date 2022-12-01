@@ -15,11 +15,16 @@
     <h2>Images</h2>
 
     <div>
-      <input class="file-input" type="file" accept="image/*" multiple>
+      <input class="file-input" type="file" accept="image/*" (change)="addPicture($event)" multiple><!--(change)="addPicture($event)"-->
     </div>
     <div class="preview_container">
-      <div *ngFor="let image of ad.pictures" class="preview">
-        <img [src]="pictureBaseUri + image.path" alt="ta maison" /><!--(click)="removePicture(file)"-->
+      <div *ngFor="let file of ad.pictures" class="preview">
+        <img [src]="pictureBaseUri + file.path" alt="ta maison"  (click)="deletePicture(file.path)"/><!--(click)="removePicture(file)"-->
+      </div>
+      <div class="preview_container">
+        <div *ngFor="let file of picturesToAdd" class="preview">
+          <img [src]="file.imageSrc" alt="ta maison" (click)="removePicture(file)"/>
+        </div>
       </div>
     </div>
 
