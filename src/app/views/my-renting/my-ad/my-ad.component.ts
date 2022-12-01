@@ -22,6 +22,9 @@ export class MyAdComponent implements OnInit {
 
   readonly pictureBaseUrl: string = environment.pictureUrl ;
 
+  picturesToAdd: ImgData[] = [];
+  picturesToDelete: string[] = [];
+
   adUpdateForm = new FormGroup({
     name: new FormControl('', Validators.required),
     numberOfPersons: new FormControl([], [Validators.required, Validators.min(0)]),
@@ -46,8 +49,55 @@ export class MyAdComponent implements OnInit {
     this.ad.features = this.ad.features.filter(obj => obj !== feature);
   }
 
+  deletePicture(picPath: string)
+  {
+    this.ad.pictures = this.ad.pictures.filter(pic => pic.path != picPath);
+    this.picturesToDelete.push(picPath);
+  }
 
+  addPicture(event: any): void {
+    if (this.isFilesFull()) return;
 
+    const filesFromEvent = event.target.files;
+
+    for (let i = 0; i < filesFromEvent.length; i++) {
+
+      if (this.isFilesFull()) return;
+      const file = filesFromEvent[i];
+
+      if (!this.isInFiles(file)) {
+
+        this.nbImg++;
+        const reader = new FileReader();
+
+        reader.onload = e => {
+          this.picturesToAdd.push({
+            file: file,
+            imageSrc: reader.result
+          });
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    console.log(this.picturesToAdd);
+  }
+
+  removePicture(file: ImgData) {
+    this.picturesToAdd = this.picturesToAdd.filter(image => image.file.name !== file.file.name)
+    this.nbImg--;
+  }
+
+  isInFiles(fileToCheck: File): boolean {
+    let filesName = this.picturesToAdd.map((file) => file.file.name)
+
+    return filesName.includes(fileToCheck.name);
+  }
+
+  isFilesFull(): boolean {
+    //NbImg cause the image adding is async
+    return this.nbImg == this.nbMaxPictures;
+  }
 
 
 
