@@ -8,9 +8,7 @@
     </ul>
   </div>
   <div class="ud-flex-row">
-    <input type="text" placeholder="Type message here" class="msg-input" [(ngModel)]="msgDto.msgText"  />
-    <button class="send-btn"><i class="fa fa-paper-plane"></i></button>
+    <input type="text" placeholder="Type message here" class="msg-input" [(ngModel)]="message"  />
+    <button class="send-btn" (click)="send()">Send</button>
   </div>
-  <input type="text" placeholder="Your name" class="name-box" [(ngModel)]="msgDto.user" />
-  <input type="text" placeholder="Group" class="name-box" [(ngModel)]="msgDto.group" />
 </div>

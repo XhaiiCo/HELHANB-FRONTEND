@@ -5,7 +5,9 @@ import {AuthService} from "../../services/auth.service";
 import {DtoInputMessageOfAConversation} from "../../dtos/conversation/dto-input-message-of-a-conversation";
 import {Router} from "@angular/router";
 import {ChatService} from "../../services/chat.service";
-import {dtoOutputMessage} from "../../dtos/conversation/dto-output-message";
+import {DtoOutputMessageHub} from "../../dtos/conversation/dto-output-message-hub";
+import {DtoInputMessageHub} from "../../dtos/conversation/dto-input-message-hub";
+import {DtoOutputMessage} from "../../dtos/conversation/dto-output-message";
 
 @Component({
   selector: 'app-conversations',
@@ -15,8 +17,8 @@ import {dtoOutputMessage} from "../../dtos/conversation/dto-output-message";
 export class ConversationsComponent implements OnInit {
 
   conversations: DtoInputMyConversations[] = [];
-  currantConversation!: DtoInputMyConversations;
-  currantMessageList: DtoInputMessageOfAConversation[] = [];
+  currentConversation!: DtoInputMyConversations;
+  currentMessageList: DtoInputMessageOfAConversation[] = [];
 
   constructor(private _conversationService: ConversationService,
               private _authService: AuthService,
@@ -30,21 +32,46 @@ export class ConversationsComponent implements OnInit {
     this._conversationService.fetchMyConversations(this._authService.user.id).subscribe(conversations => this.conversations = conversations);
 
     this._chatService.start().then(r =>
-      this._chatService.retrieveMappedObject().subscribe((receivedObj: dtoOutputMessage) => {
-        //     this.addToInbox(receivedObj);
-      })  // calls the service method to get the new messages sent
+      this._chatService.retrieveMappedObject().subscribe((receivedObj: DtoInputMessageHub) => {
+        const newMessage: DtoInputMessageOfAConversation = {
+          content: receivedObj.message,
+          senderId: receivedObj.senderId,
+          sendTime: new Date(Date.now())
+        }
+
+        this.currentMessageList.push(newMessage)
+      })
     );
   }
 
-  send(msg: dtoOutputMessage): void {
-    this._chatService.sendMessage(msg);
+  send(msg: string): void {
+    if(!this._authService.user) return ;
+
+    const dtoOutputMessageHub: DtoOutputMessageHub = {
+      message: msg,
+      recipientId: this.currentConversation.recipient.id,
+      senderId: this._authService.user.id
+    }
+    const dtoOutputMessage: DtoOutputMessage = {
+      content: msg,
+      senderId: this._authService.user.id,
+     conversationId: this.currentConversation.id,
+    }
+
+
+    this._conversationService.createMessage(dtoOutputMessage).subscribe(
+      (newMessage) =>{
+        this.currentMessageList.push(newMessage) ;
+        this._chatService.sendMessage(dtoOutputMessageHub);
+      }
+    )
   }
 
-  changeCurrantConversation(conversation: DtoInputMyConversations) {
-    this.currantConversation = conversation;
+  changeCurrentConversation(conversation: DtoInputMyConversations) {
+    this.currentConversation = conversation;
     this._conversationService.fetchMessagesOfAConversation(conversation.id).subscribe(messages => {
-      this.currantMessageList = messages
-      console.log(this.currantMessageList);
+      this.currentMessageList = messages
+      console.log(this.currentMessageList);
     });
   }
 }

@@ -6,6 +6,8 @@ import {DtoInputCreatedConversation} from "../dtos/conversation/dto-input-create
 import {DtoOutputCreateConversation} from "../dtos/conversation/dto-output-create-conversation";
 import {DtoInputMyConversations} from "../dtos/conversation/dto-input-my-conversations";
 import {DtoInputMessageOfAConversation} from "../dtos/conversation/dto-input-message-of-a-conversation";
+import {DtoInputMessageHub} from "../dtos/conversation/dto-input-message-hub";
+import {DtoOutputMessage} from "../dtos/conversation/dto-output-message";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,9 @@ export class ConversationService {
     return this._httpClient.post<DtoInputCreatedConversation>(`${ConversationService.ENTRY_POINT_URL}`, dto);
   }
 
+  createMessage(dto: DtoOutputMessage): Observable<DtoInputMessageOfAConversation>{
+    return this._httpClient.post<DtoInputMessageOfAConversation>(`${ConversationService.ENTRY_POINT_URL}/messages`, dto);
+  }
   fetchMyConversations(userId: number): Observable<DtoInputMyConversations[]>{
     return this._httpClient.get<DtoInputMyConversations[]>(`${ConversationService.ENTRY_POINT_URL}/${userId}/myConversations`);
   }

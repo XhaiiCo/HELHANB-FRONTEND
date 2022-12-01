@@ -1,5 +1,5 @@
-export class dtoOutputMessage {
-  public user: string = '';
-  public msgText: string = '';
-  public group: string = '';
+export interface DtoOutputMessage {
+  content: string;
+  senderId: number;
+  conversationId: number ;
 }

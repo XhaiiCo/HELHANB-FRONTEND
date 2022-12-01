@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ChatService} from "../../../services/chat.service";
-import {dtoOutputMessage} from "../../../dtos/conversation/dto-output-message";
+import {DtoOutputMessageHub} from "../../../dtos/conversation/dto-output-message-hub";
 import {Router} from "@angular/router";
 import {DtoInputMessageOfAConversation} from "../../../dtos/conversation/dto-input-message-of-a-conversation";
 
@@ -12,9 +12,9 @@ import {DtoInputMessageOfAConversation} from "../../../dtos/conversation/dto-inp
 })
 export class MessagesComponent implements OnInit {
 
-  msgDto: dtoOutputMessage = new dtoOutputMessage();
   @Input() msgInboxArray: DtoInputMessageOfAConversation[] = [];
-  @Output() sendMessage: EventEmitter<dtoOutputMessage> = new EventEmitter<dtoOutputMessage>() ;
+  @Output() sendMessage: EventEmitter<string> = new EventEmitter<string>() ;
+  message: string = "" ;
 
   constructor(private chatService: ChatService, private _router: Router) {
   }
@@ -22,8 +22,7 @@ export class MessagesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-
-  addToInbox(obj: dtoOutputMessage) {
+  send() {
+    this.sendMessage.emit(this.message) ;
   }
 }

@@ -1,10 +1,10 @@
 <ul>
   <li
     *ngFor="let conversation of conversations"
-    (click)="changeCurrantConversation(conversation)">{{conversation.recipient.lastName + " " + conversation.recipient.firstName}}</li>
+    (click)="changeCurrentConversation(conversation)">{{conversation.recipient.lastName + " " + conversation.recipient.firstName}}</li>
 </ul>
 
 <app-messages
-  [msgInboxArray]="currantMessageList"
+  [msgInboxArray]="currentMessageList"
   (sendMessage)="send($event)"
 ></app-messages>
