@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ChatService} from "../../../services/chat.service";
 import {dtoOutputMessage} from "../../../dtos/conversation/dto-output-message";
-import {NavigationEnd, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 
 @Component({

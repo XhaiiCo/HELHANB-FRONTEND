@@ -1,7 +1,7 @@
-import { Injectable, OnInit } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import * as signalR from '@microsoft/signalr';          // import signalR
-import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Observable, Subject} from 'rxjs';
 import {dtoOutputMessage} from "../dtos/conversation/dto-output-message";
 
 @Injectable({
@@ -9,7 +9,7 @@ import {dtoOutputMessage} from "../dtos/conversation/dto-output-message";
 })
 export class ChatService {
 
-  private  connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:7182/chatsocket")   // mapping to the chathub as in startup.cs
+  private connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:7182/chatsocket")   // mapping to the chathub as in startup.cs
     .configureLogging(signalR.LogLevel.Information)
     .build();
   readonly POST_URL = "https://localhost:7182/api/chat/send"
@@ -18,12 +18,15 @@ export class ChatService {
   private sharedObj = new Subject<dtoOutputMessage>();
 
   constructor(private http: HttpClient) {
-    this.connection.on("ReceiveOne", (user: string, message: string) => { this.mapReceivedMessage(user, message); });
+    this.connection.on("ReceiveOne", (user: string, message: string) => {
+      this.mapReceivedMessage(user, message);
+    });
   }
 
 
   // Start the connection
   public async start() {
+    await this.connection.stop() ;
     try {
       await this.connection.start();
     } catch (err) {
