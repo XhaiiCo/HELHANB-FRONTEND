@@ -67,6 +67,13 @@ export class CreateAdComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  changeNbImg(){
+    this.nbImg = this.files.length;
+  }
+
+  decrNbImg(){
+    this.nbImg--;
+  }
 
 
   /**

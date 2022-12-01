@@ -108,13 +108,13 @@
           <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature"
                  [placeholder]="renting_features.length == 0 ? 'Piscine, wifi, TV HD...' : '' "
                  [ngModelOptions]="{standalone: true}">
-          <button type="button" class="btn-secondary" (click)="adHandleService.addFeature(tmp_feature, renting_features)"
+          <button type="button" class="btn-secondary" (click)="adHandleService.addFeature(tmp_feature, renting_features); tmp_feature = ''"
                   [disabled]="tmp_feature == ''">
             Ajouter
           </button>
         </div>
         <div class="features_list">
-              <span class="feature" *ngFor="let feature of renting_features" (click)="adHandleService.removeFeature(feature, renting_features)">
+              <span class="feature" *ngFor="let feature of renting_features" (click)="renting_features = adHandleService.removeFeature(feature, renting_features)">
                 &#x2022; {{ feature }}
               </span>
         </div>
@@ -124,11 +124,11 @@
       <section *ngIf="step == 5">
         <div class="form-group">
           <label class="label">Ajouter au moins {{adHandleService.nbMinPictures}} images</label>
-          <input class="file-input" type="file" accept="image/*" (change)="adHandleService.addPicture($event, files, nbImg)" multiple>
+          <input class="file-input" type="file" accept="image/*" (change)="adHandleService.addPicture($event, files, nbImg); changeNbImg()" multiple>
         </div>
         <div class="preview_container">
           <div *ngFor="let file of files" class="preview">
-            <img [src]="file.imageSrc" alt="ta maison" (click)="adHandleService.removePicture(file, files, nbImg)"/>
+            <img [src]="file.imageSrc" alt="ta maison" (click)="files = adHandleService.removePicture(file, files); decrNbImg()"/>
           </div>
         </div>
       </section>

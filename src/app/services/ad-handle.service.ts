@@ -18,15 +18,13 @@ export class AdHandleService {
   addFeature(feature: string, renting_features: string[]) {
     if (!renting_features.find(f => f.toLowerCase() === feature.toLowerCase()))
       renting_features.push(feature);
-
-    feature = "";
   }
 
   /**
    * @param {string} feature - string - the feature to be removed
    */
-  removeFeature(feature: string, renting_features: string[]) {
-    renting_features = renting_features.filter(obj => obj !== feature);
+  removeFeature(feature: string, renting_features: string[]): string[]{
+    return renting_features.filter(obj => obj !== feature);
   }
 
   /**
@@ -47,7 +45,6 @@ export class AdHandleService {
 
       if (!this.isInFiles(file, files)) {
 
-        nbImg++;
         const reader = new FileReader();
 
         reader.onload = e => {
@@ -61,9 +58,8 @@ export class AdHandleService {
     }
   }
 
-  removePicture(file: ImgData, files: ImgData[], nbImg:number) {
-    files = files.filter(image => image.file.name !== file.file.name)
-    nbImg--;
+  removePicture(file: ImgData, files: ImgData[]) : ImgData[] {
+    return files.filter(image => image.file.name !== file.file.name)
   }
 
   /**

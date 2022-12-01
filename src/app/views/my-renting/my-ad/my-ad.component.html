@@ -15,7 +15,7 @@
     <h2>Images</h2>
 
     <div>
-      <input class="file-input" type="file" accept="image/*" (change)="addPicture($event)" multiple><!--(change)="addPicture($event)"-->
+      <input class="file-input" type="file" accept="image/*" (change)="adHandleService.addPicture($event, picturesToAdd, nbImg); changeNbImg()" multiple><!--(change)="addPicture($event)"-->
     </div>
     <div class="preview_container">
       <div *ngFor="let file of ad.pictures" class="preview">
@@ -23,7 +23,7 @@
       </div>
       <div class="preview_container">
         <div *ngFor="let file of picturesToAdd" class="preview">
-          <img [src]="file.imageSrc" alt="ta maison" (click)="removePicture(file)"/>
+          <img [src]="file.imageSrc" alt="ta maison" (click)="picturesToAdd = adHandleService.removePicture(file, picturesToAdd); decrNbImg()"/>
         </div>
       </div>
     </div>
@@ -40,13 +40,13 @@
       <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature"
              [placeholder]="ad.features.length == 0 ? 'Piscine, wifi, TV HD...' : '' "
              [ngModelOptions]="{standalone: true}">
-      <button type="button" class="btn-secondary" (click)="addFeature(tmp_feature)"
+      <button type="button" class="btn-secondary" (click)="adHandleService.addFeature(tmp_feature, ad.features); tmp_feature = ''"
               [disabled]="tmp_feature == ''">
         Ajouter
       </button>
     </div>
     <div class="features_list">
-              <span class="feature" *ngFor="let feature of ad.features" (click)="removeFeature(feature)">
+              <span class="feature" *ngFor="let feature of ad.features" (click)="ad.features = adHandleService.removeFeature(feature, ad.features)">
                 &#x2022; {{ feature }}
               </span>
     </div>
