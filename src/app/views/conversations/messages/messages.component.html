@@ -4,7 +4,7 @@
 <div class="ud-body">
   <div class="msg-box">
     <ul>
-      <li *ngFor="let mObj of msgInboxArray" [ngClass]="mObj.user === msgDto.user ? 'in-msg' : 'ex-msg'">{{mObj.user}} :<br /><span class="msg-italic-style">{{mObj.msgText}}</span></li>
+      <li *ngFor="let mObj of msgInboxArray">{{mObj.senderId}} :<br /><span class="msg-italic-style">{{mObj.content}}</span></li>
     </ul>
   </div>
   <div class="ud-flex-row">
