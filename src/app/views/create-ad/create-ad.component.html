@@ -124,7 +124,7 @@
       <section *ngIf="step == 5">
         <div class="form-group">
           <label class="label">Ajouter au moins {{adHandleService.nbMinPictures}} images</label>
-          <input class="file-input" type="file" accept="image/*" (change)="adHandleService.addPicture($event, files, nbImg); changeNbImg()" multiple>
+          <input class="file-input" type="file" accept="image/*" (change)="nbImg = adHandleService.addPicture($event, files, nbImg)" multiple>
         </div>
         <div class="preview_container">
           <div *ngFor="let file of files" class="preview">

@@ -33,17 +33,19 @@ export class AdHandleService {
    * @param {any} event - any - the event that is triggered when the user selects a file.
    * @returns the value of the variable 'reader.result'
    */
-  addPicture(event: any, files: ImgData[], nbImg:number): void {
-    if (this.isFilesFull(nbImg)) return;
+  addPicture(event: any, files: ImgData[], nbImg:number): number {
+    if (this.isFilesFull(nbImg)) return nbImg;
 
     const filesFromEvent = event.target.files;
 
     for (let i = 0; i < filesFromEvent.length; i++) {
 
-      if (this.isFilesFull(nbImg)) return;
+      if (this.isFilesFull(nbImg)) return nbImg;
       const file = filesFromEvent[i];
 
       if (!this.isInFiles(file, files)) {
+
+        nbImg++;
 
         const reader = new FileReader();
 
@@ -56,6 +58,8 @@ export class AdHandleService {
         reader.readAsDataURL(file);
       }
     }
+
+    return nbImg;
   }
 
   removePicture(file: ImgData, files: ImgData[]) : ImgData[] {

@@ -20,7 +20,7 @@ export class MyRentingComponent implements OnInit {
     if(this._authService.user){
       this._adService.fetchMyAds(this._authService.user.id).subscribe( ads => {
         this.ads = ads;
-        console.log(ads);
+
       })
     }
   }

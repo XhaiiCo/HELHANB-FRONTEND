@@ -22,7 +22,7 @@
   </section>
 
   <section class="ad_preview" *ngIf="currentAd; else noAdSelected">
-    <app-my-ad [ad]="currentAd"></app-my-ad>
+    <app-my-ad [ad]="currentAd" [nbImg]="currentAd.pictures.length"></app-my-ad>
   </section>
 
   <ng-template #noAdSelected>

@@ -12,12 +12,9 @@ import {AdHandleService} from "../../../services/ad-handle.service";
 })
 export class MyAdComponent implements OnInit {
 
-  readonly nbMinPictures: number = 3;
-  readonly nbMaxPictures: number = 15;
-
   pictureBaseUri: string = environment.pictureUrl;
 
-  nbImg: number = 0;
+  @Input() nbImg: number = 0;
 
   @Input() ad!: DtoInputMyAds ;
 
@@ -43,18 +40,17 @@ export class MyAdComponent implements OnInit {
   {
     this.ad.pictures = this.ad.pictures.filter(pic => pic.path != picPath);
     this.picturesToDelete.push(picPath);
-  }
-
-  changeNbImg(){
-    this.nbImg = this.picturesToAdd.length + this.ad.pictures.length;
-    console.log(this.nbImg);
+    this.decrNbImg();
   }
 
   decrNbImg(){
     this.nbImg--;
   }
 
-
+  test()
+  {
+    console.log(this.nbImg);
+  }
 
 
 
