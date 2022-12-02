@@ -98,8 +98,4 @@ export class DatePickerComponent implements OnInit {
     else
       this.emitDateChange.next(this.range);
   }
-
-  openDP() {
-
-  }
 }
