@@ -71,6 +71,11 @@ export class CreateAdComponent implements OnInit {
     this.nbImg--;
   }
 
+  test()
+  {
+    console.log(this.nbImg);
+  }
+
   /**
    * It validates the start and end hours of a form group
    * @param {FormGroupIdentifier} startHourIdentifier - FormGroupIdentifier - The identifier of the start hour control.

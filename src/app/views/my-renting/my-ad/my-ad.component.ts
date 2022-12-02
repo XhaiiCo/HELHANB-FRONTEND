@@ -13,15 +13,9 @@ import {AdHandleService} from "../../../services/ad-handle.service";
 export class MyAdComponent implements OnInit {
 
   pictureBaseUri: string = environment.pictureUrl;
-
-  @Input() nbImg: number = 0;
-
-  @Input() ad!: DtoInputMyAds ;
-
   readonly pictureBaseUrl: string = environment.pictureUrl ;
 
-  picturesToAdd: ImgData[] = [];
-  picturesToDelete: string[] = [];
+  @Input() ad!: DtoInputMyAds ;
 
   adUpdateForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -39,26 +33,23 @@ export class MyAdComponent implements OnInit {
   deletePicture(picPath: string)
   {
     this.ad.pictures = this.ad.pictures.filter(pic => pic.path != picPath);
-    this.picturesToDelete.push(picPath);
+    this.ad.picturesToDelete.push(picPath);
     this.decrNbImg();
   }
 
   decrNbImg(){
-    this.nbImg--;
+    this.ad.nbImg--;
   }
 
   test()
   {
-    console.log(this.nbImg);
+    console.log(this.ad.nbImg);
   }
-
-
-
-
 
   constructor(public adHandleService : AdHandleService) { }
 
   ngOnInit(): void {
+
   }
 
 

@@ -3,7 +3,7 @@
     <ul>
       <li [routerLink]="'/nouvelle-annonce'"><b>Ajouter une nouvelle annonce</b></li>
       <li *ngFor="let ad of ads"
-          (click)="changeCurrentId(ad)"
+          (click)="changeCurrentAd(ad)"
           [class.active]="currentAd && ad.id === currentAd.id">
         <div class="list_item">
           <div>
@@ -22,7 +22,7 @@
   </section>
 
   <section class="ad_preview" *ngIf="currentAd; else noAdSelected">
-    <app-my-ad [ad]="currentAd" [nbImg]="currentAd.pictures.length"></app-my-ad>
+    <app-my-ad [ad]="currentAd"></app-my-ad>
   </section>
 
   <ng-template #noAdSelected>
