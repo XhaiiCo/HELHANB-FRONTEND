@@ -22,8 +22,7 @@ const now = new Date();
   ],
 })
 export class DatePickerComponent implements OnInit {
-  //@Output()
-  emitDateChange: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  @Output() emitDateChange: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   //@Input()
   min = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1); // Date de début de location de la baraque
