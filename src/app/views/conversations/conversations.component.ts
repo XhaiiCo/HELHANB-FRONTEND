@@ -8,6 +8,7 @@ import {ChatService} from "../../services/chat.service";
 import {DtoOutputMessageHub} from "../../dtos/conversation/dto-output-message-hub";
 import {DtoInputMessageHub} from "../../dtos/conversation/dto-input-message-hub";
 import {DtoOutputMessage} from "../../dtos/conversation/dto-output-message";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-conversations',
@@ -19,6 +20,7 @@ export class ConversationsComponent implements OnInit {
   conversations: DtoInputMyConversations[] = [];
   currentConversation!: DtoInputMyConversations;
   currentMessageList: DtoInputMessageOfAConversation[] = [];
+  profilePictureBaseUri: string  = environment.pictureUrl ;
 
   constructor(private _conversationService: ConversationService,
               private _authService: AuthService,

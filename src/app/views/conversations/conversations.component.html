@@ -1,10 +1,63 @@
-<ul>
-  <li
-    *ngFor="let conversation of conversations"
-    (click)="changeCurrentConversation(conversation)">{{conversation.recipient.lastName + " " + conversation.recipient.firstName}}</li>
-</ul>
+<main class="conversation_page">
+  <section class="conversation_section">
+    <ul class="conversation_list">
+      <li
+        *ngFor="let conversation of conversations"
+        (click)="changeCurrentConversation(conversation)">
+        <div>
+          <img [src]="profilePictureBaseUri + conversation.recipient.profilePicturePath" alt="Photo de profil">
+        </div>
+        <div>
+          {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
+        </div>
+      </li>
+      <li
+        *ngFor="let conversation of conversations"
+        (click)="changeCurrentConversation(conversation)">
+        <div>
+          <img [src]="profilePictureBaseUri + conversation.recipient.profilePicturePath" alt="Photo de profil">
+        </div>
+        <div>
+          {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
+        </div>
+      </li>
+      <li
+        *ngFor="let conversation of conversations"
+        (click)="changeCurrentConversation(conversation)">
+        <div>
+          <img [src]="profilePictureBaseUri + conversation.recipient.profilePicturePath" alt="Photo de profil">
+        </div>
+        <div>
+          {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
+        </div>
+      </li>
+      <li
+        *ngFor="let conversation of conversations"
+        (click)="changeCurrentConversation(conversation)">
+        <div>
+          <img [src]="profilePictureBaseUri + conversation.recipient.profilePicturePath" alt="Photo de profil">
+        </div>
+        <div>
+          {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
+        </div>
+      </li>
+      <li
+        *ngFor="let conversation of conversations"
+        (click)="changeCurrentConversation(conversation)">
+        <div>
+          <img [src]="profilePictureBaseUri + conversation.recipient.profilePicturePath" alt="Photo de profil">
+        </div>
+        <div>
+          {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
+        </div>
+      </li>
+    </ul>
+  </section>
 
-<app-messages
-  [msgInboxArray]="currentMessageList"
-  (sendMessage)="send($event)"
-></app-messages>
+  <section class="message_section">
+    <app-messages
+      [msgInboxArray]="currentMessageList"
+      (sendMessage)="send($event)"
+    ></app-messages>
+  </section>
+</main>
