@@ -34,8 +34,9 @@ import { PaginationComponent } from './component/pagination/pagination.component
 import { AdToValidateComponent } from './views/admin/ad-to-validate/ad-to-validate.component';
 import { AdItemComponent } from './views/admin/ad-to-validate/ad-item/ad-item.component';
 import { LoaderComponent } from './component/loader/loader.component';
-import { MessagesComponent } from './views/messages/messages.component';
+import { MessagesComponent } from './views/conversations/messages/messages.component';
 import { MyAdComponent } from './views/my-renting/my-ad/my-ad.component';
+import { ConversationsComponent } from './views/conversations/conversations.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { MyAdComponent } from './views/my-renting/my-ad/my-ad.component';
     LoaderComponent,
     MessagesComponent,
     MyAdComponent,
+    ConversationsComponent,
   ],
   imports: [
     BrowserModule,

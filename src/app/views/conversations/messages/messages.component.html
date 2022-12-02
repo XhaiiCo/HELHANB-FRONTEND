@@ -1,0 +1,11 @@
+<div class="ud-body">
+  <div class="msg-box">
+    <ul>
+      <li *ngFor="let mObj of msgInboxArray">{{mObj.senderId}} <br /><span class="msg-italic-style">{{mObj.content}}</span></li>
+    </ul>
+  </div>
+  <div class="ud-flex-row">
+    <input type="text" placeholder="Type message here" class="msg-input" [(ngModel)]="message"  />
+    <button class="send-btn" (click)="send()">Send</button>
+  </div>
+</div>

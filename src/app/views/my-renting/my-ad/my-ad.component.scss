@@ -1,16 +1,19 @@
 @import '/src/styles/helpers/variable' ;
+@import '/src/styles/components/form';
+@import '/src/styles/components/button';
+@import '/src/styles/helpers/variable';
 
 *{
   font-family: $main-font;
-  font-size: 12px ;
+  font-size: 20px ;
 }
 
 h1{
-  font-size: 15px ;
+  font-size: 26px ;
 }
 
 h2{
-  font-size: 14px ;
+  font-size: 24px ;
 }
 
 
@@ -37,4 +40,36 @@ h2{
     object-fit: cover ;
     object-position: 50% 50% ;
   }
+}
+.preview_container{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px ;
+  margin-top: 10px ;
+
+  img{
+    width: 150px;
+    aspect-ratio: 16 / 9;
+    object-position: 50% 50%;
+    object-fit: cover;
+    border-radius: $radius;
+    cursor: pointer ;
+  }
+
+  img:hover{
+    filter: grayscale(100%);
+  }
+
+  .preview{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.input-adjust
+{
+
+  outline: none;
 }

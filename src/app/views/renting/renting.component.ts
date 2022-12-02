@@ -3,7 +3,7 @@ import {environment} from "../../../environments/environment";
 import {FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AdService} from "../../services/ad.service";
-import {DtoAd} from "../../dtos/ad/dto-ad";
+import {DtoInputAd} from "../../dtos/ad/dto-input-ad";
 import {DtoOutputNewReservation} from "../../dtos/ad/dto-output-new-reservation";
 import {AuthService} from "../../services/auth.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
@@ -29,11 +29,11 @@ export class RentingComponent implements OnInit {
 
   displayAllFeatures: boolean = false;
 
-  ad!: DtoAd;
+  ad!: DtoInputAd;
 
   dates!: { arrival: Date, leave: Date };
 
-  disableReservationBtn: boolean = false ;
+  disableReservationBtn: boolean = false;
 
   constructor(private _route: ActivatedRoute,
               private _adService: AdService,
@@ -96,12 +96,12 @@ export class RentingComponent implements OnInit {
   }
 
   submit() {
-    this.disableReservationBtn = true ;
+    this.disableReservationBtn = true;
 
     if (!this._authService.user) {
-      this._toastNotification.add("Veuillez vous connecter", "error") ;
-      this.disableReservationBtn = false ;
-      return ;
+      this._toastNotification.add("Veuillez vous connecter", "error");
+      this.disableReservationBtn = false;
+      return;
     }
 
     const dto: DtoOutputNewReservation = {
@@ -112,19 +112,19 @@ export class RentingComponent implements OnInit {
 
     this._adService.createReservation(this.ad.id, dto).subscribe({
       next: result => {
-        this._toastNotification.add("Demanded de réservation envoyée", "success") ;
-        this.disableReservationBtn = false ;
+        this._toastNotification.add("Demanded de réservation envoyée", "success");
+        this.disableReservationBtn = false;
       },
       error: err => {
-        this._toastNotification.add(err.error, "error") ;
-        this.disableReservationBtn = false ;
+        this._toastNotification.add(err.error, "error");
+        this.disableReservationBtn = false;
       }
 
     });
   }
 
   toDtoOutputDate(date: Date) {
-    const dateObj: Date = new Date(date.toString()) ;
+    const dateObj: Date = new Date(date.toString());
     return {
       year: dateObj.getFullYear(),
       month: dateObj.getMonth() + 1,
@@ -147,14 +147,15 @@ export class RentingComponent implements OnInit {
     }
 
     let dto: DtoOutputCreateConversation = {
-      idUser : this._authService.user.id,
-      idHost : 0
+      idUser1: this._authService.user.id,
+      idUser2: this.ad.owner.id,
     }
+
     this._createConversation
       .create(dto)
       .subscribe({
         next: conversation => {
-          this._router.navigate(['/conversation/' + conversation.id]);
+          this._router.navigate(['/conversations/' + conversation.id]);
         },
         error: err => {
           console.log(err);

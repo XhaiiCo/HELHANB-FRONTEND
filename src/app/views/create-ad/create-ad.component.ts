@@ -9,6 +9,7 @@ import {ImgData} from "../../interfaces/img-data";
 import {UserService} from "../../services/user.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";
+import {AdHandleService} from "../../services/ad-handle.service";
 
 @Component({
   selector: 'app-create-ad',
@@ -21,13 +22,13 @@ export class CreateAdComponent implements OnInit {
   step: number = 0;
   stepsName: string[] = ["step0", "step1", "step2", "step3", "step4", "step5"]
 
-  readonly nbMinPictures: number = 3;
-  readonly nbMaxPictures: number = 15;
-
   files: ImgData[] = [];
 
   tmp_feature: string = "";
   renting_features: string[] = [];
+
+  nbImg: number = 0;
+  disabledSubmitBtn: boolean = false;
 
   adCreateForm = new FormGroup({
     step0: new FormGroup({
@@ -54,74 +55,25 @@ export class CreateAdComponent implements OnInit {
       numberOfBedrooms: new FormControl([], [Validators.required, Validators.min(0)]),
     }),
   })
-  private nbImg: number = 0;
-  disabledSubmitBtn: boolean = false;
 
   constructor(private _adService: AdService,
               private _authService: AuthService,
               private _userService: UserService,
               private _taostNotificaiton: ToastNotificationService,
-              private _router: Router) {
+              private _router: Router,
+              public adHandleService : AdHandleService) {
   }
 
   ngOnInit(): void {
   }
 
-  /**
-   * We're looping through the files from the event, checking if the file is already in the files array, and if it's not,
-   * we're pushing it to the array
-   * @param {any} event - any - the event that is triggered when the user selects a file.
-   * @returns the value of the variable 'reader.result'
-   */
-  addPicture(event: any): void {
-    if (this.isFilesFull()) return;
-
-    const filesFromEvent = event.target.files;
-
-    for (let i = 0; i < filesFromEvent.length; i++) {
-
-      if (this.isFilesFull()) return;
-      const file = filesFromEvent[i];
-
-      if (!this.isInFiles(file)) {
-
-        this.nbImg++;
-        const reader = new FileReader();
-
-        reader.onload = e => {
-          this.files.push({
-            file: file,
-            imageSrc: reader.result
-          });
-        }
-        reader.readAsDataURL(file);
-      }
-    }
-  }
-
-  removePicture(file: ImgData) {
-    this.files = this.files.filter(image => image.file.name !== file.file.name)
+  decrNbImg(){
     this.nbImg--;
   }
 
-  /**
-   * It returns true if the fileToCheck is in the files array
-   * @param {File} fileToCheck - File - the file to check if it's in the files array
-   * @returns A boolean value.
-   */
-  isInFiles(fileToCheck: File): boolean {
-    let filesName = this.files.map((file) => file.file.name)
-
-    return filesName.includes(fileToCheck.name);
-  }
-
-  /**
-   * It returns true if the number of files is equal to the maximum number of pictures
-   * @returns A boolean value.
-   */
-  isFilesFull(): boolean {
-    //NbImg cause the image adding is async
-    return this.nbImg == this.nbMaxPictures;
+  test()
+  {
+    console.log(this.nbImg);
   }
 
   /**
@@ -252,23 +204,7 @@ export class CreateAdComponent implements OnInit {
     return control?.dirty && control?.touched && control?.invalid || false;
   }
 
-  /**
-   * If the feature doesn't already exist in the array, add it
-   * @param {string} feature - string - the feature to add
-   */
-  addFeature(feature: string) {
-    if (!this.renting_features.find(f => f.toLowerCase() === feature.toLowerCase()))
-      this.renting_features.push(feature);
 
-    this.tmp_feature = "";
-  }
-
-  /**
-   * @param {string} feature - string - the feature to be removed
-   */
-  removeFeature(feature: string) {
-    this.renting_features = this.renting_features.filter(obj => obj !== feature);
-  }
 
   /**
    * It returns true if the current step is not step5, or if the number of files is greater than or equal to 3

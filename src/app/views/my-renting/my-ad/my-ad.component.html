@@ -1,43 +1,68 @@
 <main class="ad_item_page">
-  <h1>{{ad.name}}</h1>
-  <p>
-    {{ad.numberOfPersons}} personne(s) ⸱ {{ad.numberOfBedrooms}} chambre(s)
-  </p>
+  <form [formGroup]="adUpdateForm" >
+    <!--<h1>{{ad.name}}</h1>-->
+    <input type="text" class="input-text" formControlName="name" [(ngModel)]="ad.name">
+    <p>
+      <input type="number" class="input-text" formControlName="numberOfPersons" [(ngModel)]="ad.numberOfPersons"> personne(s) ⸱
+      <input type="number" class="input-text" formControlName="numberOfBedrooms" [(ngModel)]="ad.numberOfBedrooms"> chambre(s)
+    </p>
 
-  <h2>Adresse</h2>
-  <p>
-    {{ad.street}}, {{ad.postalCode}} {{ad.city}}, {{ad.country}}
-  </p>
+    <h2>Adresse</h2>
+    <p>
+      {{ad.street}}, {{ad.postalCode}} {{ad.city}}, {{ad.country}}
+    </p>
 
-  <h2>Images</h2>
-  <div class="pictures_container">
-    <img *ngFor="let image of ad.pictures" alt="maison" [src]="pictureBaseUrl + image.path">
-  </div>
+    <h2>Images</h2>
+
+    <div>
+      <input class="file-input" type="file" accept="image/*" (change)="ad.nbImg = adHandleService.addPicture($event, ad.picturesToAdd, ad.nbImg); test()" multiple><!--(change)="addPicture($event)"-->
+    </div>
+    <div class="preview_container">
+      <div *ngFor="let file of ad.pictures" class="preview">
+        <img [src]="pictureBaseUri + file.path" alt="ta maison"  (click)="deletePicture(file.path); test()"/><!--(click)="removePicture(file)"-->
+      </div>
+      <div class="preview_container">
+        <div *ngFor="let file of this.ad.picturesToAdd" class="preview">
+          <img [src]="file.imageSrc" alt="ta maison" (click)="ad.picturesToAdd = adHandleService.removePicture(file, ad.picturesToAdd); decrNbImg(); test()"/>
+        </div>
+      </div>
+    </div>
 
 
-  <h2>Hôte</h2>
-  <div id="host_profile">
-    <p>{{ad.owner.lastName}} {{ad.owner.firstName}}</p>
-  </div>
 
-  <h2>Disponible dans le logement</h2>
-  <div class="features_list">
-          <span *ngFor="let feature of ad.features">
-            &#x2022; {{ feature }}
-          </span>
-  </div>
+    <h2>Hôte</h2>
+    <div id="host_profile">
+      <p>{{ad.owner.lastName}} {{ad.owner.firstName}}</p>
+    </div>
 
-  <h2>Description</h2>
-  <p>
-    {{ad.description}}
-  </p>
+    <div>
+      <h2>Disponible dans le logement</h2>
+      <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature"
+             [placeholder]="ad.features.length == 0 ? 'Piscine, wifi, TV HD...' : '' "
+             [ngModelOptions]="{standalone: true}">
+      <button type="button" class="btn-secondary" (click)="adHandleService.addFeature(tmp_feature, ad.features); tmp_feature = ''"
+              [disabled]="tmp_feature == ''">
+        Ajouter
+      </button>
+    </div>
+    <div class="features_list">
+              <span class="feature" *ngFor="let feature of ad.features" (click)="ad.features = adHandleService.removeFeature(feature, ad.features)">
+                &#x2022; {{ feature }}
+              </span>
+    </div>
 
-  <h2>Prix pour une nuit</h2>
-  <p>
-    {{ad.pricePerNight}}
-  </p>
 
-  <h2>Règles</h2>
-  <p>Arrivée entre {{ad.arrivalTimeRangeStart}} et {{ad.arrivalTimeRangeEnd}}</p>
-  <p>Départ avant {{ad.leaveTime}}</p>
+    <h2>Description</h2>
+
+    <textarea #taDescription class="input-text" formControlName="description" [(ngModel)]="ad.description"></textarea>
+    <span class="description_cpt">{{taDescription.value.length > 0 ? taDescription.value.length + "/500" : ""}}</span>
+
+    <h2>Prix pour une nuit</h2>
+    <input type="number" class="input-text" formControlName="pricePerNight" [(ngModel)]="ad.pricePerNight">
+
+    <h2>Règles</h2>
+    <p>Arrivée entre <input type="time" class="input-text" formControlName="arrivalTimeRangeStart" [(ngModel)]="ad.arrivalTimeRangeStart">
+      et <input type="time" class="input-text" formControlName="arrivalTimeRangeEnd" [(ngModel)]="ad.arrivalTimeRangeEnd"></p>
+    <p>Départ avant <input type="time" class="input-text" formControlName="leaveTime" [(ngModel)]="ad.leaveTime"></p>
+  </form>
 </main>
