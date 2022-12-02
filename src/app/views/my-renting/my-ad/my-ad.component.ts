@@ -30,6 +30,12 @@ export class MyAdComponent implements OnInit {
 
   tmp_feature: string = "";
 
+  constructor(public adHandleService : AdHandleService) { }
+
+  ngOnInit(): void {
+
+  }
+
   deletePicture(picPath: string)
   {
     this.ad.pictures = this.ad.pictures.filter(pic => pic.path != picPath);
@@ -46,11 +52,7 @@ export class MyAdComponent implements OnInit {
     console.log(this.ad.nbImg);
   }
 
-  constructor(public adHandleService : AdHandleService) { }
 
-  ngOnInit(): void {
-
-  }
 
 
 }
