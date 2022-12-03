@@ -19,10 +19,10 @@ import {AdHandleService} from "../../services/ad-handle.service";
 export class CreateAdComponent implements OnInit {
 
   submitBtnValue: string = "Suivant";
-  step: number = 0;
+  step: number = 5;
   stepsName: string[] = ["step0", "step1", "step2", "step3", "step4", "step5"]
 
-  files: ImgData[] = [];
+  picturesToAdd: string[] = [];
 
   tmp_feature: string = "";
   renting_features: string[] = [];
@@ -74,6 +74,11 @@ export class CreateAdComponent implements OnInit {
   test()
   {
     console.log(this.nbImg);
+  }
+
+  onChange(event : any)
+  {
+    this.adHandleService.addPicture(event, this.picturesToAdd, this.nbImg).then(result => {this.nbImg = result});
   }
 
   /**
@@ -145,7 +150,7 @@ export class CreateAdComponent implements OnInit {
 
     this._adService.create(dtoOutputCreateAd).subscribe({
         next: ad => {
-          this.submitPictures(ad.id)
+          //this.submitPictures(ad.id)
           this._taostNotificaiton.add("Annonce ajoutée avec succès", "success");
           this._router.navigate(['/mes-annonces']);
         },
@@ -161,16 +166,16 @@ export class CreateAdComponent implements OnInit {
   /**
    * @param {number} id - number - the id of the ad that we want to add the images to
    */
-  submitPictures(id: number): void {
-    this.files.forEach(file => this._adService.addImg(id, file.file).subscribe());
-  }
+  /* submitPictures(id: number): void {
+     this.files.forEach(file => this._adService.addImg(id, file.file).subscribe());
+   }*/
 
-  /**
-   * It takes a string in the format "HH:mm" and returns an object with two properties, hours and minutes, which are both
-   * numbers
-   * @param {string} value - string - the value to be converted
-   * @returns An object with two properties, hours and minutes.
-   */
+   /**
+    * It takes a string in the format "HH:mm" and returns an object with two properties, hours and minutes, which are both
+    * numbers
+    * @param {string} value - string - the value to be converted
+    * @returns An object with two properties, hours and minutes.
+    */
   toDtoOutputTime(value: string): DtoOutputTime {
     return {
       hours: Number(value.substring(0, 2)),
@@ -204,8 +209,6 @@ export class CreateAdComponent implements OnInit {
     return control?.dirty && control?.touched && control?.invalid || false;
   }
 
-
-
   /**
    * It returns true if the current step is not step5, or if the number of files is greater than or equal to 3
    */
@@ -213,7 +216,7 @@ export class CreateAdComponent implements OnInit {
     if (this.stepsName[this.step] !== "step5")
       return true;
 
-    return this.files.length >= 3;
+    return this.picturesToAdd.length >= 3;
   }
 
 }

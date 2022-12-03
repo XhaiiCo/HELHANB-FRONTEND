@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {ImgData} from "../interfaces/img-data";
 import {Observable, ReplaySubject} from "rxjs";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class AdHandleService {
   public readonly nbMinPictures: number = 3;
   readonly nbMaxPictures: number = 15;
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   /**
    * If the feature doesn't already exist in the array, add it
@@ -34,7 +34,7 @@ export class AdHandleService {
    * @param {any} event - any - the event that is triggered when the user selects a file.
    * @returns the value of the variable 'reader.result'
    */
-  addPicture(event: any, files: ImgData[], nbImg:number): number {
+    async addPicture(event: any, files: string[], nbImg:number): Promise<number> {
 
     if (this.isFilesFull(nbImg)) return nbImg;
 
@@ -43,29 +43,25 @@ export class AdHandleService {
     for (let i = 0; i < filesFromEvent.length; i++) {
 
       if (this.isFilesFull(nbImg)) return nbImg;
+
       const file = filesFromEvent[i];
 
-      if (!this.isInFiles(file, files)) {
+      await this.fileToBase64(file).subscribe(base64 => {
 
-        nbImg++;
+        if (!this.isInFiles(base64, files)) {
 
-        const reader = new FileReader();
+          nbImg++;
 
-        reader.onload = e => {
-          files.push({
-            file: file,
-            imageSrc: reader.result
-          });
+          files.push(base64)
         }
-        reader.readAsDataURL(file);
-      }
+      }).toPromise();
     }
 
     return nbImg;
   }
 
-  removePicture(file: ImgData, files: ImgData[]) : ImgData[] {
-    return files.filter(image => image.file.name !== file.file.name)
+  removePicture(file: string, files: string[]) : string[] {
+    return files.filter(image => image !== file);
   }
 
   /**
@@ -73,10 +69,10 @@ export class AdHandleService {
    * @param {File} fileToCheck - File - the file to check if it's in the files array
    * @returns A boolean value.
    */
-  isInFiles(fileToCheck: File, files: ImgData[]): boolean {
-    let filesName = files.map((file) => file.file.name)
+  isInFiles(fileToCheck: string, picturesToAdd: string[]): boolean {
+    //let filesName = files.map((file) => file.file.name)
 
-    return filesName.includes(fileToCheck.name);
+    return picturesToAdd.includes(fileToCheck);
   }
 
   /**
@@ -87,18 +83,32 @@ export class AdHandleService {
     //NbImg cause the image adding is async
     return nbImg == this.nbMaxPictures;
   }
-/*
-  onFileSelected(event) {
-    this.convertFile(event.target.files[0]).subscribe(base64 => {
-      this.base64Output = base64;
-    });
-  }*/
 
-  convertFile(file : File) : Observable<string> {
+  fileToBase64(file : File) : Observable<string> {
     const result = new ReplaySubject<string>(1);
     const reader = new FileReader();
-    reader.readAsBinaryString(file);//Buffer.from(event.target!.result!.toString()).toString('base64')
-    reader.onload = (event) => result.next(btoa(event.target!.result!.toString()));
+    reader.readAsBinaryString(file);
+    reader.onload = (event) => result.next(window.btoa(event.target!.result!.toString()));
     return result;
+  }
+
+  base64ToSrc(base64String: string): string
+  {
+      let extension = "";
+
+      //fonctionne sans l extension exacte mais on sait jamais
+      switch (base64String[0]) {
+        case '/':
+          extension = 'jpeg';
+          break;
+        case 'i':
+          extension = 'png';
+          break;
+        case 'U':
+          extension = 'webp';
+          break;
+      }
+
+      return `data:image/${extension};base64, ${base64String}`;
   }
 }
