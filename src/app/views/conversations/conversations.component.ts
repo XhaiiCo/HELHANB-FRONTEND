@@ -38,6 +38,8 @@ export class ConversationsComponent implements OnInit {
 
     this._chatService.start().then(r =>
       this._chatService.retrieveMappedObject().subscribe((receivedObj: DtoInputMessageHub) => {
+        if(receivedObj.senderId !== this.currentConversation.recipient.id) return ;
+
         const newMessage: DtoInputMessageOfAConversation = {
           content: receivedObj.message,
           senderId: receivedObj.senderId,

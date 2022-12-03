@@ -64,4 +64,8 @@
     overflow-y: auto;
     border-bottom: 1px solid $grey ;
   }
+  .message_section{
+    flex-basis: auto;
+    width: 100% ;
+  }
 }
