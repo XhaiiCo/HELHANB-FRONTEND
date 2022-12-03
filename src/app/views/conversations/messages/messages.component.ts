@@ -25,5 +25,6 @@ export class MessagesComponent implements OnInit {
 
   send() {
     this.sendMessage.emit(this.message) ;
+    this.message = "" ;
   }
 }

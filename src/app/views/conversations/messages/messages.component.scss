@@ -15,28 +15,50 @@
 }
 
 .msg-box {
+  display: flex;
+  flex-direction: column-reverse;
   width: 100%;
   height: calc(100% - 140px);
   border: 2px solid $black;
   border-radius: $radius;
-  padding: 10px 30px;
+  padding: 3px 3px;
   font-size: 14px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   ul {
     list-style: none;
 
-    .ex-msg {
-      margin-bottom: 10px;
-      color: #459c1a;
+
+    %msg-box {
+      margin-bottom: 3px;
       text-align: left;
+
+      div {
+        width: 40%;
+        padding: 5px;
+        border-radius: $radius;
+        color: #FFF;
+      }
     }
 
-    .in-msg {
-      margin-bottom: 10px;
-      color: #DD1155;
+    .sender-msg {
+      @extend %msg-box ;
 
-      text-align: right;
+      div{
+        background-color: $main-color;
+      }
+
+    }
+
+    .recipient-msg {
+      @extend %msg-box ;
+      display: flex;
+      justify-content: flex-end;
+
+      div{
+        background-color: $dark-grey;
+      }
     }
   }
 }
