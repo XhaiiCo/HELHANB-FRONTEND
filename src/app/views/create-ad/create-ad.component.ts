@@ -61,24 +61,28 @@ export class CreateAdComponent implements OnInit {
               private _userService: UserService,
               private _taostNotificaiton: ToastNotificationService,
               private _router: Router,
-              public adHandleService : AdHandleService) {
+              public adHandleService: AdHandleService) {
   }
 
   ngOnInit(): void {
   }
 
-  decrNbImg(){
+  decrNbImg() {
     this.nbImg--;
   }
 
-  test()
-  {
+  test() {
     console.log(this.nbImg);
   }
 
-  onChange(event : any)
-  {
-    this.adHandleService.addPicture(event, this.picturesToAdd, this.nbImg).then(result => {this.nbImg = result});
+  onChange(event: any) {
+    this.adHandleService.addPicture(event, this.picturesToAdd, this.nbImg).then(result => {
+      this.nbImg = result ;
+      console.log("then : " + result)
+    }).catch(result => {
+      this.nbImg = result ;
+      console.log("catch: " + result)
+    });
   }
 
   /**
@@ -166,16 +170,17 @@ export class CreateAdComponent implements OnInit {
   /**
    * @param {number} id - number - the id of the ad that we want to add the images to
    */
+
   /* submitPictures(id: number): void {
      this.files.forEach(file => this._adService.addImg(id, file.file).subscribe());
    }*/
 
-   /**
-    * It takes a string in the format "HH:mm" and returns an object with two properties, hours and minutes, which are both
-    * numbers
-    * @param {string} value - string - the value to be converted
-    * @returns An object with two properties, hours and minutes.
-    */
+  /**
+   * It takes a string in the format "HH:mm" and returns an object with two properties, hours and minutes, which are both
+   * numbers
+   * @param {string} value - string - the value to be converted
+   * @returns An object with two properties, hours and minutes.
+   */
   toDtoOutputTime(value: string): DtoOutputTime {
     return {
       hours: Number(value.substring(0, 2)),

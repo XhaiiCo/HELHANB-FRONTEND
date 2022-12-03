@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, ReplaySubject} from "rxjs";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
@@ -10,7 +10,8 @@ export class AdHandleService {
   public readonly nbMinPictures: number = 3;
   readonly nbMaxPictures: number = 15;
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer) {
+  }
 
   /**
    * If the feature doesn't already exist in the array, add it
@@ -24,7 +25,7 @@ export class AdHandleService {
   /**
    * @param {string} feature - string - the feature to be removed
    */
-  removeFeature(feature: string, renting_features: string[]): string[]{
+  removeFeature(feature: string, renting_features: string[]): string[] {
     return renting_features.filter(obj => obj !== feature);
   }
 
@@ -34,33 +35,37 @@ export class AdHandleService {
    * @param {any} event - any - the event that is triggered when the user selects a file.
    * @returns the value of the variable 'reader.result'
    */
-    async addPicture(event: any, files: string[], nbImg:number): Promise<number> {
+  addPicture(event: any, files: string[], nbImg: number): Promise<number> {
 
-    if (this.isFilesFull(nbImg)) return nbImg;
+    return new Promise<number>((resolve, reject) => {
+      if (this.isFilesFull(nbImg)) reject(nbImg);
 
-    const filesFromEvent = event.target.files;
+      const filesFromEvent = event.target.files;
+      let cpt = 0;
 
-    for (let i = 0; i < filesFromEvent.length; i++) {
+      for (let i = 0; i < filesFromEvent.length; i++) {
 
-      if (this.isFilesFull(nbImg)) return nbImg;
+        if (this.isFilesFull(nbImg)) reject(nbImg);
 
-      const file = filesFromEvent[i];
+        const file = filesFromEvent[i];
 
-      await this.fileToBase64(file).subscribe(base64 => {
+        this.fileToBase64(file).subscribe(base64 => {
+          cpt++;
+          if (!this.isInFiles(base64, files)) {
+            nbImg++;
+            files.push(base64);
+          }
 
-        if (!this.isInFiles(base64, files)) {
+          if (cpt === filesFromEvent.length) {
+            resolve(nbImg);
+          }
+        });
+      }
 
-          nbImg++;
-
-          files.push(base64)
-        }
-      }).toPromise();
-    }
-
-    return nbImg;
+    });
   }
 
-  removePicture(file: string, files: string[]) : string[] {
+  removePicture(file: string, files: string[]): string[] {
     return files.filter(image => image !== file);
   }
 
@@ -79,12 +84,12 @@ export class AdHandleService {
    * It returns true if the number of files is equal to the maximum number of pictures
    * @returns A boolean value.
    */
-  isFilesFull(nbImg:number): boolean {
+  isFilesFull(nbImg: number): boolean {
     //NbImg cause the image adding is async
     return nbImg == this.nbMaxPictures;
   }
 
-  fileToBase64(file : File) : Observable<string> {
+  fileToBase64(file: File): Observable<string> {
     const result = new ReplaySubject<string>(1);
     const reader = new FileReader();
     reader.readAsBinaryString(file);
@@ -92,23 +97,22 @@ export class AdHandleService {
     return result;
   }
 
-  base64ToSrc(base64String: string): string
-  {
-      let extension = "";
+  base64ToSrc(base64String: string): string {
+    let extension = "";
 
-      //fonctionne sans l extension exacte mais on sait jamais
-      switch (base64String[0]) {
-        case '/':
-          extension = 'jpeg';
-          break;
-        case 'i':
-          extension = 'png';
-          break;
-        case 'U':
-          extension = 'webp';
-          break;
-      }
+    //fonctionne sans l extension exacte mais on sait jamais
+    switch (base64String[0]) {
+      case '/':
+        extension = 'jpeg';
+        break;
+      case 'i':
+        extension = 'png';
+        break;
+      case 'U':
+        extension = 'webp';
+        break;
+    }
 
-      return `data:image/${extension};base64, ${base64String}`;
+    return `data:image/${extension};base64, ${base64String}`;
   }
 }
