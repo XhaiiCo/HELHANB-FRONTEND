@@ -3,7 +3,7 @@ import {DtoInputMyConversations} from "../../dtos/conversation/dto-input-my-conv
 import {ConversationService} from "../../services/conversation.service";
 import {AuthService} from "../../services/auth.service";
 import {DtoInputMessageOfAConversation} from "../../dtos/conversation/dto-input-message-of-a-conversation";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ChatService} from "../../services/chat.service";
 import {DtoOutputMessageHub} from "../../dtos/conversation/dto-output-message-hub";
 import {DtoInputMessageHub} from "../../dtos/conversation/dto-input-message-hub";
@@ -21,24 +21,36 @@ export class ConversationsComponent implements OnInit {
   currentConversation!: DtoInputMyConversations;
   currentMessageList: DtoInputMessageOfAConversation[] = [];
   profilePictureBaseUri: string = environment.pictureUrl;
-  pageLoaded: boolean = false ;
+  pageLoaded: boolean = false;
+
   constructor(private _conversationService: ConversationService,
               private _authService: AuthService,
               private _router: Router,
-              private _chatService: ChatService) {
+              private _chatService: ChatService,
+              private _route: ActivatedRoute,) {
   }
 
   ngOnInit(): void {
     if (!this._authService.user) return;
 
     this._conversationService.fetchMyConversations(this._authService.user.id).subscribe(conversations => {
-      this.conversations = conversations ;
-      this.pageLoaded = true ;
+      this.conversations = conversations;
+
+      this._route.paramMap.subscribe(args => {
+        if (args.has("id")) {
+          const newCurrentConversation = this.conversations.find(item => "" + item.id === args.get("id"));
+          if (newCurrentConversation) {
+            this.changeCurrentConversation(newCurrentConversation);
+          }
+        }
+      });
+
+      this.pageLoaded = true;
     });
 
     this._chatService.start().then(r =>
       this._chatService.retrieveMappedObject().subscribe((receivedObj: DtoInputMessageHub) => {
-        if(receivedObj.senderId !== this.currentConversation.recipient.id) return ;
+        if (receivedObj.senderId !== this.currentConversation.recipient.id) return;
 
         const newMessage: DtoInputMessageOfAConversation = {
           content: receivedObj.message,
