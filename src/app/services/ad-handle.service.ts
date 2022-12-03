@@ -7,8 +7,8 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 })
 export class AdHandleService {
 
-  public readonly nbMinPictures: number = 3;
-  readonly nbMaxPictures: number = 15;
+  readonly NB_MIN_PICTURES: number = 3;
+  readonly NB_MAX_PICTURES: number = 15;
 
   constructor(private sanitizer: DomSanitizer) {
   }
@@ -30,34 +30,26 @@ export class AdHandleService {
   }
 
   /**
-   * We're looping through the files from the event, checking if the file is already in the files array, and if it's not,
-   * we're pushing it to the array
-   * @param {any} event - any - the event that is triggered when the user selects a file.
-   * @returns the value of the variable 'reader.result'
+   * It takes a file input event, converts the files to base64, and returns a promise with the base64 strings
+   * @param {any} event - any: The event that triggered the file selection.
+   * @returns A promise that resolves to an array of base64 strings.
    */
-  addPicture(event: any, files: string[], nbImg: number): Promise<number> {
-
-    return new Promise<number>((resolve, reject) => {
-      if (this.isFilesFull(nbImg)) reject(nbImg);
-
+  filesToBase64(event: any): Promise<string[]> {
+    return new Promise<string[]>((resolve) => {
+      let result: string[] = [];
       const filesFromEvent = event.target.files;
       let cpt = 0;
 
       for (let i = 0; i < filesFromEvent.length; i++) {
 
-        if (this.isFilesFull(nbImg)) reject(nbImg);
-
         const file = filesFromEvent[i];
 
         this.fileToBase64(file).subscribe(base64 => {
           cpt++;
-          if (!this.isInFiles(base64, files)) {
-            nbImg++;
-            files.push(base64);
-          }
+          result.push(base64);
 
           if (cpt === filesFromEvent.length) {
-            resolve(nbImg);
+            resolve(result);
           }
         });
       }
@@ -70,23 +62,21 @@ export class AdHandleService {
   }
 
   /**
-   * It returns true if the fileToCheck is in the files array
-   * @param {File} fileToCheck - File - the file to check if it's in the files array
+   * It takes a file in bas64 and a list of file in base64 and returns true if the file is in the list of files
+   * @param {string} fileToCheck - The file you want to check if it's in the filesList in base64.
+   * @param {string[]} filesList - The list of files that you want to check against in base64.
    * @returns A boolean value.
    */
-  isInFiles(fileToCheck: string, picturesToAdd: string[]): boolean {
-    //let filesName = files.map((file) => file.file.name)
-
-    return picturesToAdd.includes(fileToCheck);
+  isPictureAlreadyUploaded(fileToCheck: string, filesList: string[]): boolean {
+    return filesList.includes(fileToCheck);
   }
 
   /**
    * It returns true if the number of files is equal to the maximum number of pictures
    * @returns A boolean value.
    */
-  isFilesFull(nbImg: number): boolean {
-    //NbImg cause the image adding is async
-    return nbImg == this.nbMaxPictures;
+  isMaxNumberOfPicturesReached(nbImg: number): boolean {
+    return nbImg === this.NB_MAX_PICTURES;
   }
 
   fileToBase64(file: File): Observable<string> {

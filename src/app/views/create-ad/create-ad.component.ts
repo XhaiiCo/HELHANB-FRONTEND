@@ -2,10 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {FormGroupIdentifier} from "../../interfaces/form-group-identifier";
 import {DtoOutputCreateAd, DtoOutputTime} from "../../dtos/ad/dto-output-create-ad";
-import {Time} from "@angular/common";
 import {AdService} from "../../services/ad.service";
 import {AuthService} from "../../services/auth.service";
-import {ImgData} from "../../interfaces/img-data";
 import {UserService} from "../../services/user.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";
@@ -26,8 +24,6 @@ export class CreateAdComponent implements OnInit {
 
   tmp_feature: string = "";
   renting_features: string[] = [];
-
-  nbImg: number = 0;
   disabledSubmitBtn: boolean = false;
 
   adCreateForm = new FormGroup({
@@ -67,22 +63,27 @@ export class CreateAdComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  decrNbImg() {
-    this.nbImg--;
-  }
+  /**
+   * It takes a list of files, converts them to base64, and adds them to the list of pictures to add
+   * @param {any} files - the files that were added to the input
+   */
+  onPictureAdded(files: any) {
+    this.adHandleService.filesToBase64(files).then(files => {
+      for (let i = 0; i < files.length; i++) {
+        if (this.adHandleService.isMaxNumberOfPicturesReached(this.picturesToAdd.length)) break;
+        if (this.adHandleService.isPictureAlreadyUploaded(files[i], [...this.picturesToAdd])) continue;
 
-  test() {
-    console.log(this.nbImg);
-  }
-
-  onChange(event: any) {
-    this.adHandleService.addPicture(event, this.picturesToAdd, this.nbImg).then(result => {
-      this.nbImg = result ;
-      console.log("then : " + result)
-    }).catch(result => {
-      this.nbImg = result ;
-      console.log("catch: " + result)
+        this.picturesToAdd.push(files[i]);
+      }
     });
+  }
+
+  /**
+   * It removes a picture from the picturesToAdd array
+   * @param {string} file - the file name of the picture to remove
+   */
+  removePicture(file: string) {
+    this.picturesToAdd = this.adHandleService.removePicture(file, [...this.picturesToAdd]);
   }
 
   /**
