@@ -3,7 +3,7 @@ import {DtoInputMyConversations} from "../../dtos/conversation/dto-input-my-conv
 import {ConversationService} from "../../services/conversation.service";
 import {AuthService} from "../../services/auth.service";
 import {DtoInputMessageOfAConversation} from "../../dtos/conversation/dto-input-message-of-a-conversation";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ChatService} from "../../services/chat.service";
 import {DtoOutputMessageHub} from "../../dtos/conversation/dto-output-message-hub";
 import {DtoInputMessageHub} from "../../dtos/conversation/dto-input-message-hub";
@@ -20,21 +20,38 @@ export class ConversationsComponent implements OnInit {
   conversations: DtoInputMyConversations[] = [];
   currentConversation!: DtoInputMyConversations;
   currentMessageList: DtoInputMessageOfAConversation[] = [];
-  profilePictureBaseUri: string  = environment.pictureUrl ;
+  profilePictureBaseUri: string = environment.pictureUrl;
+  pageLoaded: boolean = false;
 
   constructor(private _conversationService: ConversationService,
               private _authService: AuthService,
               private _router: Router,
-              private _chatService: ChatService) {
+              private _chatService: ChatService,
+              private _route: ActivatedRoute,) {
   }
 
   ngOnInit(): void {
     if (!this._authService.user) return;
 
-    this._conversationService.fetchMyConversations(this._authService.user.id).subscribe(conversations => this.conversations = conversations);
+    this._conversationService.fetchMyConversations(this._authService.user.id).subscribe(conversations => {
+      this.conversations = conversations;
+
+      this._route.paramMap.subscribe(args => {
+        if (args.has("id")) {
+          const newCurrentConversation = this.conversations.find(item => "" + item.id === args.get("id"));
+          if (newCurrentConversation) {
+            this.changeCurrentConversation(newCurrentConversation);
+          }
+        }
+      });
+
+      this.pageLoaded = true;
+    });
 
     this._chatService.start().then(r =>
       this._chatService.retrieveMappedObject().subscribe((receivedObj: DtoInputMessageHub) => {
+        if (receivedObj.senderId !== this.currentConversation.recipient.id) return;
+
         const newMessage: DtoInputMessageOfAConversation = {
           content: receivedObj.message,
           senderId: receivedObj.senderId,
@@ -47,7 +64,7 @@ export class ConversationsComponent implements OnInit {
   }
 
   send(msg: string): void {
-    if(!this._authService.user) return ;
+    if (!this._authService.user) return;
 
     const dtoOutputMessageHub: DtoOutputMessageHub = {
       message: msg,
@@ -57,13 +74,13 @@ export class ConversationsComponent implements OnInit {
     const dtoOutputMessage: DtoOutputMessage = {
       content: msg,
       senderId: this._authService.user.id,
-     conversationId: this.currentConversation.id,
+      conversationId: this.currentConversation.id,
     }
 
 
     this._conversationService.createMessage(dtoOutputMessage).subscribe(
-      (newMessage) =>{
-        this.currentMessageList.push(newMessage) ;
+      (newMessage) => {
+        this.currentMessageList.push(newMessage);
         this._chatService.sendMessage(dtoOutputMessageHub);
       }
     )
@@ -73,7 +90,6 @@ export class ConversationsComponent implements OnInit {
     this.currentConversation = conversation;
     this._conversationService.fetchMessagesOfAConversation(conversation.id).subscribe(messages => {
       this.currentMessageList = messages
-      console.log(this.currentMessageList);
     });
   }
 }

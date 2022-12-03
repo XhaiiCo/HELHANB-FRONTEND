@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
   connectedDropDownOption: DropDownOption[] = [
     {name: 'Compte', path: '/compte'},
     {name: 'Mes réservations', path: '/mes-reservations'},
+    {name: 'Mes messages', path: '/conversations'},
     {name: 'Devenir hôte', path: '/nouvelle-annonce'},
     {name: 'Deconnexion', path: '/deconnexion'}
   ]
@@ -28,14 +29,17 @@ export class HeaderComponent implements OnInit {
     {name: 'Compte', path: '/compte'},
     {name: 'Mes réservations', path: '/mes-reservations'},
     {name: 'Mes annonces', path: '/mes-annonces'},
+    {name: 'Mes messages', path: '/conversations'},
     {name: 'Deconnexion', path: '/deconnexion'}
   ]
 
   adminDropDownOption: DropDownOption[] = [
     {name: 'Compte', path: '/compte'},
     {name: 'Administration', path: '/administration'},
+    {name: 'Mes messages', path: '/conversations'},
     {name: 'Deconnexion', path: '/deconnexion'}
   ]
+
   constructor(public authService: AuthService) { }
 
   ngOnInit(): void {

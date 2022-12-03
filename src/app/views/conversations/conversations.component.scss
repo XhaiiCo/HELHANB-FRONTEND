@@ -1,34 +1,71 @@
-.conversation_page{
-  width: 70% ;
-  margin: auto ;
+@import "src/styles/helpers/variable" ;
+
+.loader_container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.conversation_page {
+  width: 70%;
+  margin: auto;
   display: flex;
   align-items: flex-start;
 }
 
-.conversation_list{
-  li{
+.conversation_list {
+  li {
     display: flex;
     align-items: center;
-    gap: 10px ;
-    cursor: pointer ;
-    width: 150px ;
+    gap: 10px;
+    cursor: pointer;
+    width: 150px;
   }
 
-  img{
+  img {
     border-radius: 50%;
     height: 30px;
-    margin-top: 5px ;
-    margin-left: 10px ;
+    margin-top: 5px;
+    margin-left: 10px;
     object-position: 50% 50%;
     object-fit: cover;
     aspect-ratio: 1 / 1;
   }
 }
 
-.conversation_section{
+.conversation_section {
   flex-basis: content;
+  height: calc(100vh - $header-height) ;
+  overflow-y: auto ;
+  overflow-x: hidden;
+  min-width: fit-content;
 }
 
-.message_section{
+.message_section {
   flex-basis: 1000px;
+}
+
+@media (max-width: 800px) {
+  .conversation_page {
+    width: 97%;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .conversation_page {
+    flex-direction: column;
+    gap: 20px ;
+  }
+  .conversation_section{
+    flex-basis: 100px;
+    width: 100vw ;
+    overflow-y: auto;
+    border-bottom: 1px solid $grey ;
+  }
+  .message_section{
+    flex-basis: auto;
+    width: 100% ;
+  }
 }

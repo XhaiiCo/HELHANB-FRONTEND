@@ -1,46 +1,9 @@
-<main class="conversation_page">
+<div *ngIf="!pageLoaded" class="loader_container">
+  <app-loader></app-loader>
+</div>
+<main class="conversation_page" *ngIf="pageLoaded">
   <section class="conversation_section">
     <ul class="conversation_list">
-      <li
-        *ngFor="let conversation of conversations"
-        (click)="changeCurrentConversation(conversation)">
-        <div>
-          <img [src]="profilePictureBaseUri + conversation.recipient.profilePicturePath" alt="Photo de profil">
-        </div>
-        <div>
-          {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
-        </div>
-      </li>
-      <li
-        *ngFor="let conversation of conversations"
-        (click)="changeCurrentConversation(conversation)">
-        <div>
-          <img [src]="profilePictureBaseUri + conversation.recipient.profilePicturePath" alt="Photo de profil">
-        </div>
-        <div>
-          {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
-        </div>
-      </li>
-      <li
-        *ngFor="let conversation of conversations"
-        (click)="changeCurrentConversation(conversation)">
-        <div>
-          <img [src]="profilePictureBaseUri + conversation.recipient.profilePicturePath" alt="Photo de profil">
-        </div>
-        <div>
-          {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
-        </div>
-      </li>
-      <li
-        *ngFor="let conversation of conversations"
-        (click)="changeCurrentConversation(conversation)">
-        <div>
-          <img [src]="profilePictureBaseUri + conversation.recipient.profilePicturePath" alt="Photo de profil">
-        </div>
-        <div>
-          {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
-        </div>
-      </li>
       <li
         *ngFor="let conversation of conversations"
         (click)="changeCurrentConversation(conversation)">
@@ -54,7 +17,7 @@
     </ul>
   </section>
 
-  <section class="message_section">
+  <section class="message_section" *ngIf="currentConversation">
     <app-messages
       [msgInboxArray]="currentMessageList"
       [recipientId]="currentConversation.recipient.id"
