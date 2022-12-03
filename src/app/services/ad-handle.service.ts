@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ImgData} from "../interfaces/img-data";
+import {Observable, ReplaySubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,7 @@ export class AdHandleService {
    * @returns the value of the variable 'reader.result'
    */
   addPicture(event: any, files: ImgData[], nbImg:number): number {
+
     if (this.isFilesFull(nbImg)) return nbImg;
 
     const filesFromEvent = event.target.files;
@@ -85,5 +87,18 @@ export class AdHandleService {
     //NbImg cause the image adding is async
     return nbImg == this.nbMaxPictures;
   }
+/*
+  onFileSelected(event) {
+    this.convertFile(event.target.files[0]).subscribe(base64 => {
+      this.base64Output = base64;
+    });
+  }*/
 
+  convertFile(file : File) : Observable<string> {
+    const result = new ReplaySubject<string>(1);
+    const reader = new FileReader();
+    reader.readAsBinaryString(file);//Buffer.from(event.target!.result!.toString()).toString('base64')
+    reader.onload = (event) => result.next(btoa(event.target!.result!.toString()));
+    return result;
+  }
 }
