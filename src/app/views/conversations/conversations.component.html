@@ -57,6 +57,7 @@
   <section class="message_section">
     <app-messages
       [msgInboxArray]="currentMessageList"
+      [recipientId]="currentConversation.recipient.id"
       (sendMessage)="send($event)"
     ></app-messages>
   </section>
