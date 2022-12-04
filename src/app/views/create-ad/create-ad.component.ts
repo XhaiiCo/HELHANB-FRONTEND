@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {FormGroupIdentifier} from "../../interfaces/form-group-identifier";
-import {DtoOutputCreateAd, DtoOutputTime} from "../../dtos/ad/dto-output-create-ad";
+import {DtoOutputCreateAd} from "../../dtos/ad/dto-output-create-ad";
 import {AdService} from "../../services/ad.service";
 import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";
 import {AdHandleService} from "../../services/ad-handle.service";
+import {DtoOutputTime} from "../../dtos/ad/dto-output-time";
 
 @Component({
   selector: 'app-create-ad',
