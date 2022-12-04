@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, ReplaySubject} from "rxjs";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {Base64Service} from "./base64.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ export class AdHandleService {
   readonly NB_MIN_PICTURES: number = 3;
   readonly NB_MAX_PICTURES: number = 15;
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private _base64Service : Base64Service) {
   }
 
   /**
@@ -44,7 +43,7 @@ export class AdHandleService {
 
         const file = filesFromEvent[i];
 
-        this.fileToBase64(file).subscribe(base64 => {
+        this._base64Service.fileToBase64(file).subscribe(base64 => {
           cpt++;
           result.push(base64);
 
@@ -79,30 +78,7 @@ export class AdHandleService {
     return nbImg === this.NB_MAX_PICTURES;
   }
 
-  fileToBase64(file: File): Observable<string> {
-    const result = new ReplaySubject<string>(1);
-    const reader = new FileReader();
-    reader.readAsBinaryString(file);
-    reader.onload = (event) => result.next(window.btoa(event.target!.result!.toString()));
-    return result;
-  }
-
-  base64ToSrc(base64String: string): string {
-    let extension = "";
-
-    //fonctionne sans l extension exacte mais on sait jamais
-    switch (base64String[0]) {
-      case '/':
-        extension = 'jpeg';
-        break;
-      case 'i':
-        extension = 'png';
-        break;
-      case 'U':
-        extension = 'webp';
-        break;
-    }
-
-    return `data:image/${extension};base64, ${base64String}`;
+  imgSrc(base64String: string): string {
+    return this._base64Service.base64ToSrc(base64String);
   }
 }

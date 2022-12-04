@@ -17,7 +17,7 @@ import {AdHandleService} from "../../services/ad-handle.service";
 export class CreateAdComponent implements OnInit {
 
   submitBtnValue: string = "Suivant";
-  step: number = 5;
+  step: number = 0;
   stepsName: string[] = ["step0", "step1", "step2", "step3", "step4", "step5"]
 
   picturesToAdd: string[] = [];

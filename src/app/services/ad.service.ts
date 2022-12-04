@@ -25,13 +25,6 @@ export class AdService {
     return this._httpClient.post<DtoInputCreateAd>(`${AdService.ENTRY_POINT_URL}`, dto);
   }
 
-  addImg(id: number, image: File): Observable<{ id: string; path: string }> {
-    let formData = new FormData();
-    if (image)
-      formData.append("picture", image, image.name);
-    return this._httpClient.post<{ id: string, path: string }>(`${AdService.ENTRY_POINT_URL}/${id}/picture`, formData);
-  }
-
   count(): Observable<number> {
     return this._httpClient.get<number>(AdService.ENTRY_POINT_URL + '/count');
   }
