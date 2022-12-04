@@ -22,9 +22,8 @@ export interface DtoInputMyAds {
   status: DtoInputStatus;
   reservations: DtoInputReservation[];
 
-  picturesToAdd: ImgData[];
+  picturesToAdd: string[];
   picturesToDelete: string[];
-  nbImg: number;
 }
 
 interface DtoInputPicture {

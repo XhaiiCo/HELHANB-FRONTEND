@@ -12,7 +12,6 @@ import {AdHandleService} from "../../../services/ad-handle.service";
 })
 export class MyAdComponent implements OnInit {
 
-  pictureBaseUri: string = environment.pictureUrl;
   readonly pictureBaseUrl: string = environment.pictureUrl ;
 
   @Input() ad!: DtoInputMyAds ;
@@ -36,20 +35,28 @@ export class MyAdComponent implements OnInit {
 
   }
 
+  onPictureAdded(files: any) {
+    this.adHandleService.filesToBase64(files).then(files =>
+    {
+      for (let i = 0; i < files.length; i++)
+      {
+        if (this.adHandleService.isMaxNumberOfPicturesReached(this.ad.picturesToAdd.length + this.ad.pictures.length)) break;
+        if (this.adHandleService.isPictureAlreadyUploaded(files[i], [...this.ad.picturesToAdd])) continue;
+
+        this.ad.picturesToAdd.push(files[i]);
+      }
+    });
+  }
+
   deletePicture(picPath: string)
   {
     this.ad.pictures = this.ad.pictures.filter(pic => pic.path != picPath);
     this.ad.picturesToDelete.push(picPath);
-    this.decrNbImg();
   }
 
-  decrNbImg(){
-    this.ad.nbImg--;
-  }
-
-  test()
+  removePicture(file: string)
   {
-    console.log(this.ad.nbImg);
+    this.ad.picturesToAdd = this.adHandleService.removePicture(file, [...this.ad.picturesToAdd]);
   }
 
 

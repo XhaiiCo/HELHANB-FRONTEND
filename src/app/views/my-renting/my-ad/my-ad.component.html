@@ -13,20 +13,20 @@
     </p>
 
     <h2>Images</h2>
-<!--
+
     <div>
-      <input class="file-input" type="file" accept="image/*" (change)="ad.nbImg = adHandleService.addPicture($event, ad.picturesToAdd, ad.nbImg); test()" multiple>
+      <input class="file-input" type="file" accept="image/*" (change)="onPictureAdded($event);" multiple>
     </div>
     <div class="preview_container">
       <div *ngFor="let file of ad.pictures" class="preview">
-        <img [src]="pictureBaseUri + file.path" alt="ta maison"  (click)="deletePicture(file.path); test()"/>
+        <img [src]="pictureBaseUrl + file.path" alt="ta maison"  (click)="deletePicture(file.path);"/>
       </div>
       <div class="preview_container">
         <div *ngFor="let file of this.ad.picturesToAdd" class="preview">
-          <img [src]="file.imageSrc" alt="ta maison" (click)="ad.picturesToAdd = adHandleService.removePicture(file, ad.picturesToAdd); decrNbImg(); test()"/>
+          <img [src]="adHandleService.imgSrc(file)" alt="ta maison" (click)="removePicture(file)"/>
         </div>
       </div>
-    </div>--><!--(click)="removePicture(file)"--><!--(change)="addPicture($event)"-->
+    </div><!--(click)="removePicture(file)"--><!--(change)="addPicture($event)"-->
 
 
 

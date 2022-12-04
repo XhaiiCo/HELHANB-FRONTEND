@@ -26,7 +26,6 @@ export class MyRentingComponent implements OnInit {
         {
           ad.picturesToAdd = [];
           ad.picturesToDelete = [];
-          ad.nbImg = ad.pictures.length;
         }
       })
     }
