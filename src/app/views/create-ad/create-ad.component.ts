@@ -225,9 +225,4 @@ export class CreateAdComponent implements OnInit {
 
     return this.picturesToAdd.length >= 3;
   }
-
-  test()
-  {
-    console.log(this.picturesToAdd);
-  }
 }
