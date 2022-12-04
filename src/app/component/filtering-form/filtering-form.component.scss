@@ -1,0 +1,27 @@
+@import "/src/styles/components/button";
+@import "/src/styles/helpers/variable";
+
+* {
+  font-family: $main-font;
+}
+
+.filteringForm {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-secondary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px ;
+  font-size: 16px ;
+
+  svg {
+    width: 25px;
+  }
+}
+
+
