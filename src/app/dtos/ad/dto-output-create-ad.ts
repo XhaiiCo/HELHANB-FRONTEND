@@ -14,6 +14,7 @@ export interface DtoOutputCreateAd {
   arrivalTimeRangeEnd: DtoOutputTime ;
   leaveTime: DtoOutputTime ;
   features: string[] ;
+  picturesToAdd: string[];
 }
 
 export interface DtoOutputTime{

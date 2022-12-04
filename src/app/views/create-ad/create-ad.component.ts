@@ -143,6 +143,7 @@ export class CreateAdComponent implements OnInit {
 
       features: this.renting_features,
       userId: this._authService.user.id,
+      picturesToAdd: this.picturesToAdd
     };
 
     //Add the time
@@ -225,4 +226,8 @@ export class CreateAdComponent implements OnInit {
     return this.picturesToAdd.length >= 3;
   }
 
+  test()
+  {
+    console.log(this.picturesToAdd);
+  }
 }
