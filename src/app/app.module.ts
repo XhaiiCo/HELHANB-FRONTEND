@@ -37,6 +37,7 @@ import { LoaderComponent } from './component/loader/loader.component';
 import { MessagesComponent } from './views/conversations/messages/messages.component';
 import { MyAdComponent } from './views/my-renting/my-ad/my-ad.component';
 import { ConversationsComponent } from './views/conversations/conversations.component';
+import { FilteringFormComponent } from './component/filtering-form/filtering-form.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { ConversationsComponent } from './views/conversations/conversations.comp
     MessagesComponent,
     MyAdComponent,
     ConversationsComponent,
+    FilteringFormComponent,
   ],
   imports: [
     BrowserModule,

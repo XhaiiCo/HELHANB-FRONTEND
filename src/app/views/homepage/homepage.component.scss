@@ -1,13 +1,16 @@
-.loader_container{
-  width: 100vw ;
-  display: flex ;
+.loader_container {
+  width: 100vw;
+  display: flex;
   justify-content: center;
-  margin-top: 30px ;
+  margin-top: 30px;
+}
+
+.filteringForm-container {
+  padding: 30px 4% 0px 4%;
 }
 
 .container {
   padding: 30px 4% 0px 4%;
-
 }
 
 .wrapper {
@@ -16,48 +19,38 @@
   padding-bottom: 20px;
 }
 
-@media (min-width: 550px)
-{
-  .column
-  {
+@media (min-width: 550px) {
+  .column {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 950px)
-{
-  .column
-  {
+@media (min-width: 950px) {
+  .column {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (min-width: 1130px)
-{
-  .column
-  {
+@media (min-width: 1130px) {
+  .column {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-@media (min-width: 1640px)
-{
-  .column
-  {
+@media (min-width: 1640px) {
+  .column {
     grid-template-columns: repeat(5, 1fr);
   }
 }
 
-@media (min-width: 1880px)
-{
-  .column
-  {
+@media (min-width: 1880px) {
+  .column {
     grid-template-columns: repeat(6, 1fr);
   }
 }
 
 
-.pagination_container{
-  margin-top: 20px ;
-  margin-left: 4% ;
+.pagination_container {
+  margin-top: 20px;
+  margin-left: 4%;
 }
