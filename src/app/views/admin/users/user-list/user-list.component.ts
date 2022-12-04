@@ -52,8 +52,8 @@ export class UserListComponent implements OnInit {
     );
   }
 
-  private _fetchRoles(): void{
-    this._roleService.fetchAll().subscribe( (roleList) => this.roleList = roleList) ;
+  private _fetchRoles(): void {
+    this._roleService.fetchAll().subscribe((roleList) => this.roleList = roleList);
   }
 
   onModalDeleteAction(isAccepted: boolean) {
@@ -61,9 +61,16 @@ export class UserListComponent implements OnInit {
     if (!isAccepted) return;
     if (!this.userToDelete) return;
 
-    this._userService.delete(this.userToDelete).subscribe((user) => {
-      this.userList = this.userList.filter(value => value.id != user.id);
-      this._toastNotificationService.add(`${user.lastName} ${user.firstName} supprimé avec succès`, "success");
+    this._userService.delete(this.userToDelete).subscribe({
+      next: (user) => {
+        this.userList = this.userList.filter(value => value.id != user.id);
+        this._toastNotificationService.add(`${user.lastName} ${user.firstName} supprimé avec succès`, "success");
+      },
+      error: err => {
+        if (err.status === 401) {
+          this._toastNotificationService.add(`${err.error}`, "error");
+        }
+      }
     });
 
     this.userToDelete = undefined;

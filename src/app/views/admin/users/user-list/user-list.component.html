@@ -8,7 +8,7 @@
 <section class="user-list-section">
   <header class="filter-section">
     <form [formGroup]="filterForm" (ngSubmit)="emitFilter()" class="filter-form">
-      <input type="text" placeholder="Recherchez..." formControlName="search" class="input-text">
+      <input type="text" placeholder="Rechercher..." formControlName="search" class="input-text">
 
       <select formControlName="role" class="input-select">
         <option value="" selected>Tous les roles</option>
