@@ -1,5 +1,4 @@
 import {Time} from "@angular/common";
-import {ImgData} from "../../interfaces/img-data";
 
 export interface DtoInputMyAds {
   id: number;

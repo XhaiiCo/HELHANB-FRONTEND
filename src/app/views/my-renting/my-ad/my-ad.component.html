@@ -1,5 +1,5 @@
 <main class="ad_item_page">
-  <form [formGroup]="adUpdateForm" >
+  <form [formGroup]="adUpdateForm" (ngSubmit)="submitForm()" [formGroup]="adUpdateForm">
 
     <h1><input type="text" class="input-adjust" formControlName="name" [(ngModel)]="ad.name"></h1>
     <p>

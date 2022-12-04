@@ -26,8 +26,14 @@ export class AdService {
     return this._httpClient.post<DtoInputCreateAd>(`${AdService.ENTRY_POINT_URL}`, dto);
   }
 
+<<<<<<< Updated upstream
   update(dto: DtoOutputUpdateAd): Observable<DtoInputCreateAd> {
     return this._httpClient.put<DtoInputCreateAd>(`${AdService.ENTRY_POINT_URL}/adUpdate`, dto);
+=======
+  update(dto: DtoOutputUpdateAd)
+  {
+    return this._httpClient.put(`${AdService.ENTRY_POINT_URL}/adUpdate`, dto);
+>>>>>>> Stashed changes
   }
 
   count(): Observable<number> {

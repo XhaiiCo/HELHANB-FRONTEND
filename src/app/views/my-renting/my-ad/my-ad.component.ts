@@ -4,6 +4,9 @@ import {environment} from "../../../../environments/environment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ImgData} from "../../../interfaces/img-data";
 import {AdHandleService} from "../../../services/ad-handle.service";
+import {AdService} from "../../../services/ad.service";
+import {DtoOutputUpdateAd} from "../../../dtos/ad/dto-output-update-ad";
+import {DtoOutputTime} from "../../../dtos/ad/dto-output-time";
 
 @Component({
   selector: 'app-my-ad',
@@ -29,7 +32,8 @@ export class MyAdComponent implements OnInit {
 
   tmp_feature: string = "";
 
-  constructor(public adHandleService : AdHandleService) { }
+  constructor(public adHandleService : AdHandleService,
+              private _adService: AdService) { }
 
   ngOnInit(): void {
 
@@ -59,7 +63,25 @@ export class MyAdComponent implements OnInit {
     this.ad.picturesToAdd = this.adHandleService.removePicture(file, [...this.ad.picturesToAdd]);
   }
 
+  submitForm() {
+    let dto: DtoOutputUpdateAd = {
+        id: this.ad.id,
+        name: this.ad.name,
+        numberOfPersons: this.ad.numberOfPersons,
+        numberOfBedrooms: this.ad.numberOfBedrooms,
+        description: this.ad.description,
+        pricePerNight: this.ad.pricePerNight,
+        arrivalTimeRangeStart: this.ad.arrivalTimeRangeStart,
+        arrivalTimeRangeEnd: this.ad.arrivalTimeRangeEnd,
+        leaveTime: this.ad.leaveTime,
+        features: this.ad.features,
+        picturesToAdd: this.ad.picturesToAdd,
+        picturesToDelete: this.ad.picturesToDelete
+    }
 
-
-
+    this._adService
+      .update(dto)
+      .subscribe();
+      
+  }
 }
