@@ -2,6 +2,9 @@
   <app-loader></app-loader>
 </div>
 <main *ngIf="pageLoaded">
+  <div class="filteringForm-container">
+    <app-filtering-form></app-filtering-form>
+  </div>
   <div class="container wrapper column">
     <div *ngFor="let ad of ads">
       <app-card [ad]="ad" class="homepage"></app-card>
