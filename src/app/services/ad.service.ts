@@ -6,10 +6,10 @@ import {Observable} from "rxjs";
 import {DtoInputCreateAd} from "../dtos/ad/dto-input-create-ad";
 import {DtoInputAdSummary} from "../dtos/ad/dto-input-ad-summary";
 import {DtoInputAd} from "../dtos/ad/dto-input-ad";
-import {DtoInputAdPending} from "../dtos/ad/dto-input-ad-pending";
 import {DtoOutputUpdateStatusAd} from "../dtos/ad/dto-output-update-status-ad";
 import {DtoInputMyAds} from "../dtos/ad/dto-input-my-ads";
 import {DtoOutputNewReservation} from "../dtos/ad/dto-output-new-reservation";
+import {DtoInputAdWithReservation} from "../dtos/ad/dto-input-ad-with-reservation";
 
 @Injectable({
   providedIn: 'root'
@@ -29,28 +29,31 @@ export class AdService {
     return this._httpClient.get<number>(AdService.ENTRY_POINT_URL + '/count');
   }
 
-  fetchForPagination(limit: number, offset: number):Observable<DtoInputAdSummary[]>
-  {
+  fetchForPagination(limit: number, offset: number): Observable<DtoInputAdSummary[]> {
     return this._httpClient.get<DtoInputAdSummary[]>(`${AdService.ENTRY_POINT_URL}/summary?limit=${limit}&offset=${offset}`);
   }
 
-  fetchById(id: number): Observable<DtoInputAd> {
-    return this._httpClient.get<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/${id}`);
+  fetchById(id: number): Observable<DtoInputAdWithReservation> {
+    return this._httpClient.get<DtoInputAdWithReservation>(`${AdService.ENTRY_POINT_URL}/${id}`);
   }
 
-  fetchAllPendings(): Observable<DtoInputAdPending[]>{
-    return this._httpClient.get<DtoInputAdPending[]>(`${AdService.ENTRY_POINT_URL}?statusId=1`);
+  fetchAllPendings(): Observable<DtoInputAd[]> {
+    return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}?statusId=1`);
   }
 
-  updateStatus(dto: DtoOutputUpdateStatusAd): Observable<DtoInputAdPending>{
-    return this._httpClient.put<DtoInputAdPending>(`${AdService.ENTRY_POINT_URL}/status`, dto) ;
+  fetchAll(): Observable<DtoInputAd[]> {
+    return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}`);
   }
 
-  fetchMyAds(id: number): Observable<DtoInputMyAds[]>{
-    return this._httpClient.get<DtoInputMyAds[]>(`${AdService.ENTRY_POINT_URL}/${id}/myAds`) ;
+  updateStatus(dto: DtoOutputUpdateStatusAd): Observable<DtoInputAd> {
+    return this._httpClient.put<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/status`, dto);
   }
 
-  createReservation(adId: number, dto: DtoOutputNewReservation): Observable<any>{
-   return this._httpClient.post<any>(`${AdService.ENTRY_POINT_URL}/${adId}/reservation`, dto) ;
+  fetchMyAds(id: number): Observable<DtoInputMyAds[]> {
+    return this._httpClient.get<DtoInputMyAds[]>(`${AdService.ENTRY_POINT_URL}/${id}/myAds`);
+  }
+
+  createReservation(adId: number, dto: DtoOutputNewReservation): Observable<any> {
+    return this._httpClient.post<any>(`${AdService.ENTRY_POINT_URL}/${adId}/reservation`, dto);
   }
 }

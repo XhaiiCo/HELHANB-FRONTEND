@@ -1,30 +1,38 @@
+import {Time} from "@angular/common";
+
 export interface DtoInputAd {
-  id: number,
-  name: string,
-  created: string,
-  pricePerNight: number,
-  description: string,
-  numberOfPersons: number,
-  numberOfBedrooms: number,
-  street: string,
-  postalCode: number,
-  country: string,
-  city: string,
-  adStatusId: number,
-  arrivalTimeRangeStart: string,
-  arrivalTimeRangeEnd: string,
-  leaveTime: string,
-  features: string[],
-  pictures: {
-    id: number,
-    path: string
-  }[],
-  owner: {
-    id: number ;
-    firstName: string,
-    lastName: string
-    profilePicturePath: string,
-  }
+  id: number;
+  name: string;
+  created: Date;
+  pricePerNight: number;
+  description: string;
+  numberOfPersons: number;
+  numberOfBedrooms: number;
+  street: string;
+  postalCode: number;
+  country: string;
+  city: string;
+  arrivalTimeRangeStart: Time;
+  arrivalTimeRangeEnd: Time;
+  leaveTime: Time;
+  features: string[];
+  pictures: DtoInputPicture[];
+  owner: DtoInputOwner;
+  status: DtoInputStatus;
 }
 
-//manque reservation mais on en pas encore donc pas mis
+interface DtoInputPicture {
+  id: number;
+  path: string;
+}
+
+interface DtoInputOwner {
+  firstName: string;
+  lastName: string;
+  profilePicturePath: string;
+}
+
+interface DtoInputStatus {
+  id: number;
+  statusName: string;
+}

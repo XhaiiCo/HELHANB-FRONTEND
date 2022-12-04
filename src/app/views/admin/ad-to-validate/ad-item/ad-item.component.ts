@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DtoInputAdPending} from "../../../../dtos/ad/dto-input-ad-pending";
+import {DtoInputAd} from "../../../../dtos/ad/dto-input-ad";
 import {environment} from "../../../../../environments/environment";
 
 @Component({
@@ -11,7 +11,7 @@ export class AdItemComponent implements OnInit {
 
 
   pictureBaseUrl: string  = environment.pictureUrl ;
-  @Input() ad!: DtoInputAdPending ;
+  @Input() ad!: DtoInputAd ;
 
   constructor() { }
 

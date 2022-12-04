@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DtoInputAd} from "../../../dtos/ad/dto-input-ad";
+import {AdService} from "../../../services/ad.service";
 
 @Component({
   selector: 'app-admin-rentings',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminRentingsComponent implements OnInit {
 
-  constructor() { }
+  ads: DtoInputAd[] = [];
+  currentAd!: DtoInputAd | null;
+
+  constructor(private _adService: AdService) {
+  }
 
   ngOnInit(): void {
+    this._adService.fetchAll().subscribe(ads => this.ads = ads)
+  }
+
+  changeCurrentId(ad: DtoInputAd) {
+    this.currentAd = ad;
   }
 
 }

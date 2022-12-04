@@ -3,12 +3,12 @@ import {environment} from "../../../environments/environment";
 import {FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AdService} from "../../services/ad.service";
-import {DtoInputAd} from "../../dtos/ad/dto-input-ad";
 import {DtoOutputNewReservation} from "../../dtos/ad/dto-output-new-reservation";
 import {AuthService} from "../../services/auth.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {ConversationService} from "../../services/conversation.service";
 import {DtoOutputCreateConversation} from "../../dtos/conversation/dto-output-create-conversation";
+import {DtoInputAdWithReservation} from "../../dtos/ad/dto-input-ad-with-reservation";
 
 const dayDif = (date1: Date, date2: Date) => Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000);
 
@@ -29,7 +29,7 @@ export class RentingComponent implements OnInit {
 
   displayAllFeatures: boolean = false;
 
-  ad!: DtoInputAd;
+  ad!: DtoInputAdWithReservation;
 
   dates!: { arrival: Date, leave: Date };
 
