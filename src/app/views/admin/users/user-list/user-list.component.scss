@@ -44,7 +44,7 @@
 .btn-container {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   gap: 3px;
 
   @media (max-width: $responsive-table-mobile-size) {
@@ -71,9 +71,14 @@
     color: $error-color ;
   }
 
-  .btn-update {
+  .btn-become-admin {
     background-color: $info-background-color;
     color: $info-color ;
+
+    &:disabled{
+      cursor: not-allowed;
+      background-color: $secondary-color;
+    }
   }
 
   @media (max-width: $responsive-table-mobile-size) {
