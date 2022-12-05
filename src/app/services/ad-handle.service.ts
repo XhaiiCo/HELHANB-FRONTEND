@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Base64Service} from "./base64.service";
+import {DtoOutputTime} from "../dtos/ad/dto-output-time";
 
 @Injectable({
   providedIn: 'root'
@@ -80,5 +81,18 @@ export class AdHandleService {
 
   imgSrc(base64String: string): string {
     return this._base64Service.base64ToSrc(base64String);
+  }
+
+  /**
+   * It takes a string in the format "HH:mm" and returns an object with two properties, hours and minutes, which are both
+   * numbers
+   * @param {string} value - string - the value to be converted
+   * @returns An object with two properties, hours and minutes.
+   */
+  toDtoOutputTime(value: string): DtoOutputTime {
+    return {
+      hours: Number(value.substring(0, 2)),
+      minutes: Number(value.substring(3, 5)),
+    };
   }
 }

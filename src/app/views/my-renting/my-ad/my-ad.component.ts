@@ -2,11 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {DtoInputMyAds} from "../../../dtos/ad/dto-input-my-ads";
 import {environment} from "../../../../environments/environment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ImgData} from "../../../interfaces/img-data";
 import {AdHandleService} from "../../../services/ad-handle.service";
 import {AdService} from "../../../services/ad.service";
 import {DtoOutputUpdateAd} from "../../../dtos/ad/dto-output-update-ad";
-import {DtoOutputTime} from "../../../dtos/ad/dto-output-time";
 
 @Component({
   selector: 'app-my-ad',
@@ -64,6 +62,11 @@ export class MyAdComponent implements OnInit {
   }
 
   submitForm() {
+
+    let arrivalTimeRangeStart:string = this.adUpdateForm.get("arrivalTimeRangeStart")?.value!;
+    let arrivalTimeRangeEnd:string = this.adUpdateForm.get("arrivalTimeRangeEnd")?.value!;
+    let leaveTime:string = this.adUpdateForm.get("leaveTime")?.value!;
+
     let dto: DtoOutputUpdateAd = {
         id: this.ad.id,
         name: this.ad.name,
@@ -71,9 +74,9 @@ export class MyAdComponent implements OnInit {
         numberOfBedrooms: this.ad.numberOfBedrooms,
         description: this.ad.description,
         pricePerNight: this.ad.pricePerNight,
-        arrivalTimeRangeStart: this.ad.arrivalTimeRangeStart,
-        arrivalTimeRangeEnd: this.ad.arrivalTimeRangeEnd,
-        leaveTime: this.ad.leaveTime,
+        arrivalTimeRangeStart: this.adHandleService.toDtoOutputTime(arrivalTimeRangeStart),
+        arrivalTimeRangeEnd: this.adHandleService.toDtoOutputTime(arrivalTimeRangeEnd),
+        leaveTime: this.adHandleService.toDtoOutputTime(leaveTime),
         features: this.ad.features,
         picturesToAdd: this.ad.picturesToAdd,
         picturesToDelete: this.ad.picturesToDelete
@@ -82,6 +85,9 @@ export class MyAdComponent implements OnInit {
     this._adService
       .update(dto)
       .subscribe();
-      
+
   }
+
+
+
 }
