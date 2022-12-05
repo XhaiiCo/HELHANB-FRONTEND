@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DtoInputReservation} from "../../dtos/ad/dto-input-reservation";
+import {DtoInputReservation} from "../../dtos/reservation/dto-input-reservation";
 import {AdService} from "../../services/ad.service";
 import {AuthService} from "../../services/auth.service";
 
@@ -26,4 +26,15 @@ export class MyReservationComponent implements OnInit {
     );
   }
 
+  getAcceptedReservations(): DtoInputReservation[] {
+    return this.reservationsList.filter(item => item.reservationStatus.statusName === "acceptée");
+  }
+
+  getRejectedReservation(): DtoInputReservation[] {
+    return this.reservationsList.filter(item => item.reservationStatus.statusName === "refusée");
+  }
+
+  getPendingReservations(): DtoInputReservation[] {
+    return this.reservationsList.filter(item => item.reservationStatus.statusName === "en attente");
+  }
 }

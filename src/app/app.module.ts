@@ -39,6 +39,7 @@ import { MyAdComponent } from './views/my-renting/my-ad/my-ad.component';
 import { ConversationsComponent } from './views/conversations/conversations.component';
 import { FilteringFormComponent } from './component/filtering-form/filtering-form.component';
 import { AdminRentingsComponent } from './views/admin/admin-rentings/admin-rentings.component';
+import { ReservationListComponent } from './views/my-reservation/reservation-list/reservation-list.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { AdminRentingsComponent } from './views/admin/admin-rentings/admin-renti
     ConversationsComponent,
     FilteringFormComponent,
     AdminRentingsComponent,
+    ReservationListComponent,
   ],
   imports: [
     BrowserModule,

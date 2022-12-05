@@ -8,10 +8,10 @@ import {DtoInputAdSummary} from "../dtos/ad/dto-input-ad-summary";
 import {DtoInputAd} from "../dtos/ad/dto-input-ad";
 import {DtoOutputUpdateStatusAd} from "../dtos/ad/dto-output-update-status-ad";
 import {DtoInputMyAds} from "../dtos/ad/dto-input-my-ads";
-import {DtoOutputNewReservation} from "../dtos/ad/dto-output-new-reservation";
+import {DtoOutputNewReservation} from "../dtos/reservation/dto-output-new-reservation";
 import {DtoInputAdWithReservation} from "../dtos/ad/dto-input-ad-with-reservation";
 import {DtoOutputUpdateAd} from "../dtos/ad/dto-output-update-ad";
-import {DtoInputReservation} from "../dtos/ad/dto-input-reservation";
+import {DtoInputReservation} from "../dtos/reservation/dto-input-reservation";
 
 @Injectable({
   providedIn: 'root'

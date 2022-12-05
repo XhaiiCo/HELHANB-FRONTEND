@@ -3,7 +3,7 @@ import {environment} from "../../../environments/environment";
 import {FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AdService} from "../../services/ad.service";
-import {DtoOutputNewReservation} from "../../dtos/ad/dto-output-new-reservation";
+import {DtoOutputNewReservation} from "../../dtos/reservation/dto-output-new-reservation";
 import {AuthService} from "../../services/auth.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {ConversationService} from "../../services/conversation.service";

@@ -2,19 +2,23 @@
 
   <section class="reservations_container" *ngIf="reservationsList.length !== 0; else noReservation">
 
-    <ul class="reservations_list">
-      <li *ngFor="let reservation of reservationsList" class="reservation">
-        <div>
-          <!--<img [src]="reservation.reservationPicture">-->
-        </div>
-        <div>
-          <h1>{{reservation.ad.name}}</h1>
-          <p>{{reservation.ad.name}}</p>
-          <p>{{reservation}}</p>
-          <p class="dates">{{reservation.arrivalDate}} - {{reservation.leaveDate}}</p>
-        </div>
-      </li>
-    </ul>
+    <app-reservation-list
+      [title]="'Acceptée'"
+      [reservationsList]="getAcceptedReservations()"
+      [emptyListPhrase]="'Vous n\'avez aucune réservation acceptée'"
+    ></app-reservation-list>
+
+    <app-reservation-list
+      [title]="'En attente'"
+      [reservationsList]="getPendingReservations()"
+      [emptyListPhrase]="'Vous n\'avez aucune réservation en attente'"
+    ></app-reservation-list>
+
+    <app-reservation-list
+      [title]="'Refusée'"
+      [reservationsList]="getRejectedReservation()"
+      [emptyListPhrase]="'Vous n\'avez aucune réservation refusée'"
+    ></app-reservation-list>
 
   </section>
 
