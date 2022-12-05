@@ -23,7 +23,7 @@ export class UserListComponent implements OnInit {
   defaultProfilePicture: string = environment.defaultProfilePictureUrl;
 
   deleteModalOptions: DeleteModalOptions = {
-    showDeleteUserConfirmationModal: false,
+    showDeleteAdConfirmationModal: false,
     titleText: "Confirmation de suppression",
     bodyText: "",
   }
@@ -57,7 +57,7 @@ export class UserListComponent implements OnInit {
   }
 
   onModalDeleteAction(isAccepted: boolean) {
-    this.deleteModalOptions.showDeleteUserConfirmationModal = false;
+    this.deleteModalOptions.showDeleteAdConfirmationModal = false;
     if (!isAccepted) return;
     if (!this.userToDelete) return;
 
@@ -82,7 +82,7 @@ export class UserListComponent implements OnInit {
 
     this.userToDelete = id;
     this.deleteModalOptions.bodyText = `Êtes vous sûr de vouloir supprimer ${user.lastName} ${user.firstName}`;
-    this.deleteModalOptions.showDeleteUserConfirmationModal = true;
+    this.deleteModalOptions.showDeleteAdConfirmationModal = true;
   }
 
   emitFilter() {

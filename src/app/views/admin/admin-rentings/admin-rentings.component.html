@@ -1,3 +1,10 @@
+<app-modal-confirmation
+  [class.hidden]="!deleteModalOptions.showDeleteAdConfirmationModal"
+  [title]="deleteModalOptions.titleText"
+  [bodyText]="deleteModalOptions.bodyText"
+  (isAccepted)="onModalDeleteAction($event)"
+></app-modal-confirmation>
+
 <main class="ad-rentings-page" *ngIf="ads.length > 0 ; else noAdsToValidate">
   <section class="ad_list">
     <ul>
@@ -9,7 +16,7 @@
   <section class="ad_preview" *ngIf="currentAd; else noAdSelected">
     <app-ad-item [ad]="currentAd" class="preview"></app-ad-item>
     <section class="buttons_section">
-      <button class="btn-delete">Supprimer</button>
+      <button class="btn-delete" (click)="onDeleteButtonClick()">Supprimer</button>
     </section>
   </section>
 

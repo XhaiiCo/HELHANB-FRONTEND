@@ -25,10 +25,13 @@ export class AdService {
   create(dto: DtoOutputCreateAd): Observable<DtoInputCreateAd> {
     return this._httpClient.post<DtoInputCreateAd>(`${AdService.ENTRY_POINT_URL}`, dto);
   }
-  
-  update(dto: DtoOutputUpdateAd)
-  {
+
+  update(dto: DtoOutputUpdateAd) {
     return this._httpClient.put(`${AdService.ENTRY_POINT_URL}/adUpdate`, dto);
+  }
+
+  delete(id: number): Observable<DtoInputAd> {
+    return this._httpClient.delete<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/${id}`);
   }
 
   count(): Observable<number> {
