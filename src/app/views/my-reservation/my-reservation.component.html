@@ -5,13 +5,13 @@
     <ul class="reservations_list">
       <li *ngFor="let reservation of reservationsList" class="reservation">
         <div>
-          <img [src]="reservation.reservationPicture">
+          <!--<img [src]="reservation.reservationPicture">-->
         </div>
         <div>
-          <h1>{{reservation.name}}</h1>
-          <p>{{reservation.destination}}</p>
-          <p>{{reservation.host_name}}</p>
-          <p class="dates">{{reservation.beginDate}} - {{reservation.endDate}}</p>
+          <h1>{{reservation.ad.name}}</h1>
+          <p>{{reservation.ad.name}}</p>
+          <p>{{reservation}}</p>
+          <p class="dates">{{reservation.arrivalDate}} - {{reservation.leaveDate}}</p>
         </div>
       </li>
     </ul>
