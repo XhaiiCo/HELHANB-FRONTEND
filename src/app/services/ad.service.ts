@@ -27,7 +27,7 @@ export class AdService {
     return this._httpClient.post<DtoInputCreateAd>(`${AdService.ENTRY_POINT_URL}`, dto);
   }
 
-  update(dto: DtoOutputUpdateAd) {
+  update(dto: DtoOutputUpdateAd): Observable<any> {
     return this._httpClient.put(`${AdService.ENTRY_POINT_URL}/adUpdate`, dto);
   }
 

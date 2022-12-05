@@ -151,9 +151,9 @@ export class CreateAdComponent implements OnInit {
     const arrivalTimeRangeStart: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeStart")?.value;
     const arrivalTimeRangeEnd: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeEnd")?.value;
     const leaveTime: string = this.adCreateForm.get(this.stepsName[2])?.get("leaveTime")?.value;
-    dtoOutputCreateAd.arrivalTimeRangeStart = this.toDtoOutputTime(arrivalTimeRangeStart);
-    dtoOutputCreateAd.leaveTime = this.toDtoOutputTime(leaveTime);
-    dtoOutputCreateAd.arrivalTimeRangeEnd = this.toDtoOutputTime(arrivalTimeRangeEnd);
+    dtoOutputCreateAd.arrivalTimeRangeStart = this.adHandleService.toDtoOutputTime(arrivalTimeRangeStart);
+    dtoOutputCreateAd.leaveTime = this.adHandleService.toDtoOutputTime(leaveTime);
+    dtoOutputCreateAd.arrivalTimeRangeEnd = this.adHandleService.toDtoOutputTime(arrivalTimeRangeEnd);
 
     this._adService.create(dtoOutputCreateAd).subscribe({
         next: ad => {
@@ -178,18 +178,7 @@ export class CreateAdComponent implements OnInit {
      this.files.forEach(file => this._adService.addImg(id, file.file).subscribe());
    }*/
 
-  /**
-   * It takes a string in the format "HH:mm" and returns an object with two properties, hours and minutes, which are both
-   * numbers
-   * @param {string} value - string - the value to be converted
-   * @returns An object with two properties, hours and minutes.
-   */
-  toDtoOutputTime(value: string): DtoOutputTime {
-    return {
-      hours: Number(value.substring(0, 2)),
-      minutes: Number(value.substring(3, 5)),
-    };
-  }
+
 
   /**
    * The previous() function decreases the step value by 1 and calls the changeSubmitButtonValue() function
