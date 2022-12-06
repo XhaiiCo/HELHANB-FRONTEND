@@ -70,4 +70,8 @@ export class AdService {
   fetchMyReservations(userId: number): Observable<DtoInputReservation[]> {
     return this._httpClient.get<DtoInputReservation[]>(`${AdService.ENTRY_POINT_URL}/${userId}/myReservations`);
   }
+
+  removeReservation(reservationId: number): Observable<DtoInputReservation> {
+    return this._httpClient.delete<DtoInputReservation>(`${AdService.ENTRY_POINT_URL}/${reservationId}/reservation`);
+  }
 }

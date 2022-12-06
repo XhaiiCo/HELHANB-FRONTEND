@@ -31,3 +31,16 @@
 .emptyList{
   padding-left: 10px;
 }
+
+.cancel-btn{
+  background-color: $error-background-color;
+  color: $error-color;
+  padding: 4px ;
+  border-radius: $radius;
+  font-size: 12px ;
+  cursor: pointer ;
+
+  &:hover{
+    opacity: .9;
+  }
+}
