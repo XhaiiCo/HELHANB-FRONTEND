@@ -37,6 +37,7 @@ import { LoaderComponent } from './component/loader/loader.component';
 import { MessagesComponent } from './views/conversations/messages/messages.component';
 import { MyAdComponent } from './views/my-renting/my-ad/my-ad.component';
 import { ConversationsComponent } from './views/conversations/conversations.component';
+import { ReservationsToConfirmComponent } from './views/my-renting/my-ad/reservations-to-confirm/reservations-to-confirm.component';
 
 @NgModule({
   declarations: [
@@ -66,21 +67,22 @@ import { ConversationsComponent } from './views/conversations/conversations.comp
     MessagesComponent,
     MyAdComponent,
     ConversationsComponent,
+    ReservationsToConfirmComponent,
   ],
-  imports: [
-    BrowserModule,
-    RoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    HttpClientJsonpModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatButtonModule,
-  ],
+    imports: [
+        BrowserModule,
+        RoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        HttpClientJsonpModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        BrowserAnimationsModule,
+        MatIconModule,
+        MatButtonModule,
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: CredentialsInterceptor, multi: true}
   ],

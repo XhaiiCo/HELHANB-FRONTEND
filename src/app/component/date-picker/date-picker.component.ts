@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -98,4 +98,5 @@ export class DatePickerComponent implements OnInit {
     else
       this.emitDateChange.next(this.range);
   }
+
 }
