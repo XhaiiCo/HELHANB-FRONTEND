@@ -1,6 +1,6 @@
 @import '/src/styles/helpers/variable';
 
-.ad-to-validate-page {
+.ad-rentings-page {
   font-family: $main-font;
   display: flex;
   gap: 10px;
@@ -40,7 +40,7 @@
   justify-content: flex-end;
 }
 
-.btn-valid, .btn-reject{
+.btn-valid, .btn-delete{
   padding: 10px ;
   border-radius: $radius;
   cursor: pointer ;
@@ -55,7 +55,7 @@
   }
 }
 
-.btn-reject{
+.btn-delete{
   background-color: $error-background-color ;
   color: $error-color ;
 
@@ -66,7 +66,7 @@
 
 @media only screen and (max-width: 800px) {
 
-  .ad-to-validate-page {
+  .ad-rentings-page {
     flex-direction: column;
   }
 

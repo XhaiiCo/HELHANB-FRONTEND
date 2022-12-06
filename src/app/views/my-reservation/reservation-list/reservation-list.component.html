@@ -1,0 +1,18 @@
+<section>
+  <h1>{{title}}</h1>
+  <ul class="reservations_list" *ngIf="reservationsList.length > 0">
+    <li *ngFor="let reservation of reservationsList" class="reservation" >
+      <div>
+        <img [src]="pictureBaseUri + reservation.picture" [routerLink]="'/annonces/' + reservation.ad.id" alt="La maison de la reservation">
+      </div>
+      <div>
+        <h1>{{reservation.ad.name}}</h1>
+        <p>{{reservation.reservationStatus.statusName}}</p>
+        <p class="dates">Du {{reservation.arrivalDate | date: 'dd/MM/y à hh:mm'}}
+          au {{reservation.leaveDate | date: 'dd/MM/y à hh:mm'}}</p>
+        <button class="cancel-btn" (click)="onCancelBtnClick(reservation.id)" *ngIf="canCancel">Annuler</button>
+      </div>
+    </li>
+  </ul>
+  <p class="emptyList" *ngIf="reservationsList.length === 0">{{emptyListPhrase}}</p>
+</section>

@@ -12,7 +12,7 @@
   border-right: 1px solid $grey;
   min-width: 300px;
   overflow: auto;
-  height: calc(100vh - $header-height - $admin-nav-height) ;
+  height: calc(100vh - $header-height - $admin-nav-height);
 
   li {
     padding: 10px;
@@ -22,73 +22,39 @@
   }
 }
 
-.ad_preview{
-  width: 100% ;
+.ad_preview {
+  width: 100%;
 }
 
 .active {
   background-color: $very-light-grey;
 }
 
-%status{
+%status {
   font-size: 12px;
   background-color: red;
   border-radius: $radius;
   width: fit-content;
   text-align: center;
-  padding: 2px 5px ;
+  padding: 2px 5px;
 }
 
-.status_accepted{
+.status_accepted {
   @extend %status ;
-  background-color: $success-background-color ;
-  color: $success-color ;
+  background-color: $success-background-color;
+  color: $success-color;
 }
 
-.status_rejected{
+.status_rejected {
   @extend %status ;
-  background-color: $error-background-color ;
-  color: $error-color ;
+  background-color: $error-background-color;
+  color: $error-color;
 }
 
-.status_pending{
+.status_pending {
   @extend %status ;
-  background-color: $info-background-color ;
-  color: $info-color ;
-}
-
-.buttons_section{
-  padding-right: 30px ;
-  gap: 10px ;
-  margin-top: 1px solid $grey ;
-  height: 50px;
-  display: flex ;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.btn-valid, .btn-reject{
-  padding: 10px ;
-  border-radius: $radius;
-  cursor: pointer ;
-}
-
-.btn-valid{
-  background-color: $success-background-color ;
-  color: $success-color ;
-
-  &:hover{
-    border: 1px solid $success-color ;
-  }
-}
-
-.btn-reject{
-  background-color: $error-background-color ;
-  color: $error-color ;
-
-  &:hover{
-    border: 1px solid $error-color ;
-  }
+  background-color: $info-background-color;
+  color: $info-color;
 }
 
 @media only screen and (max-width: 800px) {

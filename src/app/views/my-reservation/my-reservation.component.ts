@@ -1,4 +1,9 @@
 import {Component, OnInit} from '@angular/core';
+import {DtoInputReservation} from "../../dtos/reservation/dto-input-reservation";
+import {AdService} from "../../services/ad.service";
+import {AuthService} from "../../services/auth.service";
+import {DeleteModalOptions} from "../../interfaces/delete-modal-options";
+import {ToastNotificationService} from "../../services/toast-notification.service";
 
 @Component({
   selector: 'app-my-reservation',
@@ -7,42 +12,62 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MyReservationComponent implements OnInit {
 
-  reservationsList: any[] = [];
+  deleteModalOptions: DeleteModalOptions = {
+    showDeleteAdConfirmationModal: false,
+    titleText: "Confirmation d'annulation",
+    bodyText: "Êtes-vous sûr de vouloir annuler votre réservation",
+  }
 
-  constructor() {
+  reservationToDelete!: number;
+
+  reservationsList: DtoInputReservation[] = [];
+
+  constructor(
+    private _authService: AuthService,
+    private _adService: AdService,
+    private _toastNotificationService: ToastNotificationService,
+  ) {
   }
 
   ngOnInit(): void {
+    if (!this._authService.user) return;
 
-    //Create fake reservation
-    this.reservationsList.push(
-      {
-        name: "Saint-Siffret",
-        destination: "Tournai",
-        host_name: "François",
-        beginDate: "1 juil, 2021",
-        endDate: "9 juil 2021",
-        reservationPicture: "https://a0.muscache.com/im/pictures/miso/Hosting-717134404264905813/original/dfe9fd1e-a010-43c9-b546-0bbc7d59f7f3.jpeg?im_w=1200",
-      },
-      {
-        name: "chat laid au bord du lac",
-        destination: "Tournai",
-        host_name: "Hôte: François",
-        beginDate: "1 juil, 2021",
-        endDate: "9 juil 2021",
-        reservationPicture: "https://a0.muscache.com/im/pictures/miso/Hosting-717134404264905813/original/53b475a3-104f-462e-8faf-85a7bcd1f13b.jpeg?im_w=720",
-      },
-      {
-        name: "chat laid au bord du lac",
-        destination: "Tournai",
-        host_name: "François",
-        beginDate: "1 juil, 2021",
-        endDate: "9 juil 2021",
-        reservationPicture:
-          "https://a0.muscache.com/im/pictures/miso/Hosting-717134404264905813/original/56fa6c39-d99f-49d9-91de-4db146a55db9.jpeg?im_w=1200",
-
-      }
+    this._adService.fetchMyReservations(this._authService.user.id).subscribe(
+      reservations => this.reservationsList = reservations
     );
   }
 
+  getAcceptedReservations(): DtoInputReservation[] {
+    return this.reservationsList.filter(item => item.reservationStatus.statusName === "acceptée");
+  }
+
+  getRejectedReservation(): DtoInputReservation[] {
+    return this.reservationsList.filter(item => item.reservationStatus.statusName === "refusée");
+  }
+
+  getPendingReservations(): DtoInputReservation[] {
+    return this.reservationsList.filter(item => item.reservationStatus.statusName === "en attente");
+  }
+
+  cancelReservationClick(reservationId: number) {
+    this.reservationToDelete = reservationId;
+    this.deleteModalOptions.showDeleteAdConfirmationModal = true ;
+  }
+
+  removeReservation(reservationId: number) {
+    this._adService.removeReservation(reservationId).subscribe({
+      next: data => {
+        this.reservationsList = this.reservationsList.filter(item => item.id !== data.id);
+        this._toastNotificationService.add("Réservation annulée avec succès", "success");
+      },
+      error: err => {
+        this._toastNotificationService.add(err.error, "error");
+      }
+    })
+  }
+
+  onModalDeleteAction(result: boolean) {
+    this.deleteModalOptions.showDeleteAdConfirmationModal = false ;
+    if (result) this.removeReservation(this.reservationToDelete);
+  }
 }

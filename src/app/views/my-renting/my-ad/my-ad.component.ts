@@ -2,8 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {DtoInputMyAds} from "../../../dtos/ad/dto-input-my-ads";
 import {environment} from "../../../../environments/environment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ImgData} from "../../../interfaces/img-data";
 import {AdHandleService} from "../../../services/ad-handle.service";
+import {AdService} from "../../../services/ad.service";
+import {DtoOutputUpdateAd} from "../../../dtos/ad/dto-output-update-ad";
 
 @Component({
   selector: 'app-my-ad',
@@ -12,7 +13,6 @@ import {AdHandleService} from "../../../services/ad-handle.service";
 })
 export class MyAdComponent implements OnInit {
 
-  pictureBaseUri: string = environment.pictureUrl;
   readonly pictureBaseUrl: string = environment.pictureUrl ;
 
   @Input() ad!: DtoInputMyAds ;
@@ -30,27 +30,64 @@ export class MyAdComponent implements OnInit {
 
   tmp_feature: string = "";
 
-  deletePicture(picPath: string)
-  {
-    this.ad.pictures = this.ad.pictures.filter(pic => pic.path != picPath);
-    this.ad.picturesToDelete.push(picPath);
-    this.decrNbImg();
-  }
-
-  decrNbImg(){
-    this.ad.nbImg--;
-  }
-
-  test()
-  {
-    console.log(this.ad.nbImg);
-  }
-
-  constructor(public adHandleService : AdHandleService) { }
+  constructor(public adHandleService : AdHandleService,
+              private _adService: AdService) { }
 
   ngOnInit(): void {
 
   }
+
+  onPictureAdded(files: any) {
+    this.adHandleService.filesToBase64(files).then(files =>
+    {
+      for (let i = 0; i < files.length; i++)
+      {
+        if (this.adHandleService.isMaxNumberOfPicturesReached(this.ad.picturesToAdd.length + this.ad.pictures.length)) break;
+        if (this.adHandleService.isPictureAlreadyUploaded(files[i], [...this.ad.picturesToAdd])) continue;
+
+        this.ad.picturesToAdd.push(files[i]);
+      }
+    });
+  }
+
+  deletePicture(picPath: string)
+  {
+    this.ad.pictures = this.ad.pictures.filter(pic => pic.path != picPath);
+    this.ad.picturesToDelete.push(picPath);
+  }
+
+  removePicture(file: string)
+  {
+    this.ad.picturesToAdd = this.adHandleService.removePicture(file, [...this.ad.picturesToAdd]);
+  }
+
+  submitForm() {
+
+    let arrivalTimeRangeStart:string = this.adUpdateForm.get("arrivalTimeRangeStart")?.value!;
+    let arrivalTimeRangeEnd:string = this.adUpdateForm.get("arrivalTimeRangeEnd")?.value!;
+    let leaveTime:string = this.adUpdateForm.get("leaveTime")?.value!;
+
+    let dto: DtoOutputUpdateAd = {
+        id: this.ad.id,
+        name: this.ad.name,
+        numberOfPersons: this.ad.numberOfPersons,
+        numberOfBedrooms: this.ad.numberOfBedrooms,
+        description: this.ad.description,
+        pricePerNight: this.ad.pricePerNight,
+        arrivalTimeRangeStart: this.adHandleService.toDtoOutputTime(arrivalTimeRangeStart),
+        arrivalTimeRangeEnd: this.adHandleService.toDtoOutputTime(arrivalTimeRangeEnd),
+        leaveTime: this.adHandleService.toDtoOutputTime(leaveTime),
+        features: this.ad.features,
+        picturesToAdd: this.ad.picturesToAdd,
+        picturesToDelete: this.ad.picturesToDelete
+    }
+
+    this._adService
+      .update(dto)
+      .subscribe();
+
+  }
+
 
 
 }

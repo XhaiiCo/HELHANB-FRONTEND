@@ -23,7 +23,7 @@ export class UserListComponent implements OnInit {
   defaultProfilePicture: string = environment.defaultProfilePictureUrl;
 
   deleteModalOptions: DeleteModalOptions = {
-    showDeleteUserConfirmationModal: false,
+    showDeleteAdConfirmationModal: false,
     titleText: "Confirmation de suppression",
     bodyText: "",
   }
@@ -52,18 +52,25 @@ export class UserListComponent implements OnInit {
     );
   }
 
-  private _fetchRoles(): void{
-    this._roleService.fetchAll().subscribe( (roleList) => this.roleList = roleList) ;
+  private _fetchRoles(): void {
+    this._roleService.fetchAll().subscribe((roleList) => this.roleList = roleList);
   }
 
   onModalDeleteAction(isAccepted: boolean) {
-    this.deleteModalOptions.showDeleteUserConfirmationModal = false;
+    this.deleteModalOptions.showDeleteAdConfirmationModal = false;
     if (!isAccepted) return;
     if (!this.userToDelete) return;
 
-    this._userService.delete(this.userToDelete).subscribe((user) => {
-      this.userList = this.userList.filter(value => value.id != user.id);
-      this._toastNotificationService.add(`${user.lastName} ${user.firstName} supprimé avec succès`, "success");
+    this._userService.delete(this.userToDelete).subscribe({
+      next: (user) => {
+        this.userList = this.userList.filter(value => value.id != user.id);
+        this._toastNotificationService.add(`${user.lastName} ${user.firstName} supprimé avec succès`, "success");
+      },
+      error: err => {
+        if (err.status === 401) {
+          this._toastNotificationService.add(`${err.error}`, "error");
+        }
+      }
     });
 
     this.userToDelete = undefined;
@@ -75,7 +82,7 @@ export class UserListComponent implements OnInit {
 
     this.userToDelete = id;
     this.deleteModalOptions.bodyText = `Êtes vous sûr de vouloir supprimer ${user.lastName} ${user.firstName}`;
-    this.deleteModalOptions.showDeleteUserConfirmationModal = true;
+    this.deleteModalOptions.showDeleteAdConfirmationModal = true;
   }
 
   emitFilter() {

@@ -1,11 +1,23 @@
 <div class="ud-body">
   <div class="msg-box">
     <ul>
-      <li *ngFor="let mObj of msgInboxArray">{{mObj.senderId}} <br /><span class="msg-italic-style">{{mObj.content}}</span></li>
+      <li *ngFor="let mObj of msgInboxArray"
+          [class.sender-msg]="mObj.senderId === recipientId"
+          [class.recipient-msg]="mObj.senderId !== recipientId"
+      >
+        <div>
+          {{mObj.content}}
+        </div>
+      </li>
     </ul>
   </div>
-  <div class="ud-flex-row">
-    <input type="text" placeholder="Type message here" class="msg-input" [(ngModel)]="message"  />
-    <button class="send-btn" (click)="send()">Send</button>
-  </div>
+  <form class="ud-flex-row" (ngSubmit)="send()">
+    <input type="text" class="input-text" [(ngModel)]="message" name="message"/>
+    <button type="submit" class="btn-primary">
+      <svg viewBox="0 0 24 24">
+        <path fill="currentColor"
+              d="M4.4 19.425q-.5.2-.95-.088Q3 19.05 3 18.5v-3.725q0-.35.2-.625t.55-.35L11 12l-7.25-1.8q-.35-.075-.55-.35q-.2-.275-.2-.625V5.5q0-.55.45-.838q.45-.287.95-.087l15.4 6.5q.625.275.625.925t-.625.925Z"/>
+      </svg>
+    </button>
+  </form>
 </div>

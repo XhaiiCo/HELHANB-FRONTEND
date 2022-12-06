@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AdService} from 'src/app/services/ad.service';
-import {DtoInputAdPending} from "../../../dtos/ad/dto-input-ad-pending";
+import {DtoInputAd} from "../../../dtos/ad/dto-input-ad";
 import {ToastNotificationService} from "../../../services/toast-notification.service";
 
 @Component({
@@ -10,8 +10,8 @@ import {ToastNotificationService} from "../../../services/toast-notification.ser
 })
 export class AdToValidateComponent implements OnInit {
 
-  ads: DtoInputAdPending[] = [];
-  currentAd!: DtoInputAdPending | null;
+  ads: DtoInputAd[] = [];
+  currentAd!: DtoInputAd | null;
 
   constructor(private _adService: AdService, private _toastService: ToastNotificationService) {
   }
@@ -20,7 +20,7 @@ export class AdToValidateComponent implements OnInit {
     this._adService.fetchAllPendings().subscribe((ads) => this.ads = ads);
   }
 
-  changeCurrentId(ad: DtoInputAdPending) {
+  changeCurrentId(ad: DtoInputAd) {
     this.currentAd = ad;
   }
 

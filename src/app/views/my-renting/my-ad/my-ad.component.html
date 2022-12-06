@@ -1,10 +1,15 @@
 <main class="ad_item_page">
-  <form [formGroup]="adUpdateForm" >
-    <!--<h1>{{ad.name}}</h1>-->
-    <input type="text" class="input-text" formControlName="name" [(ngModel)]="ad.name">
+  <form [formGroup]="adUpdateForm" (ngSubmit)="submitForm()" [formGroup]="adUpdateForm">
+
+    <h2>Nom</h2>
+    <input type="text" class="input-adjust" formControlName="name" [(ngModel)]="ad.name">
+
+    <h2>Chambres et nombre de personnes</h2>
     <p>
-      <input type="number" class="input-text" formControlName="numberOfPersons" [(ngModel)]="ad.numberOfPersons"> personne(s) ⸱
-      <input type="number" class="input-text" formControlName="numberOfBedrooms" [(ngModel)]="ad.numberOfBedrooms"> chambre(s)
+      <input type="number" class="input-adjust" formControlName="numberOfPersons" [(ngModel)]="ad.numberOfPersons">
+      personne(s) ⸱
+      <input type="number" class="input-adjust" formControlName="numberOfBedrooms" [(ngModel)]="ad.numberOfBedrooms">
+      chambre(s)
     </p>
 
     <h2>Adresse</h2>
@@ -15,24 +20,17 @@
     <h2>Images</h2>
 
     <div>
-      <input class="file-input" type="file" accept="image/*" (change)="ad.nbImg = adHandleService.addPicture($event, ad.picturesToAdd, ad.nbImg); test()" multiple><!--(change)="addPicture($event)"-->
+      <label for="picturesInput" class="btn-secondary">Ajouter</label>
+      <input id="picturesInput" class="file-input" type="file" accept="image/*" (change)="onPictureAdded($event);"
+             multiple hidden>
     </div>
     <div class="preview_container">
       <div *ngFor="let file of ad.pictures" class="preview">
-        <img [src]="pictureBaseUri + file.path" alt="ta maison"  (click)="deletePicture(file.path); test()"/><!--(click)="removePicture(file)"-->
+        <img [src]="pictureBaseUrl + file.path" alt="ta maison" (click)="deletePicture(file.path);"/>
       </div>
-      <div class="preview_container">
-        <div *ngFor="let file of this.ad.picturesToAdd" class="preview">
-          <img [src]="file.imageSrc" alt="ta maison" (click)="ad.picturesToAdd = adHandleService.removePicture(file, ad.picturesToAdd); decrNbImg(); test()"/>
-        </div>
+      <div *ngFor="let file of this.ad.picturesToAdd" class="preview">
+        <img [src]="adHandleService.imgSrc(file)" alt="ta maison" (click)="removePicture(file)"/>
       </div>
-    </div>
-
-
-
-    <h2>Hôte</h2>
-    <div id="host_profile">
-      <p>{{ad.owner.lastName}} {{ad.owner.firstName}}</p>
     </div>
 
     <div>
@@ -40,30 +38,37 @@
       <input [(ngModel)]="tmp_feature" type="text" class="input-text" name="feature"
              [placeholder]="ad.features.length == 0 ? 'Piscine, wifi, TV HD...' : '' "
              [ngModelOptions]="{standalone: true}">
-      <button type="button" class="btn-secondary" (click)="adHandleService.addFeature(tmp_feature, ad.features); tmp_feature = ''"
+      <button type="button" class="btn-secondary"
+              (click)="adHandleService.addFeature(tmp_feature, ad.features); tmp_feature = ''"
               [disabled]="tmp_feature == ''">
         Ajouter
       </button>
     </div>
     <div class="features_list">
-              <span class="feature" *ngFor="let feature of ad.features" (click)="ad.features = adHandleService.removeFeature(feature, ad.features)">
+              <span class="feature" *ngFor="let feature of ad.features"
+                    (click)="ad.features = adHandleService.removeFeature(feature, ad.features)">
                 &#x2022; {{ feature }}
               </span>
     </div>
 
 
     <h2>Description</h2>
-
     <textarea #taDescription class="input-text" formControlName="description" [(ngModel)]="ad.description"></textarea>
     <span class="description_cpt">{{taDescription.value.length > 0 ? taDescription.value.length + "/500" : ""}}</span>
 
     <h2>Prix pour une nuit</h2>
-    <input type="number" class="input-text" formControlName="pricePerNight" [(ngModel)]="ad.pricePerNight">
+    <input type="number" class="input-adjust" formControlName="pricePerNight" [(ngModel)]="ad.pricePerNight">
 
     <h2>Règles</h2>
-    <p>Arrivée entre <input type="time" class="input-text" formControlName="arrivalTimeRangeStart" [(ngModel)]="ad.arrivalTimeRangeStart">
-      et <input type="time" class="input-text" formControlName="arrivalTimeRangeEnd" [(ngModel)]="ad.arrivalTimeRangeEnd"></p>
-    <p>Départ avant <input type="time" class="input-text" formControlName="leaveTime" [(ngModel)]="ad.leaveTime"></p>
+    <p>Arrivée entre <input type="time" class="input-adjust" formControlName="arrivalTimeRangeStart"
+                            [(ngModel)]="ad.arrivalTimeRangeStart">
+      et <input type="time" class="input-adjust" formControlName="arrivalTimeRangeEnd"
+                [(ngModel)]="ad.arrivalTimeRangeEnd"></p>
+    <p>Départ avant <input type="time" class="input-adjust" formControlName="leaveTime" [(ngModel)]="ad.leaveTime"></p>
+
+    <div class="submit_btn_container">
+      <button class="btn-primary">Modifier</button>
+    </div>
   </form>
 
   <!--<app-reservations-to-confirm></app-reservations-to-confirm>-->

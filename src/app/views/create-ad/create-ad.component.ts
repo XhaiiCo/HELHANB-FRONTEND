@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {FormGroupIdentifier} from "../../interfaces/form-group-identifier";
-import {DtoOutputCreateAd, DtoOutputTime} from "../../dtos/ad/dto-output-create-ad";
-import {Time} from "@angular/common";
+import {DtoOutputCreateAd} from "../../dtos/ad/dto-output-create-ad";
 import {AdService} from "../../services/ad.service";
 import {AuthService} from "../../services/auth.service";
-import {ImgData} from "../../interfaces/img-data";
 import {UserService} from "../../services/user.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";
 import {AdHandleService} from "../../services/ad-handle.service";
+import {DtoOutputTime} from "../../dtos/ad/dto-output-time";
 
 @Component({
   selector: 'app-create-ad',
@@ -22,12 +21,10 @@ export class CreateAdComponent implements OnInit {
   step: number = 0;
   stepsName: string[] = ["step0", "step1", "step2", "step3", "step4", "step5"]
 
-  files: ImgData[] = [];
+  picturesToAdd: string[] = [];
 
   tmp_feature: string = "";
   renting_features: string[] = [];
-
-  nbImg: number = 0;
   disabledSubmitBtn: boolean = false;
 
   adCreateForm = new FormGroup({
@@ -61,19 +58,33 @@ export class CreateAdComponent implements OnInit {
               private _userService: UserService,
               private _taostNotificaiton: ToastNotificationService,
               private _router: Router,
-              public adHandleService : AdHandleService) {
+              public adHandleService: AdHandleService) {
   }
 
   ngOnInit(): void {
   }
 
-  decrNbImg(){
-    this.nbImg--;
+  /**
+   * It takes a list of files, converts them to base64, and adds them to the list of pictures to add
+   * @param {any} files - the files that were added to the input
+   */
+  onPictureAdded(files: any) {
+    this.adHandleService.filesToBase64(files).then(files => {
+      for (let i = 0; i < files.length; i++) {
+        if (this.adHandleService.isMaxNumberOfPicturesReached(this.picturesToAdd.length)) break;
+        if (this.adHandleService.isPictureAlreadyUploaded(files[i], [...this.picturesToAdd])) continue;
+
+        this.picturesToAdd.push(files[i]);
+      }
+    });
   }
 
-  test()
-  {
-    console.log(this.nbImg);
+  /**
+   * It removes a picture from the picturesToAdd array
+   * @param {string} file - the file name of the picture to remove
+   */
+  removePicture(file: string) {
+    this.picturesToAdd = this.adHandleService.removePicture(file, [...this.picturesToAdd]);
   }
 
   /**
@@ -133,19 +144,20 @@ export class CreateAdComponent implements OnInit {
 
       features: this.renting_features,
       userId: this._authService.user.id,
+      picturesToAdd: this.picturesToAdd
     };
 
     //Add the time
     const arrivalTimeRangeStart: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeStart")?.value;
     const arrivalTimeRangeEnd: string = this.adCreateForm.get(this.stepsName[2])?.get("arrivalTimeRangeEnd")?.value;
     const leaveTime: string = this.adCreateForm.get(this.stepsName[2])?.get("leaveTime")?.value;
-    dtoOutputCreateAd.arrivalTimeRangeStart = this.toDtoOutputTime(arrivalTimeRangeStart);
-    dtoOutputCreateAd.leaveTime = this.toDtoOutputTime(leaveTime);
-    dtoOutputCreateAd.arrivalTimeRangeEnd = this.toDtoOutputTime(arrivalTimeRangeEnd);
+    dtoOutputCreateAd.arrivalTimeRangeStart = this.adHandleService.toDtoOutputTime(arrivalTimeRangeStart);
+    dtoOutputCreateAd.leaveTime = this.adHandleService.toDtoOutputTime(leaveTime);
+    dtoOutputCreateAd.arrivalTimeRangeEnd = this.adHandleService.toDtoOutputTime(arrivalTimeRangeEnd);
 
     this._adService.create(dtoOutputCreateAd).subscribe({
         next: ad => {
-          this.submitPictures(ad.id)
+          //this.submitPictures(ad.id)
           this._taostNotificaiton.add("Annonce ajoutée avec succès", "success");
           this._router.navigate(['/mes-annonces']);
         },
@@ -161,22 +173,12 @@ export class CreateAdComponent implements OnInit {
   /**
    * @param {number} id - number - the id of the ad that we want to add the images to
    */
-  submitPictures(id: number): void {
-    this.files.forEach(file => this._adService.addImg(id, file.file).subscribe());
-  }
 
-  /**
-   * It takes a string in the format "HH:mm" and returns an object with two properties, hours and minutes, which are both
-   * numbers
-   * @param {string} value - string - the value to be converted
-   * @returns An object with two properties, hours and minutes.
-   */
-  toDtoOutputTime(value: string): DtoOutputTime {
-    return {
-      hours: Number(value.substring(0, 2)),
-      minutes: Number(value.substring(3, 5)),
-    };
-  }
+  /* submitPictures(id: number): void {
+     this.files.forEach(file => this._adService.addImg(id, file.file).subscribe());
+   }*/
+
+
 
   /**
    * The previous() function decreases the step value by 1 and calls the changeSubmitButtonValue() function
@@ -204,8 +206,6 @@ export class CreateAdComponent implements OnInit {
     return control?.dirty && control?.touched && control?.invalid || false;
   }
 
-
-
   /**
    * It returns true if the current step is not step5, or if the number of files is greater than or equal to 3
    */
@@ -213,7 +213,6 @@ export class CreateAdComponent implements OnInit {
     if (this.stepsName[this.step] !== "step5")
       return true;
 
-    return this.files.length >= 3;
+    return this.picturesToAdd.length >= 3;
   }
-
 }

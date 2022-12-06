@@ -38,6 +38,9 @@ import { MessagesComponent } from './views/conversations/messages/messages.compo
 import { MyAdComponent } from './views/my-renting/my-ad/my-ad.component';
 import { ConversationsComponent } from './views/conversations/conversations.component';
 import { ReservationsToConfirmComponent } from './views/my-renting/my-ad/reservations-to-confirm/reservations-to-confirm.component';
+import { FilteringFormComponent } from './component/filtering-form/filtering-form.component';
+import { AdminRentingsComponent } from './views/admin/admin-rentings/admin-rentings.component';
+import { ReservationListComponent } from './views/my-reservation/reservation-list/reservation-list.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +71,9 @@ import { ReservationsToConfirmComponent } from './views/my-renting/my-ad/reserva
     MyAdComponent,
     ConversationsComponent,
     ReservationsToConfirmComponent,
+    FilteringFormComponent,
+    AdminRentingsComponent,
+    ReservationListComponent,
   ],
     imports: [
         BrowserModule,

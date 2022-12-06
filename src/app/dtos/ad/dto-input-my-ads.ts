@@ -1,5 +1,4 @@
 import {Time} from "@angular/common";
-import {ImgData} from "../../interfaces/img-data";
 
 export interface DtoInputMyAds {
   id: number;
@@ -22,9 +21,8 @@ export interface DtoInputMyAds {
   status: DtoInputStatus;
   reservations: DtoInputReservation[];
 
-  picturesToAdd: ImgData[];
+  picturesToAdd: string[];
   picturesToDelete: string[];
-  nbImg: number;
 }
 
 interface DtoInputPicture {

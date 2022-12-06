@@ -1,75 +1,96 @@
-@import '/src/styles/helpers/variable' ;
+@import '/src/styles/helpers/variable';
 @import '/src/styles/components/form';
 @import '/src/styles/components/button';
 @import '/src/styles/helpers/variable';
 
-*{
+* {
   font-family: $main-font;
-  font-size: 20px ;
+  font-size: 15px;
 }
 
-h1{
-  font-size: 26px ;
-}
-
-h2{
-  font-size: 24px ;
+h2 {
+  font-size: 16px;
+  margin: 10px 0;
 }
 
 
-.ad_item_page{
+textarea {
+  width: 300px;
+}
+
+.ad_item_page {
   height: calc(100vh - $header-height - $admin-nav-height);
   overflow: auto;
 }
 
+.features_list {
+  span:hover {
+    color: $invalid;
+    text-decoration: line-through;
+    cursor: pointer;
+  }
+}
+
 @media only screen and (max-width: 800px) {
 
-  .ad_item_page{
+  .ad_item_page {
     height: auto;
   }
 }
 
-.pictures_container{
+.pictures_container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px ;
+  gap: 10px;
 
-  img{
-    width: 160px ;
-    aspect-ratio: 16 / 9 ;
-    object-fit: cover ;
-    object-position: 50% 50% ;
+  img {
+    width: 160px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: 50% 50%;
   }
 }
-.preview_container{
+
+.preview_container {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 10px ;
-  margin-top: 10px ;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 10px;
 
-  img{
+  img {
     width: 150px;
     aspect-ratio: 16 / 9;
     object-position: 50% 50%;
     object-fit: cover;
     border-radius: $radius;
-    cursor: pointer ;
+    cursor: pointer;
   }
 
-  img:hover{
+  img:hover {
     filter: grayscale(100%);
   }
 
-  .preview{
+  .preview {
     display: flex;
     flex-direction: column;
   }
 }
 
-.input-adjust
-{
-
+.input-adjust {
   outline: none;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+
+}
+
+.btn-primary{
+  width: 100% ;
+}
+
+.submit_btn_container{
+  padding: 50px ;
 }

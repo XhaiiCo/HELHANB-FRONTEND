@@ -15,6 +15,7 @@ export class MessagesComponent implements OnInit {
   @Input() msgInboxArray: DtoInputMessageOfAConversation[] = [];
   @Output() sendMessage: EventEmitter<string> = new EventEmitter<string>() ;
   message: string = "" ;
+  @Input() recipientId!: number ;
 
   constructor(private chatService: ChatService, private _router: Router) {
   }
@@ -24,5 +25,6 @@ export class MessagesComponent implements OnInit {
 
   send() {
     this.sendMessage.emit(this.message) ;
+    this.message = "" ;
   }
 }

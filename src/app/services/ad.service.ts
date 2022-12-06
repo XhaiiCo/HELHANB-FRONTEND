@@ -6,10 +6,12 @@ import {Observable} from "rxjs";
 import {DtoInputCreateAd} from "../dtos/ad/dto-input-create-ad";
 import {DtoInputAdSummary} from "../dtos/ad/dto-input-ad-summary";
 import {DtoInputAd} from "../dtos/ad/dto-input-ad";
-import {DtoInputAdPending} from "../dtos/ad/dto-input-ad-pending";
 import {DtoOutputUpdateStatusAd} from "../dtos/ad/dto-output-update-status-ad";
 import {DtoInputMyAds} from "../dtos/ad/dto-input-my-ads";
-import {DtoOutputNewReservation} from "../dtos/ad/dto-output-new-reservation";
+import {DtoOutputNewReservation} from "../dtos/reservation/dto-output-new-reservation";
+import {DtoInputAdWithReservation} from "../dtos/ad/dto-input-ad-with-reservation";
+import {DtoOutputUpdateAd} from "../dtos/ad/dto-output-update-ad";
+import {DtoInputReservation} from "../dtos/reservation/dto-input-reservation";
 
 @Injectable({
   providedIn: 'root'
@@ -25,39 +27,51 @@ export class AdService {
     return this._httpClient.post<DtoInputCreateAd>(`${AdService.ENTRY_POINT_URL}`, dto);
   }
 
-  addImg(id: number, image: File): Observable<{ id: string; path: string }> {
-    let formData = new FormData();
-    if (image)
-      formData.append("picture", image, image.name);
-    return this._httpClient.post<{ id: string, path: string }>(`${AdService.ENTRY_POINT_URL}/${id}/picture`, formData);
+  update(dto: DtoOutputUpdateAd): Observable<any> {
+    return this._httpClient.put(`${AdService.ENTRY_POINT_URL}/adUpdate`, dto);
+  }
+
+  delete(id: number): Observable<DtoInputAd> {
+    return this._httpClient.delete<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/${id}`);
   }
 
   count(): Observable<number> {
     return this._httpClient.get<number>(AdService.ENTRY_POINT_URL + '/count');
   }
 
-  fetchForPagination(limit: number, offset: number):Observable<DtoInputAdSummary[]>
-  {
+  fetchForPagination(limit: number, offset: number): Observable<DtoInputAdSummary[]> {
     return this._httpClient.get<DtoInputAdSummary[]>(`${AdService.ENTRY_POINT_URL}/summary?limit=${limit}&offset=${offset}`);
   }
 
-  fetchById(id: number): Observable<DtoInputAd> {
-    return this._httpClient.get<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/${id}`);
+  fetchById(id: number): Observable<DtoInputAdWithReservation> {
+    return this._httpClient.get<DtoInputAdWithReservation>(`${AdService.ENTRY_POINT_URL}/${id}`);
   }
 
-  fetchAllPendings(): Observable<DtoInputAdPending[]>{
-    return this._httpClient.get<DtoInputAdPending[]>(`${AdService.ENTRY_POINT_URL}?statusId=1`);
+  fetchAllPendings(): Observable<DtoInputAd[]> {
+    return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}?statusId=1`);
   }
 
-  updateStatus(dto: DtoOutputUpdateStatusAd): Observable<DtoInputAdPending>{
-    return this._httpClient.put<DtoInputAdPending>(`${AdService.ENTRY_POINT_URL}/status`, dto) ;
+  fetchAll(): Observable<DtoInputAd[]> {
+    return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}`);
   }
 
-  fetchMyAds(id: number): Observable<DtoInputMyAds[]>{
-    return this._httpClient.get<DtoInputMyAds[]>(`${AdService.ENTRY_POINT_URL}/${id}/myAds`) ;
+  updateStatus(dto: DtoOutputUpdateStatusAd): Observable<DtoInputAd> {
+    return this._httpClient.put<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/status`, dto);
   }
 
-  createReservation(adId: number, dto: DtoOutputNewReservation): Observable<any>{
-   return this._httpClient.post<any>(`${AdService.ENTRY_POINT_URL}/${adId}/reservation`, dto) ;
+  fetchMyAds(id: number): Observable<DtoInputMyAds[]> {
+    return this._httpClient.get<DtoInputMyAds[]>(`${AdService.ENTRY_POINT_URL}/${id}/myAds`);
+  }
+
+  createReservation(adId: number, dto: DtoOutputNewReservation): Observable<any> {
+    return this._httpClient.post<any>(`${AdService.ENTRY_POINT_URL}/${adId}/reservation`, dto);
+  }
+
+  fetchMyReservations(userId: number): Observable<DtoInputReservation[]> {
+    return this._httpClient.get<DtoInputReservation[]>(`${AdService.ENTRY_POINT_URL}/${userId}/myReservations`);
+  }
+
+  removeReservation(reservationId: number): Observable<DtoInputReservation> {
+    return this._httpClient.delete<DtoInputReservation>(`${AdService.ENTRY_POINT_URL}/${reservationId}/reservation`);
   }
 }

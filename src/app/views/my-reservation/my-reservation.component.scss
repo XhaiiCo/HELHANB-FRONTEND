@@ -1,35 +1,11 @@
-@import '/src/styles/helpers/variable' ;
+@import '/src/styles/helpers/variable';
 
-*{
+* {
   font-family: $main-font;
 }
 
-.reservations_page{
+.reservations_page {
   width: 80%;
-  margin: auto ;
+  margin: auto;
   padding: 20px;
-}
-
-.reservation{
-  display: flex ;
-  align-items: center;
-  gap: 10px ;
-  margin-bottom: 15px;
-  font-size: 15px;
-
-  img{
-    width: 100px ;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    object-position: 50% 50%;
-    border-radius: $radius;
-  }
-
-  h1{
-    font-size: 15px;
-  }
-
-  .dates{
-    font-size: 13px;
-  }
 }

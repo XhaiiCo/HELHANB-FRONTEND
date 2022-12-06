@@ -123,12 +123,12 @@
       <!-- step 5 -->
       <section *ngIf="step == 5">
         <div class="form-group">
-          <label class="label">Ajouter au moins {{adHandleService.nbMinPictures}} images</label>
-          <input class="file-input" type="file" accept="image/*" (change)="nbImg = adHandleService.addPicture($event, files, nbImg); test()" multiple>
+          <label class="label">Ajouter au moins {{adHandleService.NB_MIN_PICTURES}} images</label>
+          <input class="file-input" type="file" accept="image/png, image/jpeg, image/webp" (change)="onPictureAdded($event);" multiple>
         </div>
         <div class="preview_container">
-          <div *ngFor="let file of files" class="preview">
-            <img [src]="file.imageSrc" alt="ta maison" (click)="files = adHandleService.removePicture(file, files); decrNbImg(); test()"/>
+          <div *ngFor="let file of picturesToAdd" class="preview">
+            <img [src]="adHandleService.imgSrc(file)" alt="ta maison" (click)="removePicture(file)"/>
           </div>
         </div>
       </section>

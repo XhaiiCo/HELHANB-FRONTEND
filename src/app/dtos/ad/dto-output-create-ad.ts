@@ -1,3 +1,5 @@
+import {DtoOutputTime} from "./dto-output-time";
+
 export interface DtoOutputCreateAd {
   name: string ;
   pricePerNight: number ;
@@ -14,9 +16,7 @@ export interface DtoOutputCreateAd {
   arrivalTimeRangeEnd: DtoOutputTime ;
   leaveTime: DtoOutputTime ;
   features: string[] ;
+  picturesToAdd: string[];
 }
 
-export interface DtoOutputTime{
-  hours: number ;
-  minutes: number ;
-}
+

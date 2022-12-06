@@ -1,5 +1,5 @@
 export interface DeleteModalOptions {
-  showDeleteUserConfirmationModal: boolean ;
+  showDeleteAdConfirmationModal: boolean ;
   titleText: string ;
   bodyText: string ;
 }
