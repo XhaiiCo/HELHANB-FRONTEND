@@ -1,5 +1,9 @@
 <section class="filtering-section">
-  <button class="btn-filter" (click)="toggleDisplayFiltre()">Filtres</button>
+  <button class="btn-filter" (click)="toggleDisplayFiltre()">
+    <span *ngIf="this.displayFiltre">-</span>
+    <span *ngIf="!this.displayFiltre">+</span>
+    Filtres
+  </button>
   <form class="filteringForm" [formGroup]="filteringForm" *ngIf="this.displayFiltre">
     <select class="input-select" formControlName="city">
       <option disabled selected value="">Ville</option>
