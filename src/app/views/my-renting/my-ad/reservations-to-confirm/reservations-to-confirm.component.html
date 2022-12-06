@@ -1,0 +1,65 @@
+<section>
+  <div id="container">
+    <div id="all_reservations" class="all">
+      <div>
+        <select name="sort" (change)="sort($event.target)">
+          <option value="0">Nom de famille</option>
+          <option value="1">Date de la réservation</option>
+          <option value="2">Durée de séjour</option>
+          <option value="3">Nombre de conflits</option>
+        </select>
+      </div>
+      <div id="reservation" class="reservation"
+           *ngFor="let reservation of reservations"
+           (mouseover)="displayConflicts(reservation)"
+           (mouseleave)="displayConflicts()"
+           (click)="reservationClicked(reservation)"
+           [ngClass]="reservation === clickedReservation ? 'clickedReservation' : ''">
+        <div class="pp"> <!-- left -->
+          <img [src]="reservation.profilePicturePath" alt="Photo de profil">
+        </div>
+        <div class="info"> <!-- center -->
+          <div> <!-- top -->
+            <span>{{ reservation.lastName }} {{ reservation.firstName }}</span>
+          </div>
+          <div> <!-- mid -->
+            <span>du {{ dtoObjectToDateFR(reservation.arrivalDate) }} au {{ dtoObjectToDateFR(reservation.leaveDate) }} ({{ nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
+          </div>
+          <div> <!-- bottom -->
+            <span>Demandé le {{ dtoObjectToDateFR(reservation.reservationDate) }} - {{ nbConflicts(reservation) }} {{ nbConflicts(reservation) > 1 ? "conflits" : "conflit" }}</span>
+          </div>
+        </div>
+        <div id="action"> <!-- right -->
+          <div id="divAcceptBtn"><!-- top -->
+            <button>V</button>
+          </div>
+          <div id="divRemoveBtn"><!-- bottom -->
+            <button>X</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="all_conflicts" class="all">
+      <div id="conflicts" class="reservation" *ngFor="let conflict of conflictsListToDisplay">
+        <div class="pp"> <!-- left -->
+          <img [src]="conflict.profilePicturePath" alt="Photo de profil">
+        </div>
+        <div class="info"> <!-- center -->
+          <div> <!-- top -->
+            <span>{{ conflict.lastName }} {{ conflict.firstName }}</span>
+          </div>
+          <div> <!-- mid -->
+            <span>du {{ dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dtoObjectToDateFR(conflict.leaveDate) }} ({{ nbDaysBetweenDates(conflict.arrivalDate, conflict.leaveDate) }} jours)</span>
+          </div>
+          <div> <!-- bottom -->
+            <span>Demandé le {{ dtoObjectToDateFR(conflict.reservationDate) }} - {{ nbConflicts(conflict) }} {{ nbConflicts(conflict) > 1 ? "conflits" : "conflit" }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="date_picker" class="all">
+    </div>
+  </div>
+</section>

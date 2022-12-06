@@ -1,0 +1,49 @@
+#container {
+  display: flex;
+  flex-direction: row;
+}
+
+.all {
+  width: max-content;
+  height: max-content;
+  margin-left: 10px;
+}
+
+  .reservation {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black; // tmp
+    margin-top: 5px;
+    cursor: default;
+
+    &:hover {
+      background-color: rgba(gray, 0.3);
+    }
+  }
+
+    .pp {}
+
+    .info {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #action {
+      display: flex;
+      flex-direction: column;
+
+      & > div {
+        text-align: center; // tmp
+        height: 50%;
+        display: flex;
+        vertical-align: center;
+
+        & > button {
+          width: 18px; // tmp
+        }
+      }
+    }
+
+.clickedReservation {
+  background-color: rgba(gray, 0.7);
+}
