@@ -1,4 +1,8 @@
-@import "src/styles/helpers/variable" ;
+@import "src/styles/helpers/variable";
+
+* {
+  font-family: $main-font;
+}
 
 .loader_container {
   width: 100vw;
@@ -36,8 +40,8 @@
 
 .conversation_section {
   flex-basis: content;
-  height: calc(100vh - $header-height) ;
-  overflow-y: auto ;
+  height: calc(100vh - $header-height);
+  overflow-y: auto;
   overflow-x: hidden;
   min-width: fit-content;
 }
@@ -56,16 +60,16 @@
 
   .conversation_page {
     flex-direction: column;
-    gap: 20px ;
+    gap: 20px;
   }
-  .conversation_section{
+  .conversation_section {
     flex-basis: 100px;
-    width: 100vw ;
+    width: 100vw;
     overflow-y: auto;
-    border-bottom: 1px solid $grey ;
+    border-bottom: 1px solid $grey;
   }
-  .message_section{
+  .message_section {
     flex-basis: auto;
-    width: 100% ;
+    width: 100%;
   }
 }

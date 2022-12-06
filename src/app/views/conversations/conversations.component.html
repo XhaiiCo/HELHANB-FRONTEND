@@ -1,7 +1,7 @@
 <div *ngIf="!pageLoaded" class="loader_container">
   <app-loader></app-loader>
 </div>
-<main class="conversation_page" *ngIf="pageLoaded">
+<main class="conversation_page" *ngIf="conversations.length > 0 && pageLoaded">
   <section class="conversation_section">
     <ul class="conversation_list">
       <li
@@ -24,4 +24,8 @@
       (sendMessage)="send($event)"
     ></app-messages>
   </section>
+</main>
+
+<main class="conversation_page" *ngIf="conversations.length === 0">
+  <p>Vous n'avez aucune conversation</p>
 </main>
