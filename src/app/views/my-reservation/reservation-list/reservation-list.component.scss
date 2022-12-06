@@ -1,46 +1,53 @@
-@import '/src/styles/helpers/variable' ;
+@import '/src/styles/helpers/variable';
 
-*{
+* {
   font-family: $main-font;
 }
 
-.reservation{
-  display: flex ;
+.reservations_list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reservation {
+  display: flex;
   align-items: center;
-  gap: 10px ;
-  margin-bottom: 15px;
+  gap: 10px;
+  padding: 5px;
   font-size: 15px;
 
-  img{
-    width: 100px ;
+  img {
+    width: 100px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: 50% 50%;
     border-radius: $radius;
+    cursor: pointer;
   }
 
-  h1{
+  h1 {
     font-size: 15px;
   }
 
-  .dates{
+  .dates {
     font-size: 13px;
   }
 }
 
-.emptyList{
+.emptyList {
   padding-left: 10px;
 }
 
-.cancel-btn{
+.cancel-btn {
   background-color: $error-background-color;
   color: $error-color;
-  padding: 4px ;
+  padding: 4px;
   border-radius: $radius;
-  font-size: 12px ;
-  cursor: pointer ;
+  font-size: 12px;
+  cursor: pointer;
 
-  &:hover{
+  &:hover {
     opacity: .9;
   }
 }
