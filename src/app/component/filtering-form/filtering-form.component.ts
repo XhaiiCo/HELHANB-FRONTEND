@@ -17,9 +17,15 @@ export class FilteringFormComponent implements OnInit {
     leaveDate: this._fb.control(""),
   });
 
+  displayFiltre: boolean = false ;
+
   constructor(private _fb: FormBuilder) {
   }
 
   ngOnInit(): void {
+  }
+
+  toggleDisplayFiltre() {
+   this.displayFiltre = !this.displayFiltre ;
   }
 }

@@ -1,8 +1,15 @@
 @import "/src/styles/components/button";
+@import "/src/styles/components/form";
 @import "/src/styles/helpers/variable";
 
 * {
   font-family: $main-font;
+}
+
+.filtering-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .filteringForm {
@@ -12,16 +19,43 @@
   gap: 10px;
 }
 
+.btn-filter {
+  border: 2px solid $black;
+  border-radius: $radius;
+  color: $black;
+  font-size: 16px;
+  padding: 6px 13px;
+  background-color: transparent;
+  cursor: pointer ;
+
+  &:hover{
+    opacity: .5 ;
+  }
+}
+
 .btn-secondary {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3px ;
-  font-size: 16px ;
+  gap: 3px;
+  font-size: 16px;
 
   svg {
     width: 25px;
   }
 }
 
+@media (max-width: 1200px) {
+  .filteringForm {
+    flex-direction: column;
+  }
 
+  .filtering-section {
+    flex-direction: column;
+  }
+
+
+  input, select, app-date-picker, button {
+    width: 100%;
+  }
+}
