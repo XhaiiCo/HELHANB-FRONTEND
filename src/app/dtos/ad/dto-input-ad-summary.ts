@@ -1,5 +1,4 @@
 export interface DtoInputAdSummary {
-  id: number;
   name: string;
   city: string;
   country: string;
@@ -7,5 +6,6 @@ export interface DtoInputAdSummary {
   numberOfPersons: number;
   pricePerNight: number;
   pictures: string[];
+  adSlug: string;
 }
 

@@ -43,8 +43,8 @@ export class AdService {
     return this._httpClient.get<DtoInputAdSummary[]>(`${AdService.ENTRY_POINT_URL}/summary?limit=${limit}&offset=${offset}`);
   }
 
-  fetchById(id: number): Observable<DtoInputAdWithReservation> {
-    return this._httpClient.get<DtoInputAdWithReservation>(`${AdService.ENTRY_POINT_URL}/${id}`);
+  fetchBySlug(slug: string): Observable<DtoInputAdWithReservation> {
+    return this._httpClient.get<DtoInputAdWithReservation>(`${AdService.ENTRY_POINT_URL}/${slug}`);
   }
 
   fetchAllPendings(): Observable<DtoInputAd[]> {

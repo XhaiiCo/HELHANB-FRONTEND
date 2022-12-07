@@ -46,17 +46,17 @@ export class RentingComponent implements OnInit {
   ngOnInit(): void {
     this._route.paramMap.subscribe(args => {
 
-      if (args.has("id")) {
-        this.fetchAdById(Number(args.get("id")));
+      if (args.has("slug")) {
+        this.fetchAdBySlug(String(args.get("slug")));
       } else {
         this._router.navigate(['/404']);
       }
     });
   }
 
-  private fetchAdById(id: number) {
+  private fetchAdBySlug(slug: string) {
     this._adService
-      .fetchById(id)
+      .fetchBySlug(slug)
       .subscribe({
         next: ad => {
           this.ad = ad;

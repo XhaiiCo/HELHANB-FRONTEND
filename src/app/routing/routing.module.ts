@@ -47,7 +47,7 @@ const routes: Routes = [
       expectedRoles: ["hote"],
     },
   },
-  {path: 'annonces/:id', component: RentingComponent},
+  {path: 'annonces/:slug', component: RentingComponent},
   {
     path: 'administration',
     component: AdminPageComponent,
