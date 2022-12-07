@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {DtoOutputFilteringUsers} from "../../../../dtos/user/dto-output-filtering-users";
 import {RolesService} from "../../../../services/roles.service";
 import {DtoInputRole} from "../../../../dtos/roles/dto-input-role";
+import {AuthService} from "../../../../services/auth.service";
 
 @Component({
   selector: 'app-user-list',
@@ -38,6 +39,7 @@ export class UserListComponent implements OnInit {
               private _roleService: RolesService,
               private _toastNotificationService: ToastNotificationService,
               private _fb: FormBuilder,
+              private _authService: AuthService,
   ) {
   }
 
@@ -88,5 +90,33 @@ export class UserListComponent implements OnInit {
   emitFilter() {
     const filter: DtoOutputFilteringUsers = this.filterForm.value;
     this._fetchUsers(filter);
+  }
+
+  isSuperAdmin() {
+    return this._authService.user?.role.name === "super-administrateur";
+  }
+
+  becomeAdmin(id: number) {
+    this._userService.changeRole(id, 3).subscribe(
+      user => {
+        //Update
+        const ind = this.userList.findIndex(item => item.id === user.id);
+        this.userList[ind] = user;
+
+        this._toastNotificationService.add(`${user.lastName} ${user.firstName} est maintenant administrateur`)
+      }
+    )
+  }
+
+  downgradeAdmin(id: number) {
+    this._userService.changeRole(id, 1).subscribe(
+      user => {
+        //Update
+        const ind = this.userList.findIndex(item => item.id === user.id);
+        this.userList[ind] = user;
+
+        this._toastNotificationService.add(`${user.lastName} ${user.firstName} n'est plus administrateur`)
+      }
+    )
   }
 }

@@ -1,16 +1,16 @@
-@import '/src/styles/components/form' ;
-@import '/src/styles/helpers/variable' ;
-@import '/src/styles/components/responsive-table' ;
+@import '/src/styles/components/form';
+@import '/src/styles/helpers/variable';
+@import '/src/styles/components/responsive-table';
 
 .user-list-section {
-  margin: 20px auto ;
-  width: 75% ;
+  margin: 20px auto;
+  width: 75%;
 }
 
-.filter-form{
-  display: flex ;
-  gap: 10px ;
-  margin-bottom: 15px ;
+.filter-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
 
   @media (max-width: $responsive-table-mobile-size) {
     flex-direction: column;
@@ -35,10 +35,14 @@
     flex-direction: row !important;
     align-items: start;
 
-    .user_pp > img{
-      height: 60px ;
+    .user_pp > img {
+      height: 60px;
     }
   }
+}
+
+.hidden {
+  display: none !important;
 }
 
 .btn-container {
@@ -68,14 +72,14 @@
 
   .btn-delete {
     background: $error-background-color;
-    color: $error-color ;
+    color: $error-color;
   }
 
   .btn-become-admin {
-    background-color: $info-background-color;
-    color: $info-color ;
+    background-color: $success-background-color;
+    color: $success-color;
 
-    &:disabled{
+    &:disabled {
       cursor: not-allowed;
       background-color: $secondary-color;
     }

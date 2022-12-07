@@ -25,7 +25,7 @@ export class UserService {
    */
   public updateProfilePicture(id: number, image: File | null): Observable<DtoInputUser> {
     let formData = new FormData();
-    if(image)
+    if (image)
       formData.append("profilePicture", image, image.name);
     return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}/profilePicture`, formData);
   }
@@ -63,8 +63,8 @@ export class UserService {
    * @param {DtoOutputUpdatePassword} dtoUpdatePassword - DtoOutputUpdatePassword
    * @returns An observable of type DtoInputUser
    */
-  public updatePassword(dtoUpdatePassword: DtoOutputUpdatePassword): Observable<DtoInputUser>{
-    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/password`, dtoUpdatePassword) ;
+  public updatePassword(dtoUpdatePassword: DtoOutputUpdatePassword): Observable<DtoInputUser> {
+    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/password`, dtoUpdatePassword);
   }
 
   /**
@@ -72,11 +72,15 @@ export class UserService {
    * @param {DtoOutputUpdateUser} dtoUpdateUser - DtoOutputUpdateUser
    * @returns An observable of type DtoInputUser
    */
-  public updateUser(dtoUpdateUser: DtoOutputUpdateUser): Observable<DtoInputUser>{
-    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}`, dtoUpdateUser) ;
+  public updateUser(dtoUpdateUser: DtoOutputUpdateUser): Observable<DtoInputUser> {
+    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}`, dtoUpdateUser);
   }
 
-  public becomeHost(id: number): Observable<DtoInputUser>{
+  public becomeHost(id: number): Observable<DtoInputUser> {
     return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}/becomeHost`, {});
+  }
+
+  public changeRole(id: number, newRoleId: number): Observable<DtoInputUser>{
+    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}/changeRole/${newRoleId}`, {});
   }
 }
