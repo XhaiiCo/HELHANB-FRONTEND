@@ -9,16 +9,7 @@ import {DtoInputAdSummary} from "../../dtos/ad/dto-input-ad-summary";
 export class CardComponent implements OnInit {
 
   //default declaration for avoiding to handle undefined in the child
-  @Input() ad : DtoInputAdSummary = {
-    id: 0,
-    name: "",
-    city: "",
-    country: "",
-    numberOfBedrooms: 0,
-    numberOfPersons: 0,
-    pricePerNight: 0,
-    pictures: []
-  };
+  @Input() ad! : DtoInputAdSummary;
 
   adBaseLink : string = "/annonces/";
 
