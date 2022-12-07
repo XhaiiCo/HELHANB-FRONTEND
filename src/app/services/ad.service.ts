@@ -74,4 +74,14 @@ export class AdService {
   removeReservation(reservationId: number): Observable<DtoInputReservation> {
     return this._httpClient.delete<DtoInputReservation>(`${AdService.ENTRY_POINT_URL}/${reservationId}/reservation`);
   }
+
+  fetchCountries(): Observable<string[]>
+  {
+    return this._httpClient.get<string[]>(`${AdService.ENTRY_POINT_URL}/countries`);
+  }
+
+  fetchCities(country: string): Observable<string[]>
+  {
+    return this._httpClient.get<string[]>(`${AdService.ENTRY_POINT_URL}/cities?country=${country}`);
+  }
 }

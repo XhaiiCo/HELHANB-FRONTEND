@@ -5,14 +5,15 @@
     Filtres
   </button>
   <form class="filteringForm" [formGroup]="filteringForm" *ngIf="this.displayFiltre">
-    <select class="input-select" formControlName="city">
-      <option disabled selected value="">Ville</option>
-      <option>Mons</option>
+
+    <select class="input-select" formControlName="country" (change)="fetchDistinctsCities($event)">
+      <option disabled selected value="">Pays</option>
+      <option *ngFor="let country of countries" value="{{country}}">{{country}}</option>
     </select>
 
-    <select class="input-select" formControlName="country">
-      <option disabled selected value="">Pays</option>
-      <option>Belgique</option>
+    <select class="input-select" formControlName="city">
+      <option disabled selected value="">Ville</option>
+      <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
     </select>
 
     <input class="input-text" type="number" placeholder="prix maximum">
