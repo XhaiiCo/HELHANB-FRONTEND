@@ -16,7 +16,6 @@ import {MyReservationComponent} from "../views/my-reservation/my-reservation.com
 import {MyRentingComponent} from "../views/my-renting/my-renting.component";
 import {CreateAdComponent} from "../views/create-ad/create-ad.component";
 import {AdToValidateComponent} from "../views/admin/ad-to-validate/ad-to-validate.component";
-import {MessagesComponent} from "../views/conversations/messages/messages.component";
 import {ConversationsComponent} from "../views/conversations/conversations.component";
 import {AdminRentingsComponent} from "../views/admin/admin-rentings/admin-rentings.component";
 
@@ -54,7 +53,7 @@ const routes: Routes = [
     component: AdminPageComponent,
     canActivate: [RoleGuardService],
     data: {
-      expectedRoles: ["administrateur"],
+      expectedRoles: ["administrateur", "super-administrateur"],
     },
     children: [
       {path: 'utilisateurs', component: UserListComponent},
