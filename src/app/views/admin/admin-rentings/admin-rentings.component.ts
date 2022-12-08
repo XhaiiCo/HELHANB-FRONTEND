@@ -51,12 +51,12 @@ export class AdminRentingsComponent implements OnInit {
     if (!isAccepted) return;
     if (!this.currentAd) return;
 
-    const id: number = this.currentAd.id;
+    const adSlug: string = this.currentAd.adSlug;
 
-    this._adService.delete(id).subscribe({
+    this._adService.delete(adSlug).subscribe({
       next: removedAd => {
         this._toastNotificationService.add(`${removedAd.name} supprimé avec succès`, "success");
-        this.removeAdById(removedAd.id);
+        this.removeAdById(removedAd.adSlug);
       },
       error: err => {
         this._toastNotificationService.add(`Erreur lors de la suppression`, "error");
@@ -64,10 +64,10 @@ export class AdminRentingsComponent implements OnInit {
     });
   }
 
-  removeAdById(id: number): void {
-    this.ads = this.ads.filter(item => item.id !== id);
+  removeAdById(adSlug: string): void {
+    this.ads = this.ads.filter(item => item.adSlug !== adSlug);
 
-    if (this.currentAd?.id === id) {
+    if (this.currentAd?.adSlug === adSlug) {
       this.currentAd = null;
     }
   }

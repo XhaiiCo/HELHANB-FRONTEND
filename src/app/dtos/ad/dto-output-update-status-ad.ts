@@ -1,4 +1,4 @@
 export interface DtoOutputUpdateStatusAd {
-  id: number ;
+  adSlug: string;
   statusId: number ;
 }

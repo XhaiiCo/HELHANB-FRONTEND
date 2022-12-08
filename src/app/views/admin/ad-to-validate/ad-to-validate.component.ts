@@ -28,7 +28,7 @@ export class AdToValidateComponent implements OnInit {
     if (!this.currentAd) return;
 
     if (this.currentAd) {
-      this.ads = this.ads.filter(ad => ad.id !== this.currentAd?.id);
+      this.ads = this.ads.filter(ad => ad.adSlug !== this.currentAd?.adSlug);
       if (this.ads.length > 0) {
         this.currentAd = this.ads[0];
       } else {
@@ -39,7 +39,7 @@ export class AdToValidateComponent implements OnInit {
 
   validCurrentAd() {
     if (!this.currentAd) return;
-    this._adService.updateStatus({id: this.currentAd?.id, statusId: 3}).subscribe((ad) => {
+    this._adService.updateStatus({adSlug: this.currentAd?.adSlug, statusId: 3}).subscribe((ad) => {
       this.removeCurrentAd();
       this._toastService.add("Annonce validée", "success");
     });
@@ -47,7 +47,7 @@ export class AdToValidateComponent implements OnInit {
 
   rejectCurrentAd() {
     if (!this.currentAd) return;
-    this._adService.updateStatus({id: this.currentAd?.id, statusId: 2}).subscribe((ad) => {
+    this._adService.updateStatus({adSlug: this.currentAd?.adSlug, statusId: 2}).subscribe((ad) => {
         this.removeCurrentAd();
         this._toastService.add("Annonce refusée", "sucess");
       });

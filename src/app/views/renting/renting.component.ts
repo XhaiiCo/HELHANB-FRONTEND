@@ -47,7 +47,7 @@ export class RentingComponent implements OnInit {
     this._route.paramMap.subscribe(args => {
 
       if (args.has("slug")) {
-        this.fetchAdBySlug(String(args.get("slug")));
+        this.fetchAdBySlug(args.get("slug")!);
       } else {
         this._router.navigate(['/404']);
       }

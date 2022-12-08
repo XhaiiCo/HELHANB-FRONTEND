@@ -1,7 +1,6 @@
 import {Time} from "@angular/common";
 
 export interface DtoInputAd {
-  id: number;
   name: string;
   created: Date;
   pricePerNight: number;
@@ -19,6 +18,7 @@ export interface DtoInputAd {
   pictures: DtoInputPicture[];
   owner: DtoInputOwner;
   status: DtoInputStatus;
+  adSlug: string;
 }
 
 interface DtoInputPicture {

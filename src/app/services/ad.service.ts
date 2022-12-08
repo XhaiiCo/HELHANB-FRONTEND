@@ -31,8 +31,8 @@ export class AdService {
     return this._httpClient.put(`${AdService.ENTRY_POINT_URL}/adUpdate`, dto);
   }
 
-  delete(id: number): Observable<DtoInputAd> {
-    return this._httpClient.delete<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/${id}`);
+  delete(adSlug: string): Observable<DtoInputAd> {
+    return this._httpClient.delete<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/${adSlug}`);
   }
 
   count(): Observable<number> {
