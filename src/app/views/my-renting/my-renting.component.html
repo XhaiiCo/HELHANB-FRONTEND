@@ -4,7 +4,7 @@
       <li [routerLink]="'/nouvelle-annonce'"><b>Ajouter une nouvelle annonce</b></li>
       <li *ngFor="let ad of ads"
           (click)="changeCurrentAd(ad)"
-          [class.active]="currentAd && ad.id === currentAd.id">
+          [class.active]="currentAd && ad.adSlug === currentAd.adSlug">
         <div class="list_item">
           <div>
             {{ad.name}}

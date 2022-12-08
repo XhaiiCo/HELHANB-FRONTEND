@@ -34,7 +34,7 @@ export class MyAdComponent implements OnInit {
               private _adService: AdService) { }
 
   ngOnInit(): void {
-
+    this.test();
   }
 
   onPictureAdded(files: any) {
@@ -68,7 +68,7 @@ export class MyAdComponent implements OnInit {
     let leaveTime:string = this.adUpdateForm.get("leaveTime")?.value!;
 
     let dto: DtoOutputUpdateAd = {
-        id: this.ad.id,
+        adSlug: this.ad.adSlug,
         name: this.ad.name,
         numberOfPersons: this.ad.numberOfPersons,
         numberOfBedrooms: this.ad.numberOfBedrooms,
@@ -88,6 +88,9 @@ export class MyAdComponent implements OnInit {
 
   }
 
+  test(){
+    console.log(this.ad.adSlug);
+  }
 
 
 }

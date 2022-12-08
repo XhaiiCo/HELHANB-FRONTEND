@@ -1,7 +1,7 @@
 import {Time} from "@angular/common";
 
 export interface DtoInputMyAds {
-  id: number;
+  adSlug: string;
   name: string;
   created: Date;
   pricePerNight: number;

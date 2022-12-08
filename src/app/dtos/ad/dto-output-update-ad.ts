@@ -2,7 +2,7 @@ import {DtoOutputTime} from "./dto-output-time";
 
 export interface DtoOutputUpdateAd
 {
-  id: number,
+  adSlug: string,
   name: string,
   numberOfPersons: number,
   numberOfBedrooms: number,

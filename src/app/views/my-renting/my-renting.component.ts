@@ -1,9 +1,7 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {AdService} from "../../services/ad.service";
 import {DtoInputMyAds} from "../../dtos/ad/dto-input-my-ads";
-import {ImgData} from "../../interfaces/img-data";
-import {MyAdComponent} from "./my-ad/my-ad.component";
 
 @Component({
   selector: 'app-my-renting',
