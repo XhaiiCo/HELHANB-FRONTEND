@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DropDownOption} from "../../interfaces/drop-down-option";
 import {AuthService} from "../../services/auth.service";
 import {environment} from "../../../environments/environment";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -40,9 +41,15 @@ export class HeaderComponent implements OnInit {
     {name: 'Deconnexion', path: '/deconnexion'}
   ]
 
-  constructor(public authService: AuthService) { }
+  adName: string = "";
+
+  constructor(public authService: AuthService, private _route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
+
+    console.log(this._route.snapshot.paramMap.get('adName'));
   }
+
 
 }
