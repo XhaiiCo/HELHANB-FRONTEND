@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AdService} from "../../services/ad.service";
 import {DtoInputAdSummary} from "../../dtos/ad/dto-input-ad-summary";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-homepage',
@@ -23,11 +24,15 @@ export class HomepageComponent implements OnInit {
 
   pageLoaded: boolean = false ;
 
-  constructor(private _adService : AdService) {}
+  constructor(private _adService : AdService, private _route: ActivatedRoute, private _router: Router) {}
 
   ngOnInit(): void {
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+
     this.count();
     this.fetchForPagination();
+
+    console.log(this._route.snapshot.paramMap.get('adName'));
   }
 
   count() {

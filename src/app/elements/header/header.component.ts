@@ -43,13 +43,18 @@ export class HeaderComponent implements OnInit {
 
   adName: string = "";
 
-  constructor(public authService: AuthService, private _route: ActivatedRoute) {
+  constructor(public authService: AuthService, private _router: Router) {
   }
 
   ngOnInit(): void {
-
-    console.log(this._route.snapshot.paramMap.get('adName'));
   }
 
-
+  search() {
+    if(this.adName){
+      this._router.navigate(['annonces', { adName:this.adName }]);
+    }
+    else {
+      this._router.navigate(['annonces']);
+    }
+  }
 }
