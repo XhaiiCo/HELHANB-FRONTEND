@@ -32,7 +32,7 @@ export class HomepageComponent implements OnInit {
     this.count();
     this.fetchForPagination();
 
-    console.log(this._route.snapshot.paramMap.get('adName'));
+    console.log(this._route.snapshot.queryParamMap.get('adName'));
   }
 
   count() {
