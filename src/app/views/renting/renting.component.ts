@@ -110,7 +110,7 @@ export class RentingComponent implements OnInit {
       leaveDate: this.toDtoOutputDate(this.dates.leave),
     }
 
-    this._adService.createReservation(this.ad.id, dto).subscribe({
+    this._adService.createReservation(this.ad.adSlug, dto).subscribe({
       next: result => {
         this._toastNotification.add("Demanded de réservation envoyée", "success");
         this.disableReservationBtn = false;
