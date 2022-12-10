@@ -27,8 +27,6 @@ export class HomepageComponent implements OnInit {
   constructor(private _adService : AdService, private _route: ActivatedRoute, private _router: Router) {}
 
   ngOnInit(): void {
-    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
-
     this.count();
     this.fetchForPagination();
 
