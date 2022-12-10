@@ -21,6 +21,7 @@ export class MyReservationComponent implements OnInit {
   reservationToDelete!: number;
 
   reservationsList: DtoInputReservation[] = [];
+  pageLoaded: boolean = false;
 
   constructor(
     private _authService: AuthService,
@@ -32,9 +33,17 @@ export class MyReservationComponent implements OnInit {
   ngOnInit(): void {
     if (!this._authService.user) return;
 
-    this._adService.fetchMyReservations().subscribe(
-      reservations => this.reservationsList = reservations
-    );
+    this._adService.fetchMyReservations().subscribe({
+
+      next: reservations => {
+        this.reservationsList = reservations
+        this.pageLoaded = true;
+      },
+      error: err => {
+        this.pageLoaded = true;
+      }
+
+    });
   }
 
   getAcceptedReservations(): DtoInputReservation[] {

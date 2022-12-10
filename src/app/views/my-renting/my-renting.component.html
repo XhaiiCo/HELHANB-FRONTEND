@@ -1,4 +1,8 @@
-<main class="my-renting-page" *ngIf="ads.length > 0 ; else noAdsToValidate">
+<div *ngIf="!pageLoaded" class="loader_container">
+  <app-loader></app-loader>
+</div>
+
+<main class="my-renting-page" *ngIf="pageLoaded && ads.length > 0 ; else noAdsToValidate">
   <section class="ad_list">
     <ul>
       <li [routerLink]="'/nouvelle-annonce'"><b>Ajouter une nouvelle annonce</b></li>
@@ -31,7 +35,7 @@
 </main>
 
 <ng-template #noAdsToValidate>
-  <main class="my-renting-page">
+  <main class="my-renting-page" *ngIf="pageLoaded">
     <p>Aucune annonce</p>
   </main>
 </ng-template>
