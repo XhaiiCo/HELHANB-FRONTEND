@@ -67,8 +67,8 @@ export class AdService {
     return this._httpClient.post<any>(`${AdService.ENTRY_POINT_URL}/reservation`, dto);
   }
 
-  fetchMyReservations(userId: number): Observable<DtoInputReservation[]> {
-    return this._httpClient.get<DtoInputReservation[]>(`${AdService.ENTRY_POINT_URL}/${userId}/myReservations`);
+  fetchMyReservations(): Observable<DtoInputReservation[]> {
+    return this._httpClient.get<DtoInputReservation[]>(`${AdService.ENTRY_POINT_URL}/myReservations`);
   }
 
   removeReservation(reservationId: number): Observable<DtoInputReservation> {

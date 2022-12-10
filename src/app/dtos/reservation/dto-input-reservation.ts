@@ -10,6 +10,7 @@ export interface DtoInputReservation {
   };
   ad: {
     id: number;
+    adSlug: string;
     name: string;
   };
   reservationStatus: {

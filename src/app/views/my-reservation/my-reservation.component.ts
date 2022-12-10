@@ -32,7 +32,7 @@ export class MyReservationComponent implements OnInit {
   ngOnInit(): void {
     if (!this._authService.user) return;
 
-    this._adService.fetchMyReservations(this._authService.user.id).subscribe(
+    this._adService.fetchMyReservations().subscribe(
       reservations => this.reservationsList = reservations
     );
   }
@@ -51,7 +51,7 @@ export class MyReservationComponent implements OnInit {
 
   cancelReservationClick(reservationId: number) {
     this.reservationToDelete = reservationId;
-    this.deleteModalOptions.showDeleteAdConfirmationModal = true ;
+    this.deleteModalOptions.showDeleteAdConfirmationModal = true;
   }
 
   removeReservation(reservationId: number) {
@@ -67,7 +67,7 @@ export class MyReservationComponent implements OnInit {
   }
 
   onModalDeleteAction(result: boolean) {
-    this.deleteModalOptions.showDeleteAdConfirmationModal = false ;
+    this.deleteModalOptions.showDeleteAdConfirmationModal = false;
     if (result) this.removeReservation(this.reservationToDelete);
   }
 }
