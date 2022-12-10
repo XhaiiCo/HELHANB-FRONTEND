@@ -5,6 +5,7 @@
   <section class="conversation_section">
     <ul class="conversation_list">
       <li
+        [class.active]="currentConversation && conversation.id === currentConversation.id"
         *ngFor="let conversation of conversations"
         (click)="changeCurrentConversation(conversation)">
         <div>
