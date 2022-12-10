@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DtoInputMyAds} from "../../../dtos/ad/dto-input-my-ads";
+import {DtoInputMyAds, DtoInputReservation} from "../../../dtos/ad/dto-input-my-ads";
 import {environment} from "../../../../environments/environment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AdHandleService} from "../../../services/ad-handle.service";
@@ -97,5 +97,12 @@ export class MyAdComponent implements OnInit {
         },
       });
 
+  }
+
+  sortReservationByStatusName(statusName: string): DtoInputReservation[] {
+    if (this.ad) {
+      return this.ad.reservations.filter(item => item?.statusMyAds?.statusName === statusName);
+    }
+    return [];
   }
 }

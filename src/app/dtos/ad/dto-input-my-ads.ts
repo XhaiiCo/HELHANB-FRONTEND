@@ -41,11 +41,11 @@ interface DtoInputStatus {
   statusName: string;
 }
 
-interface DtoInputReservation {
+export interface DtoInputReservation {
   arrivalDate: Date;
   leaveDate: Date;
-  status: DtoInputStatus;
-  renter: DtoInputRenter;
+  statusMyAds: DtoInputStatus;
+  renterMyAds: DtoInputRenter;
 }
 
 interface DtoInputStatus {
@@ -57,4 +57,5 @@ interface DtoInputRenter {
   id: number;
   firstName: string;
   lastName: string;
+  profilePicturePath: string;
 }

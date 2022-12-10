@@ -1,0 +1,13 @@
+<ul>
+  <li *ngFor="let reservation of reservations">
+    <div class="info"> <!-- center -->
+      <div> <!-- top -->
+        <span>{{ reservation.renterMyAds.lastName }} {{ reservation.renterMyAds.firstName }}</span>
+      </div>
+      <div> <!-- mid -->
+        <span>du {{ reservation.arrivalDate }} au {{ reservation.leaveDate }}
+          ({{ nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
+      </div>
+    </div>
+  </li>
+</ul>

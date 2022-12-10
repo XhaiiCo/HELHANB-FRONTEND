@@ -41,6 +41,7 @@ import { ReservationsToConfirmComponent } from './views/my-renting/my-ad/reserva
 import { FilteringFormComponent } from './component/filtering-form/filtering-form.component';
 import { AdminRentingsComponent } from './views/admin/admin-rentings/admin-rentings.component';
 import { ReservationListComponent } from './views/my-reservation/reservation-list/reservation-list.component';
+import { MyAdReservationListComponent } from './my-renting/my-ad/my-ad-reservation-list/my-ad-reservation-list.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { ReservationListComponent } from './views/my-reservation/reservation-lis
     FilteringFormComponent,
     AdminRentingsComponent,
     ReservationListComponent,
+    MyAdReservationListComponent,
   ],
     imports: [
         BrowserModule,
