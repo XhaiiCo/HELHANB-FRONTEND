@@ -11,9 +11,11 @@
         <div>
           <img [src]="profilePictureBaseUri + conversation.recipient.profilePicturePath" alt="Photo de profil">
         </div>
-        <div>
+        <div class="recipient-info">
+          <span>
           {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
-          <span *ngIf="conversation.messageNotView">Non vue</span>
+          </span>
+          <span class="new-message" *ngIf="conversation.messageNotView">Nouveaux !</span>
         </div>
       </li>
     </ul>

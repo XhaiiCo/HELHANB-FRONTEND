@@ -42,6 +42,17 @@
     object-fit: cover;
     aspect-ratio: 1 / 1;
   }
+
+  .new-message {
+    color: $main-color;
+    font-size: 11px;
+  }
+
+  .recipient-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .conversation_section {
@@ -76,7 +87,7 @@
   }
 
   .conversation_list {
-    li{
+    li {
       width: 100%;
     }
   }
