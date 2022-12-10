@@ -59,8 +59,8 @@ export class AdService {
     return this._httpClient.put<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/status`, dto);
   }
 
-  fetchMyAds(userId: number): Observable<DtoInputMyAds[]> {
-    return this._httpClient.get<DtoInputMyAds[]>(`${AdService.ENTRY_POINT_URL}/${userId}/myAds`);
+  fetchMyAds(): Observable<DtoInputMyAds[]> {
+    return this._httpClient.get<DtoInputMyAds[]>(`${AdService.ENTRY_POINT_URL}/myAds`);
   }
 
   createReservation(adSlug: string, dto: DtoOutputNewReservation): Observable<any> {
@@ -75,13 +75,11 @@ export class AdService {
     return this._httpClient.delete<DtoInputReservation>(`${AdService.ENTRY_POINT_URL}/reservation/${reservationId}`);
   }
 
-  fetchCountries(): Observable<string[]>
-  {
+  fetchCountries(): Observable<string[]> {
     return this._httpClient.get<string[]>(`${AdService.ENTRY_POINT_URL}/countries`);
   }
 
-  fetchCities(country: string): Observable<string[]>
-  {
+  fetchCities(country: string): Observable<string[]> {
     return this._httpClient.get<string[]>(`${AdService.ENTRY_POINT_URL}/cities?country=${country}`);
   }
 }
