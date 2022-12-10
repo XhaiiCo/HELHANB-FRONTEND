@@ -68,6 +68,7 @@ export class HomepageComponent implements OnInit {
 
   changeFilter(event: any)
   {
+    this.index = 1;
     this.rulerLength = 5;
     this.count();
     this.fetchForPagination();

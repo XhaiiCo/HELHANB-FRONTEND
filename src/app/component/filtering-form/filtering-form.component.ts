@@ -13,14 +13,14 @@ export class FilteringFormComponent implements OnInit {
   countries: string[] = [];
   cities: string[] = [];
 
-  filteringFormName: string[] = ["country", "city", "price", "nbPersons"];
+  filteringFormName: string[] = ["country", "city", "pricePerNight", "numberOfPersons"];
   params: any = {};
 
   filteringForm: FormGroup = this._fb.group({
     country: this._fb.control(""),
     city: this._fb.control(""),
-    price: this._fb.control(0),
-    nbPersons: this._fb.control(0),
+    pricePerNight: this._fb.control(""),
+    numberOfPersons: this._fb.control(""),
     startDate: this._fb.control(""),
     leaveDate: this._fb.control(""),
   });
@@ -58,7 +58,7 @@ export class FilteringFormComponent implements OnInit {
 
     this.addAllParams();
 
-    this._router.navigate(['annonces'], {queryParams: this.params}).then(then => {this.notify.emit("notify")});
+    this._router.navigate(['annonces'], {queryParams: this.params}).then(() => {this.notify.emit("notify")});
 
 
   }

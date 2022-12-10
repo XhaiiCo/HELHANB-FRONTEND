@@ -40,6 +40,9 @@ export class AdService {
     let httpParams = new URLSearchParams;
 
     if(params.get('country')) httpParams.set("country", params.get('country'));
+    if(params.get('city')) httpParams.set("city", params.get('city'));
+    if(params.get('pricePerNight')) httpParams.set("pricePerNight", params.get('pricePerNight'));
+    if(params.get('numberOfPersons')) httpParams.set("numberOfPersons", params.get('numberOfPersons'));
 
     return this._httpClient.get<number>(`${AdService.ENTRY_POINT_URL}/count?${httpParams.toString()}`);
   }
@@ -52,6 +55,9 @@ export class AdService {
     httpParams.set("offset", offset.toString());
 
     if(params.get('country')) httpParams.set("country", params.get('country'));
+    if(params.get('city')) httpParams.set("city", params.get('city'));
+    if(params.get('pricePerNight')) httpParams.set("pricePerNight", params.get('pricePerNight'));
+    if(params.get('numberOfPersons')) httpParams.set("numberOfPersons", params.get('numberOfPersons'));
 
     return this._httpClient.get<DtoInputAdSummary[]>(`${AdService.ENTRY_POINT_URL}/summary?${httpParams.toString()}`);
   }
