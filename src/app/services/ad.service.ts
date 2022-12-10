@@ -35,12 +35,25 @@ export class AdService {
     return this._httpClient.delete<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/${adSlug}`);
   }
 
-  count(): Observable<number> {
-    return this._httpClient.get<number>(AdService.ENTRY_POINT_URL + '/count');
+  count(params : any): Observable<number> {
+
+    let httpParams = new URLSearchParams;
+
+    if(params.get('country')) httpParams.set("country", params.get('country'));
+
+    return this._httpClient.get<number>(`${AdService.ENTRY_POINT_URL}/count?${httpParams.toString()}`);
   }
 
-  fetchForPagination(limit: number, offset: number): Observable<DtoInputAdSummary[]> {
-    return this._httpClient.get<DtoInputAdSummary[]>(`${AdService.ENTRY_POINT_URL}/summary?limit=${limit}&offset=${offset}`);
+  fetchForPagination(limit: number, offset: number, params : any): Observable<DtoInputAdSummary[]> {
+
+    let httpParams = new URLSearchParams;
+
+    httpParams.set("limit", limit.toString());
+    httpParams.set("offset", offset.toString());
+
+    if(params.get('country')) httpParams.set("country", params.get('country'));
+
+    return this._httpClient.get<DtoInputAdSummary[]>(`${AdService.ENTRY_POINT_URL}/summary?${httpParams.toString()}`);
   }
 
   fetchBySlug(slug: string): Observable<DtoInputAdWithReservation> {

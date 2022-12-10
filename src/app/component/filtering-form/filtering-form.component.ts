@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {AdService} from "../../services/ad.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -10,11 +10,11 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class FilteringFormComponent implements OnInit {
 
-  countries : string[] = [];
-  cities : string[] = [];
+  countries: string[] = [];
+  cities: string[] = [];
 
-  filteringFormName : string[] = ["country", "city", "price", "nbPersons"];
-  params : any = {};
+  filteringFormName: string[] = ["country", "city", "price", "nbPersons"];
+  params: any = {};
 
   filteringForm: FormGroup = this._fb.group({
     country: this._fb.control(""),
@@ -25,7 +25,9 @@ export class FilteringFormComponent implements OnInit {
     leaveDate: this._fb.control(""),
   });
 
-  displayFiltre: boolean = false ;
+  displayFiltre: boolean = false;
+
+  @Output() notify: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private _fb: FormBuilder, private _adService: AdService, private _router: Router, private _route: ActivatedRoute) {
   }
@@ -35,18 +37,16 @@ export class FilteringFormComponent implements OnInit {
   }
 
   toggleDisplayFiltre() {
-   this.displayFiltre = !this.displayFiltre ;
+    this.displayFiltre = !this.displayFiltre;
   }
 
-  fetchCountries()
-  {
+  fetchCountries() {
     this._adService
       .fetchCountries()
       .subscribe(countries => this.countries = countries);
   }
 
-  fetchDistinctsCities(event: any)
-  {
+  fetchDistinctsCities(event: any) {
     this._adService
       .fetchCities(event.target.value)
       .subscribe(cities => this.cities = cities);
@@ -58,21 +58,20 @@ export class FilteringFormComponent implements OnInit {
 
     this.addAllParams();
 
-    this._router.navigate(['annonces'], { queryParams : this.params});
+    this._router.navigate(['annonces'], {queryParams: this.params}).then(then => {this.notify.emit("notify")});
+
+
   }
 
-  addAllParams()
-  {
-    for (let name of this.filteringFormName)
-    {
-        let param = this.filteringForm.get(name)?.value;
+  addAllParams() {
+    for (let name of this.filteringFormName) {
+      let param = this.filteringForm.get(name)?.value;
 
-        if(param) Object.assign(this.params, {[name]: param});
-
+      if (param) Object.assign(this.params, {[name]: param});
     }
   }
 
-  clearParams(){
+  clearParams() {
     for (const key in this.params) {
       delete this.params[key];
     }
