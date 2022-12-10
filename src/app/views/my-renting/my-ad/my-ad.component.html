@@ -67,7 +67,7 @@
     <p>Départ avant <input type="time" class="input-adjust" formControlName="leaveTime" [(ngModel)]="ad.leaveTime"></p>
 
     <div class="submit_btn_container">
-      <button class="btn-primary">Modifier</button>
+      <button class="btn-primary" [disabled]="disabledUpdateBtn">Modifier</button>
     </div>
   </form>
 
