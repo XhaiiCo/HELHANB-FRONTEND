@@ -105,6 +105,7 @@ export class RentingComponent implements OnInit {
     }
 
     const dto: DtoOutputNewReservation = {
+      adSlug: this.ad.adSlug,
       renterId: this._authService.user?.id,
       arrivalDate: this.toDtoOutputDate(this.dates.arrival),
       leaveDate: this.toDtoOutputDate(this.dates.leave),
