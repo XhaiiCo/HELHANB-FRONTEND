@@ -13,6 +13,7 @@
         </div>
         <div>
           {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
+          <span *ngIf="conversation.messageNotView">Non vue</span>
         </div>
       </li>
     </ul>
