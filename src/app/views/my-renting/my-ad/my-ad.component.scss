@@ -87,10 +87,13 @@ textarea {
 
 }
 
-.btn-primary{
-  width: 100% ;
-}
+.submit_btn_container {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-.submit_btn_container{
-  padding: 50px ;
+  button {
+    width: 100%;
+  }
 }

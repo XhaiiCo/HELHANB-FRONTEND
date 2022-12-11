@@ -6,6 +6,7 @@ import {AdHandleService} from "../../../services/ad-handle.service";
 import {AdService} from "../../../services/ad.service";
 import {DtoOutputUpdateAd} from "../../../dtos/ad/dto-output-update-ad";
 import {ToastNotificationService} from "../../../services/toast-notification.service";
+import {DtoOutputUpdateStatusAd} from "../../../dtos/ad/dto-output-update-status-ad";
 
 @Component({
   selector: 'app-my-ad',
@@ -104,5 +105,22 @@ export class MyAdComponent implements OnInit {
       return this.ad.reservations.filter(item => item?.statusMyAds?.statusName === statusName);
     }
     return [];
+  }
+
+  changeStatus(statusId: number) {
+    const dto: DtoOutputUpdateStatusAd = {
+      statusId: statusId,
+      adSlug: this.ad.adSlug,
+    }
+
+    this._adService.updateStatus(dto).subscribe({
+      next: result => {
+        this.ad.status = result.status;
+        this._toastNotificationService.add("Annonce modifiée", "success");
+      },
+      error: err => {
+        this._toastNotificationService.add(err.error, "error");
+      }
+    })
   }
 }

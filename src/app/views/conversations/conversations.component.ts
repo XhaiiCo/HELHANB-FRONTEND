@@ -15,7 +15,7 @@ import {environment} from "../../../environments/environment";
   templateUrl: './conversations.component.html',
   styleUrls: ['./conversations.component.scss']
 })
-export class ConversationsComponent implements OnInit, OnDestroy{
+export class ConversationsComponent implements OnInit, OnDestroy {
 
   conversations: DtoInputMyConversations[] = [];
   currentConversation!: DtoInputMyConversations;
@@ -50,6 +50,7 @@ export class ConversationsComponent implements OnInit, OnDestroy{
 
     this._chatService.start().then(r =>
       this._chatService.retrieveMappedObject().subscribe((receivedObj: DtoInputMessageHub) => {
+        if (receivedObj.senderId === this._authService.user?.id) return;
         if (!this.currentConversation || receivedObj.senderId !== this.currentConversation.recipient.id) {
 
           //If the message does not belong to the current conversation, set the conversation concerned with unread message
@@ -74,7 +75,7 @@ export class ConversationsComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this._chatService.stop() ;
+    this._chatService.stop();
   }
 
   send(msg: string): void {

@@ -68,6 +68,22 @@
 
     <div class="submit_btn_container">
       <button class="btn-primary" [disabled]="disabledUpdateBtn">Modifier</button>
+      <button
+        type="button"
+        class="btn-secondary"
+        (click)="changeStatus(4)"
+        *ngIf="ad.status.statusName === 'acceptée'"
+      >
+        Désactiver
+      </button>
+      <button
+        type="button"
+        class="btn-secondary"
+        (click)="changeStatus(3)"
+        *ngIf="ad.status.statusName === 'désactivée'"
+      >
+        Activer
+      </button>
     </div>
   </form>
 
