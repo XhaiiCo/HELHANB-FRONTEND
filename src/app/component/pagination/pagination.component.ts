@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Pagination} from "./pagination";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent implements OnInit
-{
+export class PaginationComponent implements OnInit {
   @Input() maxPages: number = 0;
 
   @Input() rulerLength: number = 5;
@@ -16,16 +16,15 @@ export class PaginationComponent implements OnInit
   @Output() indexChange: EventEmitter<number> = new EventEmitter<number>();
 
   ngOnInit(): void {
-
   }
 
-  constructor() {}
+  constructor(private _route: ActivatedRoute, private _router: Router) {
+  }
 
-  get pagination(): Pagination
-  {
-    const { index, maxPages, rulerLength } = this;
+  get pagination(): Pagination {
+    const {index, maxPages, rulerLength} = this;
     const numPages = this.ruler(index, maxPages, rulerLength);
-    return { index, numPages } as Pagination;
+    return {index, numPages} as Pagination;
   }
 
   /**
@@ -33,12 +32,16 @@ export class PaginationComponent implements OnInit
    * the new page number
    * @param {number} pageNumber - The page number to navigate to.
    */
-  navigateToPage(pageNumber: number): void
-  {
-    if(pageNumber !== this.index)
-    {
+  navigateToPage(pageNumber: number): void {
+    if (pageNumber !== this.index) {
       this.index = pageNumber;
       this.indexChange.emit(this.index);
+
+      this._router.navigate([], {
+        relativeTo: this._route,
+        queryParams: {page: this.index},
+        queryParamsHandling: 'merge'
+      });
     }
   }
 
@@ -49,8 +52,7 @@ export class PaginationComponent implements OnInit
    * @param {number} rulerLength - the length of the ruler
    * @returns An array of numbers.
    */
-  ruler(currentIndex: number, maxPages: number, rulerLength: number): number[]
-  {
+  ruler(currentIndex: number, maxPages: number, rulerLength: number): number[] {
     const array = new Array(rulerLength).fill(null);
 
     const min = Math.floor(rulerLength / 2);
@@ -58,14 +60,10 @@ export class PaginationComponent implements OnInit
     return array.map((currentElement, index) => this.indexesOfRuler(currentIndex, index, min, maxPages, rulerLength));
   }
 
-  indexesOfRuler(currentIndex: number, index: number, min: number, maxPages: number, rulerLength: number): number
-  {
-    if(currentIndex <= min)
-    {
+  indexesOfRuler(currentIndex: number, index: number, min: number, maxPages: number, rulerLength: number): number {
+    if (currentIndex <= min) {
       return index + 1;
-    }
-    else if(currentIndex >= maxPages - min)
-    {
+    } else if (currentIndex >= maxPages - min) {
       return maxPages - rulerLength + index + 1;
     }
     return currentIndex + index - min;

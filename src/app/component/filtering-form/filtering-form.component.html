@@ -7,12 +7,12 @@
   <form class="filteringForm" [formGroup]="filteringForm" *ngIf="this.displayFiltre">
 
     <select class="input-select" formControlName="country" (change)="fetchDistinctsCities($event)">
-      <option disabled selected value="">Pays</option>
+      <option disabled value="">Pays</option>
       <option *ngFor="let country of countries" value="{{country}}">{{country}}</option>
     </select>
 
     <select class="input-select" formControlName="city">
-      <option disabled selected value="">Ville</option>
+      <option disabled value="">Ville</option>
       <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
     </select>
 

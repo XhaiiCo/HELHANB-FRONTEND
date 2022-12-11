@@ -30,9 +30,12 @@ export class HomepageComponent implements OnInit {
   constructor(private _adService : AdService, private _route: ActivatedRoute, private _router: Router) {}
 
   ngOnInit(): void {
+    let currentPage : number = Number(this._route.snapshot.queryParamMap.get('page'));
+
+    if(currentPage) this.index = currentPage;
+
     this.count();
     this.fetchForPagination();
-
   }
 
   count() {
