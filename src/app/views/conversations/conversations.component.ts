@@ -50,7 +50,16 @@ export class ConversationsComponent implements OnInit {
 
     this._chatService.start().then(r =>
       this._chatService.retrieveMappedObject().subscribe((receivedObj: DtoInputMessageHub) => {
-        if (receivedObj.senderId !== this.currentConversation.recipient.id) return;
+        if (!this.currentConversation || receivedObj.senderId !== this.currentConversation.recipient.id) {
+
+          //If the message does not belong to the current conversation, set the conversation concerned with unread message
+          const conversation: DtoInputMyConversations | undefined = this.conversations.find(item => item.recipient.id == receivedObj.senderId);
+          if (conversation) {
+            conversation.messageNotView = true;
+            this.conversations = this.sortByNotViewConversation(this.conversations);
+          }
+          return;
+        }
 
         const newMessage: DtoInputMessageOfAConversation = {
           content: receivedObj.message,
