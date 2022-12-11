@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DtoInputMyConversations} from "../../dtos/conversation/dto-input-my-conversations";
 import {ConversationService} from "../../services/conversation.service";
 import {AuthService} from "../../services/auth.service";
@@ -15,7 +15,7 @@ import {environment} from "../../../environments/environment";
   templateUrl: './conversations.component.html',
   styleUrls: ['./conversations.component.scss']
 })
-export class ConversationsComponent implements OnInit {
+export class ConversationsComponent implements OnInit, OnDestroy{
 
   conversations: DtoInputMyConversations[] = [];
   currentConversation!: DtoInputMyConversations;
@@ -73,6 +73,10 @@ export class ConversationsComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(): void {
+    this._chatService.stop() ;
+  }
+
   send(msg: string): void {
     if (!this._authService.user) return;
 
@@ -119,4 +123,5 @@ export class ConversationsComponent implements OnInit {
       (item1.messageNotView === item2.messageNotView) ? 0 : item1.messageNotView ? -1 : 1
     )
   }
+
 }

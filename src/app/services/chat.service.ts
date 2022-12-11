@@ -27,13 +27,17 @@ export class ChatService {
 
   // Start the connection
   public async start() {
-    await this.connection.stop();
     try {
       await this.connection.start();
     } catch (err) {
       console.log(err);
       setTimeout(() => this.start(), 5000);
     }
+  }
+
+  // Stop the connection
+  public stop(){
+    this.connection.stop();
   }
 
   private mapReceivedMessage(message: string, senderId: number): void {
