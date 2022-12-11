@@ -120,7 +120,6 @@ export class RentingComponent implements OnInit {
         this._toastNotification.add(err.error, "error");
         this.disableReservationBtn = false;
       }
-
     });
   }
 

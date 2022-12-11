@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DtoInputUserReservation, DtoOuputDate} from "../../../../dtos/user/dto-input-user-reservation";
 import {environment} from "../../../../../environments/environment";
+import {AdService} from "../../../../services/ad.service";
+import {ToastNotificationService} from "../../../../services/toast-notification.service";
 
 @Component({
   selector: 'app-reservations-to-confirm',
@@ -8,84 +10,64 @@ import {environment} from "../../../../../environments/environment";
   styleUrls: ['./reservations-to-confirm.component.scss']
 })
 export class ReservationsToConfirmComponent implements OnInit {
-  @Input() reservations: DtoInputUserReservation[] = [
-    {
-      id: 1,
-      firstName: "Alfred",
-      lastName : "Johnson",
-      profilePicturePath : environment.defaultProfilePictureUrl,
-      renterId : 1,
-      arrivalDate : {
-        year : 2022,
-        month : 12,
-        day : 4
-      },
-      leaveDate : {
-        year : 2022,
-        month : 12,
-        day : 10
-      },
-      reservationDate : {
-        year : 2022,
-        month : 11,
-        day : 9
-      }
-    }, {
-      id: 2,
-      firstName: "François",
-      lastName : "Babouche",
-      profilePicturePath : environment.defaultProfilePictureUrl,
-      renterId : 2,
-      arrivalDate : {
-        year : 2022,
-        month : 12,
-        day : 10
-      },
-      leaveDate : {
-        year : 2022,
-        month : 12,
-        day : 15
-      },
-      reservationDate : {
-        year : 2022,
-        month : 11,
-        day : 10
-      }
-    }, {
-      id: 2,
-      firstName: "François",
-      lastName : "Delrue",
-      profilePicturePath : environment.defaultProfilePictureUrl,
-      renterId : 2,
-      arrivalDate : {
-        year : 2022,
-        month : 12,
-        day : 9
-      },
-      leaveDate : {
-        year : 2022,
-        month : 12,
-        day : 12
-      },
-      reservationDate : {
-        year : 2022,
-        month : 11,
-        day : 11
-      }
-    },
+  @Input() adSlug!: string;
+
+  reservations: DtoInputUserReservation[] = [{
+      arrivalDate: {year:0,month:0,day:0},
+      firstName: "",
+      id: -1,
+      lastName: "",
+      leaveDate: {year:0,month:0,day:0},
+      profilePicturePath: null,
+      renterId: -1,
+      reservationDate: {year:0,month:0,day:0}
+    }
   ];
 
   conflictsMap: [{ key: DtoInputUserReservation, val: DtoInputUserReservation[] } | null] = [ null ];
   conflictsListToDisplay: DtoInputUserReservation[] = [];
   clickedReservation: DtoInputUserReservation | null = null;
+  ascendingOrder: boolean = true;
+  sortIndex: string = "0";
+  displayConfirmationForm: boolean = false;
+  displayRefusalForm: boolean = false;
+  reservationToDecline: DtoInputUserReservation = {
+    arrivalDate: {year:0,month:0,day:0},
+    firstName: "",
+    id: -1,
+    lastName: "",
+    leaveDate: {year:0,month:0,day:0},
+    profilePicturePath: null,
+    renterId: -1,
+    reservationDate: {year:0,month:0,day:0}
+  };
+  reservationToConfirm: DtoInputUserReservation = {
+    arrivalDate: {year:0,month:0,day:0},
+    firstName: "",
+    id: -1,
+    lastName: "",
+    leaveDate: {year:0,month:0,day:0},
+    profilePicturePath: null,
+    renterId: -1,
+    reservationDate: {year:0,month:0,day:0}
+  };
 
-  constructor() {}
+  constructor(private _adService: AdService, private _toastNotification: ToastNotificationService) {}
 
   ngOnInit(): void {
-    this.reservations.sort(function(a, b) {
-      return a.lastName === b.lastName ? 0 : a.lastName < b.lastName ? -1 : 1;
+    this._adService.fetchAllReservationToConfirm(this.adSlug).subscribe(result => {
+      this.reservations = result;
+
+      this.reservations.forEach(function(e) {
+        e.profilePicturePath = environment.pictureUrl + e.profilePicturePath;
+      });
+
+      this.reservations.sort(function(a, b) {
+        return a.lastName === b.lastName ? 0 : a.lastName < b.lastName ? -1 : 1;
+      });
+
+      this.setConflictsList();
     });
-    this.setConflictsList();
   }
 
   dtoObjectToDateFR(dtoDate: DtoOuputDate) {
@@ -105,6 +87,8 @@ export class ReservationsToConfirmComponent implements OnInit {
 
   // Calcul le nombre de conflits avec la reservation passée en argument
   setConflictsList() {
+    let conflictsMap: any = [];
+
     // Pour chaque élément dans toutes les réservations
     for (let reservationI of this.reservations) {
       let reservationIConflictsList: DtoInputUserReservation[] = [];
@@ -127,8 +111,10 @@ export class ReservationsToConfirmComponent implements OnInit {
           }
         }
       }
-      this.conflictsMap.push({key: reservationI, val: reservationIConflictsList});
+      conflictsMap.push({key: reservationI, val: reservationIConflictsList});
     }
+
+    this.conflictsMap = conflictsMap;
   }
 
   // Récupère une liste de dates getDate(1 janvier, 5 janvier) renvoi [1, 2, 3, 4] car on compte pas le jour où il part
@@ -146,30 +132,33 @@ export class ReservationsToConfirmComponent implements OnInit {
   }
 
   getConflictsOfReservation(reservation: DtoInputUserReservation) {
-    if (this.conflictsMap.find(e => e?.key === reservation))
-      return this.conflictsMap.find(e => e?.key === reservation)?.val;
+    let arr = this.conflictsMap.find(e => e?.key === reservation)?.val;
+    if (arr !== undefined)
+      return arr;
     else
-      return null;
+      return [];
   }
 
   nbConflicts(reservation: DtoInputUserReservation) {
-    if (this.getConflictsOfReservation(reservation) !== undefined)
-      // @ts-ignore
-      return this.getConflictsOfReservation(reservation).length;
-    else
-      return 0;
+    let nb = this.conflictsMap.find(e => e?.key === reservation)?.val.length;
+    return (nb !== undefined) ? nb : 0;
   }
 
   displayConflicts(reservation?: DtoInputUserReservation) {
-    if (reservation !== undefined)
-      // @ts-ignore
+    if (reservation !== undefined) {
       this.conflictsListToDisplay = this.getConflictsOfReservation(reservation);
-    else
-      if (this.clickedReservation !== null)
-        // @ts-ignore
+    } else {
+      if (this.clickedReservation !== null) {
         this.conflictsListToDisplay = this.getConflictsOfReservation(this.clickedReservation);
-      else
+      } else {
         this.conflictsListToDisplay = [];
+      }
+    }
+
+    this.sortConflicts();
+
+    if (!this.ascendingOrder)
+      this.conflictsListToDisplay.reverse();
   }
 
   reservationClicked(reservation: DtoInputUserReservation) {
@@ -179,13 +168,26 @@ export class ReservationsToConfirmComponent implements OnInit {
       this.clickedReservation = null;
   }
 
-  sort(e: any) {
-    switch (e.value) {
+  setSortOrder(e: any) {
+    this.ascendingOrder = e.value === "0";
+    this.sortAll();
+  }
+
+  sortAll(e?: any) {
+    if (e)
+      this.sortIndex = e.value;
+
+    this.sortReservation();
+    this.sortConflicts();
+
+    if (!this.ascendingOrder)
+      this.reservations.reverse()
+  }
+
+  sortReservation() {
+    switch (this.sortIndex) {
       case "0":
         this.reservations.sort(function(a, b) {
-          return a.lastName === b.lastName ? 0 : a.lastName < b.lastName ? -1 : 1;
-        });
-        this.conflictsListToDisplay.sort(function(a, b) {
           return a.lastName === b.lastName ? 0 : a.lastName < b.lastName ? -1 : 1;
         });
         break;
@@ -194,16 +196,10 @@ export class ReservationsToConfirmComponent implements OnInit {
         this.reservations.sort((a, b) => {
           return new Date(this.dtoObjectToDateUS(a.reservationDate)).getTime() - new Date(this.dtoObjectToDateUS(b.reservationDate)).getTime();
         });
-        this.conflictsListToDisplay.sort((a, b) => {
-          return new Date(this.dtoObjectToDateUS(a.reservationDate)).getTime() - new Date(this.dtoObjectToDateUS(b.reservationDate)).getTime();
-        });
         break;
 
       case "2" :
         this.reservations.sort((a, b) => {
-          return this.nbDaysBetweenDates(a.arrivalDate, a.leaveDate) - this.nbDaysBetweenDates(b.arrivalDate, b.leaveDate);
-        });
-        this.conflictsListToDisplay.sort((a, b) => {
           return this.nbDaysBetweenDates(a.arrivalDate, a.leaveDate) - this.nbDaysBetweenDates(b.arrivalDate, b.leaveDate);
         });
         break;
@@ -212,6 +208,34 @@ export class ReservationsToConfirmComponent implements OnInit {
         this.reservations.sort((a, b) => {
           return this.nbConflicts(a) - this.nbConflicts(b);
         });
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  sortConflicts() {
+    switch (this.sortIndex) {
+      case "0":
+        this.conflictsListToDisplay.sort(function(a, b) {
+          return a.lastName === b.lastName ? 0 : a.lastName < b.lastName ? -1 : 1;
+        });
+        break;
+
+      case "1" :
+        this.conflictsListToDisplay.sort((a, b) => {
+          return new Date(this.dtoObjectToDateUS(a.reservationDate)).getTime() - new Date(this.dtoObjectToDateUS(b.reservationDate)).getTime();
+        });
+        break;
+
+      case "2" :
+        this.conflictsListToDisplay.sort((a, b) => {
+          return this.nbDaysBetweenDates(a.arrivalDate, a.leaveDate) - this.nbDaysBetweenDates(b.arrivalDate, b.leaveDate);
+        });
+        break;
+
+      case "3" :
         this.conflictsListToDisplay.sort((a, b) => {
           return this.nbConflicts(a) - this.nbConflicts(b);
         });
@@ -220,5 +244,78 @@ export class ReservationsToConfirmComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  displayConfirmation(reservation: DtoInputUserReservation) {
+    this.displayConfirmationForm = true;
+    this.reservationToConfirm = reservation;
+  }
+
+  displayRefusal(reservation: DtoInputUserReservation) {
+    this.displayRefusalForm = true;
+    this.reservationToDecline = reservation;
+  }
+
+  cancelConfirmation() {
+    this.displayConfirmationForm = false;
+    this.reservationToConfirm = {
+      arrivalDate: {year:0,month:0,day:0},
+      firstName: "",
+      id: -1,
+      lastName: "",
+      leaveDate: {year:0,month:0,day:0},
+      profilePicturePath: "",
+      renterId: 0,
+      reservationDate: {year:0,month:0,day:0}
+    };
+  }
+
+  cancelRefusal() {
+    this.displayRefusalForm = false;
+    this.reservationToDecline = {
+      arrivalDate: {year:0,month:0,day:0},
+      firstName: "",
+      id: -1,
+      lastName: "",
+      leaveDate: {year:0,month:0,day:0},
+      profilePicturePath: "",
+      renterId: 0,
+      reservationDate: {year:0,month:0,day:0}
+    };
+  }
+
+  authorizeReservation() {
+  }
+
+  declineReservation() {
+    this._adService.removeReservation(this.reservationToDecline.id).subscribe(result => {
+      this.displayRefusalForm = false;
+      this.reservationToDecline = {
+        arrivalDate: {year:0,month:0,day:0},
+        firstName: "",
+        id: -1,
+        lastName: "",
+        leaveDate: {year:0,month:0,day:0},
+        profilePicturePath: "",
+        renterId: 0,
+        reservationDate: {year:0,month:0,day:0}
+      };
+      this.clickedReservation = {
+        arrivalDate: {year:0,month:0,day:0},
+        firstName: "",
+        id: -1,
+        lastName: "",
+        leaveDate: {year:0,month:0,day:0},
+        profilePicturePath: "",
+        renterId: 0,
+        reservationDate: {year:0,month:0,day:0}
+      };
+
+      this._toastNotification.add(
+        "La réservation de "+ result.renter.lastName +" "+ result.renter.firstName +" a été refusée avec succès",
+        "success"
+      );
+    });
+
   }
 }

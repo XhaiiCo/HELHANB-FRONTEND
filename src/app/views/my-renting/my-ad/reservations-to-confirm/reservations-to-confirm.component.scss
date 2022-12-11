@@ -1,4 +1,13 @@
+@import '/src/styles/helpers/variable';
+@import '/src/styles/components/button';
+
 #container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+#container_reservations {
   display: flex;
   flex-direction: row;
 }
@@ -6,7 +15,6 @@
 .all {
   width: max-content;
   height: max-content;
-  margin-left: 10px;
 }
 
   .reservation {
@@ -31,19 +39,136 @@
     #action {
       display: flex;
       flex-direction: column;
+      margin-left: 5px;
 
       & > div {
-        text-align: center; // tmp
+        text-align: center;
         height: 50%;
+        width: 45px;
         display: flex;
-        vertical-align: center;
+        align-items: center;
+        justify-content: center;
+        padding-left: -4px;
+        padding-bottom: -4px;
 
         & > button {
-          width: 18px; // tmp
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          object-position: 50% 50%;
+          object-fit: cover;
+          aspect-ratio: 1/1;
+
+          & > svg {
+            cursor: pointer;
+          }
+        }
+      }
+
+      & > div#divAcceptBtn {
+        & > button {
+          background-color: rgba(green, 0.8);
+          & > svg {
+            margin-top: 2px;
+            margin-left: -3px;
+          }
+        }
+        & > button:hover {
+          background-color: rgba(green, 0.45);
+        }
+      }
+
+      & > div#divRemoveBtn {
+        margin-top: 4px;
+
+        & > button {
+          background-color: rgba(red, 0.8);
+          & > svg {
+            margin-top: 2px;
+          }
+        }
+
+        & > button:hover {
+          background-color: rgba(red, 0.45);
         }
       }
     }
 
 .clickedReservation {
   background-color: rgba(gray, 0.7);
+}
+
+
+// image
+.pp {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+img {
+  border-radius: 50%;
+  object-position: 50% 50%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+
+
+// Etes vous sur de accepter réservation
+#background_confirmation_container {
+  z-index: 999;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $modal-background-color;
+}
+
+#confirmation_container {
+  position: fixed;
+  left: 50%;
+  top: 27%;
+  transform: translate(-50%, 0);
+}
+
+#confirmation_div {
+  border-radius: $radius;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+  padding: 8px 16px 16px 20px;
+  width: 400px;
+  height: max-content;
+  max-height: 360px;
+  overflow-y: auto;
+  background-color: white;
+}
+
+
+// Etes vous sur de refuser réservation
+#background_refusal_container {
+  z-index: 999;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $modal-background-color;
+}
+
+#refusal_container {
+  position: fixed;
+  left: 50%;
+  top: 27%;
+  transform: translate(-50%, 0);
+}
+
+#refusal_div {
+  border-radius: $radius;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+  padding: 8px 16px 16px 20px;
+  width: 400px;
+  height: max-content;
+  max-height: 360px;
+  overflow-y: auto;
+  background-color: white;
 }
