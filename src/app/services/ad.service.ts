@@ -37,12 +37,31 @@ export class AdService {
     return this._httpClient.delete<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/${adSlug}`);
   }
 
-  count(): Observable<number> {
-    return this._httpClient.get<number>(AdService.ENTRY_POINT_URL + '/count');
+  count(params : any): Observable<number> {
+
+    let httpParams = new URLSearchParams;
+
+    if(params.get('country')) httpParams.set("country", params.get('country'));
+    if(params.get('city')) httpParams.set("city", params.get('city'));
+    if(params.get('pricePerNight')) httpParams.set("pricePerNight", params.get('pricePerNight'));
+    if(params.get('numberOfPersons')) httpParams.set("numberOfPersons", params.get('numberOfPersons'));
+
+    return this._httpClient.get<number>(`${AdService.ENTRY_POINT_URL}/count?${httpParams.toString()}`);
   }
 
-  fetchForPagination(limit: number, offset: number): Observable<DtoInputAdSummary[]> {
-    return this._httpClient.get<DtoInputAdSummary[]>(`${AdService.ENTRY_POINT_URL}/summary?limit=${limit}&offset=${offset}`);
+  fetchForPagination(limit: number, offset: number, params : any): Observable<DtoInputAdSummary[]> {
+
+    let httpParams = new URLSearchParams;
+
+    httpParams.set("limit", limit.toString());
+    httpParams.set("offset", offset.toString());
+
+    if(params.get('country')) httpParams.set("country", params.get('country'));
+    if(params.get('city')) httpParams.set("city", params.get('city'));
+    if(params.get('pricePerNight')) httpParams.set("pricePerNight", params.get('pricePerNight'));
+    if(params.get('numberOfPersons')) httpParams.set("numberOfPersons", params.get('numberOfPersons'));
+
+    return this._httpClient.get<DtoInputAdSummary[]>(`${AdService.ENTRY_POINT_URL}/summary?${httpParams.toString()}`);
   }
 
   fetchBySlug(slug: string): Observable<DtoInputAdWithReservation> {
@@ -61,33 +80,31 @@ export class AdService {
     return this._httpClient.put<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/status`, dto);
   }
 
-  fetchMyAds(id: number): Observable<DtoInputMyAds[]> {
-    return this._httpClient.get<DtoInputMyAds[]>(`${AdService.ENTRY_POINT_URL}/${id}/myAds`);
+  fetchMyAds(): Observable<DtoInputMyAds[]> {
+    return this._httpClient.get<DtoInputMyAds[]>(`${AdService.ENTRY_POINT_URL}/myAds`);
   }
 
-  createReservation(adId: number, dto: DtoOutputNewReservation): Observable<any> {
-    return this._httpClient.post<any>(`${AdService.ENTRY_POINT_URL}/${adId}/reservation`, dto);
+  createReservation(adSlug: string, dto: DtoOutputNewReservation): Observable<any> {
+    return this._httpClient.post<any>(`${AdService.ENTRY_POINT_URL}/reservation`, dto);
   }
 
   fetchAllReservationToConfirm(adSlug: string): Observable<DtoInputUserReservation[]> {
     return this._httpClient.get<DtoInputUserReservation[]>(`${AdService.ENTRY_POINT_URL}/reservation/${adSlug}`);
   }
 
-  fetchMyReservations(userId: number): Observable<DtoInputReservation[]> {
-    return this._httpClient.get<DtoInputReservation[]>(`${AdService.ENTRY_POINT_URL}/${userId}/myReservations`);
+  fetchMyReservations(): Observable<DtoInputReservation[]> {
+    return this._httpClient.get<DtoInputReservation[]>(`${AdService.ENTRY_POINT_URL}/myReservations`);
   }
 
   removeReservation(reservationId: number): Observable<DtoInputReservation> {
-    return this._httpClient.delete<DtoInputReservation>(`${AdService.ENTRY_POINT_URL}/${reservationId}/reservation`);
+    return this._httpClient.delete<DtoInputReservation>(`${AdService.ENTRY_POINT_URL}/reservation/${reservationId}`);
   }
 
-  fetchCountries(): Observable<string[]>
-  {
+  fetchCountries(): Observable<string[]> {
     return this._httpClient.get<string[]>(`${AdService.ENTRY_POINT_URL}/countries`);
   }
 
-  fetchCities(country: string): Observable<string[]>
-  {
+  fetchCities(country: string): Observable<string[]> {
     return this._httpClient.get<string[]>(`${AdService.ENTRY_POINT_URL}/cities?country=${country}`);
   }
 }

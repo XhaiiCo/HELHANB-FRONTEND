@@ -1,10 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DtoInputMyAds} from "../../../dtos/ad/dto-input-my-ads";
+import {DtoInputMyAds, DtoInputReservation} from "../../../dtos/ad/dto-input-my-ads";
 import {environment} from "../../../../environments/environment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AdHandleService} from "../../../services/ad-handle.service";
 import {AdService} from "../../../services/ad.service";
 import {DtoOutputUpdateAd} from "../../../dtos/ad/dto-output-update-ad";
+import {ToastNotificationService} from "../../../services/toast-notification.service";
 
 @Component({
   selector: 'app-my-ad',
@@ -13,9 +14,9 @@ import {DtoOutputUpdateAd} from "../../../dtos/ad/dto-output-update-ad";
 })
 export class MyAdComponent implements OnInit {
 
-  readonly pictureBaseUrl: string = environment.pictureUrl ;
+  readonly pictureBaseUrl: string = environment.pictureUrl;
 
-  @Input() ad!: DtoInputMyAds ;
+  @Input() ad!: DtoInputMyAds;
 
   adUpdateForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -29,19 +30,21 @@ export class MyAdComponent implements OnInit {
   });
 
   tmp_feature: string = "";
+  disabledUpdateBtn: boolean = false;
 
-  constructor(public adHandleService : AdHandleService,
-              private _adService: AdService) { }
+  constructor(
+    public adHandleService: AdHandleService,
+    private _adService: AdService,
+    private _toastNotificationService: ToastNotificationService
+  ) {
+  }
 
   ngOnInit(): void {
-    this.test();
   }
 
   onPictureAdded(files: any) {
-    this.adHandleService.filesToBase64(files).then(files =>
-    {
-      for (let i = 0; i < files.length; i++)
-      {
+    this.adHandleService.filesToBase64(files).then(files => {
+      for (let i = 0; i < files.length; i++) {
         if (this.adHandleService.isMaxNumberOfPicturesReached(this.ad.picturesToAdd.length + this.ad.pictures.length)) break;
         if (this.adHandleService.isPictureAlreadyUploaded(files[i], [...this.ad.picturesToAdd])) continue;
 
@@ -50,47 +53,56 @@ export class MyAdComponent implements OnInit {
     });
   }
 
-  deletePicture(picPath: string)
-  {
+  deletePicture(picPath: string) {
     this.ad.pictures = this.ad.pictures.filter(pic => pic.path != picPath);
     this.ad.picturesToDelete.push(picPath);
   }
 
-  removePicture(file: string)
-  {
+  removePicture(file: string) {
     this.ad.picturesToAdd = this.adHandleService.removePicture(file, [...this.ad.picturesToAdd]);
   }
 
   submitForm() {
+    this.disabledUpdateBtn = true;
 
-    let arrivalTimeRangeStart:string = this.adUpdateForm.get("arrivalTimeRangeStart")?.value!;
-    let arrivalTimeRangeEnd:string = this.adUpdateForm.get("arrivalTimeRangeEnd")?.value!;
-    let leaveTime:string = this.adUpdateForm.get("leaveTime")?.value!;
+    let arrivalTimeRangeStart: string = this.adUpdateForm.get("arrivalTimeRangeStart")?.value!;
+    let arrivalTimeRangeEnd: string = this.adUpdateForm.get("arrivalTimeRangeEnd")?.value!;
+    let leaveTime: string = this.adUpdateForm.get("leaveTime")?.value!;
 
     let dto: DtoOutputUpdateAd = {
-        adSlug: this.ad.adSlug,
-        name: this.ad.name,
-        numberOfPersons: this.ad.numberOfPersons,
-        numberOfBedrooms: this.ad.numberOfBedrooms,
-        description: this.ad.description,
-        pricePerNight: this.ad.pricePerNight,
-        arrivalTimeRangeStart: this.adHandleService.toDtoOutputTime(arrivalTimeRangeStart),
-        arrivalTimeRangeEnd: this.adHandleService.toDtoOutputTime(arrivalTimeRangeEnd),
-        leaveTime: this.adHandleService.toDtoOutputTime(leaveTime),
-        features: this.ad.features,
-        picturesToAdd: this.ad.picturesToAdd,
-        picturesToDelete: this.ad.picturesToDelete
+      adSlug: this.ad.adSlug,
+      name: this.ad.name,
+      numberOfPersons: this.ad.numberOfPersons,
+      numberOfBedrooms: this.ad.numberOfBedrooms,
+      description: this.ad.description,
+      pricePerNight: this.ad.pricePerNight,
+      arrivalTimeRangeStart: this.adHandleService.toDtoOutputTime(arrivalTimeRangeStart),
+      arrivalTimeRangeEnd: this.adHandleService.toDtoOutputTime(arrivalTimeRangeEnd),
+      leaveTime: this.adHandleService.toDtoOutputTime(leaveTime),
+      features: this.ad.features,
+      picturesToAdd: this.ad.picturesToAdd,
+      picturesToDelete: this.ad.picturesToDelete
     }
 
     this._adService
       .update(dto)
-      .subscribe();
+      .subscribe({
+        next: () => {
+          this._toastNotificationService.add("Annonce modifiée avec succès", "success");
+          this.disabledUpdateBtn = false;
+        },
+        error: () => {
+          this._toastNotificationService.add("Erreur lors de la modification", "error");
+          this.disabledUpdateBtn = false;
+        },
+      });
 
   }
 
-  test(){
-    console.log(this.ad.adSlug);
+  sortReservationByStatusName(statusName: string): DtoInputReservation[] {
+    if (this.ad) {
+      return this.ad.reservations.filter(item => item?.statusMyAds?.statusName === statusName);
+    }
+    return [];
   }
-
-
 }

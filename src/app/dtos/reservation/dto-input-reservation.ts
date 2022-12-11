@@ -2,14 +2,15 @@ export interface DtoInputReservation {
   id: number;
   arrivalDate: Date;
   leaveDate: Date;
-  picture: string ;
+  picture: string;
   renter: {
     id: number;
     firstName: string;
     lastName: string;
   };
   ad: {
-    id: number;
+    pricePerNight: number;
+    adSlug: string;
     name: string;
   };
   reservationStatus: {

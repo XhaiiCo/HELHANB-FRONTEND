@@ -33,8 +33,8 @@ export class ConversationsComponent implements OnInit {
   ngOnInit(): void {
     if (!this._authService.user) return;
 
-    this._conversationService.fetchMyConversations(this._authService.user.id).subscribe(conversations => {
-      this.conversations = conversations;
+    this._conversationService.fetchMyConversations().subscribe(conversations => {
+      this.conversations = this.sortByNotViewConversation(conversations);
 
       this._route.paramMap.subscribe(args => {
         if (args.has("id")) {
@@ -56,9 +56,10 @@ export class ConversationsComponent implements OnInit {
           content: receivedObj.message,
           senderId: receivedObj.senderId,
           sendTime: new Date(Date.now())
-        }
+        };
 
-        this.currentMessageList.push(newMessage)
+        this.currentMessageList.push(newMessage);
+        this.setMessageViewTrue(this.currentConversation.id);
       })
     );
   }
@@ -89,7 +90,24 @@ export class ConversationsComponent implements OnInit {
   changeCurrentConversation(conversation: DtoInputMyConversations) {
     this.currentConversation = conversation;
     this._conversationService.fetchMessagesOfAConversation(conversation.id).subscribe(messages => {
-      this.currentMessageList = messages
+      this.currentMessageList = messages;
+      this.setMessageViewTrue(this.currentConversation.id);
     });
+  }
+
+  private setMessageViewTrue(conversationId: number): void {
+    this._conversationService.putMessageViewToTrue(conversationId).subscribe({
+        next: () => {
+          this.currentConversation.messageNotView = false;
+          this.conversations = this.sortByNotViewConversation(this.conversations);
+        }
+      }
+    );
+  }
+
+  private sortByNotViewConversation(list: DtoInputMyConversations[]) {
+    return list.sort((item1, item2) =>
+      (item1.messageNotView === item2.messageNotView) ? 0 : item1.messageNotView ? -1 : 1
+    )
   }
 }

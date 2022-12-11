@@ -21,6 +21,7 @@ export class MyReservationComponent implements OnInit {
   reservationToDelete!: number;
 
   reservationsList: DtoInputReservation[] = [];
+  pageLoaded: boolean = false;
 
   constructor(
     private _authService: AuthService,
@@ -32,9 +33,17 @@ export class MyReservationComponent implements OnInit {
   ngOnInit(): void {
     if (!this._authService.user) return;
 
-    this._adService.fetchMyReservations(this._authService.user.id).subscribe(
-      reservations => this.reservationsList = reservations
-    );
+    this._adService.fetchMyReservations().subscribe({
+
+      next: reservations => {
+        this.reservationsList = reservations
+        this.pageLoaded = true;
+      },
+      error: err => {
+        this.pageLoaded = true;
+      }
+
+    });
   }
 
   getAcceptedReservations(): DtoInputReservation[] {
@@ -51,7 +60,7 @@ export class MyReservationComponent implements OnInit {
 
   cancelReservationClick(reservationId: number) {
     this.reservationToDelete = reservationId;
-    this.deleteModalOptions.showDeleteAdConfirmationModal = true ;
+    this.deleteModalOptions.showDeleteAdConfirmationModal = true;
   }
 
   removeReservation(reservationId: number) {
@@ -67,7 +76,7 @@ export class MyReservationComponent implements OnInit {
   }
 
   onModalDeleteAction(result: boolean) {
-    this.deleteModalOptions.showDeleteAdConfirmationModal = false ;
+    this.deleteModalOptions.showDeleteAdConfirmationModal = false;
     if (result) this.removeReservation(this.reservationToDelete);
   }
 }

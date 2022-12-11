@@ -1,5 +1,5 @@
 export interface DtoInputAdWithReservation {
-  id: number,
+  adSlug: string,
   name: string,
   created: string,
   pricePerNight: number,

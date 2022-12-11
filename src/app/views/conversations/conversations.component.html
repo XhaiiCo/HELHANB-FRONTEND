@@ -5,13 +5,17 @@
   <section class="conversation_section">
     <ul class="conversation_list">
       <li
+        [class.active]="currentConversation && conversation.id === currentConversation.id"
         *ngFor="let conversation of conversations"
         (click)="changeCurrentConversation(conversation)">
         <div>
           <img [src]="profilePictureBaseUri + conversation.recipient.profilePicturePath" alt="Photo de profil">
         </div>
-        <div>
+        <div class="recipient-info">
+          <span>
           {{conversation.recipient.lastName + " " + conversation.recipient.firstName}}
+          </span>
+          <span class="new-message" *ngIf="conversation.messageNotView">Nouveaux !</span>
         </div>
       </li>
     </ul>
@@ -26,6 +30,6 @@
   </section>
 </main>
 
-<main class="conversation_page" *ngIf="conversations.length === 0">
+<main class="conversation_page" *ngIf="conversations.length === 0 && pageLoaded">
   <p>Vous n'avez aucune conversation</p>
 </main>

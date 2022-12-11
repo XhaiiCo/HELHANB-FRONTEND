@@ -1,3 +1,8 @@
+@import '/src/styles/helpers/variable' ;
+
+*{
+  font-family: $main-font;
+}
 .loader_container {
   width: 100vw;
   display: flex;
@@ -48,7 +53,6 @@
     grid-template-columns: repeat(6, 1fr);
   }
 }
-
 
 .pagination_container {
   margin-top: 20px;

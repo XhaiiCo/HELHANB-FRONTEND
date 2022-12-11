@@ -22,22 +22,25 @@ export class HomepageComponent implements OnInit {
 
   ads : DtoInputAdSummary[] = [];
 
-  pageLoaded: boolean = false ;
+  pageLoaded: boolean = false;
+
+  params : any;
+
 
   constructor(private _adService : AdService, private _route: ActivatedRoute, private _router: Router) {}
 
   ngOnInit(): void {
-    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
-
     this.count();
     this.fetchForPagination();
 
-    console.log(this._route.snapshot.paramMap.get('adName'));
   }
 
   count() {
+
+    this.params = this._route.snapshot.queryParamMap;
+
     this._adService
-      .count()
+      .count(this.params)
       .subscribe(count =>
       {
         this.maxPages = Math.ceil(count/this.itemsPerPage);
@@ -51,7 +54,7 @@ export class HomepageComponent implements OnInit {
     let offset = (this.index - 1) * this.itemsPerPage;
 
     this._adService
-      .fetchForPagination(this.itemsPerPage, offset)
+      .fetchForPagination(this.itemsPerPage, offset, this.params)
       .subscribe(ads => {
         this.ads = ads
         this.pageLoaded = true ;
@@ -60,6 +63,14 @@ export class HomepageComponent implements OnInit {
 
   changePage(event: any)
   {
+    this.fetchForPagination();
+  }
+
+  changeFilter(event: any)
+  {
+    this.index = 1;
+    this.rulerLength = 5;
+    this.count();
     this.fetchForPagination();
   }
 }

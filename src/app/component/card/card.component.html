@@ -3,8 +3,7 @@
     <app-carousel [adLink]="adBaseLink + ad.adSlug" [images]="ad.pictures"></app-carousel>
   </div>
   <div class="body" [routerLink]="adBaseLink + ad.adSlug">
-
-    <span>{{ad.name}}</span>
+    <span><b>{{ad.name}}</b></span>
     <span>{{ad.city}}, {{ad.country}}</span>
     <span>{{ad.numberOfBedrooms}} chambres</span>
     <span>{{ad.numberOfPersons}} personnes</span>

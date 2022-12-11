@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DropDownOption} from "../../interfaces/drop-down-option";
 import {AuthService} from "../../services/auth.service";
 import {environment} from "../../../environments/environment";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
 
   search() {
     if(this.adName){
-      this._router.navigate(['annonces', { adName:this.adName }]);
+      this._router.navigate(['annonces'], { queryParams :{ adName:this.adName }});
     }
     else {
       this._router.navigate(['annonces']);

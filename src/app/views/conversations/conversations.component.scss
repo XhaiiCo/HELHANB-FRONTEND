@@ -4,6 +4,10 @@
   font-family: $main-font;
 }
 
+.active {
+  background-color: $grey;
+}
+
 .loader_container {
   width: 100vw;
   display: flex;
@@ -25,6 +29,8 @@
     gap: 10px;
     cursor: pointer;
     width: 150px;
+    border-radius: $radius;
+    margin-right: 5px;
   }
 
   img {
@@ -35,6 +41,17 @@
     object-position: 50% 50%;
     object-fit: cover;
     aspect-ratio: 1 / 1;
+  }
+
+  .new-message {
+    color: $main-color;
+    font-size: 11px;
+  }
+
+  .recipient-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 
@@ -52,7 +69,7 @@
 
 @media (max-width: 800px) {
   .conversation_page {
-    width: 97%;
+    width: 95%;
   }
 }
 
@@ -68,6 +85,13 @@
     overflow-y: auto;
     border-bottom: 1px solid $grey;
   }
+
+  .conversation_list {
+    li {
+      width: 100%;
+    }
+  }
+
   .message_section {
     flex-basis: auto;
     width: 100%;

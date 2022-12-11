@@ -1,4 +1,4 @@
-<main class="ad_item_page">
+<main class="ad_item_page" *ngIf="ad">
   <form [formGroup]="adUpdateForm" (ngSubmit)="submitForm()" [formGroup]="adUpdateForm">
 
     <h2>Nom</h2>
@@ -67,9 +67,16 @@
     <p>Départ avant <input type="time" class="input-adjust" formControlName="leaveTime" [(ngModel)]="ad.leaveTime"></p>
 
     <div class="submit_btn_container">
-      <button class="btn-primary">Modifier</button>
+      <button class="btn-primary" [disabled]="disabledUpdateBtn">Modifier</button>
     </div>
   </form>
 
+  <h1>Réservations</h1>
+  <h2>En attentes</h2>
   <app-reservations-to-confirm [adSlug]="ad.adSlug"></app-reservations-to-confirm>
+
+  <h2>Acceptées</h2>
+  <app-my-ad-reservation-list
+    [reservations]="sortReservationByStatusName('en attente')"
+  ></app-my-ad-reservation-list>
 </main>

@@ -10,27 +10,34 @@ import {DtoInputMyAds} from "../../dtos/ad/dto-input-my-ads";
 })
 export class MyRentingComponent implements OnInit {
 
-  ads: DtoInputMyAds[] = [] ;
-  currentAd!: DtoInputMyAds ;
+  ads: DtoInputMyAds[] = [];
+  currentAd!: DtoInputMyAds;
+  pageLoaded: boolean = false;
 
-  constructor(private _authService: AuthService, private _adService: AdService) { }
+  constructor(private _authService: AuthService, private _adService: AdService) {
+  }
 
   ngOnInit(): void {
-    if(this._authService.user){
-      this._adService.fetchMyAds(this._authService.user.id).subscribe( ads => {
-        this.ads = ads;
+    if (this._authService.user) {
+      this._adService.fetchMyAds().subscribe({
+        next: ads => {
+          this.ads = ads;
 
-        for(let ad of this.ads)
-        {
-          ad.picturesToAdd = [];
-          ad.picturesToDelete = [];
+          for (let ad of this.ads) {
+            ad.picturesToAdd = [];
+            ad.picturesToDelete = [];
+          }
+
+          this.pageLoaded = true;
+        },
+        error: error => {
+          this.pageLoaded = true;
         }
       })
     }
   }
 
-  changeCurrentAd(ad: DtoInputMyAds)
-  {
+  changeCurrentAd(ad: DtoInputMyAds) {
     this.currentAd = ad;
   }
 }

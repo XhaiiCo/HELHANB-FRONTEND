@@ -23,15 +23,20 @@ export class ConversationService {
     return this._httpClient.post<DtoInputCreatedConversation>(`${ConversationService.ENTRY_POINT_URL}`, dto);
   }
 
-  createMessage(dto: DtoOutputMessage): Observable<DtoInputMessageOfAConversation>{
+  createMessage(dto: DtoOutputMessage): Observable<DtoInputMessageOfAConversation> {
     return this._httpClient.post<DtoInputMessageOfAConversation>(`${ConversationService.ENTRY_POINT_URL}/messages`, dto);
   }
-  fetchMyConversations(userId: number): Observable<DtoInputMyConversations[]>{
-    return this._httpClient.get<DtoInputMyConversations[]>(`${ConversationService.ENTRY_POINT_URL}/${userId}/myConversations`);
+
+  fetchMyConversations(): Observable<DtoInputMyConversations[]> {
+    return this._httpClient.get<DtoInputMyConversations[]>(`${ConversationService.ENTRY_POINT_URL}/myConversations`);
   }
 
-  fetchMessagesOfAConversation(conversationid: number): Observable<DtoInputMessageOfAConversation[]>{
-    return this._httpClient.get<DtoInputMessageOfAConversation[]>(`${ConversationService.ENTRY_POINT_URL}/${conversationid}/messages`);
+  fetchMessagesOfAConversation(conversationId: number): Observable<DtoInputMessageOfAConversation[]> {
+    return this._httpClient.get<DtoInputMessageOfAConversation[]>(`${ConversationService.ENTRY_POINT_URL}/${conversationId}/messages`);
+  }
+
+  putMessageViewToTrue(conversationId: number): Observable<any> {
+    return this._httpClient.put<any>(`${ConversationService.ENTRY_POINT_URL}/${conversationId}/view`, {});
   }
 
 }
