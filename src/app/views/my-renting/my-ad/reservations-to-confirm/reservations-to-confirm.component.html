@@ -1,65 +1,119 @@
 <section>
   <div id="container">
-    <div id="all_reservations" class="all">
-      <div>
-        <select name="sort" (change)="sort($event.target)">
-          <option value="0">Nom de famille</option>
-          <option value="1">Date de la réservation</option>
-          <option value="2">Durée de séjour</option>
-          <option value="3">Nombre de conflits</option>
-        </select>
-      </div>
-      <div id="reservation" class="reservation"
-           *ngFor="let reservation of reservations"
-           (mouseover)="displayConflicts(reservation)"
-           (mouseleave)="displayConflicts()"
-           (click)="reservationClicked(reservation)"
-           [ngClass]="reservation === clickedReservation ? 'clickedReservation' : ''">
-        <div class="pp"> <!-- left -->
-          <img [src]="reservation.profilePicturePath" alt="Photo de profil">
-        </div>
-        <div class="info"> <!-- center -->
-          <div> <!-- top -->
-            <span>{{ reservation.lastName }} {{ reservation.firstName }}</span>
-          </div>
-          <div> <!-- mid -->
-            <span>du {{ dtoObjectToDateFR(reservation.arrivalDate) }} au {{ dtoObjectToDateFR(reservation.leaveDate) }} ({{ nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
-          </div>
-          <div> <!-- bottom -->
-            <span>Demandé le {{ dtoObjectToDateFR(reservation.reservationDate) }} - {{ nbConflicts(reservation) }} {{ nbConflicts(reservation) > 1 ? "conflits" : "conflit" }}</span>
-          </div>
-        </div>
-        <div id="action"> <!-- right -->
-          <div id="divAcceptBtn"><!-- top -->
-            <button>V</button>
-          </div>
-          <div id="divRemoveBtn"><!-- bottom -->
-            <button>X</button>
-          </div>
-        </div>
-      </div>
+    <div id="div_select">
+      <label>Trier par :</label>
+      <select name="sort" (change)="sortAll($event.target)">
+        <option value="0">Nom de famille</option>
+        <option value="1">Date de la réservation</option>
+        <option value="2">Durée de séjour</option>
+        <option value="3">Nombre de conflits</option>
+      </select>
+      <select name="ascending" (change)="setSortOrder($event.target)">
+        <option value="0">Croissant</option>
+        <option value="1">Décroissant</option>
+      </select>
     </div>
-
-    <div id="all_conflicts" class="all">
-      <div id="conflicts" class="reservation" *ngFor="let conflict of conflictsListToDisplay">
-        <div class="pp"> <!-- left -->
-          <img [src]="conflict.profilePicturePath" alt="Photo de profil">
-        </div>
-        <div class="info"> <!-- center -->
-          <div> <!-- top -->
-            <span>{{ conflict.lastName }} {{ conflict.firstName }}</span>
+    <div id="container_reservations">
+      <div id="all_reservations" class="all">
+        <div id="reservation" class="reservation"
+             *ngFor="let reservation of reservations"
+             (mouseover)="displayConflicts(reservation)"
+             (mouseleave)="displayConflicts()"
+             (click)="reservationClicked(reservation)"
+             [ngClass]="reservation === clickedReservation ? 'clickedReservation' : ''">
+          <div class="pp"> <!-- left -->
+            <img [src]="reservation.profilePicturePath" alt="Photo de profil">
           </div>
-          <div> <!-- mid -->
-            <span>du {{ dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dtoObjectToDateFR(conflict.leaveDate) }} ({{ nbDaysBetweenDates(conflict.arrivalDate, conflict.leaveDate) }} jours)</span>
+          <div class="info"> <!-- center -->
+            <div> <!-- top -->
+              <span>{{ reservation.lastName }} {{ reservation.firstName }}</span>
+            </div>
+            <div> <!-- mid -->
+              <span>du {{ dtoObjectToDateFR(reservation.arrivalDate) }} au {{ dtoObjectToDateFR(reservation.leaveDate) }} ({{ nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
+            </div>
+            <div> <!-- bottom -->
+              <span>Demandé le {{ dtoObjectToDateFR(reservation.reservationDate) }} - {{ nbConflicts(reservation) }} {{ nbConflicts(reservation) > 1 ? "conflits" : "conflit" }}</span>
+            </div>
           </div>
-          <div> <!-- bottom -->
-            <span>Demandé le {{ dtoObjectToDateFR(conflict.reservationDate) }} - {{ nbConflicts(conflict) }} {{ nbConflicts(conflict) > 1 ? "conflits" : "conflit" }}</span>
+          <div id="action"> <!-- right -->
+            <div id="divAcceptBtn"><!-- top -->
+              <button (click)="displayConfirmation(reservation)">
+                <svg width="30" height="30" viewBox="0 0 20 20"><path fill="white" d="m14.83 4.89l1.34.94l-5.81 8.38H9.02L5.78 9.67l1.34-1.25l2.57 2.4z"/></svg>
+              </button>
+            </div>
+            <div id="divRemoveBtn"><!-- bottom -->
+              <button (click)="displayRefusal(reservation)">
+                <svg width="28" height="28" viewBox="0 0 20 20"><path fill="white" d="m12.12 10l3.53 3.53l-2.12 2.12L10 12.12l-3.54 3.54l-2.12-2.12L7.88 10L4.34 6.46l2.12-2.12L10 7.88l3.54-3.53l2.12 2.12z"/></svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="date_picker" class="all">
+      <div id="all_conflicts" class="all">
+        <div id="conflicts" class="reservation" *ngFor="let conflict of conflictsListToDisplay">
+          <div class="pp"> <!-- left -->
+            <img [src]="conflict.profilePicturePath" alt="Photo de profil">
+          </div>
+          <div class="info"> <!-- center -->
+            <div> <!-- top -->
+              <span>{{ conflict.lastName }} {{ conflict.firstName }}</span>
+            </div>
+            <div> <!-- mid -->
+              <span>du {{ dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dtoObjectToDateFR(conflict.leaveDate) }} ({{ nbDaysBetweenDates(conflict.arrivalDate, conflict.leaveDate) }} jours)</span>
+            </div>
+            <div> <!-- bottom -->
+              <span>Demandé le {{ dtoObjectToDateFR(conflict.reservationDate) }} - {{ nbConflicts(conflict) }} {{ nbConflicts(conflict) > 1 ? "conflits" : "conflit" }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+
+
+
+  <div id="background_confirmation_container" *ngIf="displayConfirmationForm">
+    <div id="confirmation_container">
+      <div id="confirmation_div">
+        <div>
+          <span>Êtes vous sûr de confirmer la réservation de {{ reservationToConfirm.lastName }} {{ reservationToConfirm.firstName }}</span>
+          <span> du {{ dtoObjectToDateFR(reservationToConfirm.arrivalDate) }} au {{ dtoObjectToDateFR(reservationToConfirm.leaveDate) }}</span>
+        </div>
+
+        <div *ngIf="nbConflicts(reservationToConfirm) != 0">
+          <span>Les réservations suivantes seront refusées :</span>
+          <span *ngFor="let conflict of getConflictsOfReservation(reservationToConfirm)">
+            <span>  - {{ conflict.lastName }} {{ conflict.firstName }} du {{ dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dtoObjectToDateFR(conflict.leaveDate) }}</span>
+          </span>
+        </div>
+
+        <div class="btn_close_form_container">
+          <button class="btn-secondary" id="btn_close_confirmation" (click)="cancelConfirmation()">Annuler</button>
+          <button class="btn-primary" id="btn_accept_confirmation" (click)="authorizeReservation()">Confirmer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="background_refusal_container" *ngIf="displayRefusalForm">
+    <div id="refusal_container">
+      <div id="refusal_div">
+        <div>
+          <span>Êtes vous sûr de <b>refuser</b> la réservation de {{ reservationToDecline.lastName }} {{ reservationToDecline.firstName }}</span>
+          <span> du {{ dtoObjectToDateFR(reservationToDecline.arrivalDate) }} au {{ dtoObjectToDateFR(reservationToDecline.leaveDate) }}</span>
+        </div>
+
+        <div class="btn_close_form_container">
+          <button class="btn-secondary" id="btn_close_refusal" (click)="cancelRefusal()">Annuler</button>
+          <button class="btn-primary" id="btn_decline_confirmation" (click)="declineReservation()">Confirmer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </section>
