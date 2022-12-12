@@ -49,11 +49,6 @@ export interface DtoInputReservation {
   creation: Date;
 }
 
-interface DtoInputStatus {
-  id: number;
-  statusName: string;
-}
-
 interface DtoInputRenter {
   id: number;
   firstName: string;
