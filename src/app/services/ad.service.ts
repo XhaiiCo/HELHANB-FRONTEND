@@ -12,8 +12,6 @@ import {DtoOutputNewReservation} from "../dtos/reservation/dto-output-new-reserv
 import {DtoInputAdWithReservation} from "../dtos/ad/dto-input-ad-with-reservation";
 import {DtoOutputUpdateAd} from "../dtos/ad/dto-output-update-ad";
 import {DtoInputReservation} from "../dtos/reservation/dto-input-reservation";
-import {DtoInputUser} from "../dtos/user/dto-input-user";
-import {DtoInputUserReservation} from "../dtos/user/dto-input-user-reservation";
 
 @Injectable({
   providedIn: 'root'
@@ -86,10 +84,6 @@ export class AdService {
 
   createReservation(adSlug: string, dto: DtoOutputNewReservation): Observable<any> {
     return this._httpClient.post<any>(`${AdService.ENTRY_POINT_URL}/reservation`, dto);
-  }
-
-  fetchAllReservationToConfirm(adSlug: string): Observable<DtoInputUserReservation[]> {
-    return this._httpClient.get<DtoInputUserReservation[]>(`${AdService.ENTRY_POINT_URL}/reservation/${adSlug}`);
   }
 
   fetchMyReservations(): Observable<DtoInputReservation[]> {
