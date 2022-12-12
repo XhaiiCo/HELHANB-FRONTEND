@@ -37,11 +37,11 @@ import { LoaderComponent } from './component/loader/loader.component';
 import { MessagesComponent } from './views/conversations/messages/messages.component';
 import { MyAdComponent } from './views/my-renting/my-ad/my-ad.component';
 import { ConversationsComponent } from './views/conversations/conversations.component';
-import { ReservationsToConfirmComponent } from './views/my-renting/my-ad/reservations-to-confirm/reservations-to-confirm.component';
+import { MyAdReservationsToConfirmListComponent } from './my-renting/my-ad/my-ad-reservations-to-confirm-list.component/my-ad-reservations-to-confirm-list.component';
 import { FilteringFormComponent } from './component/filtering-form/filtering-form.component';
 import { AdminRentingsComponent } from './views/admin/admin-rentings/admin-rentings.component';
 import { ReservationListComponent } from './views/my-reservation/reservation-list/reservation-list.component';
-import { MyAdReservationListComponent } from './my-renting/my-ad/my-ad-reservation-list/my-ad-reservation-list.component';
+import { MyAdConfirmedReservationListComponent } from './my-renting/my-ad/my-ad-confirmed-reservation-list/my-ad-confirmed-reservation-list.component';
 
 @NgModule({
   declarations: [
@@ -71,11 +71,11 @@ import { MyAdReservationListComponent } from './my-renting/my-ad/my-ad-reservati
     MessagesComponent,
     MyAdComponent,
     ConversationsComponent,
-    ReservationsToConfirmComponent,
+    MyAdReservationsToConfirmListComponent,
     FilteringFormComponent,
     AdminRentingsComponent,
     ReservationListComponent,
-    MyAdReservationListComponent,
+    MyAdConfirmedReservationListComponent,
   ],
     imports: [
         BrowserModule,

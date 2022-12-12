@@ -1,13 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DtoInputReservation} from "../../../dtos/ad/dto-input-my-ads";
-import {DtoOuputDate} from "../../../dtos/user/dto-input-user-reservation";
 
 @Component({
-  selector: 'app-my-ad-reservation-list',
-  templateUrl: './my-ad-reservation-list.component.html',
-  styleUrls: ['./my-ad-reservation-list.component.scss']
+  selector: 'app-my-ad-confirmed-reservation-list',
+  templateUrl: './my-ad-confirmed-reservation-list.component.html',
+  styleUrls: ['./my-ad-confirmed-reservation-list.component.scss']
 })
-export class MyAdReservationListComponent implements OnInit {
+export class MyAdConfirmedReservationListComponent implements OnInit {
 
   @Input() reservations!: DtoInputReservation[] ;
   constructor() { }

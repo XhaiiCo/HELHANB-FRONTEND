@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyAdReservationListComponent } from './my-ad-reservation-list.component';
+import { MyAdConfirmedReservationListComponent } from './my-ad-confirmed-reservation-list.component';
 
 describe('MyAdReservationListComponent', () => {
-  let component: MyAdReservationListComponent;
-  let fixture: ComponentFixture<MyAdReservationListComponent>;
+  let component: MyAdConfirmedReservationListComponent;
+  let fixture: ComponentFixture<MyAdConfirmedReservationListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MyAdReservationListComponent ]
+      declarations: [ MyAdConfirmedReservationListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MyAdReservationListComponent);
+    fixture = TestBed.createComponent(MyAdConfirmedReservationListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

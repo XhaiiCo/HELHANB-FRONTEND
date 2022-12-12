@@ -22,17 +22,17 @@
              (click)="reservationClicked(reservation)"
              [ngClass]="reservation === clickedReservation ? 'clickedReservation' : ''">
           <div class="pp"> <!-- left -->
-            <img [src]="reservation.profilePicturePath" alt="Photo de profil">
+            <img [src]="reservation.renterMyAds.profilePicturePath" alt="Photo de profil">
           </div>
           <div class="info"> <!-- center -->
             <div> <!-- top -->
-              <span>{{ reservation.lastName }} {{ reservation.firstName }}</span>
+              <span>{{ reservation.renterMyAds.lastName }} {{ reservation.renterMyAds.firstName }}</span>
             </div>
             <div> <!-- mid -->
               <span>du {{ dtoObjectToDateFR(reservation.arrivalDate) }} au {{ dtoObjectToDateFR(reservation.leaveDate) }} ({{ nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
             </div>
             <div> <!-- bottom -->
-              <span>Demandé le {{ dtoObjectToDateFR(reservation.reservationDate) }} - {{ nbConflicts(reservation) }} {{ nbConflicts(reservation) > 1 ? "conflits" : "conflit" }}</span>
+              <span>Demandé le {{ dtoObjectToDateFR(reservation.creation) }} - {{ nbConflicts(reservation) }} {{ nbConflicts(reservation) > 1 ? "conflits" : "conflit" }}</span>
             </div>
           </div>
           <div id="action"> <!-- right -->
@@ -53,17 +53,17 @@
       <div id="all_conflicts" class="all">
         <div id="conflicts" class="reservation" *ngFor="let conflict of conflictsListToDisplay">
           <div class="pp"> <!-- left -->
-            <img [src]="conflict.profilePicturePath" alt="Photo de profil">
+            <img [src]="conflict.renterMyAds.profilePicturePath" alt="Photo de profil">
           </div>
           <div class="info"> <!-- center -->
             <div> <!-- top -->
-              <span>{{ conflict.lastName }} {{ conflict.firstName }}</span>
+              <span>{{ conflict.renterMyAds.lastName }} {{ conflict.renterMyAds.firstName }}</span>
             </div>
             <div> <!-- mid -->
               <span>du {{ dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dtoObjectToDateFR(conflict.leaveDate) }} ({{ nbDaysBetweenDates(conflict.arrivalDate, conflict.leaveDate) }} jours)</span>
             </div>
             <div> <!-- bottom -->
-              <span>Demandé le {{ dtoObjectToDateFR(conflict.reservationDate) }} - {{ nbConflicts(conflict) }} {{ nbConflicts(conflict) > 1 ? "conflits" : "conflit" }}</span>
+              <span>Demandé le {{ dtoObjectToDateFR(conflict.creation) }} - {{ nbConflicts(conflict) }} {{ nbConflicts(conflict) > 1 ? "conflits" : "conflit" }}</span>
             </div>
           </div>
         </div>
@@ -78,14 +78,14 @@
     <div id="confirmation_container">
       <div id="confirmation_div">
         <div>
-          <span>Êtes vous sûr de confirmer la réservation de {{ reservationToConfirm.lastName }} {{ reservationToConfirm.firstName }}</span>
+          <span>Êtes vous sûr de confirmer la réservation de {{ reservationToConfirm.renterMyAds.lastName }} {{ reservationToConfirm.renterMyAds.firstName }}</span>
           <span> du {{ dtoObjectToDateFR(reservationToConfirm.arrivalDate) }} au {{ dtoObjectToDateFR(reservationToConfirm.leaveDate) }}</span>
         </div>
 
         <div *ngIf="nbConflicts(reservationToConfirm) != 0">
           <span>Les réservations suivantes seront refusées :</span>
           <span *ngFor="let conflict of getConflictsOfReservation(reservationToConfirm)">
-            <span>  - {{ conflict.lastName }} {{ conflict.firstName }} du {{ dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dtoObjectToDateFR(conflict.leaveDate) }}</span>
+            <span>  - {{ conflict.renterMyAds.lastName }} {{ conflict.renterMyAds.firstName }} du {{ dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dtoObjectToDateFR(conflict.leaveDate) }}</span>
           </span>
         </div>
 
@@ -103,7 +103,7 @@
     <div id="refusal_container">
       <div id="refusal_div">
         <div>
-          <span>Êtes vous sûr de <b>refuser</b> la réservation de {{ reservationToDecline.lastName }} {{ reservationToDecline.firstName }}</span>
+          <span>Êtes vous sûr de <b>refuser</b> la réservation de {{ reservationToDecline.renterMyAds.lastName }} {{ reservationToDecline.renterMyAds.firstName }}</span>
           <span> du {{ dtoObjectToDateFR(reservationToDecline.arrivalDate) }} au {{ dtoObjectToDateFR(reservationToDecline.leaveDate) }}</span>
         </div>
 
