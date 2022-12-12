@@ -46,6 +46,7 @@ export interface DtoInputReservation {
   leaveDate: Date;
   statusMyAds: DtoInputStatus;
   renterMyAds: DtoInputRenter;
+  creation: Date;
 }
 
 interface DtoInputStatus {
