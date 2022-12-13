@@ -43,6 +43,7 @@ interface DtoInputStatus {
 
 export interface DtoInputAdReservation {
   id: number;
+  adSlug: string;
   arrivalDate: Date;
   leaveDate: Date;
   statusMyAds: DtoInputStatus;
