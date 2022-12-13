@@ -96,7 +96,7 @@ export class RegistrationComponent implements OnInit {
         this._toastNotificationService.add(`Hello ${user.firstName}`, "success");
 
         if (this.profilePicture) {
-          this._userService.updateProfilePicture(user.id, this.profilePicture).subscribe({
+          this._userService.updateProfilePicture(this.profilePicture).subscribe({
             next: (user) => this._authService.user = user,
             error: (err) => {
               if (err.status === 401)

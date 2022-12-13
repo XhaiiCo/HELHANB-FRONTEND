@@ -23,11 +23,11 @@ export class UserService {
    * @param {any} image - File - this is the image file that you want to upload.
    * @returns The user with the updated profile picture.
    */
-  public updateProfilePicture(id: number, image: File | null): Observable<DtoInputUser> {
+  public updateProfilePicture(image: File | null): Observable<DtoInputUser> {
     let formData = new FormData();
     if (image)
       formData.append("profilePicture", image, image.name);
-    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}/profilePicture`, formData);
+    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/profilePicture`, formData);
   }
 
   /**

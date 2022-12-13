@@ -183,7 +183,7 @@ export class AccountComponent implements OnInit {
     let profilePicture = event.target.files[0];
 
     if (this.authService.user)
-      this._userService.updateProfilePicture(this.authService.user.id, profilePicture)
+      this._userService.updateProfilePicture(profilePicture)
         .subscribe({
           next: (user) => this.authService.user = user,
           error: (err) => {
@@ -217,7 +217,7 @@ export class AccountComponent implements OnInit {
    */
   removePp() {
     if (this.authService.user)
-      this._userService.updateProfilePicture(this.authService.user.id, null)
+      this._userService.updateProfilePicture(null)
         .subscribe({
           next: (user) => this.authService.user = user,
           error: (err) => {
