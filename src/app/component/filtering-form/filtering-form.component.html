@@ -6,7 +6,7 @@
   </button>
   <form class="filteringForm" [formGroup]="filteringForm" *ngIf="this.displayFiltre">
 
-    <select class="input-select" formControlName="country" (change)="fetchDistinctsCities($event)">
+    <select class="input-select" formControlName="country" (change)="fetchDistinctsCitiesOnChange($event)">
       <option disabled value="">Pays</option>
       <option *ngFor="let country of countries" value="{{country}}">{{country}}</option>
     </select>

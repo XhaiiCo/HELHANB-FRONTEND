@@ -52,6 +52,17 @@
     transition: background .2s ease-in-out;
   }
 
+  &:disabled{
+    &::file-selector-button{
+      background: $secondary-color ;
+      cursor: auto ;
+
+      &:hover{
+        opacity: 1;
+      }
+    }
+  }
+
   &::file-selector-button:hover {
     opacity: 0.5;
   }

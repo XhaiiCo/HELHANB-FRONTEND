@@ -33,7 +33,21 @@ export class FilteringFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchCountries()
+
+    let queryParams = this._route.snapshot.queryParamMap;
+
+    this.fetchCountries();
+
+    this.fetchDistinctsCities(queryParams.get('country')!);
+
+    this.filteringForm.patchValue({
+      country: queryParams.get('country') ? queryParams.get('country') : "",
+      city: queryParams.get('city') ? queryParams.get('city') : "",
+      pricePerNight: queryParams.get('pricePerNight'),
+      numberOfPersons: queryParams.get('numberOfPersons'),
+    });
+
+
   }
 
   toggleDisplayFiltre() {
@@ -46,10 +60,23 @@ export class FilteringFormComponent implements OnInit {
       .subscribe(countries => this.countries = countries);
   }
 
-  fetchDistinctsCities(event: any) {
+  fetchDistinctsCitiesOnChange(event: any) {
     this._adService
       .fetchCities(event.target.value)
-      .subscribe(cities => this.cities = cities);
+      .subscribe(cities => {
+        this.cities = cities ;
+        this.filteringForm.patchValue({
+          city: "",
+        });
+      });
+  }
+
+  fetchDistinctsCities(country : string) {
+    this._adService
+      .fetchCities(country)
+      .subscribe(cities => {
+        this.cities = cities ;
+      });
   }
 
   search() {
