@@ -11,7 +11,8 @@ import {DtoInputReservation} from "../../../dtos/ad/dto-input-my-ads";
 })
 export class MyAdReservationsToConfirmListComponent implements OnInit {
 
-  @Input() reservations!: DtoInputReservation[];
+  @Input() inputRes!: DtoInputReservation[];
+  reservations!: DtoInputReservation[];
 
   conflictsMap: [{ key: DtoInputReservation, val: DtoInputReservation[] } | null ] = [ null ];
   conflictsListToDisplay: DtoInputReservation[] = [];
@@ -29,6 +30,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   constructor(private _adService: AdService, private _toastNotification: ToastNotificationService) {}
 
   ngOnInit(): void {
+    this.reservations = this.inputRes;
     this.reservations.forEach(function(e) {
       e.renterMyAds.profilePicturePath = environment.pictureUrl + e.renterMyAds.profilePicturePath;
     });
