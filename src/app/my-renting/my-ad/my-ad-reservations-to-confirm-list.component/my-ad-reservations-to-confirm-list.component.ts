@@ -23,8 +23,8 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   displayConfirmationForm: boolean = false;
   displayRefusalForm: boolean = false;
 
-  reservationToDecline!: DtoInputReservation;
-  reservationToConfirm!: DtoInputReservation;
+  reservationToDecline: DtoInputReservation | null = null;
+  reservationToConfirm: DtoInputReservation | null = null;
 
   constructor(private _adService: AdService, private _toastNotification: ToastNotificationService) {}
 
@@ -231,64 +231,29 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
 
   cancelConfirmation() {
     this.displayConfirmationForm = false;
-    /*this.reservationToConfirm = {
-      arrivalDate: {year:0,month:0,day:0},
-      firstName: "",
-      id: -1,
-      lastName: "",
-      leaveDate: {year:0,month:0,day:0},
-      profilePicturePath: "",
-      renterId: 0,
-      reservationDate: {year:0,month:0,day:0}
-    };*/
+    this.reservationToConfirm = null
   }
 
   cancelRefusal() {
     this.displayRefusalForm = false;
-    /*this.reservationToDecline = {
-      arrivalDate: {year:0,month:0,day:0},
-      firstName: "",
-      id: -1,
-      lastName: "",
-      leaveDate: {year:0,month:0,day:0},
-      profilePicturePath: "",
-      renterId: 0,
-      reservationDate: {year:0,month:0,day:0}
-    };*/
+    this.reservationToDecline = null;
   }
 
   authorizeReservation() {
   }
 
   declineReservation() {
+    if (!this.reservationToDecline) return;
+
     this._adService.removeReservation(this.reservationToDecline.id).subscribe(result => {
       this.displayRefusalForm = false;
-      /*this.reservationToDecline = {
-        arrivalDate: {year:0,month:0,day:0},
-        firstName: "",
-        id: -1,
-        lastName: "",
-        leaveDate: {year:0,month:0,day:0},
-        profilePicturePath: "",
-        renterId: 0,
-        reservationDate: {year:0,month:0,day:0}
-      };
-      this.clickedReservation = {
-        arrivalDate: {year:0,month:0,day:0},
-        firstName: "",
-        id: -1,
-        lastName: "",
-        leaveDate: {year:0,month:0,day:0},
-        profilePicturePath: "",
-        renterId: 0,
-        reservationDate: {year:0,month:0,day:0}
-      };*/
+      this.reservationToDecline = null;
+      this.clickedReservation = null;
 
       this._toastNotification.add(
-        "La réservation de "+ result.renter.lastName +" "+ result.renter.firstName +" a été refusée avec succès",
+        "La réservation de " + result.renter.lastName + " " + result.renter.firstName + " a été refusée avec succès",
         "success"
       );
     });
-
   }
 }

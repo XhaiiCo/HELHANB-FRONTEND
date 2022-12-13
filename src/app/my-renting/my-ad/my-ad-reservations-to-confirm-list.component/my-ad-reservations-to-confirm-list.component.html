@@ -74,7 +74,7 @@
 
 
 
-  <div id="background_confirmation_container" *ngIf="displayConfirmationForm">
+  <div id="background_confirmation_container" *ngIf="displayConfirmationForm && reservationToConfirm">
     <div id="confirmation_container">
       <div id="confirmation_div">
         <div>
@@ -99,7 +99,7 @@
 
 
 
-  <div id="background_refusal_container" *ngIf="displayRefusalForm">
+  <div id="background_refusal_container" *ngIf="displayRefusalForm && reservationToDecline">
     <div id="refusal_container">
       <div id="refusal_div">
         <div>
