@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DtoInputReservation} from "../../../dtos/ad/dto-input-my-ads";
+import {DtoInputAdReservation} from "../../../dtos/ad/dto-input-my-ads";
 
 @Component({
   selector: 'app-my-ad-confirmed-reservation-list',
@@ -8,7 +8,7 @@ import {DtoInputReservation} from "../../../dtos/ad/dto-input-my-ads";
 })
 export class MyAdConfirmedReservationListComponent implements OnInit {
 
-  @Input() reservations!: DtoInputReservation[] ;
+  @Input() reservations!: DtoInputAdReservation[] ;
   constructor() { }
 
   ngOnInit(): void {

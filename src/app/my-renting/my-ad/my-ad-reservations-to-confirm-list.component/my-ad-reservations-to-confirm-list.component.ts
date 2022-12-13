@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {environment} from "../../../../environments/environment";
 import {AdService} from "../../../services/ad.service";
 import {ToastNotificationService} from "../../../services/toast-notification.service";
-import {DtoInputReservation} from "../../../dtos/ad/dto-input-my-ads";
+import {DtoInputAdReservation} from "../../../dtos/ad/dto-input-my-ads";
 
 @Component({
   selector: 'app-my-ad-reservations-to-confirm-list',
@@ -11,12 +11,12 @@ import {DtoInputReservation} from "../../../dtos/ad/dto-input-my-ads";
 })
 export class MyAdReservationsToConfirmListComponent implements OnInit {
 
-  @Input() inputRes!: DtoInputReservation[];
-  reservations!: DtoInputReservation[];
+  @Input() inputRes!: DtoInputAdReservation[];
+  reservations!: DtoInputAdReservation[];
 
-  conflictsMap: [{ key: DtoInputReservation, val: DtoInputReservation[] } | null ] = [ null ];
-  conflictsListToDisplay: DtoInputReservation[] = [];
-  clickedReservation: DtoInputReservation | null = null;
+  conflictsMap: [{ key: DtoInputAdReservation, val: DtoInputAdReservation[] } | null ] = [ null ];
+  conflictsListToDisplay: DtoInputAdReservation[] = [];
+  clickedReservation: DtoInputAdReservation | null = null;
 
   ascendingOrder: boolean = true;
   sortIndex: string = "0";
@@ -24,8 +24,8 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   displayConfirmationForm: boolean = false;
   displayRefusalForm: boolean = false;
 
-  reservationToDecline: DtoInputReservation | null = null;
-  reservationToConfirm: DtoInputReservation | null = null;
+  reservationToDecline: DtoInputAdReservation | null = null;
+  reservationToConfirm: DtoInputAdReservation | null = null;
 
   constructor(private _adService: AdService, private _toastNotification: ToastNotificationService) {}
 
@@ -63,7 +63,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
 
     // Pour chaque élément dans toutes les réservations
     for (let reservationI of this.reservations) {
-      let reservationIConflictsList: DtoInputReservation[] = [];
+      let reservationIConflictsList: DtoInputAdReservation[] = [];
       // Pour chaque élément dans toutes les réservations
       for (let reservationJ of this.reservations) {
         // S'ils sont différents
@@ -102,22 +102,22 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
     return datesList;
   }
 
-  getConflictsOfReservation(reservation: DtoInputReservation) {
+  getConflictsOfReservation(reservation: DtoInputAdReservation) {
     let arr = this.conflictsMap.find(e => e?.key === reservation)?.val;
     if (arr !== undefined)
       return arr;
     else {
-      let emptyArr: DtoInputReservation[] = [];
+      let emptyArr: DtoInputAdReservation[] = [];
       return emptyArr;
     }
   }
 
-  nbConflicts(reservation: DtoInputReservation) {
+  nbConflicts(reservation: DtoInputAdReservation) {
     let nb = this.conflictsMap.find(e => e?.key === reservation)?.val.length;
     return (nb !== undefined) ? nb : 0;
   }
 
-  displayConflicts(reservation?: DtoInputReservation) {
+  displayConflicts(reservation?: DtoInputAdReservation) {
     if (reservation !== undefined) {
       this.conflictsListToDisplay = this.getConflictsOfReservation(reservation);
     } else {
@@ -131,7 +131,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
     this.sortConflicts();
   }
 
-  reservationClicked(reservation: DtoInputReservation) {
+  reservationClicked(reservation: DtoInputAdReservation) {
     if (this.clickedReservation != reservation)
       this.clickedReservation = reservation;
     else
@@ -221,12 +221,12 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
       this.conflictsListToDisplay.reverse();
   }
 
-  displayConfirmation(reservation: DtoInputReservation) {
+  displayConfirmation(reservation: DtoInputAdReservation) {
     this.displayConfirmationForm = true;
     this.reservationToConfirm = reservation;
   }
 
-  displayRefusal(reservation: DtoInputReservation) {
+  displayRefusal(reservation: DtoInputAdReservation) {
     this.displayRefusalForm = true;
     this.reservationToDecline = reservation;
   }
