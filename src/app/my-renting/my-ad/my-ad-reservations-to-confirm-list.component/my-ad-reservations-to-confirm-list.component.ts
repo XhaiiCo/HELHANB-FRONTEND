@@ -40,12 +40,12 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
 
   dtoObjectToDateFR(date: Date) {
     let d = new Date(date);
-    return d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
+    return d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
   }
 
   dtoObjectToDateUS(date: Date) {
     let d = new Date(date);
-    return d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear();
+    return (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear();
   }
 
   nbDaysBetweenDates(startDate: Date, endDate: Date) {
