@@ -40,4 +40,5 @@ export class MyRentingComponent implements OnInit {
   changeCurrentAd(ad: DtoInputMyAds) {
     this.currentAd = ad;
   }
+
 }

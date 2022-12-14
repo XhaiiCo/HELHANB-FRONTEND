@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {environment} from "../../../../environments/environment";
 import {AdService} from "../../../services/ad.service";
 import {ToastNotificationService} from "../../../services/toast-notification.service";
@@ -60,6 +60,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   // Calcul le nombre de conflits avec la reservation passée en argument
   setConflictsList() {
     let conflictsMap: any = [];
+    this.conflictsMap = [ null ];
 
     // Pour chaque élément dans toutes les réservations
     for (let reservationI of this.reservations) {
@@ -245,9 +246,23 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
     if (!this.reservationToConfirm) return;
 
     this._adService.confirmReservation(this.reservationToConfirm).subscribe(result => {
+      this._adService.fetchAllReservationsByAdSlug(this.inputRes[0].adSlug).subscribe(reservations => {
+        reservations.forEach(function(e) {
+          console.log(typeof reservations);
+          //TODO
+          e.renterMyAds.profilePicturePath = environment.pictureUrl + e.renterMyAds.profilePicturePath;
+        });
+        this.reservations = reservations;
+      });
+
+      // Dire à l'autre component qu'il doit fetch les réservations
+
       this.displayConfirmationForm = false;
-      this.reservationToConfirm = null;
       this.clickedReservation = null;
+      this.conflictsListToDisplay = [];
+      this.reservationToConfirm = null;
+
+      this.setConflictsList();
 
       this._toastNotification.add(
         "La réservation de " + result.renterMyAds.lastName + " " + result.renterMyAds.firstName + " a été acceptée avec succès",
@@ -260,9 +275,20 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
     if (!this.reservationToDecline) return;
 
     this._adService.refuseReservation(this.reservationToDecline).subscribe(result => {
+      result.renterMyAds.profilePicturePath = environment.pictureUrl + result.renterMyAds.profilePicturePath;
+
       this.displayRefusalForm = false;
-      this.reservationToDecline = null;
       this.clickedReservation = null;
+      this.conflictsListToDisplay = [];
+
+      if (this.reservationToDecline) {
+        let i = this.inputRes.indexOf(this.reservationToDecline);
+        this.inputRes.splice(i, 1, result);
+
+        this.reservations = this.inputRes;
+        this.reservationToDecline = null;
+        this.setConflictsList();
+      }
 
       this._toastNotification.add(
         "La réservation de " + result.renterMyAds.lastName + " " + result.renterMyAds.firstName + " a été refusée avec succès",
