@@ -92,8 +92,12 @@ export class AdService {
   }
 
   confirmReservation(reservation: DtoInputAdReservation): Observable<DtoInputAdReservation> {
-    return this._httpClient.put<DtoInputAdReservation>(`${AdService.ENTRY_POINT_URL}/reservation`, reservation);
+    return this._httpClient.put<DtoInputAdReservation>(`${AdService.ENTRY_POINT_URL}/confirmReservation`, reservation);
 }
+
+  refuseReservation(reservation: DtoInputAdReservation): Observable<DtoInputAdReservation> {
+    return this._httpClient.put<DtoInputAdReservation>(`${AdService.ENTRY_POINT_URL}/refuseReservation`, reservation);
+  }
 
   removeReservation(reservationId: number): Observable<DtoInputReservation> {
     return this._httpClient.delete<DtoInputReservation>(`${AdService.ENTRY_POINT_URL}/reservation/${reservationId}`);

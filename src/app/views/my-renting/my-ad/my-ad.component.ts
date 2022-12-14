@@ -41,6 +41,7 @@ export class MyAdComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.ad.reservations.forEach(value => value.adSlug = this.ad.adSlug);
   }
 
   onPictureAdded(files: any) {

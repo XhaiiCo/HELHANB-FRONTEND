@@ -247,13 +247,13 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   declineReservation() {
     if (!this.reservationToDecline) return;
 
-    this._adService.removeReservation(this.reservationToDecline.id).subscribe(result => {
+    this._adService.refuseReservation(this.reservationToDecline).subscribe(result => {
       this.displayRefusalForm = false;
       this.reservationToDecline = null;
       this.clickedReservation = null;
 
       this._toastNotification.add(
-        "La réservation de " + result.renter.lastName + " " + result.renter.firstName + " a été refusée avec succès",
+        "La réservation de " + result.renterMyAds.lastName + " " + result.renterMyAds.firstName + " a été refusée avec succès",
         "success"
       );
     });
