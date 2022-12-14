@@ -19,7 +19,7 @@ export interface DtoInputMyAds {
   pictures: DtoInputPicture[];
   owner: DtoInputOwner;
   status: DtoInputStatus;
-  reservations: DtoInputReservation[];
+  reservations: DtoInputAdReservation[];
 
   picturesToAdd: string[];
   picturesToDelete: string[];
@@ -41,8 +41,9 @@ interface DtoInputStatus {
   statusName: string;
 }
 
-export interface DtoInputReservation {
+export interface DtoInputAdReservation {
   id: number;
+  adSlug: string;
   arrivalDate: Date;
   leaveDate: Date;
   statusMyAds: DtoInputStatus;

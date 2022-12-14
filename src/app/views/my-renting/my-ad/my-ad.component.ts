@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DtoInputMyAds, DtoInputReservation} from "../../../dtos/ad/dto-input-my-ads";
+import {DtoInputMyAds, DtoInputAdReservation} from "../../../dtos/ad/dto-input-my-ads";
 import {environment} from "../../../../environments/environment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AdHandleService} from "../../../services/ad-handle.service";
@@ -41,6 +41,7 @@ export class MyAdComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.ad.reservations.forEach(value => value.adSlug = this.ad.adSlug);
   }
 
   onPictureAdded(files: any) {
@@ -100,7 +101,7 @@ export class MyAdComponent implements OnInit {
 
   }
 
-  sortReservationByStatusName(statusName: string): DtoInputReservation[] {
+  sortReservationByStatusName(statusName: string): DtoInputAdReservation[] {
     if (this.ad) {
       return this.ad.reservations.filter(item => item?.statusMyAds?.statusName === statusName);
     }
