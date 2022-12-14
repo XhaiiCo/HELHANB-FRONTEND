@@ -6,6 +6,7 @@ import {DtoInputUser} from "../dtos/user/dto-input-user";
 import {DtoOutputFilteringUsers} from "../dtos/user/dto-output-filtering-users";
 import {DtoOutputUpdatePassword} from "../dtos/user/dto-output-update-password";
 import {DtoOutputUpdateUser} from "../dtos/user/dto-output-update-user";
+import {DtoOuputUpdateProfilePictureBase64User} from "../dtos/user/dto-ouput-update-profile-picture-base64-user";
 
 @Injectable({
   providedIn: 'root'
@@ -19,15 +20,11 @@ export class UserService {
 
   /**
    * It takes a user id and an image, and it returns an observable of the updated user
-   * @param {number} id - number - the id of the user to update
-   * @param {any} image - File - this is the image file that you want to upload.
    * @returns The user with the updated profile picture.
+   * @param dto
    */
-  public updateProfilePicture(image: File | null): Observable<DtoInputUser> {
-    let formData = new FormData();
-    if (image)
-      formData.append("profilePicture", image, image.name);
-    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/profilePicture`, formData);
+  public updateProfilePicture(dto: DtoOuputUpdateProfilePictureBase64User): Observable<DtoInputUser> {
+    return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/profilePicture/base64`, dto);
   }
 
   /**
@@ -80,7 +77,7 @@ export class UserService {
     return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}/becomeHost`, {});
   }
 
-  public changeRole(id: number, newRoleId: number): Observable<DtoInputUser>{
+  public changeRole(id: number, newRoleId: number): Observable<DtoInputUser> {
     return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/${id}/changeRole/${newRoleId}`, {});
   }
 }

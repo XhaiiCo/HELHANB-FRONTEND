@@ -81,6 +81,14 @@
   margin: auto 0 auto;
   display: flex;
 
+  &.disabled {
+    background-color: $secondary-color;
+    cursor: auto;
+    &:hover{
+      opacity: 1;
+    }
+  }
+
   & > svg {
     display: block;
     margin: auto;
