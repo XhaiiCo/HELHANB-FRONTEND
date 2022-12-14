@@ -17,7 +17,6 @@ export class RegistrationComponent implements OnInit {
     profilePicture: this._fb.control(""),
     firstName: this._fb.control("", [Validators.required]),
     lastName: this._fb.control("", [Validators.required]),
-    //dateOfBirth: this._fb.control("", [Validators.required]),
     email: this._fb.control("", [Validators.required, Validators.email]),
     password: this._fb.control("", [Validators.required, Validators.minLength(6)]),
     confirmPassword: this._fb.control("", [Validators.required, Validators.minLength(6)]),
@@ -97,7 +96,7 @@ export class RegistrationComponent implements OnInit {
         this._toastNotificationService.add(`Hello ${user.firstName}`, "success");
 
         if (this.profilePicture) {
-          this._userService.updateProfilePicture(user.id, this.profilePicture).subscribe({
+          this._userService.updateProfilePicture(this.profilePicture).subscribe({
             next: (user) => this._authService.user = user,
             error: (err) => {
               if (err.status === 401)
