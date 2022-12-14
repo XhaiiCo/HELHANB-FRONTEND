@@ -242,6 +242,18 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   }
 
   authorizeReservation() {
+    if (!this.reservationToConfirm) return;
+
+    this._adService.confirmReservation(this.reservationToConfirm).subscribe(result => {
+      this.displayConfirmationForm = false;
+      this.reservationToConfirm = null;
+      this.clickedReservation = null;
+
+      this._toastNotification.add(
+        "La réservation de " + result.renterMyAds.lastName + " " + result.renterMyAds.firstName + " a été acceptée avec succès",
+        "success"
+      );
+    });
   }
 
   declineReservation() {
