@@ -18,7 +18,7 @@ import {DtoOutputTime} from "../../dtos/ad/dto-output-time";
 export class CreateAdComponent implements OnInit {
 
   submitBtnValue: string = "Suivant";
-  step: number = 0;
+  step: number = 5;
   stepsName: string[] = ["step0", "step1", "step2", "step3", "step4", "step5"]
 
   picturesToAdd: string[] = [];

@@ -44,6 +44,8 @@ export class AdService {
     if(params.get('city')) httpParams.set("city", params.get('city'));
     if(params.get('pricePerNight')) httpParams.set("pricePerNight", params.get('pricePerNight'));
     if(params.get('numberOfPersons')) httpParams.set("numberOfPersons", params.get('numberOfPersons'));
+    if(params.get('arrivalDate')) httpParams.set("arrivalDate", params.get('arrivalDate'));
+    if(params.get('leaveDate')) httpParams.set("leaveDate", params.get('leaveDate'));
 
     return this._httpClient.get<number>(`${AdService.ENTRY_POINT_URL}/count?${httpParams.toString()}`);
   }
@@ -59,6 +61,8 @@ export class AdService {
     if(params.get('city')) httpParams.set("city", params.get('city'));
     if(params.get('pricePerNight')) httpParams.set("pricePerNight", params.get('pricePerNight'));
     if(params.get('numberOfPersons')) httpParams.set("numberOfPersons", params.get('numberOfPersons'));
+    if(params.get('arrivalDate')) httpParams.set("arrivalDate", params.get('arrivalDate'));
+    if(params.get('leaveDate')) httpParams.set("leaveDate", params.get('leaveDate'));
 
     return this._httpClient.get<DtoInputAdSummary[]>(`${AdService.ENTRY_POINT_URL}/summary?${httpParams.toString()}`);
   }

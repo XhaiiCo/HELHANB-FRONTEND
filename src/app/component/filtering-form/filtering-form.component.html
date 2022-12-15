@@ -20,7 +20,7 @@
 
     <input class="input-text" type="number" formControlName="numberOfPersons" placeholder="nombre de personnes">
 
-    <app-date-picker class="date-picker"></app-date-picker>
+    <app-date-picker class="date-picker" (emitDateChange)="dateChange($event)"></app-date-picker>
 
     <button class="btn-secondary" type="submit" (click)="search()">
       <svg viewBox="0 0 21 21">
