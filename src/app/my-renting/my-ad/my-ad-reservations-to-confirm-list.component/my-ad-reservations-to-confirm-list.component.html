@@ -46,15 +46,15 @@
       <div id="confirmation_div">
         <div>
           <span>Êtes vous sûr de confirmer la réservation de {{ reservationToConfirm.renterMyAds.lastName }} {{ reservationToConfirm.renterMyAds.firstName }}</span>
-          <span> du {{ dtoObjectToDateFR(reservationToConfirm.arrivalDate) }}
-            au {{ dtoObjectToDateFR(reservationToConfirm.leaveDate) }}</span>
+          <span> du {{ dateService.dtoObjectToDateFR(reservationToConfirm.arrivalDate) }}
+            au {{ dateService.dtoObjectToDateFR(reservationToConfirm.leaveDate) }}</span>
         </div>
 
         <div *ngIf="nbConflicts(reservationToConfirm) != 0">
           <span>Les réservations suivantes seront refusées :</span>
           <span *ngFor="let conflict of getConflictsOfReservation(reservationToConfirm)">
             <span>  - {{ conflict.renterMyAds.lastName }} {{ conflict.renterMyAds.firstName }}
-              du {{ dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dtoObjectToDateFR(conflict.leaveDate) }}</span>
+              du {{ dateService.dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dateService.dtoObjectToDateFR(conflict.leaveDate) }}</span>
           </span>
         </div>
 
@@ -72,8 +72,8 @@
       <div id="refusal_div">
         <div>
           <span>Êtes vous sûr de <b>refuser</b> la réservation de {{ reservationToDecline.renterMyAds.lastName }} {{ reservationToDecline.renterMyAds.firstName }}</span>
-          <span> du {{ dtoObjectToDateFR(reservationToDecline.arrivalDate) }}
-            au {{ dtoObjectToDateFR(reservationToDecline.leaveDate) }}</span>
+          <span> du {{ dateService.dtoObjectToDateFR(reservationToDecline.arrivalDate) }}
+            au {{ dateService.dtoObjectToDateFR(reservationToDecline.leaveDate) }}</span>
         </div>
 
         <div class="btn_close_form_container">

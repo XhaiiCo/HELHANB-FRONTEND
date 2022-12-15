@@ -8,12 +8,12 @@
         <span><b>{{ reservation.renterMyAds.lastName }} {{ reservation.renterMyAds.firstName }}</b></span>
       </div>
       <div> <!-- mid -->
-        <span>du {{ dtoObjectToDateFR(reservation.arrivalDate) }}
-          au {{ dtoObjectToDateFR(reservation.leaveDate) }}
-          ({{ nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
+        <span>du {{ dateService.dtoObjectToDateFR(reservation.arrivalDate) }}
+          au {{ dateService.dtoObjectToDateFR(reservation.leaveDate) }}
+          ({{ dateService.nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
       </div>
       <div> <!-- bottom -->
-        <span>Demandé le {{ dtoObjectToDateFR(reservation.creation) }}
+        <span>Demandé le {{ dateService.dtoObjectToDateFR(reservation.creation) }}
           - {{ nbConflicts }} {{ nbConflicts > 1 ? "conflits" : "conflit" }}</span>
       </div>
     </div>
