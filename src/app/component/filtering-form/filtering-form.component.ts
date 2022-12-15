@@ -20,10 +20,10 @@ export class FilteringFormComponent implements OnInit {
     country: this._fb.control(""),
     city: this._fb.control(""),
     pricePerNight: this._fb.control(""),
-    numberOfPersons: this._fb.control(""),
-    startDate: this._fb.control(""),
-    leaveDate: this._fb.control(""),
+    numberOfPersons: this._fb.control("")
   });
+
+  dates!: { arrival: Date, leave: Date };
 
   displayFiltre: boolean = false;
 
@@ -64,18 +64,18 @@ export class FilteringFormComponent implements OnInit {
     this._adService
       .fetchCities(event.target.value)
       .subscribe(cities => {
-        this.cities = cities ;
+        this.cities = cities;
         this.filteringForm.patchValue({
           city: "",
         });
       });
   }
 
-  fetchDistinctsCities(country : string) {
+  fetchDistinctsCities(country: string) {
     this._adService
       .fetchCities(country)
       .subscribe(cities => {
-        this.cities = cities ;
+        this.cities = cities;
       });
   }
 
@@ -85,9 +85,9 @@ export class FilteringFormComponent implements OnInit {
 
     this.addAllParams();
 
-    this._router.navigate(['annonces'], {queryParams: this.params}).then(() => {this.notify.emit("notify")});
-
-
+    this._router.navigate(['annonces'], {queryParams: this.params}).then(() => {
+      this.notify.emit("notify")
+    });
   }
 
   addAllParams() {
@@ -95,6 +95,12 @@ export class FilteringFormComponent implements OnInit {
       let param = this.filteringForm.get(name)?.value;
 
       if (param) Object.assign(this.params, {[name]: param});
+    }
+
+    if (this.dates.arrival && this.dates.leave)
+    {
+      Object.assign(this.params, {arrivalDate: this.dateToString(this.dates.arrival)});
+      Object.assign(this.params, {leaveDate: this.dateToString(this.dates.leave)});
     }
   }
 
@@ -104,4 +110,25 @@ export class FilteringFormComponent implements OnInit {
     }
   }
 
+  setDate(range: FormGroup) {
+    if (range.valid) {
+      this.dates = {
+        arrival: range.get("start")?.value,
+        leave: range.get("end")?.value,
+      }
+    }
+  }
+
+  dateChange(range: FormGroup) {
+    this.setDate(range);
+  }
+
+  dateToString(date: Date):string
+  {
+    const dateObj: Date = new Date(date.toString());
+
+    return dateObj.getDate().toString() + "/" + (dateObj.getMonth() + 1).toString() + "/" + dateObj.getFullYear();
+  }
 }
+
+
