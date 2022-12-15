@@ -88,13 +88,19 @@
   </form>
 
   <h1>Réservations</h1>
-  <h2>En attentes</h2>
-  <app-my-ad-reservations-to-confirm-list
-    [inputRes]="sortReservationByStatusName('en attente')"
-  ></app-my-ad-reservations-to-confirm-list>
+  <div *ngIf="sortReservationByStatusName('en attente').length">
+    <h2>En attentes</h2>
+    <app-my-ad-reservations-to-confirm-list
+      [reservations]="sortReservationByStatusName('en attente')"
+      (confirmedReservation)="confirmedReservationMethod($event)"
+      (declinedReservation)="declinedReservationMethod($event)"
+    ></app-my-ad-reservations-to-confirm-list>
+  </div>
 
-  <h2>Acceptées</h2>
-  <app-my-ad-confirmed-reservation-list
-    [reservations]="sortReservationByStatusName('acceptée')"
-  ></app-my-ad-confirmed-reservation-list>
+  <div *ngIf="sortReservationByStatusName('acceptée').length">
+    <h2>Acceptées</h2>
+    <app-my-ad-confirmed-reservation-list
+      [reservations]="sortReservationByStatusName('acceptée')"
+    ></app-my-ad-confirmed-reservation-list>
+  </div>
 </main>

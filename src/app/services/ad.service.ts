@@ -95,6 +95,10 @@ export class AdService {
     return this._httpClient.get<DtoInputReservation[]>(`${AdService.ENTRY_POINT_URL}/myReservations`);
   }
 
+  fetchAllReservationsByAdSlug(adSlug: string): Observable<DtoInputAdReservation[]> {
+    return this._httpClient.get<DtoInputAdReservation[]>(`${AdService.ENTRY_POINT_URL}/${adSlug}/reservation`);
+  }
+
   confirmReservation(reservation: DtoInputAdReservation): Observable<DtoInputAdReservation> {
     return this._httpClient.put<DtoInputAdReservation>(`${AdService.ENTRY_POINT_URL}/confirmReservation`, reservation);
 }
