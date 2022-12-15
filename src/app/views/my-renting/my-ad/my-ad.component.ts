@@ -7,6 +7,9 @@ import {AdService} from "../../../services/ad.service";
 import {DtoOutputUpdateAd} from "../../../dtos/ad/dto-output-update-ad";
 import {ToastNotificationService} from "../../../services/toast-notification.service";
 import {DtoOutputUpdateStatusAd} from "../../../dtos/ad/dto-output-update-status-ad";
+import {
+  MyAdReservationsToConfirmListComponent
+} from "../../../my-renting/my-ad/my-ad-reservations-to-confirm-list.component/my-ad-reservations-to-confirm-list.component";
 
 @Component({
   selector: 'app-my-ad',
@@ -32,6 +35,9 @@ export class MyAdComponent implements OnInit {
 
   tmp_feature: string = "";
   disabledUpdateBtn: boolean = false;
+
+  @Output() confirmedReservation = new EventEmitter<{confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[]}>();
+  @Output() declinedReservation = new EventEmitter<DtoInputAdReservation>();
 
   constructor(
     public adHandleService: AdHandleService,
@@ -122,6 +128,14 @@ export class MyAdComponent implements OnInit {
       error: err => {
         this._toastNotificationService.add(err.error, "error");
       }
-    })
+    });
+  }
+
+  confirmedReservationMethod(reservations: {confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[]}) {
+    this.confirmedReservation.emit(reservations);
+  }
+
+  declinedReservationMethod(reservation: DtoInputAdReservation) {
+    this.declinedReservation.emit(reservation);
   }
 }
