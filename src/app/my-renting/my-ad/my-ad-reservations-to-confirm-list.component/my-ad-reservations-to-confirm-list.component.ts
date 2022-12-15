@@ -112,7 +112,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
     }
   }
 
-  nbConflicts(reservation: DtoInputAdReservation) {
+  nbConflicts(reservation: DtoInputAdReservation): number {
     let nb = this.conflictsMap.find(e => e?.key === reservation)?.val.length;
     return (nb !== undefined) ? nb : 0;
   }

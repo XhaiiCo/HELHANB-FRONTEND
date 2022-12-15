@@ -15,77 +15,46 @@
     </div>
     <div id="container_reservations">
       <div id="all_reservations" class="all">
-        <div id="reservation" class="reservation"
-             *ngFor="let reservation of reservations"
-             (mouseover)="displayConflicts(reservation)"
-             (mouseleave)="displayConflicts()"
-             (click)="reservationClicked(reservation)"
-             [ngClass]="reservation === clickedReservation ? 'clickedReservation' : ''">
-          <div class="pp"> <!-- left -->
-            <img [src]="reservation.renterMyAds.profilePicturePath" alt="Photo de profil">
-          </div>
-          <div class="info"> <!-- center -->
-            <div> <!-- top -->
-              <span>{{ reservation.renterMyAds.lastName }} {{ reservation.renterMyAds.firstName }}</span>
-            </div>
-            <div> <!-- mid -->
-              <span>du {{ dtoObjectToDateFR(reservation.arrivalDate) }} au {{ dtoObjectToDateFR(reservation.leaveDate) }} ({{ nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
-            </div>
-            <div> <!-- bottom -->
-              <span>Demandé le {{ dtoObjectToDateFR(reservation.creation) }} - {{ nbConflicts(reservation) }} {{ nbConflicts(reservation) > 1 ? "conflits" : "conflit" }}</span>
-            </div>
-          </div>
-          <div id="action"> <!-- right -->
-            <div id="divAcceptBtn"><!-- top -->
-              <button (click)="displayConfirmation(reservation)">
-                <svg width="30" height="30" viewBox="0 0 20 20"><path fill="white" d="m14.83 4.89l1.34.94l-5.81 8.38H9.02L5.78 9.67l1.34-1.25l2.57 2.4z"/></svg>
-              </button>
-            </div>
-            <div id="divRemoveBtn"><!-- bottom -->
-              <button (click)="displayRefusal(reservation)">
-                <svg width="28" height="28" viewBox="0 0 20 20"><path fill="white" d="m12.12 10l3.53 3.53l-2.12 2.12L10 12.12l-3.54 3.54l-2.12-2.12L7.88 10L4.34 6.46l2.12-2.12L10 7.88l3.54-3.53l2.12 2.12z"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>
+        <app-my-ad-reservation-card
+          *ngFor="let reservation of reservations"
+          [reservation]="reservation"
+          [nbConflicts]="nbConflicts(reservation)"
+          (onConfirmationBtnClickEvent)="displayConfirmation($event)"
+          (onRefusalBtnClickEvent)="displayRefusal($event)"
+          (mouseover)="displayConflicts(reservation)"
+          (mouseleave)="displayConflicts()"
+          (click)="reservationClicked(reservation)"
+          [ngClass]="reservation === clickedReservation ? 'clickedReservation' : ''">
+        </app-my-ad-reservation-card>
       </div>
 
       <div id="all_conflicts" class="all">
-        <div id="conflicts" class="reservation" *ngFor="let conflict of conflictsListToDisplay">
-          <div class="pp"> <!-- left -->
-            <img [src]="conflict.renterMyAds.profilePicturePath" alt="Photo de profil">
-          </div>
-          <div class="info"> <!-- center -->
-            <div> <!-- top -->
-              <span>{{ conflict.renterMyAds.lastName }} {{ conflict.renterMyAds.firstName }}</span>
-            </div>
-            <div> <!-- mid -->
-              <span>du {{ dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dtoObjectToDateFR(conflict.leaveDate) }} ({{ nbDaysBetweenDates(conflict.arrivalDate, conflict.leaveDate) }} jours)</span>
-            </div>
-            <div> <!-- bottom -->
-              <span>Demandé le {{ dtoObjectToDateFR(conflict.creation) }} - {{ nbConflicts(conflict) }} {{ nbConflicts(conflict) > 1 ? "conflits" : "conflit" }}</span>
-            </div>
-          </div>
-        </div>
+        <app-my-ad-reservation-card
+          *ngFor="let conflict of conflictsListToDisplay"
+          [reservation]="conflict"
+          [nbConflicts]="nbConflicts(conflict)"
+          (onConfirmationBtnClickEvent)="displayConfirmation($event)"
+          (onRefusalBtnClickEvent)="displayRefusal($event)"
+        >
+        </app-my-ad-reservation-card>
       </div>
     </div>
   </div>
-
-
-
 
   <div id="background_confirmation_container" *ngIf="displayConfirmationForm && reservationToConfirm">
     <div id="confirmation_container">
       <div id="confirmation_div">
         <div>
           <span>Êtes vous sûr de confirmer la réservation de {{ reservationToConfirm.renterMyAds.lastName }} {{ reservationToConfirm.renterMyAds.firstName }}</span>
-          <span> du {{ dtoObjectToDateFR(reservationToConfirm.arrivalDate) }} au {{ dtoObjectToDateFR(reservationToConfirm.leaveDate) }}</span>
+          <span> du {{ dtoObjectToDateFR(reservationToConfirm.arrivalDate) }}
+            au {{ dtoObjectToDateFR(reservationToConfirm.leaveDate) }}</span>
         </div>
 
         <div *ngIf="nbConflicts(reservationToConfirm) != 0">
           <span>Les réservations suivantes seront refusées :</span>
           <span *ngFor="let conflict of getConflictsOfReservation(reservationToConfirm)">
-            <span>  - {{ conflict.renterMyAds.lastName }} {{ conflict.renterMyAds.firstName }} du {{ dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dtoObjectToDateFR(conflict.leaveDate) }}</span>
+            <span>  - {{ conflict.renterMyAds.lastName }} {{ conflict.renterMyAds.firstName }}
+              du {{ dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dtoObjectToDateFR(conflict.leaveDate) }}</span>
           </span>
         </div>
 
@@ -98,13 +67,13 @@
   </div>
 
 
-
   <div id="background_refusal_container" *ngIf="displayRefusalForm && reservationToDecline">
     <div id="refusal_container">
       <div id="refusal_div">
         <div>
           <span>Êtes vous sûr de <b>refuser</b> la réservation de {{ reservationToDecline.renterMyAds.lastName }} {{ reservationToDecline.renterMyAds.firstName }}</span>
-          <span> du {{ dtoObjectToDateFR(reservationToDecline.arrivalDate) }} au {{ dtoObjectToDateFR(reservationToDecline.leaveDate) }}</span>
+          <span> du {{ dtoObjectToDateFR(reservationToDecline.arrivalDate) }}
+            au {{ dtoObjectToDateFR(reservationToDecline.leaveDate) }}</span>
         </div>
 
         <div class="btn_close_form_container">

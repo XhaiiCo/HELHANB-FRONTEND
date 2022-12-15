@@ -1,5 +1,5 @@
-@import '../../../../styles/helpers/variable';
-@import '../../../../styles/components/button';
+@import '/src/styles/helpers/variable';
+@import '/src/styles/components/button';
 
 #container {
   display: flex;
@@ -17,104 +17,6 @@
   height: max-content;
 }
 
-  .reservation {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid black; // tmp
-    margin-top: 5px;
-    cursor: default;
-
-    &:hover {
-      background-color: rgba(gray, 0.3);
-    }
-  }
-
-    .pp {}
-
-    .info {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    #action {
-      display: flex;
-      flex-direction: column;
-      margin-left: 5px;
-
-      & > div {
-        text-align: center;
-        height: 50%;
-        width: 45px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding-left: -4px;
-        padding-bottom: -4px;
-
-        & > button {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          object-position: 50% 50%;
-          object-fit: cover;
-          aspect-ratio: 1/1;
-
-          & > svg {
-            cursor: pointer;
-          }
-        }
-      }
-
-      & > div#divAcceptBtn {
-        & > button {
-          background-color: rgba(green, 0.8);
-          & > svg {
-            margin-top: 2px;
-            margin-left: -3px;
-          }
-        }
-        & > button:hover {
-          background-color: rgba(green, 0.45);
-        }
-      }
-
-      & > div#divRemoveBtn {
-        margin-top: 4px;
-
-        & > button {
-          background-color: rgba(red, 0.8);
-          & > svg {
-            margin-top: 2px;
-          }
-        }
-
-        & > button:hover {
-          background-color: rgba(red, 0.45);
-        }
-      }
-    }
-
-.clickedReservation {
-  background-color: rgba(gray, 0.7);
-}
-
-
-// image
-.pp {
-  margin-right: 10px;
-  display: flex;
-  align-items: center;
-}
-
-img {
-  border-radius: 50%;
-  object-position: 50% 50%;
-  object-fit: cover;
-  aspect-ratio: 1/1;
-}
-
-
-// Etes vous sur de accepter réservation
 #background_confirmation_container {
   z-index: 999;
   position: fixed;
