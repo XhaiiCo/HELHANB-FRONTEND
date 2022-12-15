@@ -17,7 +17,7 @@ export class MyRentingComponent implements OnInit {
   currentAd!: DtoInputMyAds;
   pageLoaded: boolean = false;
 
-  constructor(private _authService: AuthService, private _adService: AdService) {
+  constructor(private _authService: AuthService, private _adService: AdService, private _toastNotification: ToastNotificationService) {
   }
 
   ngOnInit(): void {
@@ -44,4 +44,41 @@ export class MyRentingComponent implements OnInit {
     this.currentAd = ad;
   }
 
+  confirmedReservationMethod(reservations: { confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[] }) {
+
+    this._adService.confirmReservation(reservations.confirmed).subscribe(result => {
+      result.renterMyAds.profilePicturePath = environment.pictureUrl + result.renterMyAds.profilePicturePath;
+
+      let adIndex = this.ads.findIndex(e => e.adSlug == reservations.confirmed.adSlug);
+      this.ads[adIndex].reservations.splice(this.ads[adIndex].reservations.indexOf(reservations.confirmed), 1, result);
+
+      reservations.declined?.forEach(e => {
+        let e_ = e;
+        e_.statusMyAds = {
+          id: 2,
+          statusName: "refusée"
+        };
+        this.ads[adIndex].reservations.splice(this.ads[adIndex].reservations.indexOf(e), 1, e_);
+      });
+
+      this._toastNotification.add(
+        `La réservation de ${result.renterMyAds.lastName} ${result.renterMyAds.firstName} a été acceptée avec succès`,
+        "success"
+      );
+    });
+  }
+
+  declinedReservationMethod(reservation: DtoInputAdReservation) {
+    this._adService.refuseReservation(reservation).subscribe(result => {
+      result.renterMyAds.profilePicturePath = environment.pictureUrl + result.renterMyAds.profilePicturePath;
+
+      let adIndex = this.ads.findIndex(e => e.adSlug == reservation.adSlug);
+      this.ads[adIndex].reservations.splice(this.ads[adIndex].reservations.indexOf(reservation), 1, result);
+
+      this._toastNotification.add(
+        "La réservation de " + result.renterMyAds.lastName + " " + result.renterMyAds.firstName + " a été refusée avec succès",
+        "success"
+      );
+    });
+  }
 }
