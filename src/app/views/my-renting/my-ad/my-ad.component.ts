@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DtoInputMyAds, DtoInputAdReservation} from "../../../dtos/ad/dto-input-my-ads";
 import {environment} from "../../../../environments/environment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";

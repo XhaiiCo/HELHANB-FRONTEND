@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {environment} from "../../../../environments/environment";
 import {AdService} from "../../../services/ad.service";
 import {ToastNotificationService} from "../../../services/toast-notification.service";
@@ -11,8 +11,7 @@ import {DtoInputAdReservation} from "../../../dtos/ad/dto-input-my-ads";
 })
 export class MyAdReservationsToConfirmListComponent implements OnInit {
 
-  @Input() inputRes!: DtoInputAdReservation[];
-  reservations!: DtoInputAdReservation[];
+  @Input() reservations!: DtoInputAdReservation[];
 
   conflictsMap: [{ key: DtoInputAdReservation, val: DtoInputAdReservation[] } | null ] = [ null ];
   conflictsListToDisplay: DtoInputAdReservation[] = [];
@@ -27,15 +26,21 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   reservationToDecline: DtoInputAdReservation | null = null;
   reservationToConfirm: DtoInputAdReservation | null = null;
 
+  @Output() confirmedReservation = new EventEmitter<{confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[]}>();
+  @Output() declinedReservation = new EventEmitter<DtoInputAdReservation>();
+
   constructor(private _adService: AdService, private _toastNotification: ToastNotificationService) {}
 
   ngOnInit(): void {
-    this.reservations = this.inputRes;
     this.reservations.forEach(function(e) {
       e.renterMyAds.profilePicturePath = environment.pictureUrl + e.renterMyAds.profilePicturePath;
     });
     this.sortReservation();
-    this.setConflictsList();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['reservations'])
+      this.setConflictsList();
   }
 
   dtoObjectToDateFR(date: Date) {
@@ -145,13 +150,11 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   }
 
   sortAll(e?: any) {
-    console.log(this.reservations);
     if (e)
       this.sortIndex = e.value;
 
     this.sortReservation();
     this.sortConflicts();
-    console.log(this.reservations);
   }
 
   sortReservation() {
@@ -244,56 +247,26 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
 
   authorizeReservation() {
     if (!this.reservationToConfirm) return;
-
-    this._adService.confirmReservation(this.reservationToConfirm).subscribe(result => {
-      this._adService.fetchAllReservationsByAdSlug(this.inputRes[0].adSlug).subscribe(reservations => {
-        reservations.forEach(function(e) {
-          console.log(typeof reservations);
-          //TODO
-          e.renterMyAds.profilePicturePath = environment.pictureUrl + e.renterMyAds.profilePicturePath;
-        });
-        this.reservations = reservations;
-      });
-
-      // Dire à l'autre component qu'il doit fetch les réservations
-
-      this.displayConfirmationForm = false;
-      this.clickedReservation = null;
-      this.conflictsListToDisplay = [];
-      this.reservationToConfirm = null;
-
-      this.setConflictsList();
-
-      this._toastNotification.add(
-        "La réservation de " + result.renterMyAds.lastName + " " + result.renterMyAds.firstName + " a été acceptée avec succès",
-        "success"
-      );
+    this.confirmedReservation.emit({
+      confirmed: this.reservationToConfirm,
+      declined: this.conflictsMap.find(e => e?.key === this.reservationToConfirm)?.val
     });
+
+    this.displayConfirmationForm = false;
+    this.clickedReservation = null;
+    this.conflictsListToDisplay = [];
+    this.reservationToConfirm = null;
   }
 
   declineReservation() {
     if (!this.reservationToDecline) return;
 
-    this._adService.refuseReservation(this.reservationToDecline).subscribe(result => {
-      result.renterMyAds.profilePicturePath = environment.pictureUrl + result.renterMyAds.profilePicturePath;
+    this.declinedReservation.emit(this.reservationToDecline);
 
-      this.displayRefusalForm = false;
-      this.clickedReservation = null;
-      this.conflictsListToDisplay = [];
-
-      if (this.reservationToDecline) {
-        let i = this.inputRes.indexOf(this.reservationToDecline);
-        this.inputRes.splice(i, 1, result);
-
-        this.reservations = this.inputRes;
-        this.reservationToDecline = null;
-        this.setConflictsList();
-      }
-
-      this._toastNotification.add(
-        "La réservation de " + result.renterMyAds.lastName + " " + result.renterMyAds.firstName + " a été refusée avec succès",
-        "success"
-      );
-    });
+    this.displayRefusalForm = false;
+    this.clickedReservation = null;
+    this.conflictsListToDisplay = [];
+    this.reservationToDecline = null;
   }
+
 }

@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {AdService} from "../../services/ad.service";
-import {DtoInputMyAds} from "../../dtos/ad/dto-input-my-ads";
+import {DtoInputAdReservation, DtoInputMyAds} from "../../dtos/ad/dto-input-my-ads";
+import {ToastNotificationService} from "../../services/toast-notification.service";
+import {environment} from "../../../environments/environment";
+import {MyAdComponent} from "./my-ad/my-ad.component";
 
 @Component({
   selector: 'app-my-renting',
