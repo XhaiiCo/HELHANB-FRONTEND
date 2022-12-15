@@ -13,6 +13,7 @@ import {DateService} from "../../../services/date.service";
 export class MyAdReservationsToConfirmListComponent implements OnInit {
 
   @Input() reservations!: DtoInputAdReservation[];
+  cancelReservationChange!: DtoInputAdReservation[];
 
   conflictsMap: [{ key: DtoInputAdReservation, val: DtoInputAdReservation[] } | null] = [null];
   conflictsListToDisplay: DtoInputAdReservation[] = [];
@@ -31,7 +32,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   @Output() declinedReservation = new EventEmitter<DtoInputAdReservation>();
 
   constructor(
-    private _adService: AdService, 
+    private _adService: AdService,
     private _toastNotification: ToastNotificationService,
     public dateService: DateService,) {}
 
@@ -40,11 +41,18 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
       e.renterMyAds.profilePicturePath = environment.pictureUrl + e.renterMyAds.profilePicturePath;
     });
     this.sortReservation();
+    this.cancelReservationChange = this.reservations;
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['reservations'])
-      this.setConflictsList();
+    // La valeur de reservations change tout le temps à cause de @Input(), ces ifs permettent de pas faire les méthodes 40 fois/seconde
+    if (this.cancelReservationChange && this.reservations) {
+      if (this.cancelReservationChange.length !== this.reservations.length) {
+        this.setConflictsList();
+        console.log(this.reservations);
+        this.cancelReservationChange = this.reservations;
+      }
+    }
   }
 
   // Calcul le nombre de conflits avec la reservation passée en argument
