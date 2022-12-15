@@ -3,6 +3,7 @@ import {environment} from "../../../../environments/environment";
 import {AdService} from "../../../services/ad.service";
 import {ToastNotificationService} from "../../../services/toast-notification.service";
 import {DtoInputAdReservation} from "../../../dtos/ad/dto-input-my-ads";
+import {DateService} from "../../../services/date.service";
 
 @Component({
   selector: 'app-my-ad-reservations-to-confirm-list',
@@ -13,7 +14,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
 
   @Input() reservations!: DtoInputAdReservation[];
 
-  conflictsMap: [{ key: DtoInputAdReservation, val: DtoInputAdReservation[] } | null ] = [ null ];
+  conflictsMap: [{ key: DtoInputAdReservation, val: DtoInputAdReservation[] } | null] = [null];
   conflictsListToDisplay: DtoInputAdReservation[] = [];
   clickedReservation: DtoInputAdReservation | null = null;
 
@@ -29,7 +30,10 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   @Output() confirmedReservation = new EventEmitter<{confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[]}>();
   @Output() declinedReservation = new EventEmitter<DtoInputAdReservation>();
 
-  constructor(private _adService: AdService, private _toastNotification: ToastNotificationService) {}
+  constructor(
+    private _adService: AdService, 
+    private _toastNotification: ToastNotificationService,
+    public dateService: DateService,) {}
 
   ngOnInit(): void {
     this.reservations.forEach(function(e) {
@@ -41,25 +45,6 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['reservations'])
       this.setConflictsList();
-  }
-
-  dtoObjectToDateFR(date: Date) {
-    let d = new Date(date);
-    return d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
-  }
-
-  dtoObjectToDateUS(date: Date) {
-    let d = new Date(date);
-    return (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear();
-  }
-
-  nbDaysBetweenDates(startDate: Date, endDate: Date) {
-    startDate = new Date(startDate)
-    endDate = new Date(endDate);
-    let d1 = startDate.getFullYear() + "-" + startDate.getMonth() + "-" + startDate.getDate();
-    let d2 = endDate.getFullYear() + "-" + endDate.getMonth() + "-" + endDate.getDate();
-    let diffInMs = new Date(d2).getTime() - new Date(d1).getTime();
-    return Math.round(diffInMs / (1000 * 60 * 60 * 24));
   }
 
   // Calcul le nombre de conflits avec la reservation passée en argument
@@ -104,7 +89,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
       datesList.push(currDate);
       currDate = new Date(currDate.getTime() + 86400000);
     } while (currDate.toDateString() !==
-      leaveDate.toDateString());
+    leaveDate.toDateString());
     return datesList;
   }
 
@@ -118,7 +103,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
     }
   }
 
-  nbConflicts(reservation: DtoInputAdReservation) {
+  nbConflicts(reservation: DtoInputAdReservation): number {
     let nb = this.conflictsMap.find(e => e?.key === reservation)?.val.length;
     return (nb !== undefined) ? nb : 0;
   }
@@ -160,20 +145,20 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   sortReservation() {
     switch (this.sortIndex) {
       case "0": // nom de famille
-        this.reservations.sort(function(a, b) {
+        this.reservations.sort(function (a, b) {
           return a.renterMyAds.lastName === b.renterMyAds.lastName ? 0 : a.renterMyAds.lastName < b.renterMyAds.lastName ? -1 : 1;
         });
         break;
 
       case "1" : // date de la réservation
         this.reservations.sort((a, b) => {
-          return new Date(this.dtoObjectToDateUS(a.creation)).getTime() - new Date(this.dtoObjectToDateUS(b.creation)).getTime();
+          return new Date(this.dateService.dtoObjectToDateUS(a.creation)).getTime() - new Date(this.dateService.dtoObjectToDateUS(b.creation)).getTime();
         });
         break;
 
       case "2" : // durée du séjour
         this.reservations.sort((a, b) => {
-          return this.nbDaysBetweenDates(a.arrivalDate, a.leaveDate) - this.nbDaysBetweenDates(b.arrivalDate, b.leaveDate);
+          return this.dateService.nbDaysBetweenDates(a.arrivalDate, a.leaveDate) - this.dateService.nbDaysBetweenDates(b.arrivalDate, b.leaveDate);
         });
         break;
 
@@ -194,20 +179,20 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   sortConflicts() {
     switch (this.sortIndex) {
       case "0":
-        this.conflictsListToDisplay.sort(function(a, b) {
+        this.conflictsListToDisplay.sort(function (a, b) {
           return a.renterMyAds.lastName === b.renterMyAds.lastName ? 0 : a.renterMyAds.lastName < b.renterMyAds.lastName ? -1 : 1;
         });
         break;
 
       case "1" :
         this.conflictsListToDisplay.sort((a, b) => {
-          return new Date(this.dtoObjectToDateUS(a.creation)).getTime() - new Date(this.dtoObjectToDateUS(b.creation)).getTime();
+          return new Date(this.dateService.dtoObjectToDateUS(a.creation)).getTime() - new Date(this.dateService.dtoObjectToDateUS(b.creation)).getTime();
         });
         break;
 
       case "2" :
         this.conflictsListToDisplay.sort((a, b) => {
-          return this.nbDaysBetweenDates(a.arrivalDate, a.leaveDate) - this.nbDaysBetweenDates(b.arrivalDate, b.leaveDate);
+          return this.dateService.nbDaysBetweenDates(a.arrivalDate, a.leaveDate) - this.dateService.nbDaysBetweenDates(b.arrivalDate, b.leaveDate);
         });
         break;
 

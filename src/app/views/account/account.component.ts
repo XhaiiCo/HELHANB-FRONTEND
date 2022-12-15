@@ -8,6 +8,7 @@ import {environment} from 'src/environments/environment';
 import {DtoInputUser} from "../../dtos/user/dto-input-user";
 import {DtoOutputUpdatePassword} from "../../dtos/user/dto-output-update-password";
 import {DtoOutputUpdateUser} from "../../dtos/user/dto-output-update-user";
+import {Base64Service} from "../../services/base64.service";
 
 @Component({
   selector: 'app-account',
@@ -42,11 +43,16 @@ export class AccountComponent implements OnInit {
   showPwFields: boolean = false;
   user!: DtoInputUser;
 
-  constructor(private _fb: FormBuilder,
-              public authService: AuthService,
-              private _userService: UserService,
-              private _toastNotificationService: ToastNotificationService,
-              private _router: Router) {
+  disableChangeProfilePictureBtn: boolean = false;
+
+  constructor(
+    private _fb: FormBuilder,
+    public authService: AuthService,
+    private _userService: UserService,
+    private _toastNotificationService: ToastNotificationService,
+    private _router: Router,
+    private _base64Service: Base64Service,
+  ) {
   }
 
   ngOnInit(): void {
@@ -180,17 +186,25 @@ export class AccountComponent implements OnInit {
   }
 
   onUploadPicture(event: any) {
+    this.disableChangeProfilePictureBtn = true ;
     let profilePicture = event.target.files[0];
-
     if (this.authService.user)
-      this._userService.updateProfilePicture(profilePicture)
-        .subscribe({
-          next: (user) => this.authService.user = user,
-          error: (err) => {
-            if (err.status === 401)
-              this._toastNotificationService.add(err.error, "error");
-          }
-        });
+      this._base64Service.fileToBase64(profilePicture).subscribe(base64 => {
+        this._userService.updateProfilePicture({profilePicture: base64})
+          .subscribe({
+            next: (user) => {
+              this.authService.user = user ;
+              this.disableChangeProfilePictureBtn = false ;
+            },
+            error: (err) => {
+              this.disableChangeProfilePictureBtn = false;
+              if (err.status === 401)
+                this._toastNotificationService.add(err.error, "error");
+            }
+          });
+      });
+    else
+      this.disableChangeProfilePictureBtn = false ;
   }
 
   /**
@@ -217,7 +231,7 @@ export class AccountComponent implements OnInit {
    */
   removePp() {
     if (this.authService.user)
-      this._userService.updateProfilePicture(null)
+      this._userService.updateProfilePicture({profilePicture: null})
         .subscribe({
           next: (user) => this.authService.user = user,
           error: (err) => {

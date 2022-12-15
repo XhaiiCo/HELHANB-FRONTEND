@@ -1,0 +1,99 @@
+@import 'src/styles/helpers/variable.scss';
+
+svg {
+  width: 20px;
+}
+
+.reservation {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid $grey;
+  margin-top: 5px;
+  cursor: pointer;
+  border-radius: $radius;
+  padding: 5px;
+
+  &:hover {
+    background-color: $grey;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+
+    & button {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .acceptBtn {
+      background-color: $success-background-color;
+      color: $success-color;
+
+      &:hover {
+        opacity: .5;
+      }
+
+      svg {
+        width: 40px;
+      }
+    }
+
+    .removeBtn {
+      background-color: $error-background-color;
+      color: $error-color;
+
+      &:hover {
+        opacity: .5;
+      }
+    }
+
+    .messageBtn {
+      background-color: $info-background-color;
+      color: $info-color;
+
+      &:hover {
+        opacity: .5;
+      }
+    }
+  }
+}
+
+// image
+.pp {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+
+  & img {
+    border-radius: 50%;
+    height: 50px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+}
+
+.info {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.clickedReservation {
+  background-color: $grey;
+}
+

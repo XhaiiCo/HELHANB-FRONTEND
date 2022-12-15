@@ -3,7 +3,7 @@
   <section class="pp_section">
     <h2>Photo de profile</h2>
     <div class="pp_container space_between_sections">
-      <label for="updatePpButton" class="file-input-label">
+      <label for="updatePpButton" class="file-input-label" [class.disabled]="disableChangeProfilePictureBtn">
         <svg class="icon" viewBox="0 0 24 24">
           <g fill="none" fill-rule="evenodd">
             <path d="M0 0h24v24H0z"/>
@@ -13,7 +13,7 @@
         </svg>
       </label>
       <input hidden id="updatePpButton" class="file-input-input" type="file" accept="image/*"
-             formControlName="profilePicture" (change)="onUploadPicture($event)">
+             formControlName="profilePicture" (change)="onUploadPicture($event)" [disabled]="disableChangeProfilePictureBtn">
 
       <label class="removePpButton" (click)="removePp()">
         <svg viewBox="0 0 15 15">

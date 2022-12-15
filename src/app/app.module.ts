@@ -42,6 +42,7 @@ import { FilteringFormComponent } from './component/filtering-form/filtering-for
 import { AdminRentingsComponent } from './views/admin/admin-rentings/admin-rentings.component';
 import { ReservationListComponent } from './views/my-reservation/reservation-list/reservation-list.component';
 import { MyAdConfirmedReservationListComponent } from './my-renting/my-ad/my-ad-confirmed-reservation-list/my-ad-confirmed-reservation-list.component';
+import { MyAdReservationCardComponent } from './views/my-renting/my-ad/my-ad-reservation-card/my-ad-reservation-card.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { MyAdConfirmedReservationListComponent } from './my-renting/my-ad/my-ad-
     AdminRentingsComponent,
     ReservationListComponent,
     MyAdConfirmedReservationListComponent,
+    MyAdReservationCardComponent,
   ],
     imports: [
         BrowserModule,

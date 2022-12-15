@@ -5,6 +5,7 @@ import {DtoOutputRegistrationUser} from "../../dtos/user/dto-output-registration
 import {UserService} from "../../services/user.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {Router} from "@angular/router";
+import {Base64Service} from "../../services/base64.service";
 
 @Component({
   selector: 'app-registration',
@@ -33,7 +34,9 @@ export class RegistrationComponent implements OnInit {
               private _authService: AuthService,
               private _userService: UserService,
               private _toastNotificationService: ToastNotificationService,
-              private _router: Router) {
+              private _router: Router,
+              private _base64Service: Base64Service,
+  ) {
   }
 
   ngOnInit(): void {
@@ -94,15 +97,16 @@ export class RegistrationComponent implements OnInit {
       next: (user) => {
         this._authService.user = user;
         this._toastNotificationService.add(`Hello ${user.firstName}`, "success");
-
         if (this.profilePicture) {
-          this._userService.updateProfilePicture(this.profilePicture).subscribe({
-            next: (user) => this._authService.user = user,
-            error: (err) => {
-              if (err.status === 401)
-                this._toastNotificationService.add(err.error, "error");
-            }
-          });
+          this._base64Service.fileToBase64(this.profilePicture).subscribe(base64 => {
+            this._userService.updateProfilePicture({profilePicture: base64}).subscribe({
+              next: (user) => this._authService.user = user,
+              error: (err) => {
+                if (err.status === 401)
+                  this._toastNotificationService.add(err.error, "error");
+              }
+            });
+          })
         }
         this._router.navigate(['']);
       },
