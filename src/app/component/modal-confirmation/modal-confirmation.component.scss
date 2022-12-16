@@ -1,7 +1,7 @@
 @import "/src/styles/helpers/variable";
 @import "/src/styles/components/button";
 
-:host {
+.modal-container {
   position: fixed;
   width: 100vw;
   height: calc(100vh - $header-height);
@@ -10,10 +10,6 @@
   justify-content: center;
   z-index: 999;
   background-color: $modal-background-color;
-}
-
-:host-context(.hidden) {
-  display: none;
 }
 
 .modal {

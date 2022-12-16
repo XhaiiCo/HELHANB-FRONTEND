@@ -1,7 +1,5 @@
 <app-modal-confirmation
-  [class.hidden]="!deleteModalOptions.showDeleteAdConfirmationModal"
-  [title]="deleteModalOptions.titleText"
-  [bodyText]="deleteModalOptions.bodyText"
+  [modalParams]="deleteModalOptions"
   (isAccepted)="onModalDeleteAction($event)"
 ></app-modal-confirmation>
 

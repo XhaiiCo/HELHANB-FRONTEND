@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DtoInputAd} from "../../../dtos/ad/dto-input-ad";
 import {AdService} from "../../../services/ad.service";
-import {DeleteModalOptions} from "../../../interfaces/delete-modal-options";
+import {ModalParams} from "../../../interfaces/modal-params";
 import {ToastNotificationService} from "../../../services/toast-notification.service";
 
 @Component({
@@ -11,8 +11,8 @@ import {ToastNotificationService} from "../../../services/toast-notification.ser
 })
 export class AdminRentingsComponent implements OnInit {
 
-  deleteModalOptions: DeleteModalOptions = {
-    showDeleteAdConfirmationModal: false,
+  deleteModalOptions: ModalParams = {
+    displayModal: false,
     titleText: "Confirmation de suppression",
     bodyText: "",
   }
@@ -38,7 +38,7 @@ export class AdminRentingsComponent implements OnInit {
     if (!this.currentAd) return;
 
     this.deleteModalOptions.bodyText = `Êtes vous sûr de vouloir supprimer l'annonce ${this.currentAd.name}`;
-    this.deleteModalOptions.showDeleteAdConfirmationModal = true;
+    this.deleteModalOptions.displayModal = true;
   }
 
   /**
@@ -47,7 +47,7 @@ export class AdminRentingsComponent implements OnInit {
    * @returns the observable of the delete request.
    */
   onModalDeleteAction(isAccepted: boolean) {
-    this.deleteModalOptions.showDeleteAdConfirmationModal = false;
+    this.deleteModalOptions.displayModal = false;
     if (!isAccepted) return;
     if (!this.currentAd) return;
 

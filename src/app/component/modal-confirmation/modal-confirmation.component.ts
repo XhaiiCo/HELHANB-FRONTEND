@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ModalParams} from "../../interfaces/modal-params";
 
 @Component({
   selector: 'app-modal-confirmation',
@@ -7,8 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class ModalConfirmationComponent implements OnInit {
 
-  @Input() bodyText: string = "" ;
-  @Input() title: string = "" ;
+  @Input() modalParams!: ModalParams ;
   @Output() isAccepted: EventEmitter<boolean> = new EventEmitter<boolean>() ;
 
   constructor() { }

@@ -3,7 +3,7 @@ import {UserService} from "../../../../services/user.service";
 import {DtoInputUser} from "../../../../dtos/user/dto-input-user";
 import {ToastNotificationService} from "../../../../services/toast-notification.service";
 import {environment} from 'src/environments/environment';
-import {DeleteModalOptions} from "../../../../interfaces/delete-modal-options";
+import {ModalParams} from "../../../../interfaces/modal-params";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {DtoOutputFilteringUsers} from "../../../../dtos/user/dto-output-filtering-users";
 import {RolesService} from "../../../../services/roles.service";
@@ -23,8 +23,8 @@ export class UserListComponent implements OnInit {
   profilePictureBaseUri: string = environment.pictureUrl;
   defaultProfilePicture: string = environment.defaultProfilePictureUrl;
 
-  deleteModalOptions: DeleteModalOptions = {
-    showDeleteAdConfirmationModal: false,
+  deleteModalOptions: ModalParams = {
+    displayModal: false,
     titleText: "Confirmation de suppression",
     bodyText: "",
   }
@@ -59,7 +59,7 @@ export class UserListComponent implements OnInit {
   }
 
   onModalDeleteAction(isAccepted: boolean) {
-    this.deleteModalOptions.showDeleteAdConfirmationModal = false;
+    this.deleteModalOptions.displayModal = false;
     if (!isAccepted) return;
     if (!this.userToDelete) return;
 
@@ -84,7 +84,7 @@ export class UserListComponent implements OnInit {
 
     this.userToDelete = id;
     this.deleteModalOptions.bodyText = `Êtes vous sûr de vouloir supprimer ${user.lastName} ${user.firstName}`;
-    this.deleteModalOptions.showDeleteAdConfirmationModal = true;
+    this.deleteModalOptions.displayModal = true;
   }
 
   emitFilter() {

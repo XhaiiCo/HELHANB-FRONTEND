@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DtoInputReservation} from "../../dtos/reservation/dto-input-reservation";
 import {AdService} from "../../services/ad.service";
 import {AuthService} from "../../services/auth.service";
-import {DeleteModalOptions} from "../../interfaces/delete-modal-options";
+import {ModalParams} from "../../interfaces/modal-params";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 
 @Component({
@@ -12,8 +12,8 @@ import {ToastNotificationService} from "../../services/toast-notification.servic
 })
 export class MyReservationComponent implements OnInit {
 
-  deleteModalOptions: DeleteModalOptions = {
-    showDeleteAdConfirmationModal: false,
+  deleteModalOptions: ModalParams = {
+    displayModal: false,
     titleText: "Confirmation d'annulation",
     bodyText: "Êtes-vous sûr de vouloir annuler votre réservation",
   }
@@ -60,7 +60,7 @@ export class MyReservationComponent implements OnInit {
 
   cancelReservationClick(reservationId: number) {
     this.reservationToDelete = reservationId;
-    this.deleteModalOptions.showDeleteAdConfirmationModal = true;
+    this.deleteModalOptions.displayModal = true;
   }
 
   removeReservation(reservationId: number) {
@@ -76,7 +76,7 @@ export class MyReservationComponent implements OnInit {
   }
 
   onModalDeleteAction(result: boolean) {
-    this.deleteModalOptions.showDeleteAdConfirmationModal = false;
+    this.deleteModalOptions.displayModal = false;
     if (result) this.removeReservation(this.reservationToDelete);
   }
 }

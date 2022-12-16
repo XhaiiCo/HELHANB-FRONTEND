@@ -1,22 +1,22 @@
-<main
-  class="modal"
->
-  <header class="modal-header">
-    <h1>{{title}}</h1>
-    <button (click)="rejected()" class="btn-close">
-      <svg width="22" viewBox="0 0 24 24">
-        <path fill="currentColor"
-              d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6Z"/>
-      </svg>
-    </button>
-  </header>
+<main class="modal-container" *ngIf="modalParams.displayModal">
+  <section class="modal">
+    <header class="modal-header">
+      <h1>{{modalParams.titleText}}</h1>
+      <button (click)="rejected()" class="btn-close">
+        <svg width="22" viewBox="0 0 24 24">
+          <path fill="currentColor"
+                d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6Z"/>
+        </svg>
+      </button>
+    </header>
 
-  <main class="modal-body">
-    <p>{{bodyText}}</p>
-  </main>
+    <main class="modal-body">
+      <p>{{modalParams.bodyText}}</p>
+    </main>
 
-  <footer class="modal-footer">
-    <button (click)="accepted()" class="btn-primary">Oui</button>
-    <button (click)="rejected()" class="btn-secondary">Non</button>
-  </footer>
+    <footer class="modal-footer">
+      <button (click)="accepted()" class="btn-primary">Oui</button>
+      <button (click)="rejected()" class="btn-secondary">Non</button>
+    </footer>
+  </section>
 </main>
