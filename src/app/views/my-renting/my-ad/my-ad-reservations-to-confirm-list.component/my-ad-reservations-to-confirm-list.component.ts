@@ -43,9 +43,6 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.reservations.forEach(function (e) {
-      e.renterMyAds.profilePicturePath = environment.pictureUrl + e.renterMyAds.profilePicturePath;
-    });
     this.sortReservation();
     this.cancelReservationChange = this.reservations;
     this.setConflictsList();

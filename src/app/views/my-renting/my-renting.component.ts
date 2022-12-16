@@ -75,7 +75,6 @@ export class MyRentingComponent implements OnInit {
 
   declinedReservationMethod(reservation: DtoInputAdReservation) {
     this._adService.refuseReservation(reservation).subscribe(result => {
-      result.renterMyAds.profilePicturePath = environment.pictureUrl + result.renterMyAds.profilePicturePath;
 
       let adIndex = this.ads.findIndex(e => e.adSlug == reservation.adSlug);
       this.ads[adIndex].reservations.splice(this.ads[adIndex].reservations.indexOf(reservation), 1, result);

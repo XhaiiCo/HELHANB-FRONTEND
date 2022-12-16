@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { environment } from 'src/environments/environment';
 import {DtoInputAdReservation} from "../../../../dtos/ad/dto-input-my-ads";
 import {DateService} from "../../../../services/date.service";
 
@@ -14,6 +15,8 @@ export class MyAdReservationCardComponent implements OnInit {
   @Output() onRefusalBtnClickEvent: EventEmitter<DtoInputAdReservation> = new EventEmitter<DtoInputAdReservation>();
   @Output() onConfirmationBtnClickEvent: EventEmitter<DtoInputAdReservation> = new EventEmitter<DtoInputAdReservation>();
   @Output() onContactUserBtnClickEvent: EventEmitter<number> = new EventEmitter<number>();
+
+  pictureBaseUrl: string = environment.pictureUrl ;
 
   constructor(
     public dateService: DateService,
