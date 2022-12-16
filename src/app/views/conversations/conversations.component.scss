@@ -28,7 +28,9 @@
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    width: 150px;
+    width: content-box;
+    max-width: 350px;
+    padding-right: 3px;
     border-radius: $radius;
     margin-right: 5px;
   }
@@ -89,6 +91,7 @@
   .conversation_list {
     li {
       width: 100%;
+      max-width: none ;
     }
   }
 
