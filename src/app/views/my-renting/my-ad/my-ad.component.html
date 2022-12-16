@@ -97,10 +97,24 @@
     ></app-my-ad-reservations-to-confirm-list>
   </div>
 
-  <div *ngIf="sortReservationByStatusName('acceptée').length">
-    <h2>Acceptées</h2>
+  <div>
+    <h2>En cours</h2>
     <app-my-ad-confirmed-reservation-list
-      [reservations]="sortReservationByStatusName('acceptée')"
+      [reservations]="getReservationInProgress()"
+    ></app-my-ad-confirmed-reservation-list>
+  </div>
+
+  <div>
+    <h2>à venirs</h2>
+    <app-my-ad-confirmed-reservation-list
+      [reservations]="getReservationToCome()"
+    ></app-my-ad-confirmed-reservation-list>
+  </div>
+
+  <div>
+    <h2>Terminées</h2>
+    <app-my-ad-confirmed-reservation-list
+      [reservations]="getPastReservation()"
     ></app-my-ad-confirmed-reservation-list>
   </div>
 </main>

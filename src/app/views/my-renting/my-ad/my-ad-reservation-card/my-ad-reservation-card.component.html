@@ -10,7 +10,8 @@
       <div> <!-- mid -->
         <span>du {{ dateService.dtoObjectToDateFR(reservation.arrivalDate) }}
           au {{ dateService.dtoObjectToDateFR(reservation.leaveDate) }}
-          ({{ dateService.nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
+          ({{ dateService.nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }}
+          {{ dateService.nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) > 1 ? "nuits" : "nuit"}})</span>
       </div>
       <div> <!-- bottom -->
         <span>Demandé le {{ dateService.dtoObjectToDateFR(reservation.creation) }}

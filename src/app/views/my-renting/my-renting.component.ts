@@ -53,7 +53,6 @@ export class MyRentingComponent implements OnInit {
 
   confirmedReservationMethod(reservations: { confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[] }) {
     this._adService.confirmReservation(reservations.confirmed).subscribe(result => {
-      result.renterMyAds.profilePicturePath = environment.pictureUrl + result.renterMyAds.profilePicturePath;
 
       let adIndex = this.ads.findIndex(e => e.adSlug == reservations.confirmed.adSlug);
       this.ads[adIndex].reservations.splice(this.ads[adIndex].reservations.indexOf(reservations.confirmed), 1, result);

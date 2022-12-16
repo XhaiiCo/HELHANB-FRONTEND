@@ -9,8 +9,11 @@
         <a (click)="contactUser(reservation.renterMyAds.id)">contacter</a>
       </div>
       <div>
-        <span>du {{ reservation.arrivalDate | date: 'dd/MM/y à HH:mm'}} au {{ reservation.leaveDate | date: 'dd/MM/y à HH:mm'}}
-          ({{ dateService.nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
+        <span>du {{ reservation.arrivalDate | date: 'dd/MM/y à HH:mm'}}
+          au {{ reservation.leaveDate | date: 'dd/MM/y à HH:mm'}}
+          ({{ dateService.nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }}
+          {{ dateService.nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) > 1 ? " nuits" : " nuit"}}
+          )</span>
       </div>
     </div>
   </li>
