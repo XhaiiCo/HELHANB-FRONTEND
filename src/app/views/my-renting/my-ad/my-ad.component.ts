@@ -9,7 +9,7 @@ import {ToastNotificationService} from "../../../services/toast-notification.ser
 import {DtoOutputUpdateStatusAd} from "../../../dtos/ad/dto-output-update-status-ad";
 import {
   MyAdReservationsToConfirmListComponent
-} from "../../../my-renting/my-ad/my-ad-reservations-to-confirm-list.component/my-ad-reservations-to-confirm-list.component";
+} from "./my-ad-reservations-to-confirm-list.component/my-ad-reservations-to-confirm-list.component";
 
 @Component({
   selector: 'app-my-ad',

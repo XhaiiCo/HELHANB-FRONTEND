@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
-import {environment} from "../../../../environments/environment";
-import {AdService} from "../../../services/ad.service";
-import {ToastNotificationService} from "../../../services/toast-notification.service";
-import {DtoInputAdReservation} from "../../../dtos/ad/dto-input-my-ads";
-import {DateService} from "../../../services/date.service";
+import {environment} from "../../../../../environments/environment";
+import {AdService} from "../../../../services/ad.service";
+import {ToastNotificationService} from "../../../../services/toast-notification.service";
+import {DtoInputAdReservation} from "../../../../dtos/ad/dto-input-my-ads";
+import {DateService} from "../../../../services/date.service";
 
 @Component({
   selector: 'app-my-ad-reservations-to-confirm-list',
