@@ -1,10 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {AdService} from "../../services/ad.service";
 import {DtoInputAdReservation, DtoInputMyAds} from "../../dtos/ad/dto-input-my-ads";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {environment} from "../../../environments/environment";
-import {MyAdComponent} from "./my-ad/my-ad.component";
 
 @Component({
   selector: 'app-my-renting',
@@ -17,10 +16,18 @@ export class MyRentingComponent implements OnInit {
   currentAd!: DtoInputMyAds;
   pageLoaded: boolean = false;
 
-  constructor(private _authService: AuthService, private _adService: AdService, private _toastNotification: ToastNotificationService) {
+  constructor(
+    private _authService: AuthService,
+    private _adService: AdService,
+    private _toastNotification: ToastNotificationService
+  ) {
   }
 
   ngOnInit(): void {
+    this.fetchMyAds();
+  }
+
+  private fetchMyAds(): void {
     if (this._authService.user) {
       this._adService.fetchMyAds().subscribe({
         next: ads => {
@@ -45,7 +52,6 @@ export class MyRentingComponent implements OnInit {
   }
 
   confirmedReservationMethod(reservations: { confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[] }) {
-
     this._adService.confirmReservation(reservations.confirmed).subscribe(result => {
       result.renterMyAds.profilePicturePath = environment.pictureUrl + result.renterMyAds.profilePicturePath;
 

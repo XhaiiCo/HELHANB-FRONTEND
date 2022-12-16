@@ -43,11 +43,11 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
     });
     this.sortReservation();
     this.cancelReservationChange = this.reservations;
+    this.setConflictsList();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     // La valeur de reservations change tout le temps à cause de @Input(), ces ifs permettent de pas faire les méthodes 40 fois/seconde
-    /*
     if (this.cancelReservationChange && this.reservations) {
       if (this.cancelReservationChange.length !== this.reservations.length) {
         this.setConflictsList();
@@ -55,7 +55,6 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
         this.cancelReservationChange = this.reservations;
       }
     }
-     */
   }
 
   // Calcul le nombre de conflits avec la reservation passée en argument
