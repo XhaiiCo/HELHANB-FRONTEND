@@ -21,6 +21,7 @@
           [nbConflicts]="nbConflicts(reservation)"
           (onConfirmationBtnClickEvent)="displayConfirmation($event)"
           (onRefusalBtnClickEvent)="displayRefusal($event)"
+          (onContactUserBtnClickEvent)="contactUser($event)"
           (mouseover)="displayConflicts(reservation)"
           (mouseleave)="displayConflicts()"
           (click)="reservationClicked(reservation)"

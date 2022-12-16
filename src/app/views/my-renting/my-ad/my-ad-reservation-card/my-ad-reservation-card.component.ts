@@ -13,6 +13,7 @@ export class MyAdReservationCardComponent implements OnInit {
   @Input() nbConflicts!: number;
   @Output() onRefusalBtnClickEvent: EventEmitter<DtoInputAdReservation> = new EventEmitter<DtoInputAdReservation>();
   @Output() onConfirmationBtnClickEvent: EventEmitter<DtoInputAdReservation> = new EventEmitter<DtoInputAdReservation>();
+  @Output() onContactUserBtnClickEvent: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(
     public dateService: DateService,
@@ -23,10 +24,14 @@ export class MyAdReservationCardComponent implements OnInit {
   }
 
   onRefusalBtnClick(): void {
-    this.onRefusalBtnClickEvent.next(this.reservation)
+    this.onRefusalBtnClickEvent.next(this.reservation) ;
   }
 
   onConfirmationBtnClick(): void {
-    this.onConfirmationBtnClickEvent.next(this.reservation)
+    this.onConfirmationBtnClickEvent.next(this.reservation) ;
+  }
+
+  onContactUserBtnClick(): void{
+    this.onContactUserBtnClickEvent.next(this.reservation.renterMyAds.id) ;
   }
 }

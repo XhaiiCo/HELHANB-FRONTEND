@@ -4,6 +4,8 @@ import {AdService} from "../../../../services/ad.service";
 import {ToastNotificationService} from "../../../../services/toast-notification.service";
 import {DtoInputAdReservation} from "../../../../dtos/ad/dto-input-my-ads";
 import {DateService} from "../../../../services/date.service";
+import {ConversationService} from "../../../../services/conversation.service";
+import {AuthService} from "../../../../services/auth.service";
 
 @Component({
   selector: 'app-my-ad-reservations-to-confirm-list',
@@ -34,7 +36,10 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   constructor(
     private _adService: AdService,
     private _toastNotification: ToastNotificationService,
-    public dateService: DateService,) {
+    public dateService: DateService,
+    private _conversationService: ConversationService,
+    private _authService: AuthService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -237,6 +242,12 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
     this.clickedReservation = null;
     this.conflictsListToDisplay = [];
     this.reservationToDecline = null;
+  }
+
+  contactUser(renterId: number) {
+    if (this._authService.user !== null) {
+      this._conversationService.redirectToTheConversationPage(this._authService.user.id, renterId)
+    }
   }
 
 }
