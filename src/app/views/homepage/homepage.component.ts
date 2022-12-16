@@ -10,6 +10,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class HomepageComponent implements OnInit {
 
+  private readonly BASE_RULER_LENGTH : number = 5;
+
   //index and also help calculate the offset
   index: number = 1;
 
@@ -18,7 +20,7 @@ export class HomepageComponent implements OnInit {
   //will be also the limit that we send in the api
   itemsPerPage: number = 4;
 
-  rulerLength: number = 5;
+  rulerLength: number = this.BASE_RULER_LENGTH;
 
   ads : DtoInputAdSummary[] = [];
 
@@ -79,7 +81,7 @@ export class HomepageComponent implements OnInit {
   changeFilter(event: any)
   {
     this.index = 1;
-    this.rulerLength = 5;
+    this.rulerLength = this.BASE_RULER_LENGTH;
     this.count();
     this.fetchForPagination();
   }

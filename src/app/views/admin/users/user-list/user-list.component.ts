@@ -17,6 +17,8 @@ import {AuthService} from "../../../../services/auth.service";
 })
 export class UserListComponent implements OnInit {
 
+  private readonly BASE_RULER_LENGTH : number = 5;
+
   //index and also help calculate the offset
   index: number = 1;
 
@@ -25,7 +27,7 @@ export class UserListComponent implements OnInit {
   //will be also the limit that we send in the api
   itemsPerPage: number = 4;
 
-  rulerLength: number = 5;
+  rulerLength: number = this.BASE_RULER_LENGTH;
 
   userList: DtoInputUser[] = [];
   roleList: DtoInputRole[] = [];
@@ -45,6 +47,8 @@ export class UserListComponent implements OnInit {
     search: this._fb.control(""),
   });
 
+  filter!: DtoOutputFilteringUsers;
+
   constructor(private _userService: UserService,
               private _roleService: RolesService,
               private _toastNotificationService: ToastNotificationService,
@@ -55,6 +59,8 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.filter = this.filterForm.value;
+
     this.count();
 
     this._fetchUsers();
@@ -62,10 +68,9 @@ export class UserListComponent implements OnInit {
   }
 
   count() {
-    const filter: DtoOutputFilteringUsers = this.filterForm.value;
 
     this._userService
-      .count(filter)
+      .count(this.filter)
       .subscribe(count =>
     {
       this.maxPages = Math.ceil(count/this.itemsPerPage);
@@ -74,11 +79,11 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  private _fetchUsers(filter?: DtoOutputFilteringUsers): void {
+  private _fetchUsers(): void {
 
     let offset = (this.index - 1) * this.itemsPerPage;
 
-    this._userService.fetchAll(this.itemsPerPage, offset, filter).subscribe(
+    this._userService.fetchAll(this.itemsPerPage, offset, this.filter).subscribe(
       (userList) => this.userList = userList
     );
   }
@@ -97,7 +102,7 @@ export class UserListComponent implements OnInit {
         this.userList = this.userList.filter(value => value.id != user.id);
         this._toastNotificationService.add(`${user.lastName} ${user.firstName} supprimé avec succès`, "success");
 
-        this.emitFilter();
+        this.resetAfterDelete();
       },
       error: err => {
         if (err.status === 401) {
@@ -121,11 +126,11 @@ export class UserListComponent implements OnInit {
   emitFilter() {
 
     this.index = 1;
-    this.rulerLength = 5;
-    const filter: DtoOutputFilteringUsers = this.filterForm.value;
+    this.rulerLength = this.BASE_RULER_LENGTH;
+    this.filter = this.filterForm.value;
 
     this.count();
-    this._fetchUsers(filter);
+    this._fetchUsers();
   }
 
   isSuperAdmin() {
@@ -158,8 +163,17 @@ export class UserListComponent implements OnInit {
 
   changePage(event: any)
   {
-    const filter: DtoOutputFilteringUsers = this.filterForm.value;
+    this._fetchUsers();
+  }
 
-    this._fetchUsers(filter);
+  resetAfterDelete()
+  {
+    if(this.userList.length == 0)
+    {
+      this.index--;
+      this.rulerLength = this.BASE_RULER_LENGTH;
+    }
+    this.count();
+    this._fetchUsers();
   }
 }
