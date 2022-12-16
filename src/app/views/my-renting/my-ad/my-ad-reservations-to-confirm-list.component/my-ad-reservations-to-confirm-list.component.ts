@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
-import {environment} from "../../../../environments/environment";
-import {AdService} from "../../../services/ad.service";
-import {ToastNotificationService} from "../../../services/toast-notification.service";
-import {DtoInputAdReservation} from "../../../dtos/ad/dto-input-my-ads";
-import {DateService} from "../../../services/date.service";
+import {environment} from "../../../../../environments/environment";
+import {AdService} from "../../../../services/ad.service";
+import {ToastNotificationService} from "../../../../services/toast-notification.service";
+import {DtoInputAdReservation} from "../../../../dtos/ad/dto-input-my-ads";
+import {DateService} from "../../../../services/date.service";
 
 @Component({
   selector: 'app-my-ad-reservations-to-confirm-list',
@@ -28,20 +28,22 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   reservationToDecline: DtoInputAdReservation | null = null;
   reservationToConfirm: DtoInputAdReservation | null = null;
 
-  @Output() confirmedReservation = new EventEmitter<{confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[]}>();
+  @Output() confirmedReservation = new EventEmitter<{ confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[] }>();
   @Output() declinedReservation = new EventEmitter<DtoInputAdReservation>();
 
   constructor(
     private _adService: AdService,
     private _toastNotification: ToastNotificationService,
-    public dateService: DateService,) {}
+    public dateService: DateService,) {
+  }
 
   ngOnInit(): void {
-    this.reservations.forEach(function(e) {
+    this.reservations.forEach(function (e) {
       e.renterMyAds.profilePicturePath = environment.pictureUrl + e.renterMyAds.profilePicturePath;
     });
     this.sortReservation();
     this.cancelReservationChange = this.reservations;
+    this.setConflictsList();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -58,7 +60,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   // Calcul le nombre de conflits avec la reservation passée en argument
   setConflictsList() {
     let conflictsMap: any = [];
-    this.conflictsMap = [ null ];
+    this.conflictsMap = [null];
 
     // Pour chaque élément dans toutes les réservations
     for (let reservationI of this.reservations) {
@@ -151,61 +153,36 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   }
 
   sortReservation() {
-    switch (this.sortIndex) {
-      case "0": // nom de famille
-        this.reservations.sort(function (a, b) {
-          return a.renterMyAds.lastName === b.renterMyAds.lastName ? 0 : a.renterMyAds.lastName < b.renterMyAds.lastName ? -1 : 1;
-        });
-        break;
-
-      case "1" : // date de la réservation
-        this.reservations.sort((a, b) => {
-          return new Date(this.dateService.dtoObjectToDateUS(a.creation)).getTime() - new Date(this.dateService.dtoObjectToDateUS(b.creation)).getTime();
-        });
-        break;
-
-      case "2" : // durée du séjour
-        this.reservations.sort((a, b) => {
-          return this.dateService.nbDaysBetweenDates(a.arrivalDate, a.leaveDate) - this.dateService.nbDaysBetweenDates(b.arrivalDate, b.leaveDate);
-        });
-        break;
-
-      case "3" : // nb conflits
-        this.reservations.sort((a, b) => {
-          return this.nbConflicts(a) - this.nbConflicts(b);
-        });
-        break;
-
-      default:
-        break;
-    }
-
-    if (!this.ascendingOrder)
-      this.reservations.reverse();
+    this.sortDtoInputAdReservationArray(this.reservations);
+    console.log(this.reservations);
   }
 
   sortConflicts() {
+    this.sortDtoInputAdReservationArray(this.conflictsListToDisplay);
+  }
+
+  sortDtoInputAdReservationArray(array: DtoInputAdReservation[]): void {
     switch (this.sortIndex) {
-      case "0":
-        this.conflictsListToDisplay.sort(function (a, b) {
+      case "0": // last name
+        array.sort(function (a, b) {
           return a.renterMyAds.lastName === b.renterMyAds.lastName ? 0 : a.renterMyAds.lastName < b.renterMyAds.lastName ? -1 : 1;
         });
         break;
 
-      case "1" :
-        this.conflictsListToDisplay.sort((a, b) => {
+      case "1" : // date of the reservation
+        array.sort((a, b) => {
           return new Date(this.dateService.dtoObjectToDateUS(a.creation)).getTime() - new Date(this.dateService.dtoObjectToDateUS(b.creation)).getTime();
         });
         break;
 
-      case "2" :
-        this.conflictsListToDisplay.sort((a, b) => {
+      case "2" : // length of reservation
+        array.sort((a, b) => {
           return this.dateService.nbDaysBetweenDates(a.arrivalDate, a.leaveDate) - this.dateService.nbDaysBetweenDates(b.arrivalDate, b.leaveDate);
         });
         break;
 
-      case "3" :
-        this.conflictsListToDisplay.sort((a, b) => {
+      case "3" : // nb conflicts
+        array.sort((a, b) => {
           return this.nbConflicts(a) - this.nbConflicts(b);
         });
         break;
@@ -215,7 +192,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
     }
 
     if (!this.ascendingOrder)
-      this.conflictsListToDisplay.reverse();
+      array.reverse();
   }
 
   displayConfirmation(reservation: DtoInputAdReservation) {

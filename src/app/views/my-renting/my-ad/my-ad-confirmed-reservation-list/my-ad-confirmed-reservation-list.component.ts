@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DtoInputAdReservation} from "../../../dtos/ad/dto-input-my-ads";
+import {DtoInputAdReservation} from "../../../../dtos/ad/dto-input-my-ads";
 
 @Component({
   selector: 'app-my-ad-confirmed-reservation-list',

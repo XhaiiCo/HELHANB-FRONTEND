@@ -1,6 +1,5 @@
 export interface DtoOutputNewReservation {
   adSlug: string,
-  renterId: number ;
   arrivalDate: DtoOuputDate ;
   leaveDate: DtoOuputDate ;
 }
