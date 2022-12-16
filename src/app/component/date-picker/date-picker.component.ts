@@ -31,7 +31,7 @@ export class DatePickerComponent implements OnInit {
     end: new FormControl<Date | null>(null, Validators.required),
   });
 
-  @Input() notAvailableDates!: Date[];
+  @Input() notAvailableDates: Date[] = [];
 
   dateFilter = (d: Date): boolean => {
     const time = new Date(d).getTime();
