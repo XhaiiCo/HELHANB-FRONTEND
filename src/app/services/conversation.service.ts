@@ -8,6 +8,7 @@ import {DtoInputMyConversations} from "../dtos/conversation/dto-input-my-convers
 import {DtoInputMessageOfAConversation} from "../dtos/conversation/dto-input-message-of-a-conversation";
 import {DtoInputMessageHub} from "../dtos/conversation/dto-input-message-hub";
 import {DtoOutputMessage} from "../dtos/conversation/dto-output-message";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,10 @@ export class ConversationService {
 
   private static readonly ENTRY_POINT_URL = environment.apiUrl + "conversation";
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(
+    private _httpClient: HttpClient,
+    private _router: Router,
+  ) {
   }
 
   create(dto: DtoOutputCreateConversation): Observable<DtoInputCreatedConversation> {
@@ -39,4 +43,20 @@ export class ConversationService {
     return this._httpClient.put<any>(`${ConversationService.ENTRY_POINT_URL}/${conversationId}/view`, {});
   }
 
+  redirectToTheConversationPage(idUser1: number, idUser2: number) {
+    let dto: DtoOutputCreateConversation = {
+      idUser1: idUser1,
+      idUser2: idUser2,
+    }
+
+    this.create(dto)
+      .subscribe({
+        next: conversation => {
+          this._router.navigate(['/conversations/' + conversation.id]);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+  }
 }

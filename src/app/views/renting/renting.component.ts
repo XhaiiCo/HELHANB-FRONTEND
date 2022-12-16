@@ -42,7 +42,7 @@ export class RentingComponent implements OnInit {
     private _router: Router,
     private _authService: AuthService,
     private _toastNotification: ToastNotificationService,
-    private _createConversation: ConversationService,
+    private _conversationService: ConversationService,
     private _dateService: DateService,
   ) {
   }
@@ -149,21 +149,7 @@ export class RentingComponent implements OnInit {
       return;
     }
 
-    let dto: DtoOutputCreateConversation = {
-      idUser1: this._authService.user.id,
-      idUser2: this.ad.owner.id,
-    }
-
-    this._createConversation
-      .create(dto)
-      .subscribe({
-        next: conversation => {
-          this._router.navigate(['/conversations/' + conversation.id]);
-        },
-        error: err => {
-          console.log(err);
-        }
-      });
+    this._conversationService.redirectToTheConversationPage(this._authService.user.id, this.ad.owner.id)
   }
 
   dateChange(range: FormGroup) {
