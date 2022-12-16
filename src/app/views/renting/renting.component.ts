@@ -106,12 +106,11 @@ export class RentingComponent implements OnInit {
 
     const dto: DtoOutputNewReservation = {
       adSlug: this.ad.adSlug,
-      renterId: this._authService.user?.id,
       arrivalDate: this.toDtoOutputDate(this.dates.arrival),
       leaveDate: this.toDtoOutputDate(this.dates.leave),
     }
 
-    this._adService.createReservation(this.ad.adSlug, dto).subscribe({
+    this._adService.createReservation(dto).subscribe({
       next: result => {
         this._toastNotification.add("Demanded de réservation envoyée", "success");
         this.disableReservationBtn = false;

@@ -87,7 +87,7 @@ export class AdService {
     return this._httpClient.get<DtoInputMyAds[]>(`${AdService.ENTRY_POINT_URL}/myAds`);
   }
 
-  createReservation(adSlug: string, dto: DtoOutputNewReservation): Observable<any> {
+  createReservation(dto: DtoOutputNewReservation): Observable<any> {
     return this._httpClient.post<any>(`${AdService.ENTRY_POINT_URL}/reservation`, dto);
   }
 
