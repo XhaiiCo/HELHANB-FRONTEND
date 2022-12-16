@@ -9,6 +9,7 @@ import {ToastNotificationService} from "../../services/toast-notification.servic
 import {ConversationService} from "../../services/conversation.service";
 import {DtoOutputCreateConversation} from "../../dtos/conversation/dto-output-create-conversation";
 import {DtoInputAdWithReservation} from "../../dtos/ad/dto-input-ad-with-reservation";
+import {DateService} from "../../services/date.service";
 
 const dayDif = (date1: Date, date2: Date) => Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000);
 
@@ -35,12 +36,15 @@ export class RentingComponent implements OnInit {
 
   disableReservationBtn: boolean = false;
 
-  constructor(private _route: ActivatedRoute,
-              private _adService: AdService,
-              private _router: Router,
-              private _authService: AuthService,
-              private _toastNotification: ToastNotificationService,
-              private _createConversation: ConversationService,) {
+  constructor(
+    private _route: ActivatedRoute,
+    private _adService: AdService,
+    private _router: Router,
+    private _authService: AuthService,
+    private _toastNotification: ToastNotificationService,
+    private _createConversation: ConversationService,
+    private _dateService: DateService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -164,5 +168,17 @@ export class RentingComponent implements OnInit {
 
   dateChange(range: FormGroup) {
     this.setDate(range);
+  }
+
+  getReservedDate(): Date[] {
+
+    let result: Date[] = [];
+
+    this.ad.reservations.forEach(reservation => {
+
+      result.push(...this._dateService.getDatesBetween(reservation.arrivalDate, reservation.leaveDate))
+    });
+
+    return result;
   }
 }

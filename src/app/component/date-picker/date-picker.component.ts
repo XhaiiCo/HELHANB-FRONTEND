@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -17,38 +17,29 @@ const now = new Date();
   styleUrls: ['./date-picker.component.scss'],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'fr'},
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]},
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
 })
 export class DatePickerComponent implements OnInit {
   @Output() emitDateChange: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
-  //@Input()
-  min = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1); // Date de début de location de la baraque
-  //@Input()
-  max = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate()); // Date jusqu'à laquelle la personne veut louer sa baraque
+  min = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
 
   range = new FormGroup({
     start: new FormControl<Date | null>(null, Validators.required),
     end: new FormControl<Date | null>(null, Validators.required),
   });
 
-  // Input()
-  notAvailableDates = [
-    new Date("12/5/2022"),  // Example
-    new Date("12/8/2022"),  // Example
-    new Date("12/9/2022"),
-    new Date("12/10/2022"),
-    new Date("12/19/2022"),
-  ];
+  @Input() notAvailableDates!: Date[] ;
 
   dateFilter = (d: Date): boolean => {
     const time = new Date(d).getTime();
     return !this.notAvailableDates.find(x => new Date(x).getTime() == time);
   }
 
-  constructor(private _ToastNotificationService: ToastNotificationService) {}
+  constructor(private _ToastNotificationService: ToastNotificationService) {
+  }
 
   ngOnInit(): void {
   }

@@ -15,16 +15,22 @@ export interface DtoInputAdWithReservation {
   arrivalTimeRangeEnd: string,
   leaveTime: string,
   features: string[],
+
   pictures: {
     id: number,
     path: string
   }[],
+
   owner: {
-    id: number ;
+    id: number;
     firstName: string,
     lastName: string
     profilePicturePath: string,
   }
+
+  reservations: {
+    arrivalDate: Date,
+    leaveDate: Date,
+  }[],
 }
 
-//manque reservation mais on en pas encore donc pas mis

@@ -83,7 +83,10 @@
       </header>
 
       <main class="reservation_date-picker">
-        <app-date-picker (emitDateChange)="dateChange($event)"></app-date-picker>
+        <app-date-picker
+          (emitDateChange)="dateChange($event)"
+          [notAvailableDates]="getReservedDate()"
+        ></app-date-picker>
       </main>
 
       <footer class="reservation_summary" *ngIf="nbNights != 0">
