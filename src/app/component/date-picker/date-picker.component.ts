@@ -44,12 +44,20 @@ export class DatePickerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * If the date range is invalid, reset the date range and display an error message
+   * @param {string} sent - string - This is the message that will be displayed in the toast notification.
+   */
   private dateDPError(sent: string) {
-    // Fermer le dp + reset la valeur d'input
     this.range.reset();
     this._ToastNotificationService.add(`${sent}`, "error");
   }
 
+  /**
+   * Check if the end date is not in the notAvailableDates array, if it is not, emit the date change
+   * @param {any} e - any
+   * @returns the date range form group.
+   */
   endDateChange(e: any) {
     const date_tmp = e.value;
 
