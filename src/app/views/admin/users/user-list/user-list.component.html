@@ -88,4 +88,13 @@
       </ng-template>
     </table>
   </main>
+
+  <div class="pagination_container">
+    <app-pagination
+      [maxPages]="maxPages"
+      [rulerLength]="rulerLength"
+      [(index)]="index"
+      (indexChange)="changePage($event)">
+    </app-pagination>
+  </div>
 </section>

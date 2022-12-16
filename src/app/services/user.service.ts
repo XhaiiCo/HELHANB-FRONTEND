@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {DtoInputUser} from "../dtos/user/dto-input-user";
 import {DtoOutputFilteringUsers} from "../dtos/user/dto-output-filtering-users";
 import {DtoOutputUpdatePassword} from "../dtos/user/dto-output-update-password";
@@ -27,15 +27,33 @@ export class UserService {
     return this._httpClient.put<DtoInputUser>(`${UserService.ENTRY_POINT_URL}/profilePicture/base64`, dto);
   }
 
+  public count(filter?: DtoOutputFilteringUsers): Observable<number> {
+    let httpParams = new URLSearchParams();
+
+    if (filter) {
+      if (filter.role !== "")
+        httpParams.set("role", filter.role);
+
+      if (filter.search !== "")
+        httpParams.set("search", filter.search);
+    }
+
+    return this._httpClient.get<number>(`${UserService.ENTRY_POINT_URL}/count?${httpParams.toString()}`);
+  }
+
   /**
    * It fetches all users from the server, optionally filtering them by role and/or search term
    * @param {DtoOutputFilteringUsers} [filter] - DtoOutputFilteringUsers
    * @returns An observable of an array of DtoInputUser objects.
    */
-  public fetchAll(filter?: DtoOutputFilteringUsers): Observable<DtoInputUser[]> {
+  public fetchAll(limit: number, offset: number, filter?: DtoOutputFilteringUsers): Observable<DtoInputUser[]> {
     let httpParams = new URLSearchParams();
 
+    httpParams.set("limit", limit.toString());
+    httpParams.set("offset", offset.toString());
+
     if (filter) {
+
       if (filter.role !== "")
         httpParams.set("role", filter.role);
 

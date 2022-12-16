@@ -67,6 +67,13 @@ export class HomepageComponent implements OnInit {
   changePage(event: any)
   {
     this.fetchForPagination();
+
+    //here for test
+    this._router.navigate([], {
+      relativeTo: this._route,
+      queryParams: {page: this.index},
+      queryParamsHandling: 'merge'
+    });
   }
 
   changeFilter(event: any)

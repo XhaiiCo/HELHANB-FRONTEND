@@ -37,11 +37,11 @@ export class PaginationComponent implements OnInit {
       this.index = pageNumber;
       this.indexChange.emit(this.index);
 
-      this._router.navigate([], {
+      /*this._router.navigate([], {
         relativeTo: this._route,
         queryParams: {page: this.index},
         queryParamsHandling: 'merge'
-      });
+      });*/
     }
   }
 

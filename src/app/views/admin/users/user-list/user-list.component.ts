@@ -17,6 +17,16 @@ import {AuthService} from "../../../../services/auth.service";
 })
 export class UserListComponent implements OnInit {
 
+  //index and also help calculate the offset
+  index: number = 1;
+
+  maxPages: number = 0;
+
+  //will be also the limit that we send in the api
+  itemsPerPage: number = 4;
+
+  rulerLength: number = 5;
+
   userList: DtoInputUser[] = [];
   roleList: DtoInputRole[] = [];
 
@@ -44,12 +54,31 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.count();
+
     this._fetchUsers();
     this._fetchRoles();
   }
 
+  count() {
+    const filter: DtoOutputFilteringUsers = this.filterForm.value;
+
+    this._userService
+      .count(filter)
+      .subscribe(count =>
+    {
+      this.maxPages = Math.ceil(count/this.itemsPerPage);
+
+      if(this.maxPages < this.rulerLength) this.rulerLength = this.maxPages;
+    });
+  }
+
   private _fetchUsers(filter?: DtoOutputFilteringUsers): void {
-    this._userService.fetchAll(filter).subscribe(
+
+    let offset = (this.index - 1) * this.itemsPerPage;
+
+    this._userService.fetchAll(this.itemsPerPage, offset, filter).subscribe(
       (userList) => this.userList = userList
     );
   }
@@ -67,6 +96,8 @@ export class UserListComponent implements OnInit {
       next: (user) => {
         this.userList = this.userList.filter(value => value.id != user.id);
         this._toastNotificationService.add(`${user.lastName} ${user.firstName} supprimé avec succès`, "success");
+
+        this.emitFilter();
       },
       error: err => {
         if (err.status === 401) {
@@ -88,7 +119,12 @@ export class UserListComponent implements OnInit {
   }
 
   emitFilter() {
+
+    this.index = 1;
+    this.rulerLength = 5;
     const filter: DtoOutputFilteringUsers = this.filterForm.value;
+
+    this.count();
     this._fetchUsers(filter);
   }
 
@@ -118,5 +154,12 @@ export class UserListComponent implements OnInit {
         this._toastNotificationService.add(`${user.lastName} ${user.firstName} n'est plus administrateur`)
       }
     )
+  }
+
+  changePage(event: any)
+  {
+    const filter: DtoOutputFilteringUsers = this.filterForm.value;
+
+    this._fetchUsers(filter);
   }
 }

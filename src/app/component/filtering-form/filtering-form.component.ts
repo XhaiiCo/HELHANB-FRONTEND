@@ -97,7 +97,7 @@ export class FilteringFormComponent implements OnInit {
       if (param) Object.assign(this.params, {[name]: param});
     }
 
-    if (this.dates.arrival && this.dates.leave)
+    if (this.dates?.arrival && this.dates?.leave)
     {
       Object.assign(this.params, {arrivalDate: this.dateToString(this.dates.arrival)});
       Object.assign(this.params, {leaveDate: this.dateToString(this.dates.leave)});
