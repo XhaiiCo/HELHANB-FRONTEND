@@ -1,12 +1,16 @@
 <ul>
-  <li *ngFor="let reservation of reservations">
-    <div class="info"> <!-- center -->
-      <div> <!-- top -->
+  <li class="list-item" *ngFor="let reservation of reservations">
+    <div class="profilePicture">
+      <img [src]="profilePictureBaseUri +  reservation.renterMyAds.profilePicturePath" alt="photo de profil">
+    </div>
+    <div class="info">
+      <div>
         <span>{{ reservation.renterMyAds.lastName }} {{ reservation.renterMyAds.firstName }}</span>
+        <a (click)="contactUser(reservation.renterMyAds.id)">contacter</a>
       </div>
-      <div> <!-- mid -->
-        <span>du {{ reservation.arrivalDate }} au {{ reservation.leaveDate }}
-          ({{ nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
+      <div>
+        <span>du {{ reservation.arrivalDate | date: 'dd/MM/y à HH:mm'}} au {{ reservation.leaveDate | date: 'dd/MM/y à HH:mm'}}
+          ({{ dateService.nbDaysBetweenDates(reservation.arrivalDate, reservation.leaveDate) }} jours)</span>
       </div>
     </div>
   </li>

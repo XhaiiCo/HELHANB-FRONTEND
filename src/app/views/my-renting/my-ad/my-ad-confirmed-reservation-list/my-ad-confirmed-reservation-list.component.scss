@@ -1,0 +1,37 @@
+@import '/src/styles/helpers/variable';
+
+* {
+  font-family: $main-font;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+img {
+  border-radius: 50%;
+  height: 40px;
+  object-position: 50% 50%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+}
+
+a {
+  color: $main-color;
+  margin-left: 5px;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .5;
+  }
+}

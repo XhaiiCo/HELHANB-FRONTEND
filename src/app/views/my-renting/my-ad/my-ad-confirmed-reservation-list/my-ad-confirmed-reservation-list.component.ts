@@ -1,5 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { DateService } from 'src/app/services/date.service';
+import { environment } from 'src/environments/environment';
 import {DtoInputAdReservation} from "../../../../dtos/ad/dto-input-my-ads";
+import {ConversationService} from "../../../../services/conversation.service";
 
 @Component({
   selector: 'app-my-ad-confirmed-reservation-list',
@@ -8,14 +12,21 @@ import {DtoInputAdReservation} from "../../../../dtos/ad/dto-input-my-ads";
 })
 export class MyAdConfirmedReservationListComponent implements OnInit {
 
+  profilePictureBaseUri: string  = environment.pictureUrl ;
   @Input() reservations!: DtoInputAdReservation[] ;
-  constructor() { }
+
+  constructor(
+    public dateService: DateService,
+    private _authService: AuthService,
+    public _conversationService: ConversationService,
+  ) { }
 
   ngOnInit(): void {
   }
 
-  nbDaysBetweenDates(startDate: Date, endDate: Date) {
-    let diffInMs = new Date(endDate).getTime() - new Date(startDate).getTime();
-    return Math.round(diffInMs / (1000 * 60 * 60 * 24));
+  contactUser(renterId: number) {
+    if (this._authService.user !== null) {
+      this._conversationService.redirectToTheConversationPage(this._authService.user.id, renterId)
+    }
   }
 }
