@@ -36,9 +36,25 @@ export class AdService {
     return this._httpClient.delete<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/${adSlug}`);
   }
 
-  count(params : any): Observable<number> {
+  countForAdminAds(): Observable<number>{
+    return this._httpClient.get<number>(`${AdService.ENTRY_POINT_URL}/count`);
+  }
+
+  fetchForAdminAds(limit: number, offset: number): Observable<DtoInputAd[]>{
 
     let httpParams = new URLSearchParams;
+
+    httpParams.set("limit", limit.toString());
+    httpParams.set("offset", offset.toString());
+
+    return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}?${httpParams.toString()}`);
+  }
+
+  countForHomePagePagination(params : any): Observable<number> {
+
+    let httpParams = new URLSearchParams;
+
+    httpParams.set("statusId", "3");
 
     if(params.get('country')) httpParams.set("country", params.get('country'));
     if(params.get('city')) httpParams.set("city", params.get('city'));
@@ -50,12 +66,14 @@ export class AdService {
     return this._httpClient.get<number>(`${AdService.ENTRY_POINT_URL}/count?${httpParams.toString()}`);
   }
 
-  fetchForPagination(limit: number, offset: number, params : any): Observable<DtoInputAdSummary[]> {
+  fetchForHomePagePagination(limit: number, offset: number, params : any): Observable<DtoInputAdSummary[]> {
 
     let httpParams = new URLSearchParams;
 
     httpParams.set("limit", limit.toString());
     httpParams.set("offset", offset.toString());
+
+    httpParams.set("statusId", "3");
 
     if(params.get('country')) httpParams.set("country", params.get('country'));
     if(params.get('city')) httpParams.set("city", params.get('city'));
@@ -73,10 +91,6 @@ export class AdService {
 
   fetchAllPendings(): Observable<DtoInputAd[]> {
     return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}?statusId=1`);
-  }
-
-  fetchAll(): Observable<DtoInputAd[]> {
-    return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}`);
   }
 
   updateStatus(dto: DtoOutputUpdateStatusAd): Observable<DtoInputAd> {

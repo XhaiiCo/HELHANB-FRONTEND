@@ -11,6 +11,18 @@ import {ToastNotificationService} from "../../../services/toast-notification.ser
 })
 export class AdminRentingsComponent implements OnInit {
 
+  private readonly BASE_RULER_LENGTH : number = 5;
+
+  //index and also help calculate the offset
+  index: number = 1;
+
+  maxPages: number = 0;
+
+  //will be also the limit that we send in the api
+  itemsPerPage: number = 4;
+
+  rulerLength: number = this.BASE_RULER_LENGTH;
+
   deleteModalOptions: ModalParams = {
     displayModal: false,
     titleText: "Confirmation de suppression",
@@ -27,7 +39,29 @@ export class AdminRentingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._adService.fetchAll().subscribe(ads => this.ads = ads)
+
+    this.count();
+    this.fetchAds();
+  }
+
+  fetchAds()
+  {
+    let offset = (this.index - 1) * this.itemsPerPage;
+
+    this._adService.fetchForAdminAds(this.itemsPerPage, offset)
+      .subscribe(ads => this.ads = ads);
+  }
+
+  count() {
+
+    this._adService
+      .countForAdminAds()
+      .subscribe(count =>
+      {
+        this.maxPages = Math.ceil(count/this.itemsPerPage);
+
+        if(this.maxPages < this.rulerLength) this.rulerLength = this.maxPages;
+      });
   }
 
   changeCurrentId(ad: DtoInputAd) {
@@ -57,6 +91,8 @@ export class AdminRentingsComponent implements OnInit {
       next: removedAd => {
         this._toastNotificationService.add(`${removedAd.name} supprimé avec succès`, "success");
         this.removeAdById(removedAd.adSlug);
+
+        this.resetAfterDelete();
       },
       error: err => {
         this._toastNotificationService.add(`Erreur lors de la suppression`, "error");
@@ -71,4 +107,21 @@ export class AdminRentingsComponent implements OnInit {
       this.currentAd = null;
     }
   }
+
+  changePage(event: any)
+  {
+    this.fetchAds();
+  }
+
+  resetAfterDelete()
+  {
+    if(this.ads.length == 0)
+    {
+      this.index--;
+      this.rulerLength = this.BASE_RULER_LENGTH;
+    }
+    this.count();
+    this.fetchAds();
+  }
+
 }

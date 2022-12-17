@@ -45,7 +45,7 @@ export class HomepageComponent implements OnInit {
     this.params = this._route.snapshot.queryParamMap;
 
     this._adService
-      .count(this.params)
+      .countForHomePagePagination(this.params)
       .subscribe(count =>
       {
         this.maxPages = Math.ceil(count/this.itemsPerPage);
@@ -59,7 +59,7 @@ export class HomepageComponent implements OnInit {
     let offset = (this.index - 1) * this.itemsPerPage;
 
     this._adService
-      .fetchForPagination(this.itemsPerPage, offset, this.params)
+      .fetchForHomePagePagination(this.itemsPerPage, offset, this.params)
       .subscribe(ads => {
         this.ads = ads
         this.pageLoaded = true ;
