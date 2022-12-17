@@ -20,9 +20,6 @@ export interface DtoInputMyAds {
   owner: DtoInputOwner;
   status: DtoInputStatus;
   reservations: DtoInputAdReservation[];
-
-  picturesToAdd: string[];
-  picturesToDelete: string[];
 }
 
 interface DtoInputPicture {

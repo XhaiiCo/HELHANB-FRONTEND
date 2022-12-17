@@ -33,12 +33,6 @@ export class MyRentingComponent implements OnInit {
       this._adService.fetchMyAds().subscribe({
         next: ads => {
           this.ads = ads;
-
-          for (let ad of this.ads) {
-            ad.picturesToAdd = [];
-            ad.picturesToDelete = [];
-          }
-
           this.pageLoaded = true;
         },
         error: error => {
@@ -57,7 +51,7 @@ export class MyRentingComponent implements OnInit {
     const dtoOutput: DtoOutputConfirmRefuseReservation = {
       adSlug: reservations.confirmed.adSlug,
       id: reservations.confirmed.id,
-    } ;
+    };
 
     this._adService.confirmReservation(dtoOutput).subscribe({
       next: result => {

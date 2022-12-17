@@ -28,7 +28,7 @@
       <div *ngFor="let file of ad.pictures" class="preview">
         <img [src]="pictureBaseUrl + file.path" alt="ta maison" (click)="deletePicture(file.path);"/>
       </div>
-      <div *ngFor="let file of this.ad.picturesToAdd" class="preview">
+      <div *ngFor="let file of picturesToAdd" class="preview">
         <img [src]="adHandleService.imgSrc(file)" alt="ta maison" (click)="removePicture(file)"/>
       </div>
     </div>

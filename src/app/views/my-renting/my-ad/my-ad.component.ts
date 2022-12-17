@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {DtoInputMyAds, DtoInputAdReservation} from "../../../dtos/ad/dto-input-my-ads";
 import {environment} from "../../../../environments/environment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -22,6 +22,8 @@ export class MyAdComponent implements OnInit {
   readonly pictureBaseUrl: string = environment.pictureUrl;
 
   @Input() ad!: DtoInputMyAds;
+  picturesToAdd: string[] = [];
+  picturesToDelete: string[] = [];
 
   adUpdateForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -52,6 +54,11 @@ export class MyAdComponent implements OnInit {
     this.ad.reservations.forEach(value => value.adSlug = this.ad.adSlug);
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.picturesToAdd = [] ;
+    this.picturesToDelete = [] ;
+  }
+
   validHours(startHourIdentifier: string, endHourIdentifier: string) {
     const startHour: any = this.adUpdateForm.get(startHourIdentifier)?.value;
     const endHour: any = this.adUpdateForm.get(endHourIdentifier)?.value;
@@ -79,21 +86,21 @@ export class MyAdComponent implements OnInit {
   onPictureAdded(files: any) {
     this.adHandleService.filesToBase64(files).then(files => {
       for (let i = 0; i < files.length; i++) {
-        if (this.adHandleService.isMaxNumberOfPicturesReached(this.ad.picturesToAdd.length + this.ad.pictures.length)) break;
-        if (this.adHandleService.isPictureAlreadyUploaded(files[i], [...this.ad.picturesToAdd])) continue;
+        if (this.adHandleService.isMaxNumberOfPicturesReached(this.picturesToAdd.length + this.ad.pictures.length)) break;
+        if (this.adHandleService.isPictureAlreadyUploaded(files[i], [...this.picturesToAdd])) continue;
 
-        this.ad.picturesToAdd.push(files[i]);
+        this.picturesToAdd.push(files[i]);
       }
     });
   }
 
   deletePicture(picPath: string) {
     this.ad.pictures = this.ad.pictures.filter(pic => pic.path != picPath);
-    this.ad.picturesToDelete.push(picPath);
+    this.picturesToDelete.push(picPath);
   }
 
   removePicture(file: string) {
-    this.ad.picturesToAdd = this.adHandleService.removePicture(file, [...this.ad.picturesToAdd]);
+    this.picturesToAdd = this.adHandleService.removePicture(file, [...this.picturesToAdd]);
   }
 
   submitForm() {
@@ -114,19 +121,22 @@ export class MyAdComponent implements OnInit {
       arrivalTimeRangeEnd: this.adHandleService.toDtoOutputTime(arrivalTimeRangeEnd),
       leaveTime: this.adHandleService.toDtoOutputTime(leaveTime),
       features: this.ad.features,
-      picturesToAdd: this.ad.picturesToAdd,
-      picturesToDelete: this.ad.picturesToDelete
+      picturesToAdd: this.picturesToAdd,
+      picturesToDelete: this.picturesToDelete
     }
 
     this._adService
       .update(dto)
       .subscribe({
-        next: () => {
+        next: (result) => {
           this._toastNotificationService.add("Annonce modifiée avec succès", "success");
           this.disabledUpdateBtn = false;
+          this.ad.pictures = result.pictures ;
+          this.picturesToAdd = [];
+          this.picturesToDelete = [] ;
         },
-        error: () => {
-          this._toastNotificationService.add("Erreur lors de la modification", "error");
+        error: err => {
+          this._toastNotificationService.add(err.error, "error");
           this.disabledUpdateBtn = false;
         },
       });
