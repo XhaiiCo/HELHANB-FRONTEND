@@ -88,33 +88,49 @@
   </form>
 
   <h1>Réservations</h1>
-  <div *ngIf="sortReservationByStatusName('en attente').length">
+  <div>
     <h2>En attentes</h2>
     <app-my-ad-reservations-to-confirm-list
+      *ngIf="sortReservationByStatusName('en attente').length > 0 ; else noPendings"
       [reservations]="sortReservationByStatusName('en attente')"
       (confirmedReservation)="confirmedReservationMethod($event)"
       (declinedReservation)="declinedReservationMethod($event)"
     ></app-my-ad-reservations-to-confirm-list>
+    <ng-template #noPendings>
+      <p>Il n'y a aucune réservation en attente</p>
+    </ng-template>
   </div>
 
   <div>
     <h2>En cours</h2>
-    <app-my-ad-confirmed-reservation-list
-      [reservations]="getReservationInProgress()"
+    <app-my-ad-confirmed-reservation-list *ngIf="getReservationInProgress().length > 0 ; else noInProgress"
+                                          [reservations]="getReservationInProgress()"
     ></app-my-ad-confirmed-reservation-list>
+
+    <ng-template #noInProgress>
+      <p>Il n'y a aucune réservation en cours</p>
+    </ng-template>
   </div>
 
   <div>
-    <h2>À venirs</h2>
-    <app-my-ad-confirmed-reservation-list
-      [reservations]="getReservationToCome()"
+    <h2>À venir</h2>
+    <app-my-ad-confirmed-reservation-list *ngIf="getReservationToCome().length > 0 ; else noToCome"
+                                          [reservations]="getReservationToCome()"
     ></app-my-ad-confirmed-reservation-list>
+
+    <ng-template #noToCome>
+      <p>Il n'y a aucune réservation à venir</p>
+    </ng-template>
   </div>
 
   <div>
-    <h2>Terminées</h2>
-    <app-my-ad-confirmed-reservation-list
-      [reservations]="getPastReservation()"
+    <h2>Terminée</h2>
+    <app-my-ad-confirmed-reservation-list *ngIf="getPastReservation().length > 0 ; else noPast"
+                                          [reservations]="getPastReservation()"
     ></app-my-ad-confirmed-reservation-list>
+
+    <ng-template #noPast>
+      <p>Il n'y a aucune réservation terminée</p>
+    </ng-template>
   </div>
 </main>
