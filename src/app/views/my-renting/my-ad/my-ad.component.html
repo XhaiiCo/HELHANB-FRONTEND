@@ -60,14 +60,38 @@
     <input type="number" class="input-adjust" formControlName="pricePerNight" [(ngModel)]="ad.pricePerNight">
 
     <h2>Règles</h2>
-    <p>Arrivée entre <input type="time" class="input-adjust" formControlName="arrivalTimeRangeStart"
-                            [(ngModel)]="ad.arrivalTimeRangeStart">
-      et <input type="time" class="input-adjust" formControlName="arrivalTimeRangeEnd"
-                [(ngModel)]="ad.arrivalTimeRangeEnd"></p>
-    <p>Départ avant <input type="time" class="input-adjust" formControlName="leaveTime" [(ngModel)]="ad.leaveTime"></p>
+    <p>Départ avant
+      <input
+        type="time"
+        class="input-adjust"
+        formControlName="leaveTime"
+        [(ngModel)]="ad.leaveTime"
+        (change)="validHours('leaveTime', 'arrivalTimeRangeStart')">
+    </p>
+    <span *ngIf="isInvalid('leaveTime')">Veuillez entrer une heure de départ valide (avant l'heure d'arrivée).</span>
+
+    <p>Arrivée entre
+      <input
+        type="time"
+        class="input-adjust"
+        formControlName="arrivalTimeRangeStart"
+        [(ngModel)]="ad.arrivalTimeRangeStart"
+        (change)="validHours('arrivalTimeRangeStart', 'arrivalTimeRangeEnd');
+                  validHours('leaveTime', 'arrivalTimeRangeStart')"
+      >
+      et
+      <input
+        type="time"
+        class="input-adjust"
+        formControlName="arrivalTimeRangeEnd"
+        [(ngModel)]="ad.arrivalTimeRangeEnd"
+        (change)="validHours('arrivalTimeRangeStart','arrivalTimeRangeEnd')">
+    </p>
+    <span *ngIf="isInvalid('arrivalTimeRangeStart')">Veuillez entrer une heure d'arrivée valide (aprés l'heure de départ).</span>
+    <span *ngIf="isInvalid('arrivalTimeRangeEnd')">Veuillez entrer une heure d'arrivée valide (aprés le début de l'interval d'heures d'arrivée.</span>
 
     <div class="submit_btn_container">
-      <button class="btn-primary" [disabled]="disabledUpdateBtn">Modifier</button>
+      <button class="btn-primary" [disabled]="adUpdateForm.invalid || disabledUpdateBtn">Modifier</button>
       <button
         type="button"
         class="btn-secondary"

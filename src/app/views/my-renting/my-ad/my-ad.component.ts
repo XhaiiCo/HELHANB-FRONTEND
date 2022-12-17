@@ -52,6 +52,30 @@ export class MyAdComponent implements OnInit {
     this.ad.reservations.forEach(value => value.adSlug = this.ad.adSlug);
   }
 
+  validHours(startHourIdentifier: string, endHourIdentifier: string) {
+    const startHour: any = this.adUpdateForm.get(startHourIdentifier)?.value;
+    const endHour: any = this.adUpdateForm.get(endHourIdentifier)?.value;
+
+    if (startHour === '' || endHour === '') return;
+
+    if (startHour >= endHour) {
+      this.controlSetErrors(startHourIdentifier, {"error": true});
+      return;
+    }
+
+    this.controlSetErrors(startHourIdentifier, null);
+    this.controlSetErrors(endHourIdentifier, null);
+  }
+
+  controlSetErrors(controlName: string, value: {} | null) {
+    this.adUpdateForm.get(controlName)?.setErrors(value);
+  }
+
+  isInvalid(controlIdentifier: string) {
+    const control = this.adUpdateForm.get(controlIdentifier);
+    return control?.dirty && control?.touched && control?.invalid || false;
+  }
+
   onPictureAdded(files: any) {
     this.adHandleService.filesToBase64(files).then(files => {
       for (let i = 0; i < files.length; i++) {
