@@ -118,8 +118,8 @@ export class MyAdComponent implements OnInit {
 
   sortReservationByDates(array: DtoInputAdReservation[]): DtoInputAdReservation[] {
     return array.sort((a, b) => {
-      return new Date(this._dateService.dtoObjectToDateUS(a.creation)).getTime() - new Date(this._dateService.dtoObjectToDateUS(b.creation)).getTime();
-    }).reverse();
+      return new Date(this._dateService.dtoObjectToDateUS(a.arrivalDate)).getTime() - new Date(this._dateService.dtoObjectToDateUS(b.leaveDate)).getTime();
+    });
   }
 
   getReservationInProgress(): DtoInputAdReservation[] {
