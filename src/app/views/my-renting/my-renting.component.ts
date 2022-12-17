@@ -4,6 +4,7 @@ import {AdService} from "../../services/ad.service";
 import {DtoInputAdReservation, DtoInputMyAds} from "../../dtos/ad/dto-input-my-ads";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {environment} from "../../../environments/environment";
+import {DtoOutputConfirmRefuseReservation} from "../../dtos/reservation/dto-output-confirm-refuse-reservation";
 
 @Component({
   selector: 'app-my-renting',
@@ -52,24 +53,38 @@ export class MyRentingComponent implements OnInit {
   }
 
   confirmedReservationMethod(reservations: { confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[] }) {
-    this._adService.confirmReservation(reservations.confirmed).subscribe(result => {
 
-      let adIndex = this.ads.findIndex(e => e.adSlug == reservations.confirmed.adSlug);
-      this.ads[adIndex].reservations.splice(this.ads[adIndex].reservations.indexOf(reservations.confirmed), 1, result);
+    const dtoOutput: DtoOutputConfirmRefuseReservation = {
+      adSlug: reservations.confirmed.adSlug,
+      id: reservations.confirmed.id,
+    } ;
 
-      reservations.declined?.forEach(e => {
-        let e_ = e;
-        e_.statusMyAds = {
-          id: 2,
-          statusName: "refusée"
-        };
-        this.ads[adIndex].reservations.splice(this.ads[adIndex].reservations.indexOf(e), 1, e_);
-      });
+    this._adService.confirmReservation(dtoOutput).subscribe({
+      next: result => {
 
-      this._toastNotification.add(
-        `La réservation de ${result.renterMyAds.lastName} ${result.renterMyAds.firstName} a été acceptée avec succès`,
-        "success"
-      );
+        let adIndex = this.ads.findIndex(e => e.adSlug == reservations.confirmed.adSlug);
+        this.ads[adIndex].reservations.splice(this.ads[adIndex].reservations.indexOf(reservations.confirmed), 1, result);
+
+        reservations.declined?.forEach(e => {
+          let e_ = e;
+          e_.statusMyAds = {
+            id: 2,
+            statusName: "refusée"
+          };
+          this.ads[adIndex].reservations.splice(this.ads[adIndex].reservations.indexOf(e), 1, e_);
+        });
+
+        this._toastNotification.add(
+          `La réservation de ${result.renterMyAds.lastName} ${result.renterMyAds.firstName} a été acceptée avec succès`,
+          "success"
+        );
+      },
+      error: err => {
+        this._toastNotification.add(
+          err.error,
+          "error"
+        );
+      }
     });
   }
 
