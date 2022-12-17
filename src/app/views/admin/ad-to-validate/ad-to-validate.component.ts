@@ -10,6 +10,18 @@ import {ToastNotificationService} from "../../../services/toast-notification.ser
 })
 export class AdToValidateComponent implements OnInit {
 
+  private readonly BASE_RULER_LENGTH : number = 5;
+
+  //index and also help calculate the offset
+  index: number = 1;
+
+  maxPages: number = 0;
+
+  //will be also the limit that we send in the api
+  itemsPerPage: number = 4;
+
+  rulerLength: number = this.BASE_RULER_LENGTH;
+
   ads: DtoInputAd[] = [];
   currentAd!: DtoInputAd | null;
 
@@ -17,7 +29,30 @@ export class AdToValidateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._adService.fetchAllPendings().subscribe((ads) => this.ads = ads);
+    this.count();
+    this.fetchAds();
+  }
+
+  count() {
+
+    this._adService
+      .countForAdminAdsToValidate()
+      .subscribe(count =>
+      {
+        this.maxPages = Math.ceil(count/this.itemsPerPage);
+
+        if(this.maxPages < this.rulerLength) this.rulerLength = this.maxPages;
+
+        console.log(this.maxPages);
+      });
+  }
+
+  fetchAds()
+  {
+    let offset = (this.index - 1) * this.itemsPerPage;
+
+    this._adService.fetchForAdminAdsToValidate(this.itemsPerPage, offset)
+      .subscribe((ads) => {this.ads = ads; console.log(this.ads)});
   }
 
   changeCurrentId(ad: DtoInputAd) {
@@ -39,17 +74,38 @@ export class AdToValidateComponent implements OnInit {
 
   validCurrentAd() {
     if (!this.currentAd) return;
-    this._adService.updateStatus({adSlug: this.currentAd?.adSlug, statusId: 3}).subscribe((ad) => {
+    this._adService.updateStatus({adSlug: this.currentAd?.adSlug, statusId: 3}).subscribe(ad => {
       this.removeCurrentAd();
       this._toastService.add("Annonce validée", "success");
+      this.reset();
     });
+
   }
 
   rejectCurrentAd() {
     if (!this.currentAd) return;
-    this._adService.updateStatus({adSlug: this.currentAd?.adSlug, statusId: 2}).subscribe((ad) => {
+    this._adService.updateStatus({adSlug: this.currentAd?.adSlug, statusId: 2}).subscribe(ad => {
         this.removeCurrentAd();
         this._toastService.add("Annonce refusée", "sucess");
-      });
-    }
+        this.reset();
+    });
+
   }
+
+  changePage(event: any)
+  {
+    this.fetchAds();
+  }
+
+  reset()
+  {
+    if(this.ads.length == 0)
+    {
+      this.index--;
+      this.rulerLength = this.BASE_RULER_LENGTH;
+    }
+    this.count();
+    this.fetchAds();
+  }
+
+}

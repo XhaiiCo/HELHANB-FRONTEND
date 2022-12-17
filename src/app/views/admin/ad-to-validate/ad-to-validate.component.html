@@ -4,6 +4,14 @@
       <li *ngFor="let ad of ads" (click)="changeCurrentId(ad)"
           [class.active]="currentAd && ad.adSlug === currentAd.adSlug">{{ad.name}}</li>
     </ul>
+    <div class="pagination_container">
+      <app-pagination
+        [maxPages]="maxPages"
+        [rulerLength]="rulerLength"
+        [(index)]="index"
+        (indexChange)="changePage($event)">
+      </app-pagination>
+    </div>
   </section>
 
   <section class="ad_preview" *ngIf="currentAd; else noAdSelected">

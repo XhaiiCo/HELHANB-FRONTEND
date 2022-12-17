@@ -51,6 +51,25 @@ export class AdService {
     return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}?${httpParams.toString()}`);
   }
 
+  countForAdminAdsToValidate(): Observable<number>{
+    let httpParams = new URLSearchParams;
+
+    httpParams.set("statusId", "1");
+
+    return this._httpClient.get<number>(`${AdService.ENTRY_POINT_URL}/count?${httpParams.toString()}`);
+  }
+
+  fetchForAdminAdsToValidate(limit: number, offset: number): Observable<DtoInputAd[]>{
+
+    let httpParams = new URLSearchParams;
+
+    httpParams.set("limit", limit.toString());
+    httpParams.set("offset", offset.toString());
+    httpParams.set("statusId", "1");
+
+    return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}?${httpParams.toString()}`);
+  }
+
   countForHomePagePagination(params : any): Observable<number> {
 
     let httpParams = new URLSearchParams;
