@@ -129,6 +129,15 @@ export class FilteringFormComponent implements OnInit {
 
     return dateObj.getDate().toString() + "/" + (dateObj.getMonth() + 1).toString() + "/" + dateObj.getFullYear();
   }
+
+  deleteFilters() {
+    this.filteringForm.setValue({
+      country: "",
+      city: "",
+      pricePerNight: "",
+      numberOfPersons: ""
+    });
+  }
 }
 
 

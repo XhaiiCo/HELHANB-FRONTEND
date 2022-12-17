@@ -22,6 +22,8 @@
 
     <app-date-picker class="date-picker" (emitDateChange)="dateChange($event)"></app-date-picker>
 
+    <button type="button" (click)="deleteFilters()">supprimer <br> tous les filtres</button>
+
     <button class="btn-secondary" type="submit" (click)="search()">
       <svg viewBox="0 0 21 21">
         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
