@@ -89,7 +89,7 @@
     </table>
   </main>
 
-  <div class="pagination_container">
+  <div class="pagination_container" [hidden]="maxPages == 0">
     <app-pagination
       [maxPages]="maxPages"
       [rulerLength]="rulerLength"
