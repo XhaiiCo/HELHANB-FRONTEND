@@ -13,6 +13,7 @@ import {DtoInputAdWithReservation} from "../dtos/ad/dto-input-ad-with-reservatio
 import {DtoOutputUpdateAd} from "../dtos/ad/dto-output-update-ad";
 import {DtoInputReservation} from "../dtos/reservation/dto-input-reservation";
 import {DtoInputAdReservation} from "../dtos/ad/dto-input-my-ads";
+import { DtoOutputConfirmRefuseReservation } from '../dtos/reservation/dto-output-confirm-refuse-reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -113,11 +114,11 @@ export class AdService {
     return this._httpClient.get<DtoInputAdReservation[]>(`${AdService.ENTRY_POINT_URL}/${adSlug}/reservation`);
   }
 
-  confirmReservation(reservation: DtoInputAdReservation): Observable<DtoInputAdReservation> {
+  confirmReservation(reservation: DtoOutputConfirmRefuseReservation): Observable<DtoInputAdReservation> {
     return this._httpClient.put<DtoInputAdReservation>(`${AdService.ENTRY_POINT_URL}/confirmReservation`, reservation);
 }
 
-  refuseReservation(reservation: DtoInputAdReservation): Observable<DtoInputAdReservation> {
+  refuseReservation(reservation: DtoOutputConfirmRefuseReservation): Observable<DtoInputAdReservation> {
     return this._httpClient.put<DtoInputAdReservation>(`${AdService.ENTRY_POINT_URL}/refuseReservation`, reservation);
   }
 
