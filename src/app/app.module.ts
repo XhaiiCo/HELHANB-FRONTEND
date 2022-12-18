@@ -16,7 +16,7 @@ import {HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS} from '@angul
 import { DatePickerComponent } from './component/date-picker/date-picker.component';
 import {CredentialsInterceptor} from "./interceptors/credentials.interceptor";
 import { RoundPipePipe } from './views/renting/round-pipe.pipe';
-import {ToastNotificationComponent} from "./component/toast-notification/toast-notification.component";
+import {ToastNotificationComponent} from "./elements/toast-notification/toast-notification.component";
 import {AdminPageComponent} from "./views/admin/admin-page/admin-page.component";
 import {UserListComponent} from "./views/admin/users/user-list/user-list.component";
 import { ModalConfirmationComponent } from './component/modal-confirmation/modal-confirmation.component';

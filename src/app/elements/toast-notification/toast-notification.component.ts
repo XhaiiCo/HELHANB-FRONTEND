@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {ToastNotification} from "../../interfaces/toastNotification";
+import {Component, OnInit} from '@angular/core';
 import {ToastNotificationService} from "../../services/toast-notification.service";
 
 @Component({
@@ -9,18 +8,18 @@ import {ToastNotificationService} from "../../services/toast-notification.servic
 })
 export class ToastNotificationComponent implements OnInit {
 
-  constructor(public toastNotificationService: ToastNotificationService) { }
+  constructor(
+    public toastNotificationService: ToastNotificationService
+  ) {
+  }
 
   ngOnInit(): void {
-    /*this.toastNotificationService.add("test success", "success") ;
-    this.toastNotificationService.add("test info", "info") ;
-    this.toastNotificationService.add("test error", "error") ;*/
   }
 
   /**
    * @param {number} id - The id of the notification to remove.
    */
   removeNotification(id: number) {
-    this.toastNotificationService.remove(id) ;
+    this.toastNotificationService.remove(id);
   }
 }

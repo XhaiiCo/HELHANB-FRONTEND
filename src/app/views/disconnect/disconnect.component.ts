@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
@@ -10,9 +10,12 @@ import {ToastNotificationService} from "../../services/toast-notification.servic
 })
 export class DisconnectComponent implements OnInit {
 
-  constructor(private _router: Router,
-        private _authService: AuthService,
-        private _toastNotification: ToastNotificationService) { }
+  constructor(
+    private _router: Router,
+    private _authService: AuthService,
+    private _toastNotification: ToastNotificationService,
+  ) {
+  }
 
   /**
    * Disconnect the user
@@ -20,11 +23,11 @@ export class DisconnectComponent implements OnInit {
   ngOnInit(): void {
     this._authService.disconnect().subscribe({
       next: () => {
-        this._authService.user = null ;
-        this._toastNotification.add("Déconnecté avec succès", "success") ;
-        this._router.navigate(['']) ;
+        this._authService.user = null;
+        this._toastNotification.add("Déconnecté avec succès", "success");
+        this._router.navigate(['']);
       }
-    }) ;
+    });
   }
 
 }

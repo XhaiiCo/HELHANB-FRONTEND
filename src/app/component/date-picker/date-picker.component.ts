@@ -33,12 +33,15 @@ export class DatePickerComponent implements OnInit {
 
   @Input() notAvailableDates: Date[] = [];
 
+  /* A function that is used to filter the dates that are not available. For disabled them in the date picker */
   dateFilter = (d: Date): boolean => {
     const time = new Date(d).getTime();
     return !this.notAvailableDates.find(x => new Date(x).getTime() == time);
   }
 
-  constructor(private _ToastNotificationService: ToastNotificationService) {
+  constructor(
+    private _ToastNotificationService: ToastNotificationService
+  ) {
   }
 
   ngOnInit(): void {
@@ -78,5 +81,4 @@ export class DatePickerComponent implements OnInit {
     else
       this.emitDateChange.next(this.range);
   }
-
 }

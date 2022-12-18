@@ -1,12 +1,12 @@
 <section class="filtering-section">
-  <button class="btn-filter" (click)="toggleDisplayFiltre()">
-    <span *ngIf="this.displayFiltre">-</span>
-    <span *ngIf="!this.displayFiltre">+</span>
+  <button class="btn-filter" (click)="toggleDisplayFilter()">
+    <span *ngIf="this.displayFilter">-</span>
+    <span *ngIf="!this.displayFilter">+</span>
     Filtres
   </button>
-  <form class="filteringForm" [formGroup]="filteringForm" *ngIf="this.displayFiltre">
+  <form class="filteringForm" [formGroup]="filteringForm" *ngIf="this.displayFilter">
 
-    <select class="input-select" formControlName="country" (change)="fetchDistinctsCitiesOnChange($event)">
+    <select class="input-select" formControlName="country" (change)="fetchDistinctCitiesOnChange($event)">
       <option disabled value="">Pays</option>
       <option *ngFor="let country of countries" value="{{country}}">{{country}}</option>
     </select>

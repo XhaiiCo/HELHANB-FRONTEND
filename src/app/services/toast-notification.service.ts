@@ -40,6 +40,7 @@ export class ToastNotificationService {
     if(notif)
       notif.isRemove = true ;
 
+    //Wait 750ms for the animation
     setTimeout(() => {
       this.notifications = this.notifications.filter(value => value.id != id) ;
     }, 750) ;

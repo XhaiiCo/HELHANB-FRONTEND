@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Pagination} from "./pagination";
+import {Pagination} from "../../interfaces/pagination";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({

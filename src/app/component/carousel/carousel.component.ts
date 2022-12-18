@@ -26,6 +26,10 @@ export class CarouselComponent implements OnInit {
     this.selectedIndex = index;
   }
 
+  /**
+   * If the selectedIndex is 0, then set the selectedIndex to the last image in the array, otherwise, decrement the
+   * selectedIndex by 1
+   */
   onPrevClick() {
     if (this.selectedIndex === 0) {
 
@@ -35,6 +39,10 @@ export class CarouselComponent implements OnInit {
     }
   }
 
+  /**
+   * If the selectedIndex is equal to the length of the images array, then set the selectedIndex to 0, otherwise increment
+   * the selectedIndex by 1
+   */
   onNextClick() {
     if (this.selectedIndex === this.images.length - 1) {
       this.selectedIndex = 0;

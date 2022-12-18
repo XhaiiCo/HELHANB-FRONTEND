@@ -25,20 +25,30 @@ export class FilteringFormComponent implements OnInit {
 
   dates!: { arrival: Date, leave: Date };
 
-  displayFiltre: boolean = false;
+  displayFilter: boolean = false;
 
   @Output() notify: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private _fb: FormBuilder, private _adService: AdService, private _router: Router, private _route: ActivatedRoute) {
+  constructor(
+    private _fb: FormBuilder,
+    private _adService: AdService,
+    private _router: Router,
+    private _route: ActivatedRoute,
+  ) {
   }
 
   ngOnInit(): void {
+    this.fillFilteringFormWithQueryParams();
+  }
 
+  /**
+   * It fills the filtering form with the query parameters from the URL
+   */
+  private fillFilteringFormWithQueryParams() {
     let queryParams = this._route.snapshot.queryParamMap;
 
     this.fetchCountries();
-
-    this.fetchDistinctsCities(queryParams.get('country')!);
+    this.fetchDistinctCities(queryParams.get('country')!);
 
     this.filteringForm.patchValue({
       country: queryParams.get('country') ? queryParams.get('country') : "",
@@ -46,12 +56,13 @@ export class FilteringFormComponent implements OnInit {
       pricePerNight: queryParams.get('pricePerNight'),
       numberOfPersons: queryParams.get('numberOfPersons'),
     });
-
-
   }
 
-  toggleDisplayFiltre() {
-    this.displayFiltre = !this.displayFiltre;
+  /**
+   * If the displayFilter is true, then set it to false. If the displayFilter is false, then set it to true
+   */
+  toggleDisplayFilter() {
+    this.displayFilter = !this.displayFilter;
   }
 
   fetchCountries() {
@@ -60,7 +71,7 @@ export class FilteringFormComponent implements OnInit {
       .subscribe(countries => this.countries = countries);
   }
 
-  fetchDistinctsCitiesOnChange(event: any) {
+  fetchDistinctCitiesOnChange(event: any) {
     this._adService
       .fetchCities(event.target.value)
       .subscribe(cities => {
@@ -71,7 +82,7 @@ export class FilteringFormComponent implements OnInit {
       });
   }
 
-  fetchDistinctsCities(country: string) {
+  fetchDistinctCities(country: string) {
     this._adService
       .fetchCities(country)
       .subscribe(cities => {
@@ -80,7 +91,6 @@ export class FilteringFormComponent implements OnInit {
   }
 
   search() {
-
     this.clearParams();
 
     this.addAllParams();
@@ -97,8 +107,7 @@ export class FilteringFormComponent implements OnInit {
       if (param) Object.assign(this.params, {[name]: param});
     }
 
-    if (this.dates?.arrival && this.dates?.leave)
-    {
+    if (this.dates?.arrival && this.dates?.leave) {
       Object.assign(this.params, {arrivalDate: this.dateToString(this.dates.arrival)});
       Object.assign(this.params, {leaveDate: this.dateToString(this.dates.leave)});
     }
@@ -123,8 +132,7 @@ export class FilteringFormComponent implements OnInit {
     this.setDate(range);
   }
 
-  dateToString(date: Date):string
-  {
+  dateToString(date: Date): string {
     const dateObj: Date = new Date(date.toString());
 
     return dateObj.getDate().toString() + "/" + (dateObj.getMonth() + 1).toString() + "/" + dateObj.getFullYear();
@@ -137,7 +145,7 @@ export class FilteringFormComponent implements OnInit {
       pricePerNight: "",
       numberOfPersons: ""
     });
+
+    this.search() ;
   }
 }
-
-

@@ -68,7 +68,6 @@ export class AccountComponent implements OnInit {
   }
 
   resetForm() {
-
     this.personalDataForm.get('firstName')?.setValue(this.user.firstName);
     this.personalDataForm.get('lastName')?.setValue(this.user.lastName);
     this.personalDataForm.get('email')?.setValue(this.user.email);
@@ -186,15 +185,15 @@ export class AccountComponent implements OnInit {
   }
 
   onUploadPicture(event: any) {
-    this.disableChangeProfilePictureBtn = true ;
+    this.disableChangeProfilePictureBtn = true;
     let profilePicture = event.target.files[0];
     if (this.authService.user)
       this._base64Service.fileToBase64(profilePicture).subscribe(base64 => {
         this._userService.updateProfilePicture({profilePicture: base64})
           .subscribe({
             next: (user) => {
-              this.authService.user = user ;
-              this.disableChangeProfilePictureBtn = false ;
+              this.authService.user = user;
+              this.disableChangeProfilePictureBtn = false;
             },
             error: (err) => {
               this.disableChangeProfilePictureBtn = false;
@@ -204,7 +203,7 @@ export class AccountComponent implements OnInit {
           });
       });
     else
-      this.disableChangeProfilePictureBtn = false ;
+      this.disableChangeProfilePictureBtn = false;
   }
 
   /**
