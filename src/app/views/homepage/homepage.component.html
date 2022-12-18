@@ -3,7 +3,7 @@
 </div>
 <main *ngIf="pageLoaded">
   <div class="filteringForm-container">
-    <app-filtering-form (notify)="changeFilter($event)"></app-filtering-form>
+    <app-filtering-form (notify)="changeFilter()"></app-filtering-form>
   </div>
   <div *ngIf="ads.length ; else noAds">
     <div class="container wrapper column">

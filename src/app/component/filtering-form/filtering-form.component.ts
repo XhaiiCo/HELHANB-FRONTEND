@@ -95,8 +95,10 @@ export class FilteringFormComponent implements OnInit {
 
     this.addAllParams();
 
-    this._router.navigate(['annonces'], {queryParams: this.params}).then(() => {
-      this.notify.emit("notify")
+    this._router.navigate(['/annonces'], {
+      relativeTo: this._route,
+      queryParams: this.params,
+      queryParamsHandling: 'merge'
     });
   }
 
@@ -145,7 +147,6 @@ export class FilteringFormComponent implements OnInit {
       pricePerNight: "",
       numberOfPersons: ""
     });
-
-    this.search() ;
+    this._router.navigate(['/annonces']) ;
   }
 }

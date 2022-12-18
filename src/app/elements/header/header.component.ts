@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DropDownOption} from "../../interfaces/drop-down-option";
 import {AuthService} from "../../services/auth.service";
 import {environment} from "../../../environments/environment";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -11,8 +11,8 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
   dropDownOpen: boolean = false;
-  profilePictureBaseUri: string  = environment.pictureUrl ;
-  defaultProfilePicture: string  = environment.defaultProfilePictureUrl ;
+  profilePictureBaseUri: string = environment.pictureUrl;
+  defaultProfilePicture: string = environment.defaultProfilePictureUrl;
   notConnectedDropDownOption: DropDownOption[] = [
     {name: 'Connexion', path: '/connexion'},
     {name: 'Inscription', path: '/inscription'},
@@ -43,18 +43,21 @@ export class HeaderComponent implements OnInit {
 
   adName: string = "";
 
-  constructor(public authService: AuthService, private _router: Router) {
+  constructor(
+    public authService: AuthService,
+    private _route: ActivatedRoute,
+    private _router: Router,
+  ) {
   }
 
   ngOnInit(): void {
   }
 
   search() {
-    if(this.adName){
-      this._router.navigate(['annonces'], { queryParams :{ adName:this.adName }});
-    }
-    else {
-      this._router.navigate(['annonces']);
-    }
+    this._router.navigate(['annonces'], {
+      relativeTo: this._route,
+      queryParams: {adName: this.adName},
+      queryParamsHandling: 'merge'
+    });
   }
 }

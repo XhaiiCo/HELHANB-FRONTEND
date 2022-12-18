@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdService} from "../../services/ad.service";
 import {DtoInputAdSummary} from "../../dtos/ad/dto-input-ad-summary";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -10,7 +10,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class HomepageComponent implements OnInit {
 
-  private readonly BASE_RULER_LENGTH : number = 5;
+  private readonly BASE_RULER_LENGTH: number = 5;
 
   //index and also help calculate the offset
   index: number = 1;
@@ -22,19 +22,27 @@ export class HomepageComponent implements OnInit {
 
   rulerLength: number = this.BASE_RULER_LENGTH;
 
-  ads : DtoInputAdSummary[] = [];
+  ads: DtoInputAdSummary[] = [];
 
   pageLoaded: boolean = false;
 
-  params : any;
+  params: any;
 
 
-  constructor(private _adService : AdService, private _route: ActivatedRoute, private _router: Router) {}
+  constructor(
+    private _adService: AdService,
+    private _route: ActivatedRoute,
+    private _router: Router
+  ) {
+  }
 
   ngOnInit(): void {
-    let currentPage : number = Number(this._route.snapshot.queryParamMap.get('page'));
+    let currentPage: number = Number(this._route.snapshot.queryParamMap.get('page'));
+    this._route.queryParams.subscribe(params => {
+      this.changeFilter() ;
+    });
 
-    if(currentPage) this.index = currentPage;
+    if (currentPage) this.index = currentPage;
 
     this.count();
     this.fetchForPagination();
@@ -43,14 +51,14 @@ export class HomepageComponent implements OnInit {
   count() {
 
     this.params = this._route.snapshot.queryParamMap;
+    console.log(this.params) ;
 
     this._adService
       .countForHomePagePagination(this.params)
-      .subscribe(count =>
-      {
-        this.maxPages = Math.ceil(count/this.itemsPerPage);
+      .subscribe(count => {
+        this.maxPages = Math.ceil(count / this.itemsPerPage);
 
-        if(this.maxPages < this.rulerLength) this.rulerLength = this.maxPages;
+        if (this.maxPages < this.rulerLength) this.rulerLength = this.maxPages;
       });
   }
 
@@ -62,12 +70,11 @@ export class HomepageComponent implements OnInit {
       .fetchForHomePagePagination(this.itemsPerPage, offset, this.params)
       .subscribe(ads => {
         this.ads = ads
-        this.pageLoaded = true ;
+        this.pageLoaded = true;
       });
   }
 
-  changePage(event: any)
-  {
+  changePage(event: any) {
     this.fetchForPagination();
 
     //here for test
@@ -78,8 +85,7 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  changeFilter(event: any)
-  {
+  changeFilter() {
     this.index = 1;
     this.rulerLength = this.BASE_RULER_LENGTH;
     this.count();
