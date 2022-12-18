@@ -51,6 +51,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._route.queryParams.subscribe(params => {
+      if (params['adName'])
+        this.adName = params['adName'];
+
+    })
   }
 
   search() {
