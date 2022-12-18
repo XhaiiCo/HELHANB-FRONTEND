@@ -51,7 +51,6 @@ export class HomepageComponent implements OnInit {
   count() {
 
     this.params = this._route.snapshot.queryParamMap;
-    console.log(this.params) ;
 
     this._adService
       .countForHomePagePagination(this.params)

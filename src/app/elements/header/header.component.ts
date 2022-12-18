@@ -59,10 +59,17 @@ export class HeaderComponent implements OnInit {
   }
 
   search() {
-    this._router.navigate(['annonces'], {
-      relativeTo: this._route,
-      queryParams: {adName: this.adName},
-      queryParamsHandling: 'merge'
-    });
+    if (this.adName !== "")
+      this._router.navigate(['annonces'], {
+        relativeTo: this._route,
+        queryParams: {adName: this.adName},
+        queryParamsHandling: 'merge'
+      });
+    else {
+      let params = Object.assign({}, this._route.snapshot.queryParams);
+      if (params['adName'])
+        delete params['adName'];
+      this._router.navigate(['annonces'], {queryParams: params})
+    }
   }
 }

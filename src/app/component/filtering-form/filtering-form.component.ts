@@ -95,10 +95,11 @@ export class FilteringFormComponent implements OnInit {
 
     this.addAllParams();
 
+    const adName = this._route.snapshot.queryParamMap.get('adName');
+    if (adName)
+      Object.assign(this.params, {adName: adName})
     this._router.navigate(['/annonces'], {
-      relativeTo: this._route,
       queryParams: this.params,
-      queryParamsHandling: 'merge'
     });
   }
 
@@ -147,6 +148,6 @@ export class FilteringFormComponent implements OnInit {
       pricePerNight: "",
       numberOfPersons: ""
     });
-    this._router.navigate(['/annonces']) ;
+    this._router.navigate(['/annonces']);
   }
 }
