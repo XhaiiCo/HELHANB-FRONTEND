@@ -16,9 +16,9 @@
       <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
     </select>
 
-    <input class="input-text" type="number" formControlName="pricePerNight" placeholder="prix maximum">
+    <input class="input-text" type="number" formControlName="pricePerNight" placeholder="prix maximum" min="0">
 
-    <input class="input-text" type="number" formControlName="numberOfPersons" placeholder="nombre de personnes">
+    <input class="input-text" type="number" formControlName="numberOfPersons" placeholder="nombre de personnes" min="0">
 
     <app-date-picker class="date-picker" (emitDateChange)="dateChange($event)"></app-date-picker>
 
