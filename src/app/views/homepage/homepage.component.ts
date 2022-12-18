@@ -37,19 +37,19 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let currentPage: number = Number(this._route.snapshot.queryParamMap.get('page'));
     this._route.queryParams.subscribe(params => {
-      this.changeFilter() ;
+      if (params['page'])
+        this.index = params['page'];
+      else {
+        this.index = 1;
+        this.rulerLength = this.BASE_RULER_LENGTH;
+      }
+
+      this.changeFilter();
     });
-
-    if (currentPage) this.index = currentPage;
-
-    this.count();
-    this.fetchForPagination();
   }
 
   count() {
-
     this.params = this._route.snapshot.queryParamMap;
 
     this._adService
@@ -74,8 +74,6 @@ export class HomepageComponent implements OnInit {
   }
 
   changePage(event: any) {
-    this.fetchForPagination();
-
     //here for test
     this._router.navigate([], {
       relativeTo: this._route,
@@ -85,8 +83,6 @@ export class HomepageComponent implements OnInit {
   }
 
   changeFilter() {
-    this.index = 1;
-    this.rulerLength = this.BASE_RULER_LENGTH;
     this.count();
     this.fetchForPagination();
   }
