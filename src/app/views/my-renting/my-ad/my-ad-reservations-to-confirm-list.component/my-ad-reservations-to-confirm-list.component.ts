@@ -22,7 +22,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   clickedReservation: DtoInputAdReservation | null = null;
 
   ascendingOrder: boolean = true;
-  sortIndex: string = "0";
+  sortIndex: string = "1";
 
   displayConfirmationForm: boolean = false;
   displayRefusalForm: boolean = false;
@@ -43,8 +43,8 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sortReservation();
     this.cancelReservationChange = this.reservations;
+    this.sortReservation();
     this.setConflictsList();
   }
 
@@ -53,7 +53,6 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
     if (this.cancelReservationChange && this.reservations) {
       if (this.cancelReservationChange.length !== this.reservations.length) {
         this.setConflictsList();
-        console.log(this.reservations);
         this.cancelReservationChange = this.reservations;
       }
     }
@@ -155,8 +154,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
   }
 
   sortReservation() {
-    this.sortDtoInputAdReservationArray(this.reservations);
-    console.log(this.reservations);
+    this.sortDtoInputAdReservationArray(this.cancelReservationChange);
   }
 
   sortConflicts() {
@@ -173,7 +171,7 @@ export class MyAdReservationsToConfirmListComponent implements OnInit {
 
       case "1" : // date of the reservation
         array.sort((a, b) => {
-          return new Date(this.dateService.dtoObjectToDateUS(a.creation)).getTime() - new Date(this.dateService.dtoObjectToDateUS(b.creation)).getTime();
+          return new Date(this.dateService.dtoObjectToDateUS(a.arrivalDate)).getTime() - new Date(this.dateService.dtoObjectToDateUS(b.arrivalDate)).getTime();
         });
         break;
 

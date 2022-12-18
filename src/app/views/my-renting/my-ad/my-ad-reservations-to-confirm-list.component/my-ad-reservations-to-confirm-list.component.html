@@ -3,8 +3,8 @@
     <div id="div_select">
       <label>Trier par :</label>
       <select name="sort" (change)="sortAll($event.target)">
-        <option value="0">Nom de famille</option>
         <option value="1">Date de la réservation</option>
+        <option value="0">Nom de famille</option>
         <option value="2">Durée de séjour</option>
         <option value="3">Nombre de conflits</option>
       </select>
@@ -16,7 +16,7 @@
     <div id="container_reservations">
       <div id="all_reservations" class="all">
         <app-my-ad-reservation-card
-          *ngFor="let reservation of reservations"
+          *ngFor="let reservation of cancelReservationChange"
           [reservation]="reservation"
           [nbConflicts]="nbConflicts(reservation)"
           (onConfirmationBtnClickEvent)="displayConfirmation($event)"
@@ -25,7 +25,7 @@
           (mouseover)="displayConflicts(reservation)"
           (mouseleave)="displayConflicts()"
           (click)="reservationClicked(reservation)"
-          [ngClass]="reservation === clickedReservation ? 'clickedReservation' : ''">
+          [class.clickedReservation]="reservation === clickedReservation">
         </app-my-ad-reservation-card>
       </div>
 
@@ -36,6 +36,7 @@
           [nbConflicts]="nbConflicts(conflict)"
           (onConfirmationBtnClickEvent)="displayConfirmation($event)"
           (onRefusalBtnClickEvent)="displayRefusal($event)"
+          (onContactUserBtnClickEvent)="contactUser($event)"
         >
         </app-my-ad-reservation-card>
       </div>
@@ -55,7 +56,8 @@
           <span>Les réservations suivantes seront refusées :</span>
           <span *ngFor="let conflict of getConflictsOfReservation(reservationToConfirm)">
             <span>  - {{ conflict.renterMyAds.lastName }} {{ conflict.renterMyAds.firstName }}
-              du {{ dateService.dtoObjectToDateFR(conflict.arrivalDate) }} au {{ dateService.dtoObjectToDateFR(conflict.leaveDate) }}</span>
+              du {{ dateService.dtoObjectToDateFR(conflict.arrivalDate) }}
+              au {{ dateService.dtoObjectToDateFR(conflict.leaveDate) }}</span>
           </span>
         </div>
 
