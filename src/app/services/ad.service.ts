@@ -76,6 +76,7 @@ export class AdService {
 
     httpParams.set("statusId", "3");
 
+    if(params.get('adName')) httpParams.set("name", params.get('adName'));
     if(params.get('country')) httpParams.set("country", params.get('country'));
     if(params.get('city')) httpParams.set("city", params.get('city'));
     if(params.get('pricePerNight')) httpParams.set("pricePerNight", params.get('pricePerNight'));
@@ -95,6 +96,7 @@ export class AdService {
 
     httpParams.set("statusId", "3");
 
+    if(params.get('adName')) httpParams.set("name", params.get('adName'));
     if(params.get('country')) httpParams.set("country", params.get('country'));
     if(params.get('city')) httpParams.set("city", params.get('city'));
     if(params.get('pricePerNight')) httpParams.set("pricePerNight", params.get('pricePerNight'));
