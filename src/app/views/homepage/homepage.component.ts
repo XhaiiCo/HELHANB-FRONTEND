@@ -38,8 +38,8 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {
     this._route.queryParams.subscribe(params => {
-      if (params['page'])
-        this.index = params['page'];
+      if (params['page'] && !isNaN(params['page']))
+        this.index = Number(params['page']);
       else {
         this.index = 1;
         this.rulerLength = this.BASE_RULER_LENGTH;
@@ -74,7 +74,6 @@ export class HomepageComponent implements OnInit {
   }
 
   changePage(event: any) {
-    //here for test
     this._router.navigate([], {
       relativeTo: this._route,
       queryParams: {page: this.index},

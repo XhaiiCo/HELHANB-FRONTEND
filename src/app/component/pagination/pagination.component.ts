@@ -36,12 +36,6 @@ export class PaginationComponent implements OnInit {
     if (pageNumber !== this.index) {
       this.index = pageNumber;
       this.indexChange.emit(this.index);
-
-      /*this._router.navigate([], {
-        relativeTo: this._route,
-        queryParams: {page: this.index},
-        queryParamsHandling: 'merge'
-      });*/
     }
   }
 
