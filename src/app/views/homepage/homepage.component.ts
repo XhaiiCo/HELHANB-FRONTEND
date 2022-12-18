@@ -73,7 +73,9 @@ export class HomepageComponent implements OnInit {
       });
   }
 
-  changePage(event: any) {
+  changePage(index: number) {
+    this.index = index;
+
     this._router.navigate([], {
       relativeTo: this._route,
       queryParams: {page: this.index},
