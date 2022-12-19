@@ -156,12 +156,11 @@ export class RentingComponent implements OnInit {
   }
 
   getReservedDate(): Date[] {
-
     let result: Date[] = [];
 
     this.ad.reservations.forEach(reservation => {
-
-      result.push(...this._dateService.getDatesBetween(reservation.arrivalDate, reservation.leaveDate))
+      result.push(...this._dateService.getDatesBetween(reservation.arrivalDate, reservation.leaveDate));
+      result.pop();
     });
 
     return result;
