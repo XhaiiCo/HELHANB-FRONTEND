@@ -150,7 +150,7 @@ export class FilteringFormComponent implements OnInit {
     });
 
     const adName: string | null = this._route.snapshot.queryParamMap.get('adName');
-   
+
     if (adName)
       this._router.navigate(['/annonces'], {queryParams: {adName}});
     else

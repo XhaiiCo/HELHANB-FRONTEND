@@ -36,7 +36,7 @@
 
           <div class="form-group">
             <label class="label">Code postal</label>
-            <input type="number" class="input-text" formControlName="postalCode">
+            <input type="number" min="0" class="input-text" formControlName="postalCode">
             <span
               *ngIf="isInvalid({stepName: 'step1', controlName: 'postalCode'})">Veuillez entrer un code postal.</span>
           </div>
@@ -82,20 +82,20 @@
       <section *ngIf="step == 3" formGroupName="step3">
         <div class="form-group">
           <label class="label">Prix par nuit (€)</label>
-          <input type="number" class="input-text" formControlName="pricePerNight">
+          <input type="number" min="0" class="input-text" formControlName="pricePerNight">
           <span
             *ngIf="isInvalid({stepName: 'step3', controlName: 'pricePerNight'})">Veuillez entrer un prix par nuit.</span>
         </div>
 
         <div class="form-group">
           <label class="label">Nombre de personnes</label>
-          <input type="number" class="input-text" formControlName="numberOfPersons">
+          <input type="number" min="0" class="input-text" formControlName="numberOfPersons">
           <span *ngIf="isInvalid({stepName: 'step3', controlName: 'numberOfPersons'})">Veuillez entrer un nombre de personnes.</span>
         </div>
 
         <div class="form-group">
           <label class="label">Nombre de chambres</label>
-          <input type="number" class="input-text" formControlName="numberOfBedrooms">
+          <input type="number" min="0" class="input-text" formControlName="numberOfBedrooms">
           <span *ngIf="isInvalid({stepName: 'step3', controlName: 'numberOfBedrooms'})">Veuillez entrer un nombre de chambres.</span>
         </div>
 
