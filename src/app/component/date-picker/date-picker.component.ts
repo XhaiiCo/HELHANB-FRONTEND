@@ -36,7 +36,7 @@ export class DatePickerComponent implements OnInit {
   /* A function that is used to filter the dates that are not available. For disabled them in the date picker */
   dateFilter = (d: Date): boolean => {
     const time = new Date(d).getTime();
-    return !this.notAvailableDates.find(x => new Date(x).getTime() == time);
+    return !this.notAvailableDates.find(x => new Date(x).setHours(0, 0, 0, 0) == time);
   }
 
   constructor(

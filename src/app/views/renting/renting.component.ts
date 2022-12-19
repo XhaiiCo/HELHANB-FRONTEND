@@ -7,7 +7,6 @@ import {DtoOutputNewReservation} from "../../dtos/reservation/dto-output-new-res
 import {AuthService} from "../../services/auth.service";
 import {ToastNotificationService} from "../../services/toast-notification.service";
 import {ConversationService} from "../../services/conversation.service";
-import {DtoOutputCreateConversation} from "../../dtos/conversation/dto-output-create-conversation";
 import {DtoInputAdWithReservation} from "../../dtos/ad/dto-input-ad-with-reservation";
 import {DateService} from "../../services/date.service";
 
