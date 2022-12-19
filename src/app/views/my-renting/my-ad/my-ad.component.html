@@ -6,9 +6,9 @@
 
     <h2>Chambres et nombre de personnes</h2>
     <p>
-      <input type="number" class="input-adjust" formControlName="numberOfPersons" [(ngModel)]="ad.numberOfPersons">
+      <input type="number" min="0" class="input-adjust" formControlName="numberOfPersons" [(ngModel)]="ad.numberOfPersons">
       personne(s) ⸱
-      <input type="number" class="input-adjust" formControlName="numberOfBedrooms" [(ngModel)]="ad.numberOfBedrooms">
+      <input type="number" min="0" class="input-adjust" formControlName="numberOfBedrooms" [(ngModel)]="ad.numberOfBedrooms">
       chambre(s)
     </p>
 
@@ -57,7 +57,7 @@
     <span class="description_cpt">{{taDescription.value.length > 0 ? taDescription.value.length + "/500" : ""}}</span>
 
     <h2>Prix pour une nuit</h2>
-    <input type="number" class="input-adjust" formControlName="pricePerNight" [(ngModel)]="ad.pricePerNight">
+    <input type="number" min="0" class="input-adjust" formControlName="pricePerNight" [(ngModel)]="ad.pricePerNight">
 
     <h2>Règles</h2>
     <p>Départ avant
