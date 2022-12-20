@@ -34,6 +34,7 @@ export class RentingComponent implements OnInit {
   dates!: { arrival: Date, leave: Date };
 
   disableReservationBtn: boolean = false;
+  reservedDates: Date[] = [];
 
   constructor(
     private _route: ActivatedRoute,
@@ -48,7 +49,6 @@ export class RentingComponent implements OnInit {
 
   ngOnInit(): void {
     this._route.paramMap.subscribe(args => {
-
       if (args.has("slug")) {
         this.fetchAdBySlug(args.get("slug")!);
       } else {
@@ -71,6 +71,7 @@ export class RentingComponent implements OnInit {
           this.ad.leaveTime = this.formatTime(this.ad.leaveTime);
 
           this.pageLoaded = true;
+          this.setReservedDate();
         },
         error: err => {
           this._router.navigate(['/404']);
@@ -155,14 +156,28 @@ export class RentingComponent implements OnInit {
     this.setDate(range);
   }
 
-  getReservedDate(): Date[] {
+  setReservedDate() {
     let result: Date[] = [];
 
     this.ad.reservations.forEach(reservation => {
-      result.push(...this._dateService.getDatesBetween(reservation.arrivalDate, reservation.leaveDate));
-      result.pop();
+      let tmpResult: Date[] = [];
+      tmpResult.push(...this._dateService.getDatesBetween(reservation.arrivalDate, reservation.leaveDate));
+      tmpResult.shift();
+      result.push(...tmpResult);
     });
 
-    return result;
+    // Si une date est seule on ne peut pas la sélectionner
+    let tmpResult: Date[] = [];
+    result.forEach(d => {
+      let oneDayNext = new Date(new Date().setDate(d.getDate() + 1)).toDateString();
+      let twoDayNext = new Date(new Date().setDate(d.getDate() + 2)).toDateString();
+
+      if (result.find(e => e.toDateString() !== oneDayNext))
+        if (result.find(e => e.toDateString() === twoDayNext))
+          tmpResult.push(new Date(oneDayNext));
+    });
+    result.push(...tmpResult);
+
+    this.reservedDates = result;
   }
 }
