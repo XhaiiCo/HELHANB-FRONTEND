@@ -18,6 +18,8 @@ export class MyAdReservationCardComponent implements OnInit {
 
   pictureBaseUrl: string = environment.pictureUrl ;
 
+  @Input() currentClickedReservation: boolean = false;
+
   constructor(
     public dateService: DateService,
   ) {

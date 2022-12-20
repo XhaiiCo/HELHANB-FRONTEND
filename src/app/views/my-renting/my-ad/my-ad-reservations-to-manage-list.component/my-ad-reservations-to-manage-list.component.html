@@ -25,7 +25,7 @@
           (mouseover)="displayConflicts(reservation)"
           (mouseleave)="displayConflicts()"
           (click)="reservationClicked(reservation)"
-          [class.clickedReservation]="reservation === clickedReservation">
+          [currentClickedReservation]="reservation === clickedReservation">
         </app-my-ad-reservation-card>
       </div>
 

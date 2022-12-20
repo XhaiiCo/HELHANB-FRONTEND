@@ -1,4 +1,5 @@
-<section class="reservation">
+<section class="reservation"
+         [class.clickedReservation]="currentClickedReservation">
   <div class="body"><!-- left -->
     <div class="pp">
       <img [src]="pictureBaseUrl + reservation.renterMyAds.profilePicturePath" alt="Photo de profil">
