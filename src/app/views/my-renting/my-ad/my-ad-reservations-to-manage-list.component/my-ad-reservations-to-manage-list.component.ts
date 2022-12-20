@@ -9,10 +9,10 @@ import {AuthService} from "../../../../services/auth.service";
 
 @Component({
   selector: 'app-my-ad-reservations-to-confirm-list',
-  templateUrl: './my-ad-reservations-to-confirm-list.component.html',
-  styleUrls: ['./my-ad-reservations-to-confirm-list.component.scss']
+  templateUrl: './my-ad-reservations-to-manage-list.component.html',
+  styleUrls: ['./my-ad-reservations-to-manage-list.component.scss']
 })
-export class MyAdReservationsToConfirmListComponent implements OnInit {
+export class MyAdReservationsToManageListComponent implements OnInit {
 
   @Input() reservations!: DtoInputAdReservation[];
   cancelReservationChange!: DtoInputAdReservation[];

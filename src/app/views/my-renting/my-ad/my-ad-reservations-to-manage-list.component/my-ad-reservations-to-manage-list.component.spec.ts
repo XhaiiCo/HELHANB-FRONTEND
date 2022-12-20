@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyAdReservationsToConfirmListComponent } from './my-ad-reservations-to-confirm-list.component';
+import { MyAdReservationsToManageListComponent } from './my-ad-reservations-to-manage-list.component';
 
 describe('ReservationsToConfirmComponent', () => {
-  let component: MyAdReservationsToConfirmListComponent;
-  let fixture: ComponentFixture<MyAdReservationsToConfirmListComponent>;
+  let component: MyAdReservationsToManageListComponent;
+  let fixture: ComponentFixture<MyAdReservationsToManageListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MyAdReservationsToConfirmListComponent ]
+      declarations: [ MyAdReservationsToManageListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MyAdReservationsToConfirmListComponent);
+    fixture = TestBed.createComponent(MyAdReservationsToManageListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

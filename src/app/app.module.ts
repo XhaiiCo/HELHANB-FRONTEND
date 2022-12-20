@@ -37,7 +37,7 @@ import { LoaderComponent } from './component/loader/loader.component';
 import { MessagesComponent } from './views/conversations/messages/messages.component';
 import { MyAdComponent } from './views/my-renting/my-ad/my-ad.component';
 import { ConversationsComponent } from './views/conversations/conversations.component';
-import { MyAdReservationsToConfirmListComponent } from './views/my-renting/my-ad/my-ad-reservations-to-confirm-list.component/my-ad-reservations-to-confirm-list.component';
+import { MyAdReservationsToManageListComponent } from './views/my-renting/my-ad/my-ad-reservations-to-manage-list.component/my-ad-reservations-to-manage-list.component';
 import { FilteringFormComponent } from './component/filtering-form/filtering-form.component';
 import { AdminRentingsComponent } from './views/admin/admin-rentings/admin-rentings.component';
 import { ReservationListComponent } from './views/my-reservation/reservation-list/reservation-list.component';
@@ -72,7 +72,7 @@ import { MyAdReservationCardComponent } from './views/my-renting/my-ad/my-ad-res
     MessagesComponent,
     MyAdComponent,
     ConversationsComponent,
-    MyAdReservationsToConfirmListComponent,
+    MyAdReservationsToManageListComponent,
     FilteringFormComponent,
     AdminRentingsComponent,
     ReservationListComponent,
