@@ -160,7 +160,6 @@ export class RentingComponent implements OnInit {
 
     this.ad.reservations.forEach(reservation => {
       result.push(...this._dateService.getDatesBetween(reservation.arrivalDate, reservation.leaveDate));
-      result.pop();
     });
 
     return result;
