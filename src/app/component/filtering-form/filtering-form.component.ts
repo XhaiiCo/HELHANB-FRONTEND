@@ -165,6 +165,8 @@ export class FilteringFormComponent implements OnInit {
       numberOfPersons: ""
     });
 
+    this.cities = [];
+
     const adName: string | null = this._route.snapshot.queryParamMap.get('adName');
 
     if (adName)
