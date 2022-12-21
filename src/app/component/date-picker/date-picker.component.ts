@@ -61,7 +61,6 @@ export class DatePickerComponent implements OnInit {
         end: this.urlDates.leave,
       });
     else {
-      console.log("reset");
       this.range.reset();
     }
   }

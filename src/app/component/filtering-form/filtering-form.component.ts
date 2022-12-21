@@ -23,7 +23,7 @@ export class FilteringFormComponent implements OnInit {
     numberOfPersons: this._fb.control("")
   });
 
-  dates!: { arrival: Date, leave: Date };
+  dates!: { arrival: Date | null, leave: Date | null };
   urlDates!: { arrival: Date | null, leave: Date | null };
 
   displayFilter: boolean = false;
@@ -131,7 +131,7 @@ export class FilteringFormComponent implements OnInit {
       if (param) Object.assign(this.params, {[name]: param});
     }
 
-    if (this.dates?.arrival && this.dates?.leave) {
+    if (this.dates.arrival && this.dates.leave) {
       Object.assign(this.params, {arrivalDate: this.dateToString(this.dates.arrival)});
       Object.assign(this.params, {leaveDate: this.dateToString(this.dates.leave)});
     }
@@ -148,6 +148,11 @@ export class FilteringFormComponent implements OnInit {
       this.dates = {
         arrival: range.get("start")?.value,
         leave: range.get("end")?.value,
+      }
+    } else {
+      this.dates = {
+        arrival: null,
+        leave: null,
       }
     }
   }
@@ -171,8 +176,13 @@ export class FilteringFormComponent implements OnInit {
     });
 
     this.cities = [];
-   
+
     this.urlDates = {
+      arrival: null,
+      leave: null,
+    }
+
+    this.dates = {
       arrival: null,
       leave: null,
     }
