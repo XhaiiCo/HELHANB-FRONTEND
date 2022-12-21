@@ -24,6 +24,7 @@ export class FilteringFormComponent implements OnInit {
   });
 
   dates!: { arrival: Date, leave: Date };
+  urlDates!: { arrival: Date, leave: Date };
 
   displayFilter: boolean = false;
 
@@ -56,6 +57,21 @@ export class FilteringFormComponent implements OnInit {
       pricePerNight: queryParams.get('pricePerNight'),
       numberOfPersons: queryParams.get('numberOfPersons'),
     });
+
+    if (queryParams.get('arrivalDate') && queryParams.get('leaveDate')) {
+      let tmp = queryParams.get('arrivalDate')?.toString().split("/");
+      // @ts-ignore
+      let arrDate = new Date(+tmp[2], tmp[1] - 1, +tmp[0]);
+      tmp = queryParams.get('leaveDate')?.toString().split("/");
+      // @ts-ignore
+      let leaDate = new Date(+tmp[2], tmp[1] - 1, +tmp[0]);
+
+      this.dates = {
+        arrival: arrDate,
+        leave: leaDate
+      }
+      this.urlDates = this.dates;
+    }
   }
 
   /**

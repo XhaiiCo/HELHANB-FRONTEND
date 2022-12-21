@@ -20,7 +20,7 @@
 
     <input class="input-text" type="number" formControlName="numberOfPersons" placeholder="nombre de personnes" min="0">
 
-    <app-date-picker class="date-picker" (emitDateChange)="dateChange($event)"></app-date-picker>
+    <app-date-picker class="date-picker" (emitDateChange)="dateChange($event)" [urlDates]="urlDates"></app-date-picker>
 
     <button type="button" (click)="deleteFilters()" class="btn-secondary">
       <svg viewBox="0 0 15 15">

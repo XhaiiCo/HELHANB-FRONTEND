@@ -8,6 +8,7 @@ import {
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import 'moment/locale/fr';
 import {ToastNotificationService} from "../../services/toast-notification.service";
+import * as url from "url";
 
 const now = new Date();
 
@@ -33,6 +34,8 @@ export class DatePickerComponent implements OnInit {
 
   @Input() notAvailableDates: Date[] = [];
 
+  @Input() urlDates!: { arrival: Date, leave: Date };
+
   /* A function that is used to filter the dates that are not available. For disabled them in the date picker */
   dateFilter = (d: Date): boolean => {
     const time = new Date(d).getTime();
@@ -45,6 +48,11 @@ export class DatePickerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.urlDates.arrival && this.urlDates.leave)
+      this.range.patchValue({
+        start: this.urlDates.arrival,
+        end: this.urlDates.leave,
+      });
   }
 
   /**
