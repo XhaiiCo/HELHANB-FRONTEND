@@ -25,6 +25,8 @@ export class AdToValidateComponent implements OnInit {
   ads: DtoInputAd[] = [];
   currentAd!: DtoInputAd | null;
 
+  adName: string = "";
+
   constructor(private _adService: AdService, private _toastService: ToastNotificationService) {
   }
 
@@ -36,7 +38,7 @@ export class AdToValidateComponent implements OnInit {
   count() {
 
     this._adService
-      .countForAdminAdsToValidate()
+      .countForAdminAdsToValidate(this.adName)
       .subscribe(count =>
       {
         this.maxPages = Math.ceil(count/this.itemsPerPage);
@@ -51,7 +53,7 @@ export class AdToValidateComponent implements OnInit {
   {
     let offset = (this.index - 1) * this.itemsPerPage;
 
-    this._adService.fetchForAdminAdsToValidate(this.itemsPerPage, offset)
+    this._adService.fetchForAdminAdsToValidate(this.itemsPerPage, offset, this.adName)
       .subscribe((ads) => {this.ads = ads; console.log(this.ads)});
   }
 
@@ -108,4 +110,12 @@ export class AdToValidateComponent implements OnInit {
     this.fetchAds();
   }
 
+  search(adName: string) {
+    this.index = 1;
+    this.rulerLength = this.BASE_RULER_LENGTH;
+    this.adName = adName;
+
+    this.count();
+    this.fetchAds();
+  }
 }

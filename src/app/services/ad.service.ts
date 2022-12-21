@@ -37,35 +37,46 @@ export class AdService {
     return this._httpClient.delete<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/${adSlug}`);
   }
 
-  countForAdminAds(): Observable<number>{
-    return this._httpClient.get<number>(`${AdService.ENTRY_POINT_URL}/count`);
-  }
-
-  fetchForAdminAds(limit: number, offset: number): Observable<DtoInputAd[]>{
+  countForAdminAds(adName?: string): Observable<number>{
 
     let httpParams = new URLSearchParams;
 
-    httpParams.set("limit", limit.toString());
-    httpParams.set("offset", offset.toString());
-
-    return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}?${httpParams.toString()}`);
-  }
-
-  countForAdminAdsToValidate(): Observable<number>{
-    let httpParams = new URLSearchParams;
-
-    httpParams.set("statusId", "1");
+    if(adName) httpParams.set("name", adName);
 
     return this._httpClient.get<number>(`${AdService.ENTRY_POINT_URL}/count?${httpParams.toString()}`);
   }
 
-  fetchForAdminAdsToValidate(limit: number, offset: number): Observable<DtoInputAd[]>{
+  fetchForAdminAds(limit: number, offset: number, adName?: string): Observable<DtoInputAd[]>{
+
+    let httpParams = new URLSearchParams;
+
+    httpParams.set("limit", limit.toString());
+    httpParams.set("offset", offset.toString());
+
+    if(adName) httpParams.set("name", adName);
+
+    return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}?${httpParams.toString()}`);
+  }
+
+  countForAdminAdsToValidate(adName?: string): Observable<number>{
+    let httpParams = new URLSearchParams;
+
+    httpParams.set("statusId", "1");
+
+    if(adName) httpParams.set("name", adName);
+
+    return this._httpClient.get<number>(`${AdService.ENTRY_POINT_URL}/count?${httpParams.toString()}`);
+  }
+
+  fetchForAdminAdsToValidate(limit: number, offset: number, adName?: string): Observable<DtoInputAd[]>{
 
     let httpParams = new URLSearchParams;
 
     httpParams.set("limit", limit.toString());
     httpParams.set("offset", offset.toString());
     httpParams.set("statusId", "1");
+
+    if(adName) httpParams.set("name", adName);
 
     return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}?${httpParams.toString()}`);
   }

@@ -15,7 +15,7 @@
           </div>
           <div
             [class.status_accepted]="ad.status.id === 3"
-            [class.status_rejected]="ad.status.id === 2 || ad.status.id === 4"
+            [class.status_rejected]="ad.status.id === 2 || ad.status.id === 4 || ad.status.id === 5"
             [class.status_pending]="ad.status.id === 1"
           >
             {{ad.status.statusName}}
