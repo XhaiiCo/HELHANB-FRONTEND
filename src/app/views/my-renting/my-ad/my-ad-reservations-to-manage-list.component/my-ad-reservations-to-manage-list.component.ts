@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
-import {environment} from "../../../../../environments/environment";
 import {AdService} from "../../../../services/ad.service";
 import {ToastNotificationService} from "../../../../services/toast-notification.service";
 import {DtoInputAdReservation} from "../../../../dtos/ad/dto-input-my-ads";
@@ -8,7 +7,7 @@ import {ConversationService} from "../../../../services/conversation.service";
 import {AuthService} from "../../../../services/auth.service";
 
 @Component({
-  selector: 'app-my-ad-reservations-to-confirm-list',
+  selector: 'app-my-ad-reservations-to-manage-list',
   templateUrl: './my-ad-reservations-to-manage-list.component.html',
   styleUrls: ['./my-ad-reservations-to-manage-list.component.scss']
 })
