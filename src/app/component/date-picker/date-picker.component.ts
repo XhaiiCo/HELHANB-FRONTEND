@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -34,7 +34,7 @@ export class DatePickerComponent implements OnInit {
 
   @Input() notAvailableDates: Date[] = [];
 
-  @Input() urlDates!: { arrival: Date, leave: Date };
+  @Input() urlDates!: { arrival: Date | null, leave: Date | null };
 
   /* A function that is used to filter the dates that are not available. For disabled them in the date picker */
   dateFilter = (d: Date): boolean => {
@@ -48,11 +48,22 @@ export class DatePickerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.patchDate();
+  }
+
+  patchDate() {
     if (this.urlDates.arrival && this.urlDates.leave)
       this.range.patchValue({
         start: this.urlDates.arrival,
         end: this.urlDates.leave,
       });
+    else {
+      console.log("reset");
+      this.range.reset();
+    }
   }
 
   /**

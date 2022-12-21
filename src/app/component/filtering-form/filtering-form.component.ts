@@ -24,7 +24,7 @@ export class FilteringFormComponent implements OnInit {
   });
 
   dates!: { arrival: Date, leave: Date };
-  urlDates!: { arrival: Date, leave: Date };
+  urlDates!: { arrival: Date | null, leave: Date | null };
 
   displayFilter: boolean = false;
 
@@ -71,6 +71,11 @@ export class FilteringFormComponent implements OnInit {
         leave: leaDate
       }
       this.urlDates = this.dates;
+    } else {
+      this.urlDates = {
+        arrival: null,
+        leave: null,
+      }
     }
   }
 
@@ -166,6 +171,11 @@ export class FilteringFormComponent implements OnInit {
     });
 
     this.cities = [];
+   
+    this.urlDates = {
+      arrival: null,
+      leave: null,
+    }
 
     const adName: string | null = this._route.snapshot.queryParamMap.get('adName');
 
