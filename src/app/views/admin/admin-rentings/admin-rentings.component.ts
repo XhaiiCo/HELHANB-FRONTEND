@@ -11,7 +11,7 @@ import {ToastNotificationService} from "../../../services/toast-notification.ser
 })
 export class AdminRentingsComponent implements OnInit {
 
-  private readonly BASE_RULER_LENGTH : number = 5;
+  private readonly BASE_RULER_LENGTH: number = 5;
 
   //index and also help calculate the offset
   index: number = 1;
@@ -44,8 +44,7 @@ export class AdminRentingsComponent implements OnInit {
     this.fetchAds();
   }
 
-  fetchAds()
-  {
+  fetchAds() {
     let offset = (this.index - 1) * this.itemsPerPage;
 
     this._adService.fetchForAdminAds(this.itemsPerPage, offset)
@@ -56,11 +55,10 @@ export class AdminRentingsComponent implements OnInit {
 
     this._adService
       .countForAdminAds()
-      .subscribe(count =>
-      {
-        this.maxPages = Math.ceil(count/this.itemsPerPage);
+      .subscribe(count => {
+        this.maxPages = Math.ceil(count / this.itemsPerPage);
 
-        if(this.maxPages < this.rulerLength) this.rulerLength = this.maxPages;
+        if (this.maxPages < this.rulerLength) this.rulerLength = this.maxPages;
       });
   }
 
@@ -100,6 +98,38 @@ export class AdminRentingsComponent implements OnInit {
     });
   }
 
+  onBlockButtonClick() {
+    if (!this.currentAd) return;
+
+    this._adService.updateStatus({adSlug: this.currentAd?.adSlug, statusId: 5}).subscribe({
+      next: result => {
+        if (this.currentAd)
+          this.currentAd.status = result.status;
+
+        this._toastNotificationService.add("Annonce bloquée", "success");
+      },
+      error: err => {
+        this._toastNotificationService.add(err.error, "error");
+      }
+    });
+  }
+
+  onUnblockButtonClick() {
+    if (!this.currentAd) return;
+
+    this._adService.updateStatus({adSlug: this.currentAd?.adSlug, statusId: 3}).subscribe({
+      next: result => {
+        if (this.currentAd)
+          this.currentAd.status = result.status;
+
+        this._toastNotificationService.add("Annonce débloquée", "success");
+      },
+      error: err => {
+        this._toastNotificationService.add(err.error, "error");
+      }
+    });
+  }
+
   removeAdById(adSlug: string): void {
     this.ads = this.ads.filter(item => item.adSlug !== adSlug);
 
@@ -108,20 +138,16 @@ export class AdminRentingsComponent implements OnInit {
     }
   }
 
-  changePage(event: any)
-  {
+  changePage(event: any) {
     this.fetchAds();
   }
 
-  resetAfterDelete()
-  {
-    if(this.ads.length == 0)
-    {
+  resetAfterDelete() {
+    if (this.ads.length == 0) {
       this.index--;
       this.rulerLength = this.BASE_RULER_LENGTH;
     }
     this.count();
     this.fetchAds();
   }
-
 }
