@@ -65,6 +65,15 @@
   }
 }
 
+.search-form {
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 100%;
+  }
+}
+
 @media only screen and (max-width: 800px) {
 
   .ad-rentings-page {

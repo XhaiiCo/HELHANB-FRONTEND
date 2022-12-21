@@ -15,6 +15,8 @@ export class AdminRentingsComponent implements OnInit {
 
   //index and also help calculate the offset
   index: number = 1;
+  search: string = "";
+  inSearch: boolean = false;
 
   maxPages: number = 0;
 
@@ -32,8 +34,6 @@ export class AdminRentingsComponent implements OnInit {
   ads: DtoInputAd[] = [];
   currentAd!: DtoInputAd | null;
 
-  adName: string = "";
-
   constructor(
     private _adService: AdService,
     private _toastNotificationService: ToastNotificationService,
@@ -49,17 +49,16 @@ export class AdminRentingsComponent implements OnInit {
   fetchAds() {
     let offset = (this.index - 1) * this.itemsPerPage;
 
-    this._adService.fetchForAdminAds(this.itemsPerPage, offset, this.adName)
+    this._adService.fetchForAdminAds(this.itemsPerPage, offset, this.search)
       .subscribe(ads => this.ads = ads);
   }
 
   count() {
 
     this._adService
-      .countForAdminAds(this.adName)
-      .subscribe(count =>
-      {
-        this.maxPages = Math.ceil(count/this.itemsPerPage);
+      .countForAdminAds(this.search)
+      .subscribe(count => {
+        this.maxPages = Math.ceil(count / this.itemsPerPage);
         if (this.maxPages < this.rulerLength) this.rulerLength = this.maxPages;
       });
   }
@@ -153,10 +152,10 @@ export class AdminRentingsComponent implements OnInit {
     this.fetchAds();
   }
 
-  search(adName: string) {
+  onSubmitSearch() {
+    this.inSearch = true;
     this.index = 1;
     this.rulerLength = this.BASE_RULER_LENGTH;
-    this.adName = adName;
 
     this.count();
     this.fetchAds();
