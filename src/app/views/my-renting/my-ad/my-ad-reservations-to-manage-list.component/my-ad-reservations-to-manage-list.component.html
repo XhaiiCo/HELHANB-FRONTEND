@@ -3,7 +3,7 @@
     <div id="div_select">
       <label>Trier par :</label>
       <select name="sort" (change)="sortAll($event.target)">
-        <option value="1">Date de la réservation</option>
+        <option value="1">Début de la réservation</option>
         <option value="0">Nom de famille</option>
         <option value="2">Durée de séjour</option>
         <option value="3">Nombre de conflits</option>
@@ -54,8 +54,9 @@
 
         <div *ngIf="nbConflicts(reservationToConfirm) != 0">
           <span>Les réservations suivantes seront refusées :</span>
+          <br>
           <span *ngFor="let conflict of getConflictsOfReservation(reservationToConfirm)">
-            <span>  - {{ conflict.renterMyAds.lastName }} {{ conflict.renterMyAds.firstName }}
+            <span>- {{conflict.renterMyAds.lastName }} {{ conflict.renterMyAds.firstName }}
               du {{ dateService.dtoObjectToDateFR(conflict.arrivalDate) }}
               au {{ dateService.dtoObjectToDateFR(conflict.leaveDate) }}</span>
           </span>

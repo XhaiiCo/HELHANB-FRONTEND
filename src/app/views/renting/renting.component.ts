@@ -118,6 +118,7 @@ export class RentingComponent implements OnInit {
       next: result => {
         this._toastNotification.add("Demanded de réservation envoyée", "success");
         this.disableReservationBtn = false;
+        this._router.navigate(['/mes-reservations']);
       },
       error: err => {
         this._toastNotification.add(err.error, "error");
