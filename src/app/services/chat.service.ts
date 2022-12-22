@@ -13,7 +13,6 @@ export class ChatService {
   private connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:7182/chatsocket")   // mapping to the chathub as in startup.cs
     .configureLogging(signalR.LogLevel.Information)
     .build();
-  readonly POST_URL = "https://localhost:7182/api/chat/send"
 
   private receivedMessageObject: DtoInputMessageHub = {message: "", senderId: 0, sendTime: new Date(Date.now())};
   private sharedObj = new Subject<DtoInputMessageHub>();
