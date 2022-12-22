@@ -99,4 +99,28 @@ export class DatePickerComponent implements OnInit {
     else
       this.emitDateChange.next(this.range);
   }
+
+  inputChangeStart(value: any) {
+    if (!isNaN(new Date(value).getTime())) {
+      this.range.patchValue({
+        start: value.value,
+      });
+    }
+    if (this.range.controls.end.value)
+      this.emitInputChange();
+  }
+
+  inputChangeEnd(value: any) {
+    if (!isNaN(new Date(value).getTime())) {
+      this.range.patchValue({
+        end: value.value,
+      });
+    }
+    if (this.range.controls.start.value)
+      this.emitInputChange();
+  }
+
+  emitInputChange() {
+    this.emitDateChange.next(this.range);
+  }
 }
