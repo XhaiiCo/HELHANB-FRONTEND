@@ -25,7 +25,7 @@ export class UserListComponent implements OnInit {
   maxPages: number = 0;
 
   //will be also the limit that we send in the api
-  itemsPerPage: number = 4;
+  itemsPerPage: number = 20;
 
   rulerLength: number = this.BASE_RULER_LENGTH;
 
