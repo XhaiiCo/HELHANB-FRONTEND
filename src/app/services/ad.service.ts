@@ -122,10 +122,6 @@ export class AdService {
     return this._httpClient.get<DtoInputAdWithReservation>(`${AdService.ENTRY_POINT_URL}/${slug}`);
   }
 
-  fetchAllPendings(): Observable<DtoInputAd[]> {
-    return this._httpClient.get<DtoInputAd[]>(`${AdService.ENTRY_POINT_URL}?statusId=1`);
-  }
-
   updateStatus(dto: DtoOutputUpdateStatusAd): Observable<DtoInputAd> {
     return this._httpClient.put<DtoInputAd>(`${AdService.ENTRY_POINT_URL}/status`, dto);
   }
