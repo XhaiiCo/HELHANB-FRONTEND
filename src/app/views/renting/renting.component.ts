@@ -36,6 +36,8 @@ export class RentingComponent implements OnInit {
   disableReservationBtn: boolean = false;
   reservedDates: Date[] = [];
 
+  urlGoogleMaps: string = 'https://www.google.com/maps/search/?api=1&query=';
+
   constructor(
     private _route: ActivatedRoute,
     private _adService: AdService,
@@ -71,6 +73,8 @@ export class RentingComponent implements OnInit {
 
           this.pageLoaded = true;
           this.setReservedDate();
+
+          this.urlGoogleMaps += encodeURIComponent(this.ad.street +", "+ this.ad.postalCode +" "+ this.ad.city +", "+ this.ad.country);
         },
         error: err => {
           this._router.navigate(['/404']);

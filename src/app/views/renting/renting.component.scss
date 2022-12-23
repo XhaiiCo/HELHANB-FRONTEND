@@ -9,6 +9,18 @@ $text-font-size: 14px;
   font-size: $text-font-size;
 }
 
+a {
+  color: $main-color;
+
+  &:hover {
+  text-decoration: underline;
+  }
+}
+
+path {
+  fill: $main-color;
+}
+
 .btn-secondary {
   padding: 7px 10px;
   font-size: 12px;
@@ -43,8 +55,15 @@ h3 {
   }
 
   & .subtitle {
+    margin-top: 5px;
     font-size: 14px;
     color: gray;
+    display: flex;
+    vertical-align: center;
+
+    & svg {
+      margin-left: 4px;
+    }
   }
 }
 
