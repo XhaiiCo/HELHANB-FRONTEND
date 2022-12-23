@@ -115,8 +115,8 @@
   <div>
     <h2>En attentes</h2>
     <app-my-ad-reservations-to-manage-list
-      *ngIf="sortReservationByStatusName('en attente').length > 0 ; else noPendings"
-      [reservations]="sortReservationByStatusName('en attente')"
+      *ngIf="sortReservationsByStatusName('en attente').length > 0 ; else noPendings"
+      [reservations]="sortReservationsByStatusName('en attente')"
       (confirmedReservation)="confirmedReservationMethod($event)"
       (declinedReservation)="declinedReservationMethod($event)"
     ></app-my-ad-reservations-to-manage-list>
@@ -127,8 +127,8 @@
 
   <div>
     <h2>En cours</h2>
-    <app-my-ad-confirmed-reservation-list *ngIf="getReservationInProgress().length > 0 ; else noInProgress"
-                                          [reservations]="getReservationInProgress()"
+    <app-my-ad-confirmed-reservation-list *ngIf="getReservationsInProgress().length > 0 ; else noInProgress"
+                                          [reservations]="getReservationsInProgress()"
     ></app-my-ad-confirmed-reservation-list>
 
     <ng-template #noInProgress>
@@ -138,8 +138,8 @@
 
   <div>
     <h2>À venir</h2>
-    <app-my-ad-confirmed-reservation-list *ngIf="getReservationToCome().length > 0 ; else noToCome"
-                                          [reservations]="getReservationToCome()"
+    <app-my-ad-confirmed-reservation-list *ngIf="getReservationsToCome().length > 0 ; else noToCome"
+                                          [reservations]="getReservationsToCome()"
     ></app-my-ad-confirmed-reservation-list>
 
     <ng-template #noToCome>
@@ -149,8 +149,8 @@
 
   <div>
     <h2>Terminée</h2>
-    <app-my-ad-confirmed-reservation-list *ngIf="getPastReservation().length > 0 ; else noPast"
-                                          [reservations]="getPastReservation()"
+    <app-my-ad-confirmed-reservation-list *ngIf="getPastReservations().length > 0 ; else noPast"
+                                          [reservations]="getPastReservations()"
     ></app-my-ad-confirmed-reservation-list>
 
     <ng-template #noPast>

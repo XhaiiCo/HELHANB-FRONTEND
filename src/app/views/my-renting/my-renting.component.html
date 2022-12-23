@@ -28,8 +28,8 @@
   <section class="ad_preview" *ngIf="currentAd; else noAdSelected">
     <app-my-ad
       [ad]="currentAd"
-      (confirmedReservation)="confirmedReservationMethod($event)"
-      (declinedReservation)="declinedReservationMethod($event)"
+      (confirmReservation)="confirmedReservation($event)"
+      (declinReservation)="declinedReservation($event)"
     ></app-my-ad>
   </section>
 

@@ -28,7 +28,6 @@ export class HomepageComponent implements OnInit {
 
   params: any;
 
-
   constructor(
     private _adService: AdService,
     private _route: ActivatedRoute,
@@ -62,7 +61,6 @@ export class HomepageComponent implements OnInit {
   }
 
   private fetchForPagination() {
-
     let offset = (this.index - 1) * this.itemsPerPage;
 
     this._adService

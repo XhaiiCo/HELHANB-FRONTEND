@@ -39,8 +39,8 @@ export class MyAdComponent implements OnInit {
   tmp_feature: string = "";
   disabledUpdateBtn: boolean = false;
 
-  @Output() confirmedReservation = new EventEmitter<{ confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[] }>();
-  @Output() declinedReservation = new EventEmitter<DtoInputAdReservation>();
+  @Output() confirmReservation = new EventEmitter<{ confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[] }>();
+  @Output() declinReservation = new EventEmitter<DtoInputAdReservation>();
 
   constructor(
     public adHandleService: AdHandleService,
@@ -143,39 +143,39 @@ export class MyAdComponent implements OnInit {
 
   }
 
-  sortReservationByStatusName(statusName: string): DtoInputAdReservation[] {
+  sortReservationsByStatusName(statusName: string): DtoInputAdReservation[] {
     if (this.ad) {
       return this.ad.reservations.filter(item => item?.statusMyAds?.statusName === statusName);
     }
     return [];
   }
 
-  sortReservationByDates(array: DtoInputAdReservation[]): DtoInputAdReservation[] {
+  sortReservationsByDates(array: DtoInputAdReservation[]): DtoInputAdReservation[] {
     return array.sort((a, b) => {
       return new Date(this._dateService.dtoObjectToDateUS(a.arrivalDate)).getTime() - new Date(this._dateService.dtoObjectToDateUS(b.leaveDate)).getTime();
     });
   }
 
-  getReservationInProgress(): DtoInputAdReservation[] {
-    const reservations = this.sortReservationByStatusName('acceptée');
+  getReservationsInProgress(): DtoInputAdReservation[] {
+    const reservations = this.sortReservationsByStatusName('acceptée');
     const dateNow: Date = new Date(Date.now());
-    return this.sortReservationByDates(
+    return this.sortReservationsByDates(
       reservations.filter(item => new Date(item.arrivalDate) <= dateNow && new Date(item.leaveDate) >= dateNow)
     );
   }
 
-  getPastReservation(): DtoInputAdReservation[] {
-    const reservations = this.sortReservationByStatusName('acceptée');
+  getPastReservations(): DtoInputAdReservation[] {
+    const reservations = this.sortReservationsByStatusName('acceptée');
     const dateNow: Date = new Date(Date.now());
-    return this.sortReservationByDates(
+    return this.sortReservationsByDates(
       reservations.filter(item => new Date(item.leaveDate) < dateNow)
     );
   }
 
-  getReservationToCome(): DtoInputAdReservation[] {
-    const reservations = this.sortReservationByStatusName('acceptée');
+  getReservationsToCome(): DtoInputAdReservation[] {
+    const reservations = this.sortReservationsByStatusName('acceptée');
     const dateNow: Date = new Date(Date.now());
-    return this.sortReservationByDates(
+    return this.sortReservationsByDates(
       reservations.filter(item => new Date(item.arrivalDate) > dateNow)
     );
   }
@@ -198,10 +198,10 @@ export class MyAdComponent implements OnInit {
   }
 
   confirmedReservationMethod(reservations: { confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[] }) {
-    this.confirmedReservation.emit(reservations);
+    this.confirmReservation.emit(reservations);
   }
 
   declinedReservationMethod(reservation: DtoInputAdReservation) {
-    this.declinedReservation.emit(reservation);
+    this.declinReservation.emit(reservation);
   }
 }

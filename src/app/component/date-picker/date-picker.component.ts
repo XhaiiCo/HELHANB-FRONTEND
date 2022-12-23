@@ -32,14 +32,14 @@ export class DatePickerComponent implements OnInit {
     end: new FormControl<Date | null>(null, Validators.required),
   });
 
-  @Input() notAvailableDates: Date[] = [];
+  @Input() unavailableDates: Date[] = [];
 
   @Input() urlDates!: { arrival: Date | null, leave: Date | null };
 
   /* A function that is used to filter the dates that are not available. For disabled them in the date picker */
   dateFilter = (d: Date): boolean => {
     const time = new Date(d).getTime();
-    return !this.notAvailableDates.find(x => new Date(x).setHours(0, 0, 0, 0) == time);
+    return !this.unavailableDates.find(x => new Date(x).setHours(0, 0, 0, 0) == time);
   }
 
   constructor(
@@ -55,14 +55,14 @@ export class DatePickerComponent implements OnInit {
   }
 
   patchDate() {
-    if (this.urlDates.arrival && this.urlDates.leave)
-      this.range.patchValue({
-        start: this.urlDates.arrival,
-        end: this.urlDates.leave,
-      });
-    else {
-      this.range.reset();
-    }
+    if (this.urlDates)
+      if (this.urlDates.arrival && this.urlDates.leave)
+        this.range.patchValue({
+          start: this.urlDates.arrival,
+          end: this.urlDates.leave,
+        });
+      else
+        this.range.reset();
   }
 
   /**
@@ -89,7 +89,7 @@ export class DatePickerComponent implements OnInit {
     const startDateSelected: number = new Date(this.range.controls.start.value).getTime();
     const endDateSelected: number = new Date(date_tmp).getTime();
 
-    let conflictsDate = this.notAvailableDates.filter(item =>
+    let conflictsDate = this.unavailableDates.filter(item =>
       new Date(item).getTime() < endDateSelected &&
       new Date(item).getTime() > startDateSelected
     );

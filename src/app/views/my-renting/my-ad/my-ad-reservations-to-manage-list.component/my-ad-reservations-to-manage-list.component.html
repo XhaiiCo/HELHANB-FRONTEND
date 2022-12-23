@@ -22,8 +22,8 @@
           (onConfirmationBtnClickEvent)="displayConfirmation($event)"
           (onRefusalBtnClickEvent)="displayRefusal($event)"
           (onContactUserBtnClickEvent)="contactUser($event)"
-          (mouseover)="displayConflicts(reservation)"
-          (mouseleave)="displayConflicts()"
+          (mouseover)="setConflictsToDisplay(reservation)"
+          (mouseleave)="setConflictsToDisplay()"
           (click)="reservationClicked(reservation)"
           [currentClickedReservation]="reservation === clickedReservation">
         </app-my-ad-reservation-card>

@@ -69,17 +69,9 @@ export class MyAdReservationsToManageListComponent implements OnInit {
       for (let reservationJ of this.reservations) {
         // S'ils sont différents
         if (reservationJ !== reservationI) {
-          // pour chaque date entre la date d'arrivée et la date de départ -1 de reservationI
-          loop : for (let reservationIDate of this.getDatesList(reservationI.arrivalDate, reservationI.leaveDate)) {
-            // pour chaque date entre la date d'arrivée et la date de départ -1 de reservationJ
-            for (let reservationJDate of this.getDatesList(reservationJ.arrivalDate, reservationJ.leaveDate)) {
-              // si c'est la même date
-              if (reservationIDate.getTime() === reservationJDate.getTime()) {
-                reservationIConflictsList.push(reservationJ);
-                break loop;
-              }
-            }
-          }
+          if (!((reservationJ.arrivalDate < reservationI.arrivalDate && reservationJ.leaveDate < reservationI.arrivalDate)
+            || (reservationJ.arrivalDate > reservationI.leaveDate)))
+            reservationIConflictsList.push(reservationJ);
         }
       }
       conflictsMap.push({key: reservationI, val: reservationIConflictsList});
@@ -90,6 +82,9 @@ export class MyAdReservationsToManageListComponent implements OnInit {
 
   // Récupère une liste de dates getDate(1 janvier, 5 janvier) renvoi [1, 2, 3, 4] car on compte pas le jour où il part
   getDatesList(arrivalDate: Date, leaveDate: Date) {
+    if (leaveDate <= arrivalDate)
+      return [];
+
     arrivalDate = new Date(arrivalDate);
     leaveDate = new Date(leaveDate);
     let datesList: Date[] = [];
@@ -118,7 +113,7 @@ export class MyAdReservationsToManageListComponent implements OnInit {
     return (nb !== undefined) ? nb : 0;
   }
 
-  displayConflicts(reservation?: DtoInputAdReservation) {
+  setConflictsToDisplay(reservation?: DtoInputAdReservation) {
     if (reservation !== undefined) {
       this.conflictsListToDisplay = this.getConflictsOfReservation(reservation);
     } else {

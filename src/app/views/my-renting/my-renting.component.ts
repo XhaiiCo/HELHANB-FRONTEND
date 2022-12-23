@@ -46,8 +46,7 @@ export class MyRentingComponent implements OnInit {
     this.currentAd = ad;
   }
 
-  confirmedReservationMethod(reservations: { confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[] }) {
-
+  confirmedReservation(reservations: { confirmed: DtoInputAdReservation, declined?: DtoInputAdReservation[] }) {
     const dtoOutput: DtoOutputConfirmRefuseReservation = {
       adSlug: reservations.confirmed.adSlug,
       id: reservations.confirmed.id,
@@ -82,7 +81,7 @@ export class MyRentingComponent implements OnInit {
     });
   }
 
-  declinedReservationMethod(reservation: DtoInputAdReservation) {
+  declinedReservation(reservation: DtoInputAdReservation) {
     this._adService.refuseReservation(reservation).subscribe(result => {
 
       let adIndex = this.ads.findIndex(e => e.adSlug == reservation.adSlug);
