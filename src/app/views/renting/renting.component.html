@@ -7,15 +7,31 @@
     <div class="title_container">
       <h1 class="title">{{ ad.name }}</h1>
       <p class="subtitle">
-        {{ad.numberOfPersons}} {{ad.numberOfPersons > 1 ? "personnes" : "personne"}}
-        ⸱ {{ad.numberOfBedrooms}} {{ad.numberOfBedrooms > 1 ? "chambres" : "chambre"}}
+        <span>
+        <svg class="icon" viewBox="0 0 24 24">
+          <path fill="currentColor"
+                d="M3 19q-.425 0-.712-.288Q2 18.425 2 18v-5q0-.675.275-1.225T3 10.8V8q0-1.25.875-2.125T6 5h4q.575 0 1.075.213q.5.212.925.587q.425-.375.925-.587Q13.425 5 14 5h4q1.25 0 2.125.875T21 8v2.8q.45.425.725.975Q22 12.325 22 13v5q0 .425-.288.712Q21.425 19 21 19t-.712-.288Q20 18.425 20 18v-1H4v1q0 .425-.287.712Q3.425 19 3 19Zm10-9h6V8q0-.425-.288-.713Q18.425 7 18 7h-4q-.425 0-.712.287Q13 7.575 13 8Zm-8 0h6V8q0-.425-.287-.713Q10.425 7 10 7H6q-.425 0-.713.287Q5 7.575 5 8Zm-1 5h16v-2q0-.425-.288-.713Q19.425 12 19 12H5q-.425 0-.713.287Q4 12.575 4 13Zm16 0H4h16Z"/>
+        </svg>
+          {{ad.numberOfPersons}} {{ad.numberOfPersons > 1 ? "personnes" : "personne"}}
+        </span>
+        &nbsp;
+        <span>
+          <svg class="icon" viewBox="0 0 48 48">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                  d="M19 20a7 7 0 1 0 0-14a7 7 0 0 0 0 14ZM32.608 7A6.996 6.996 0 0 1 36 13a6.996 6.996 0 0 1-3.392 6M4 40.8V42h30v-1.2c0-4.48 0-6.72-.872-8.432a8 8 0 0 0-3.496-3.496C27.92 28 25.68 28 21.2 28h-4.4c-4.48 0-6.72 0-8.432.872a8 8 0 0 0-3.496 3.496C4 34.08 4 36.32 4 40.8ZM44 42v-1.2c0-4.48 0-6.72-.872-8.432a8 8 0 0 0-3.496-3.496"/>
+          </svg>
+          {{ad.numberOfBedrooms}} {{ad.numberOfBedrooms > 1 ? "chambres" : "chambre"}}
+        </span>
       </p>
 
       <p class="subtitle">
+        <svg class="icon icon-localisation" viewBox="0 0 512 512">
+          <path fill="currentColor"
+                d="M256 32C167.67 32 96 96.51 96 176c0 128 160 304 160 304s160-176 160-304c0-79.49-71.67-144-160-144Zm0 224a64 64 0 1 1 64-64a64.07 64.07 0 0 1-64 64Z"/>
+        </svg>
         <a href="{{ urlGoogleMaps }}" target="_blank">
           {{ad.street}}, {{ad.postalCode}} {{ad.city}}, {{ad.country}}
         </a>
-        <svg width="20" height="20" viewBox="0 0 512 512"><path fill="currentColor" d="M256 32C167.67 32 96 96.51 96 176c0 128 160 304 160 304s160-176 160-304c0-79.49-71.67-144-160-144Zm0 224a64 64 0 1 1 64-64a64.07 64.07 0 0 1-64 64Z"/></svg>
       </p>
     </div>
 
