@@ -48,7 +48,6 @@ export class MyAdReservationsToManageListComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // La valeur de reservations change tout le temps à cause de @Input(), ces ifs permettent de pas faire les méthodes 40 fois/seconde
     if (this.cancelReservationChange && this.reservations) {
       if (this.cancelReservationChange.length !== this.reservations.length) {
         this.setConflictsList();
@@ -57,17 +56,15 @@ export class MyAdReservationsToManageListComponent implements OnInit {
     }
   }
 
-  // Calcul le nombre de conflits avec la reservation passée en argument
+  // Finds conflicts between reservations in the reservations array
+  // and stores the conflicts in a map
   setConflictsList() {
     let conflictsMap: any = [];
     this.conflictsMap = [null];
 
-    // Pour chaque élément dans toutes les réservations
     for (let reservationI of this.reservations) {
       let reservationIConflictsList: DtoInputAdReservation[] = [];
-      // Pour chaque élément dans toutes les réservations
       for (let reservationJ of this.reservations) {
-        // S'ils sont différents
         if (reservationJ !== reservationI) {
           if (!((reservationJ.arrivalDate < reservationI.arrivalDate && reservationJ.leaveDate < reservationI.arrivalDate)
             || (reservationJ.arrivalDate > reservationI.leaveDate)))
@@ -80,7 +77,11 @@ export class MyAdReservationsToManageListComponent implements OnInit {
     this.conflictsMap = conflictsMap;
   }
 
-  // Récupère une liste de dates getDate(1 janvier, 5 janvier) renvoi [1, 2, 3, 4] car on compte pas le jour où il part
+  /**
+   * This function returns an array of the dates between the dates sent in parameters and the arrivalDate parameter
+   * @param arrivalDate
+   * @param leaveDate
+   */
   getDatesList(arrivalDate: Date, leaveDate: Date) {
     if (leaveDate <= arrivalDate)
       return [];
@@ -155,6 +156,7 @@ export class MyAdReservationsToManageListComponent implements OnInit {
     this.sortDtoInputAdReservationArray(this.conflictsListToDisplay);
   }
 
+  /* Sorts the input array depending on the sortIndex and the ascendingOrder values  */
   sortDtoInputAdReservationArray(array: DtoInputAdReservation[]): void {
     switch (this.sortIndex) {
       case "0": // last name

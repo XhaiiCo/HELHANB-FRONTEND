@@ -64,7 +64,6 @@ export class RentingComponent implements OnInit {
         next: ad => {
           this.ad = ad;
 
-          //map pour recup les noms d images
           this.images = this.ad.pictures.map(item => item.path);
           this.ad.arrivalTimeRangeStart = this.formatTime(this.ad.arrivalTimeRangeStart);
           this.ad.arrivalTimeRangeEnd = this.formatTime(this.ad.arrivalTimeRangeEnd);
@@ -167,7 +166,6 @@ export class RentingComponent implements OnInit {
       result.push(...tmpResult);
     });
 
-    // Si une date est seule on ne peut pas la sélectionner
     let tmpResult: Date[] = [];
     result.forEach(d => {
       let oneDayNext = new Date(new Date().setDate(d.getDate() + 1)).toDateString();

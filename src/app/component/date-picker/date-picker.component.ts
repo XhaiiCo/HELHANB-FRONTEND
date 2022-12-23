@@ -27,16 +27,18 @@ export class DatePickerComponent implements OnInit {
 
   min = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
 
+  // Dates selected in the date picker
   range = new FormGroup({
     start: new FormControl<Date | null>(null, Validators.required),
     end: new FormControl<Date | null>(null, Validators.required),
   });
 
+  // Array of unavailable dates
   @Input() unavailableDates: Date[] = [];
 
   @Input() urlDates!: { arrival: Date | null, leave: Date | null };
 
-  /* A function that is used to filter the dates that are not available. For disabled them in the date picker */
+  /* A function that filters out unavailable dates and disables them in the date picker. */
   dateFilter = (d: Date): boolean => {
     const time = new Date(d).getTime();
     return !this.unavailableDates.find(x => new Date(x).setHours(0, 0, 0, 0) == time);
